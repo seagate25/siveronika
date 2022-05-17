@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Users_model extends CI_Model {
+class Login_model extends CI_Model {
 
     protected $table = 'users';
 
@@ -14,4 +14,4 @@ class Users_model extends CI_Model {
 
 }
 
-/* End of file Users_model.php */
+/* End of file Login_model.php */

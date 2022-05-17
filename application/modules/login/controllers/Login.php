@@ -2,17 +2,24 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Users extends CI_Controller {
+class Login extends CI_Controller {
     
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Users_model', 'users');
+        $this->load->model('Login_model', 'login');
     }
     
     public function index()
     {
-        $this->load->view('index');
+        $data['content']    = "login";
+        $this->load->view('default_login', $data);
+    }
+
+    public function reset()
+    {
+        $data['content']    = "reset";
+        $this->load->view('default_login', $data);
     }
 
     public function save()
@@ -50,4 +57,4 @@ class Users extends CI_Controller {
 
 }
 
-/* End of file Users.php */
+/* End of file Login.php */
