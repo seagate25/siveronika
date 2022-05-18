@@ -24,7 +24,7 @@
                 <span class="indicator-progress">Please wait...
                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
             </button>
-            <a href="../../demo1/dist/authentication/flows/basic/sign-up.html" class="btn btn-lg btn-light-primary fw-bolder">Cancel</a>
+            <a href="<?php echo site_url('login');?>" class="btn btn-lg btn-light-primary fw-bolder">Cancel</a>
         </div>
         <!--end::Actions-->
     </form>

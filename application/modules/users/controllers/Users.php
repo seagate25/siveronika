@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
+class Users extends CI_Controller {
     
     public function __construct()
     {
@@ -17,11 +17,22 @@ class Dashboard extends CI_Controller {
      */
     public function index()
     {
-        $data['title']      = "Dashboard";
-        $data['content']    = "index";
+        
+    }
+
+    /**
+     * Settings Function
+     * Showing settings page
+     *
+     * @return void
+     */
+    public function settings()
+    {
+        $data['title']      = "Users - Settings";
+        $data['content']    = "settings";
         $this->load->view('default', $data);
     }
 
 }
 
-/* End of file Dashboard.php */
+/* End of file Users.php */

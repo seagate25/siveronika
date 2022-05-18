@@ -36,6 +36,10 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="<?php echo base_url();?>assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo base_url();?>assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
+		<!--begin::Global Javascript Bundle(used by all pages)-->
+		<script src="<?php echo base_url();?>assets/plugins/global/plugins.bundle.js"></script>
+		<script src="<?php echo base_url();?>assets/js/scripts.bundle.js"></script>
+		<!--end::Global Javascript Bundle-->
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -2074,7 +2078,7 @@ License: For each use you must have a valid license purchased only from above li
 												<!--end::Menu item-->
 												<!--begin::Menu item-->
 												<div class="menu-item px-5 my-1">
-													<a href="../../demo1/dist/account/settings.html" class="menu-link px-5">Account Settings</a>
+													<a href="<?php echo site_url('users/settings'); ?>" class="menu-link px-5">Account Settings</a>
 												</div>
 												<!--end::Menu item-->
 												<!--begin::Menu item-->
@@ -4972,18 +4976,12 @@ License: For each use you must have a valid license purchased only from above li
 		<!--end::Scrolltop-->
 		<!--end::Main-->
 		<!--begin::Javascript-->
-		<!--begin::Global Javascript Bundle(used by all pages)-->
-		<script src="<?php echo base_url();?>assets/plugins/global/plugins.bundle.js"></script>
-		<script src="<?php echo base_url();?>assets/js/scripts.bundle.js"></script>
-		<!--end::Global Javascript Bundle-->
+		
 		<!--begin::Page Vendors Javascript(used by this page)-->
-		<script src="<?php echo base_url();?>assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
+		
 		<!--end::Page Vendors Javascript-->
 		<!--begin::Page Custom Javascript(used by this page)-->
-		<script src="<?php echo base_url();?>assets/js/custom/widgets.js"></script>
-		<script src="<?php echo base_url();?>assets/js/custom/apps/chat/chat.js"></script>
-		<script src="<?php echo base_url();?>assets/js/custom/modals/create-app.js"></script>
-		<script src="<?php echo base_url();?>assets/js/custom/modals/upgrade-plan.js"></script>
+		
 		<!--end::Page Custom Javascript-->
 		<!--end::Javascript-->
 	</body>
