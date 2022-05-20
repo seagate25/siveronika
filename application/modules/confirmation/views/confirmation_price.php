@@ -11,23 +11,27 @@
         <table id="kt_datatable_example_1" class="align-middle table table-row-bordered gy-5">
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
-                    <th class="min-w-125px text-center">Kode Vendor</th>
-                    <th class="min-w-125px text-center">Nama Perusahaan</th>
-                    <th class="min-w-125px text-center">Tanggal Registrasi</th>
-                    <th class="min-w-125px text-center">Surel</th>
-                    <th class="min-w-125px text-center">Alamat</th>
-                    <th class="min-w-125px text-center">No. Kantor</th>
+                    <th class="min-w-125px text-center">No.</th>
+                    <th class="min-w-125px text-center">Kode Barang</th>
+                    <th class="min-w-125px text-center">Deskripsi</th>
+                    <th class="min-w-125px text-center">Jumlah Permintaan</th>
+                    <th class="min-w-125px text-center">Satuan</th>
+                    <th class="min-w-125px text-center">Tanggal Konfirmasi</th>
+                    <th class="min-w-50px text-center">Status</th>
+                    <th class="min-w-50px text-center">Status Harga</th>
                     <th class="min-w-50px text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody class="text-gray-600 fw-bold">
                 <tr>
-                    <td class="text-center">10029</td>
-                    <td>MARCON ELEKTRIK</td>
-                    <td class="text-center">12 dEC 21</td>
-                    <td>esamahkota@yahoo.com</td>
-                    <td>Jl. Ir. H. Juanda No. 23A</td>
-                    <td class="text-center">0811613995</td>
+                    <td class="text-center">1</td>
+                    <td class="text-center">7063463</td>
+                    <td class="text-center">STOP KONTAK 6 LUBANG KUNINGAN "UTICON"</td>
+                    <td class="text-center">4</td>
+                    <td class="text-center">BH</td>
+                    <td class="text-center">12 Dec 21</td>
+                    <td class="text-center">Belum Konfirmasi</td>
+                    <td class="text-center"></td>
                     <td class="text-center">
                         <a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2">
                             <i class="fas fa-envelope-open-text"></i>

@@ -145,7 +145,7 @@ License: For each use you must have a valid license purchased only from above li
 									</span>
 									<div class="menu-sub menu-sub-accordion menu-active-bg">
 										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/overview.html">
+											<a class="menu-link" href="<?php echo site_url('confirmation/req_price'); ?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -153,7 +153,7 @@ License: For each use you must have a valid license purchased only from above li
 											</a>
 										</div>
 										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/settings.html">
+											<a class="menu-link" href="<?php echo site_url('confirmation/con_price'); ?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -417,7 +417,7 @@ License: For each use you must have a valid license purchased only from above li
 									<!--begin::Page title-->
 									<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_header_nav'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
 										<!--begin::Title-->
-										<h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Light</h1>
+										<h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Socfindo</h1>
 										<!--end::Title-->
 										<!--begin::Separator-->
 										<span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -435,7 +435,7 @@ License: For each use you must have a valid license purchased only from above li
 											</li>
 											<!--end::Item-->
 											<!--begin::Item-->
-											<li class="breadcrumb-item text-dark">No Toolbar</li>
+											<li class="breadcrumb-item text-dark">Menu</li>
 											<!--end::Item-->
 										</ul>
 										<!--end::Breadcrumb-->
