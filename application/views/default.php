@@ -35,10 +35,12 @@ License: For each use you must have a valid license purchased only from above li
 		<!--begin::Global Stylesheets Bundle(used by all pages)-->
 		<link href="<?php echo base_url();?>assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo base_url();?>assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo base_url();?>assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css">
 		<!--end::Global Stylesheets Bundle-->
 		<!--begin::Global Javascript Bundle(used by all pages)-->
 		<script src="<?php echo base_url();?>assets/plugins/global/plugins.bundle.js"></script>
 		<script src="<?php echo base_url();?>assets/js/scripts.bundle.js"></script>
+		<script src="<?php echo base_url();?>assets/plugins/custom/datatables/datatables.bundle.js"></script>
 		<!--end::Global Javascript Bundle-->
 	</head>
 	<!--end::Head-->
@@ -111,7 +113,7 @@ License: For each use you must have a valid license purchased only from above li
 									</span>
 									<div class="menu-sub menu-sub-accordion menu-active-bg">
 										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/overview.html">
+											<a class="menu-link" href="<?php echo site_url('master');?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
