@@ -9,7 +9,12 @@ class Master extends CI_Controller {
         parent::__construct();
         //Do your magic here
     }
-    
+
+    /**
+     * Index Function
+     *
+     * @return void
+     */
     public function index()
     {
         
