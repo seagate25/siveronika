@@ -18,6 +18,8 @@ class Confirmation extends CI_Controller {
     public function req_price()
     {
         $data['title']      = "Permintaan Harga";
+        $data['menu']       = "Konfirmasi";
+        $data['submenu']    = "Permintaan Harga";
         $data['content']    = "request_price";
         $this->load->view('default', $data);
     }
@@ -25,6 +27,8 @@ class Confirmation extends CI_Controller {
     public function con_price()
     {
         $data['title']      = "Konfirmasi Harga";
+        $data['menu']       = "Konfirmasi";
+        $data['submenu']    = "Konfirmasi Harga";
         $data['content']    = "confirmation_price";
         $this->load->view('default', $data);
     }

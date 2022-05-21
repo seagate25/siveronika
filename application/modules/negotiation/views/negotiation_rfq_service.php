@@ -14,8 +14,8 @@
                     <th class="min-w-125px text-center">No.</th>
                     <th class="min-w-125px text-center">No. RFQ</th>
                     <th class="min-w-125px text-center">Berkas</th>
-                    <th class="min-w-125px text-center">Tgl. RFQ</th>
-                    <th class="min-w-125px text-center">Tgl. Jatuh Tempo</th>
+                    <th class="min-w-125px text-center">Tanggal RFQ</th>
+                    <th class="min-w-125px text-center">Tanggal Jatuh Tempo</th>
                     <th class="min-w-125px text-center">Sisa Hari Pengisian</th>
                     <th class="min-w-50px text-center">Aksi</th>
                 </tr>

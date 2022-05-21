@@ -14,8 +14,8 @@
                     <th class="min-w-125px text-center">No.</th>
                     <th class="min-w-125px text-center">No. RFQ</th>
                     <th class="min-w-125px text-center">Berkas</th>
-                    <th class="min-w-125px text-center">Tgl. RFQ</th>
-                    <th class="min-w-125px text-center">Tgl. Jatuh Tempo</th>
+                    <th class="min-w-125px text-center">Tanggal RFQ</th>
+                    <th class="min-w-125px text-center">Tanggal Jatuh Tempo</th>
                     <th class="min-w-125px text-center">Sisa Hari Pengisian</th>
                     <th class="min-w-50px text-center">Aksi</th>
                 </tr>
@@ -23,11 +23,11 @@
             <tbody class="text-gray-600 fw-bold">
                 <tr>
                     <td class="text-center">1</td>
-                    <td class="text-center">7200272804</td>
+                    <td class="text-center">6200272804</td>
                     <td class="text-center">-</td>
-                    <td class="text-center">11.01.2022</td>
-                    <td class="text-center">24.01.2022</td>
-                    <td class="text-center">8 Hari</td>
+                    <td class="text-center">19.01.2022</td>
+                    <td class="text-center">26.01.2022</td>
+                    <td class="text-center">7 Hari</td>
                     <td class="text-center">
                         <a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2">
                             <i class="fas fa-envelope-open-text"></i>

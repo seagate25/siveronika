@@ -18,6 +18,8 @@ class Master extends CI_Controller {
     public function index()
     {
         $data['title']      = "Data Vendor";
+        $data['menu']       = "Master";
+        $data['submenu']    = "Vendor";
         $data['content']    = "index";
         $this->load->view('default', $data);
     }

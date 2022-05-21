@@ -121,7 +121,7 @@ License: For each use you must have a valid license purchased only from above li
 											</a>
 										</div>
 										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/settings.html">
+											<a class="menu-link">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -182,7 +182,7 @@ License: For each use you must have a valid license purchased only from above li
 									</span>
 									<div class="menu-sub menu-sub-accordion menu-active-bg">
 										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/overview.html">
+											<a class="menu-link" href="<?php echo site_url('rfq/rfq_goods'); ?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -190,7 +190,7 @@ License: For each use you must have a valid license purchased only from above li
 											</a>
 										</div>
 										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/settings.html">
+											<a class="menu-link" href="<?php echo site_url('rfq/rfq_service'); ?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -214,7 +214,7 @@ License: For each use you must have a valid license purchased only from above li
 									</span>
 									<div class="menu-sub menu-sub-accordion menu-active-bg">
 										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/overview.html">
+											<a class="menu-link" href="<?php echo site_url('po_status/po_goods'); ?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -222,7 +222,7 @@ License: For each use you must have a valid license purchased only from above li
 											</a>
 										</div>
 										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/settings.html">
+											<a class="menu-link" href="<?php echo site_url('po_status/po_service'); ?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -246,7 +246,7 @@ License: For each use you must have a valid license purchased only from above li
 									</span>
 									<div class="menu-sub menu-sub-accordion menu-active-bg">
 										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/overview.html">
+											<a class="menu-link" href="<?php echo site_url('negotiation/rfq_goods'); ?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -254,7 +254,7 @@ License: For each use you must have a valid license purchased only from above li
 											</a>
 										</div>
 										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/settings.html">
+											<a class="menu-link" href="<?php echo site_url('negotiation/rfq_service'); ?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -279,7 +279,7 @@ License: For each use you must have a valid license purchased only from above li
 										<span class="menu-title">Berkas Data</span>
 										<span class="menu-arrow"></span>
 									</span>
-									<div class="menu-sub menu-sub-accordion menu-active-bg">
+									<!-- <div class="menu-sub menu-sub-accordion menu-active-bg">
 										<div class="menu-item">
 											<a class="menu-link" href="../../demo1/dist/account/overview.html">
 												<span class="menu-bullet">
@@ -296,7 +296,7 @@ License: For each use you must have a valid license purchased only from above li
 												<span class="menu-title">Ubah Kata Sandi</span>
 											</a>
 										</div>
-									</div>
+									</div> -->
 								</div>
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 									<span class="menu-link">
@@ -319,7 +319,7 @@ License: For each use you must have a valid license purchased only from above li
 									</span>
 									<div class="menu-sub menu-sub-accordion menu-active-bg">
 										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/overview.html">
+											<a class="menu-link" href="<?php echo site_url('history/rfq_goods'); ?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -327,7 +327,7 @@ License: For each use you must have a valid license purchased only from above li
 											</a>
 										</div>
 										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/settings.html">
+											<a class="menu-link" href="<?php echo site_url('history/rfq_service'); ?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -335,7 +335,7 @@ License: For each use you must have a valid license purchased only from above li
 											</a>
 										</div>
 										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/overview.html">
+											<a class="menu-link" href="<?php echo site_url('history/negotiation_rfq_goods'); ?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -343,7 +343,7 @@ License: For each use you must have a valid license purchased only from above li
 											</a>
 										</div>
 										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/settings.html">
+											<a class="menu-link" href="<?php echo site_url('history/negotiation_rfq_service'); ?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -426,16 +426,18 @@ License: For each use you must have a valid license purchased only from above li
 										<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
 											<!--begin::Item-->
 											<li class="breadcrumb-item text-muted">
-												<a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
+												<a href="../../demo1/dist/index.html" class="text-muted text-hover-primary"><?php echo $menu;?></a>
 											</li>
 											<!--end::Item-->
 											<!--begin::Item-->
 											<li class="breadcrumb-item">
+												<?php if($submenu <>''){;?>
 												<span class="bullet bg-gray-200 w-5px h-2px"></span>
+												<?php };?>
 											</li>
 											<!--end::Item-->
 											<!--begin::Item-->
-											<li class="breadcrumb-item text-dark">Menu</li>
+											<li class="breadcrumb-item text-dark"><?php echo $submenu;?></li>
 											<!--end::Item-->
 										</ul>
 										<!--end::Breadcrumb-->
@@ -484,7 +486,7 @@ License: For each use you must have a valid license purchased only from above li
 												<!--begin::Menu item-->
 												<div class="menu-item px-5">
 													<a href="../../demo1/dist/pages/projects/list.html" class="menu-link px-5">
-														<span class="menu-text">My Projects</span>
+														<span class="menu-text">Permintaan Harga</span>
 														<span class="menu-badge">
 															<span class="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>
 														</span>
@@ -658,8 +660,8 @@ License: For each use you must have a valid license purchased only from above li
 						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
 							<!--begin::Copyright-->
 							<div class="text-dark order-2 order-md-1">
-								<span class="text-muted fw-bold me-1">2021©</span>
-								<a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">Keenthemes</a>
+								<span class="text-muted fw-bold me-1">2022©</span>
+								<a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">Socfindo</a>
 							</div>
 							<!--end::Copyright-->
 							<!--begin::Menu-->

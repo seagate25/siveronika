@@ -4,7 +4,7 @@
         <!--begin::Heading-->
         <div class="text-center mb-10">
             <!--begin::Title-->
-            <h1 class="text-dark mb-3">Sistem Bajagud</h1>
+            <h1 class="text-dark mb-3">Sistem Baragud</h1>
             <!--end::Title-->
             <!--begin::Link-->
             <div class="text-gray-400 fw-bold fs-4">Proses Pengadaan Barang & Jasa Yang Cepat, Akurat, & Fair

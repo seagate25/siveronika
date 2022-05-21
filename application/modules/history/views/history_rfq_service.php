@@ -34,6 +34,32 @@
                         </a>
                     </td>
                 </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td class="text-center">7500272804</td>
+                    <td class="text-center">-</td>
+                    <td class="text-center">13.01.2022</td>
+                    <td class="text-center">24.01.2022</td>
+                    <td class="text-center">6 Hari</td>
+                    <td class="text-center">
+                        <a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">3</td>
+                    <td class="text-center">7900272804</td>
+                    <td class="text-center">-</td>
+                    <td class="text-center">02.02.2022</td>
+                    <td class="text-center">28.02.2022</td>
+                    <td class="text-center">7 Hari</td>
+                    <td class="text-center">
+                        <a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </a>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

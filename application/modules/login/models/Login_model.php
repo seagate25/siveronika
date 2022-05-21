@@ -8,8 +8,8 @@ class Login_model extends CI_Model {
 
     public function insert($data = array())
     {
-        $this->db->insert($this->table, $data);
-        return $this->db->affected_rows();
+        // $this->db->insert($this->table, $data);
+        // return $this->db->affected_rows();
     }
 
 }

@@ -18,6 +18,8 @@ class Dashboard extends CI_Controller {
     public function index()
     {
         $data['title']      = "Dashboard";
+        $data['menu']       = "Dashboard";
+        $data['submenu']    = "";
         $data['content']    = "index";
         $this->load->view('default', $data);
     }
