@@ -121,7 +121,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="company" class="form-control" placeholder="Company name" value="4">
+                                <input type="number" name="request_total" class="form-control" placeholder="Jumlah Permintaan" value="4">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -133,7 +133,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="company" class="form-control" placeholder="Company name" value="BH">
+                                <input type="text" name="measurement" class="form-control" placeholder="Satuan" value="BH">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -145,7 +145,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="company" class="form-control" placeholder="Company name" value="3">
+                                <input type="number" name="available_total" class="form-control" placeholder="Jumlah Tersedia" value="3">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -157,7 +157,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="company" class="form-control" placeholder="Company name" value="1">
+                                <input type="number" name="indent_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" value="1">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -169,7 +169,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="company" class="form-control" placeholder="Company name" value="5">
+                                <input type="number" name="indent_day" class="form-control" placeholder="Lama Indent (Hari)" value="5">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -181,7 +181,14 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="company" class="form-control" placeholder="Company name" value="4">
+                                <select class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih Status" data-hide-search="true">
+                                    <option></option>
+                                    <option value="1">Option 1</option>
+                                    <option value="2">Option 2</option>
+                                    <option value="3">Option 3</option>
+                                    <option value="4">Option 4</option>
+                                    <option value="5">Option 5</option>
+                                </select>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
