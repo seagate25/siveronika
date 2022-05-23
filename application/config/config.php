@@ -27,8 +27,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $http='http'.((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on') ? 's' : '').'://';
 $newUrl=str_replace('index.php','',$_SERVER['SCRIPT_NAME']);
 
+// Checking Server Port
+$port   = $_SERVER['SERVER_PORT'];
+if($port == 80) {
+    $base_url   = $config['base_url'] = $http.$_SERVER['SERVER_NAME'].$newUrl;
+} else {
+    $base_url   = $config['base_url'] = $http.$_SERVER['SERVER_NAME'].":".$port.$newUrl;
+}
+
 //$config['base_url'] = $http.$_SERVER['SERVER_NAME']."".$newUrl;
-$config['base_url'] = $http.$_SERVER['SERVER_NAME'].":8080".$newUrl;
+// $config['base_url'] = $http.$_SERVER['SERVER_NAME'].":8080".$newUrl;
+$config['base_url'] = $base_url;
 /*
 |--------------------------------------------------------------------------
 | Index File
