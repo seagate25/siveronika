@@ -227,7 +227,7 @@ var KTDataTables = (function() {
     };
 })();
 
-var KTModalCreateApiKey = (function () {
+var KTModalConfirmationPrice = (function () {
     var t, e, n, o, i, r;
     return {
         init: function () {
@@ -296,6 +296,6 @@ var KTModalCreateApiKey = (function () {
 
 KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();
-    KTModalCreateApiKey.init();
+    KTModalConfirmationPrice.init();
 }));
 </script>
