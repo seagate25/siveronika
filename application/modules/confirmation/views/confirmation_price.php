@@ -11,20 +11,80 @@
         <table id="kt_datatable_example_1" class="align-middle table table-row-bordered gy-5">
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
-                    <th class="min-w-125px text-center">No.</th>
-                    <th class="min-w-125px text-center">Kode Barang</th>
-                    <th class="min-w-125px text-center">Deskripsi</th>
-                    <th class="min-w-125px text-center">Jumlah Permintaan</th>
-                    <th class="min-w-125px text-center">Satuan</th>
-                    <th class="min-w-125px text-center">Tanggal Konfirmasi</th>
-                    <th class="min-w-50px text-center">Status</th>
-                    <th class="min-w-50px text-center">Status Harga</th>
+                    <th class="min-w-30px text-center">No.</th>
+                    <th class="min-w-80px text-center">Kode Barang</th>
+                    <th class="min-w-350px text-center">Deskripsi</th>
+                    <th class="min-w-80px text-center">Jumlah</th>
+                    <th class="min-w-50px text-center">Satuan</th>
+                    <th class="min-w-80px text-center">Tgl. Konfirmasi</th>
+                    <th class="min-w-100px text-center">Status</th>
+                    <th class="min-w-80px text-center">Status Harga</th>
                     <th class="min-w-50px text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody class="text-gray-600 fw-bold">
                 <tr>
                     <td class="text-center">1</td>
+                    <td class="text-center">7063463</td>
+                    <td class="text-center">STOP KONTAK 6 LUBANG KUNINGAN "UTICON"</td>
+                    <td class="text-center">4</td>
+                    <td class="text-center">BH</td>
+                    <td class="text-center">12 Dec 21</td>
+                    <td class="text-center">Belum Konfirmasi</td>
+                    <td class="text-center"></td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td class="text-center">7063463</td>
+                    <td class="text-center">STOP KONTAK 6 LUBANG KUNINGAN "UTICON"</td>
+                    <td class="text-center">4</td>
+                    <td class="text-center">BH</td>
+                    <td class="text-center">12 Dec 21</td>
+                    <td class="text-center">Belum Konfirmasi</td>
+                    <td class="text-center"></td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">3</td>
+                    <td class="text-center">7063463</td>
+                    <td class="text-center">STOP KONTAK 6 LUBANG KUNINGAN "UTICON"</td>
+                    <td class="text-center">4</td>
+                    <td class="text-center">BH</td>
+                    <td class="text-center">12 Dec 21</td>
+                    <td class="text-center">Belum Konfirmasi</td>
+                    <td class="text-center"></td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">4</td>
+                    <td class="text-center">7063463</td>
+                    <td class="text-center">STOP KONTAK 6 LUBANG KUNINGAN "UTICON"</td>
+                    <td class="text-center">4</td>
+                    <td class="text-center">BH</td>
+                    <td class="text-center">12 Dec 21</td>
+                    <td class="text-center">Belum Konfirmasi</td>
+                    <td class="text-center"></td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">5</td>
                     <td class="text-center">7063463</td>
                     <td class="text-center">STOP KONTAK 6 LUBANG KUNINGAN "UTICON"</td>
                     <td class="text-center">4</td>
@@ -49,8 +109,15 @@
                 <h5 class="modal-title">Konfirmasi Harga</h5>
 
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
-                    <span class="svg-icon svg-icon-2x"></span>
+                <div class="btn btn-icon btn-sm btn-active-danger ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-2x">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                                <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1"></rect>
+                                <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </span>
                 </div>
                 <!--end::Close-->
             </div>
@@ -222,7 +289,18 @@ var KTDataTables = (function() {
     var e;
     return {
         init: function() {
-            e = $("#kt_datatable_example_1").DataTable();
+            e = $("#kt_datatable_example_1").DataTable({
+                scrollY:        "500px",
+                scrollX:        true,
+                scrollCollapse: true,
+                paging:         true,
+                // fixedHeader:    true,
+                fixedColumns:   {
+                    heightMatch: 'none',
+                    leftColumns: 0,
+                    rightColumns: 1
+                }
+            });
         }
     };
 })();
