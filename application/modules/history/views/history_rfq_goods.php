@@ -29,7 +29,7 @@
                     <td class="text-center">26.01.2022</td>
                     <td class="text-center">7 Hari</td>
                     <td class="text-center">
-                        <a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2">
+                        <a href="<?php echo site_url('history/det_rfq_goods/6200272804');?>" class="btn btn-icon btn-sm btn-success me-2 mb-2">
                             <i class="fas fa-envelope-open-text"></i>
                         </a>
                     </td>
@@ -42,7 +42,7 @@
                     <td class="text-center">10.02.2022</td>
                     <td class="text-center">7 Hari</td>
                     <td class="text-center">
-                        <a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2">
+                        <a href="<?php echo site_url('history/det_rfq_goods/6300272805');?>" class="btn btn-icon btn-sm btn-success me-2 mb-2">
                             <i class="fas fa-envelope-open-text"></i>
                         </a>
                     </td>
@@ -55,7 +55,7 @@
                     <td class="text-center">11.02.2022</td>
                     <td class="text-center">7 Hari</td>
                     <td class="text-center">
-                        <a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2">
+                        <a href="<?php echo site_url('history/det_rfq_goods/6700272806');?>" class="btn btn-icon btn-sm btn-success me-2 mb-2">
                             <i class="fas fa-envelope-open-text"></i>
                         </a>
                     </td>
@@ -78,6 +78,5 @@ var KTDataTables = (function() {
 
 KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();
-    KTModalDetRfqGoods.init();
 }));
 </script>
