@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody class="text-gray-600 fw-bold">
-            <tr>
+                <tr>
                     <td class="text-center">1</td>
                     <td class="text-center">7063463</td>
                     <td class="text-center">STOP KONTAK 6 LUBANG KUNINGAN "UTICON"</td>
