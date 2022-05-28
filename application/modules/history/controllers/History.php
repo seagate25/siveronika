@@ -66,7 +66,7 @@ class History extends CI_Controller {
         $material_code      = $this->uri->segment(3);
         $data['title']      = "RFQ No : " . $material_code;
         $data['menu']       = "Riwayat";
-        $data['submenu']    = "RFQ Barang";
+        $data['submenu']    = "Nego RFQ Barang";
         $data['content']    = "history_detail_negotiation_rfq_goods";
         $this->load->view('default', $data);
     }
