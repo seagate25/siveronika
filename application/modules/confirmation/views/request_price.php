@@ -7,7 +7,7 @@
             </button>
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body py-1">
         <table id="kt_datatable_example_1" class="align-middle table table-row-bordered gy-5">
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
