@@ -60,6 +60,16 @@ class History extends CI_Controller {
         $data['content']    = "history_detail_rfq_goods";
         $this->load->view('default', $data);
     }
+
+    public function det_nego_rfq_goods()
+    {
+        $material_code      = $this->uri->segment(3);
+        $data['title']      = "RFQ No : " . $material_code;
+        $data['menu']       = "Riwayat";
+        $data['submenu']    = "RFQ Barang";
+        $data['content']    = "history_detail_negotiation_rfq_goods";
+        $this->load->view('default', $data);
+    }
 }
 
 /* End of file Master.php */
