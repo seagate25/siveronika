@@ -1,23 +1,23 @@
 <div class="card shadow-sm">
-    <div class="card-header">
-        <h3 class="card-title"><?php echo $title; ?></h3>
+    <div class="card-header bg-success">
+        <h3 class="card-title text-white"><?php echo $title; ?></h3>
         <div class="card-toolbar">
-            <button type="button" class="btn btn-sm btn-primary btn-icon me-2 mb-2">
-            <i class="las la-sync fs-1"></i>
+            <button type="button" class="btn btn-sm btn-icon btn-bg-white me-2 mb-2">
+            <i class="las la-sync fs-1 text-success"></i>
             </button>
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body py-1">
         <table id="kt_datatable_example_1" class="align-middle table table-row-bordered gy-5">
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
-                    <th class="min-w-125px text-center">Kode Vendor</th>
+                    <th class="min-w-80px text-center">Kode Vendor</th>
                     <th class="min-w-125px text-center">Nama Perusahaan</th>
-                    <th class="min-w-125px text-center">Tanggal Registrasi</th>
-                    <th class="min-w-125px text-center">Surel</th>
-                    <th class="min-w-125px text-center">Alamat</th>
-                    <th class="min-w-125px text-center">No. Kantor</th>
-                    <th class="min-w-50px text-center">Aksi</th>
+                    <th class="min-w-80px text-center">Tanggal Registrasi</th>
+                    <th class="min-w-250px text-center">Surel</th>
+                    <th class="min-w-250px text-center">Alamat</th>
+                    <th class="min-w-80px text-center">No. Kantor</th>
+                    <th class="min-w-30px text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody class="text-gray-600 fw-bold">
@@ -45,7 +45,18 @@ var KTDataTables = (function() {
     var e;
     return {
         init: function() {
-            e = $("#kt_datatable_example_1").DataTable();
+            e = $("#kt_datatable_example_1").DataTable({
+                scrollY:        "500px",
+                scrollX:        true,
+                scrollCollapse: true,
+                paging:         true,
+                // fixedHeader:    true,
+                fixedColumns:   {
+                    heightMatch: 'none',
+                    leftColumns: 0,
+                    rightColumns: 1
+                }
+            });
         }
     };
 })();
