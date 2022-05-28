@@ -42,7 +42,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" style="min-width: 990px;">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Konfirmasi Harga</h5>
+                <h5 class="modal-title">Detail RFQ Barang</h5>
 
                 <!--begin::Close-->
                 <div class="btn btn-icon btn-sm btn-active-danger ms-2" data-bs-dismiss="modal" aria-label="Close">
