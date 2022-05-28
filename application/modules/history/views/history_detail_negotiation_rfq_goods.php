@@ -246,7 +246,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" tabindex="-1" id="kt_modal_det_rfq_goods_ekuivalen" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" tabindex="-1" id="kt_modal_det_nego_rfq_goods_ekuivalen" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" style="min-width:1280px;">
         <div class="modal-content">
             <div class="modal-header">
@@ -266,11 +266,11 @@
                 <!--end::Close-->
             </div>
 
-            <form id="kt_modal_det_rfq_goods_ekuivalen_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" action="#">
+            <form id="kt_modal_det_nego_rfq_goods_ekuivalen_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" action="#">
                 <!--begin::Modal body-->
                 <div class="modal-body py-4 px-lg-17">
                     <!--begin::Scroll-->
-                    <div class="scroll-y me-n7 pe-7" id="kt_modal_det_rfq_goods_ekuivalen_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_det_rfq_goods_ekuivalen_header" data-kt-scroll-wrappers="#kt_modal_det_rfq_goods_ekuivalen_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
+                    <div class="scroll-y me-n7 pe-7" id="kt_modal_det_nego_rfq_goods_ekuivalen_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_det_nego_rfq_goods_ekuivalen_header" data-kt-scroll-wrappers="#kt_modal_det_nego_rfq_goods_ekuivalen_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
                         <div class="fw-bold">
                             <h4 class="text-gray-900 fw-bolder">RFQ No : 6200272804 | 7013165 | 1</h4>
                         </div>
@@ -371,85 +371,14 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
+                         <!--Begin::Input Group-->
+                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Harga Satuan</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="25.000">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                            <!--end::Col-->
-                            <!--begin::Label-->
-                            <label class="col-lg-1 col-form-label required fw-bold fs-6">Per</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control" placeholder="Lama Indent (Hari)" value="KALENG">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Apakah ada konversi?</label>
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Satuan yang ditawarkan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <div class="align-items-center mt-3">
-                                    <!--begin::Option-->
-                                    <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="convert" type="radio" value="Ya" checked="true">
-                                        <span class="fw-bold ps-2 fs-6">Ya</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="convert" type="radio" value="Tidak">
-                                        <span class="fw-bold ps-2 fs-6">Tidak</span>
-                                    </label>
-                                    <!--end::Option-->
-                                </div>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Masukkan Satuan</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <table class="table table-row-dashed table-row-gray-300 gy-7">
-                                    <thead>
-                                        <tr class="fw-bolder fs-6 text-gray-800">
-                                            <th class="text-center min-w-80px">Keterangan</th>
-                                            <th class="text-center min-w-50px">Jumlah</th>
-                                            <th class="text-center min-w-50px">Satuan</th>
-                                            <th class="text-center min-w-80px">Konversi Jumlah</th>
-                                            <th class="text-center min-w-50px">Satuan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Satuan Permintaan</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">KLG</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Satuan Konversi yang ditawarkan</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">KLG</td>
-                                            <td class="text-center">10</td>
-                                            <td class="text-center">BOX</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <input type="text" name="indent_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" value="KLG (KALENG)">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -469,24 +398,11 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Ketersediaan Barang</label>
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Harga Satuan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <div class="align-items-center mt-3">
-                                    <!--begin::Option-->
-                                    <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="available" type="radio" value="Tersedia" checked="true">
-                                        <span class="fw-bold ps-2 fs-6">Tersedia</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="available" type="radio" value="Indent" checked="true">
-                                        <span class="fw-bold ps-2 fs-6">Indent</span>
-                                    </label>
-                                    <!--end::Option-->
-                                </div>
+                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="25.000">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -494,61 +410,11 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Masa Berlaku Harga</label>
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Harga Satuan Nego</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" placeholder="Pick date rage" id="kt_daterangepicker_3"/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Keterangan</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" placeholder="" id=""/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Dibuat Oleh</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" placeholder="Pick date rage" id=""/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">File Brosur</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
-                                </div>
+                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="25.000">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -560,10 +426,10 @@
                 <!--begin::Modal footer-->
                 <div class="modal-footer flex-center">
                     <!--begin::Button-->
-                    <button type="reset" id="kt_modal_det_rfq_goods_ekuivalen_cancel" class="btn btn-light me-3">Tutup</button>
+                    <button type="reset" id="kt_modal_det_nego_rfq_goods_ekuivalen_cancel" class="btn btn-light me-3">Tutup</button>
                     <!--end::Button-->
                     <!--begin::Button-->
-                    <button type="submit" id="kt_modal_det_rfq_goods_ekuivalen_submit" class="btn btn-primary">
+                    <button type="submit" id="kt_modal_det_nego_rfq_goods_ekuivalen_submit" class="btn btn-primary">
                         <span class="indicator-label">Simpan</span>
                         <span class="indicator-progress">Please wait...
                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
