@@ -1,8 +1,8 @@
 <div class="card shadow-sm">
-    <div class="card-header">
-        <h3 class="card-title"><?php echo $title; ?></h3>
+    <div class="card-header bg-success">
+        <h3 class="card-title text-white"><?php echo $title; ?></h3>
         <div class="card-toolbar">
-            <button type="button" class="btn btn-sm btn-primary btn-icon me-2 mb-2">
+            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
             <i class="las la-sync fs-1"></i>
             </button>
         </div>
@@ -106,11 +106,11 @@
 <div class="modal fade" tabindex="-1" id="kt_modal_det_nego_rfq_goods" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" style="min-width:1280px;">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Pengisian RFQ</h5>
+            <div class="modal-header bg-success">
+                <h5 class="modal-title text-white">Pengisian RFQ</h5>
 
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-active-danger ms-2" data-bs-dismiss="modal" aria-label="Close">
+                <div class="btn btn-icon btn-sm btn-danger ms-2" data-bs-dismiss="modal" aria-label="Close">
                     <span class="svg-icon svg-icon-2x">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
@@ -249,11 +249,11 @@
 <div class="modal fade" tabindex="-1" id="kt_modal_det_nego_rfq_goods_ekuivalen" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" style="min-width:1280px;">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Pengisian Ekuivalen</h5>
+            <div class="modal-header bg-success">
+                <h5 class="modal-title text-white">Pengisian Ekuivalen</h5>
 
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-active-danger ms-2" data-bs-dismiss="modal" aria-label="Close">
+                <div class="btn btn-icon btn-sm btn-danger ms-2" data-bs-dismiss="modal" aria-label="Close">
                     <span class="svg-icon svg-icon-2x">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
