@@ -1,89 +1,91 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
+
+<!DOCTYPE html>
+<!--
+Author: Keenthemes
+Product Name: Metronic - Bootstrap 5 HTML, VueJS, React, Angular & Laravel Admin Dashboard Theme
+Purchase: https://1.envato.market/EA4JP
+Website: http://www.keenthemes.com
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
+-->
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Welcome to Socfindo</title>
-
-	<style type="text/css">
-
-	::selection { background-color: #E13300; color: white; }
-	::-moz-selection { background-color: #E13300; color: white; }
-
-	body {
-		background-color: #fff;
-		margin: 40px;
-		font: 13px/20px normal Helvetica, Arial, sans-serif;
-		color: #4F5155;
-	}
-
-	a {
-		color: #003399;
-		background-color: transparent;
-		font-weight: normal;
-	}
-
-	h1 {
-		color: #444;
-		background-color: transparent;
-		border-bottom: 1px solid #D0D0D0;
-		font-size: 19px;
-		font-weight: normal;
-		margin: 0 0 14px 0;
-		padding: 14px 15px 10px 15px;
-	}
-
-	code {
-		font-family: Consolas, Monaco, Courier New, Courier, monospace;
-		font-size: 12px;
-		background-color: #f9f9f9;
-		border: 1px solid #D0D0D0;
-		color: #002166;
-		display: block;
-		margin: 14px 0 14px 0;
-		padding: 12px 10px 12px 10px;
-	}
-
-	#body {
-		margin: 0 15px 0 15px;
-	}
-
-	p.footer {
-		text-align: right;
-		font-size: 11px;
-		border-top: 1px solid #D0D0D0;
-		line-height: 32px;
-		padding: 0 10px 0 10px;
-		margin: 20px 0 0 0;
-	}
-
-	#container {
-		margin: 10px;
-		border: 1px solid #D0D0D0;
-		box-shadow: 0 0 8px #D0D0D0;
-	}
-	</style>
-</head>
-<body>
-
-<div id="container">
-	<h1>Welcome to CodeIgniter!</h1>
-
-	<div id="body">
-		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
-
-		<p>If you would like to edit this page you'll find it located at:</p>
-		<code>application/views/welcome_message.php</code>
-
-		<p>The corresponding controller for this page is found at:</p>
-		<code>application/controllers/Welcome.php</code>
-
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
-	</div>
-
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
-</div>
-
-</body>
+	<!--begin::Head-->
+	<head><base href="../../">
+		<title>Sistem Baragud</title>
+		<meta name="description" content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
+		<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta charset="utf-8" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content="Metronic - Bootstrap 5 HTML, VueJS, React, Angular &amp; Laravel Admin Dashboard Theme" />
+		<meta property="og:url" content="https://keenthemes.com/metronic" />
+		<meta property="og:site_name" content="Keenthemes | Metronic" />
+		<link rel="canonical" href="Https://preview.keenthemes.com/metronic8" />
+		<link rel="shortcut icon" href="<?php echo base_url();?>assets/media/logos/favicon.ico" />
+		<!--begin::Fonts-->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+		<!--end::Fonts-->
+		<!--begin::Global Stylesheets Bundle(used by all pages)-->
+		<link href="<?php echo base_url();?>assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo base_url();?>assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+		<!--end::Global Stylesheets Bundle-->
+	</head>
+	<!--end::Head-->
+	<!--begin::Body-->
+	<body id="kt_body" class="bg-body">
+		<!--begin::Main-->
+		<div class="d-flex flex-column flex-root">
+			<!--begin::Authentication - Signup Welcome Message -->
+			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(<?php echo base_url();?>assets/media/illustrations/development-hd.png)">
+				<!--begin::Content-->
+				<div class="d-flex flex-column flex-column-fluid text-center p-10 py-lg-20">
+					<!--begin::Logo-->
+					<a href="#" class="mb-10 pt-lg-20">
+						<img alt="Logo" src="<?php echo base_url(); ?>assets/media/logos/Socfindo-Logo.svg" class="h-100px mb-5" />
+					</a>
+					<!--end::Logo-->
+					<!--begin::Wrapper-->
+					<div class="pt-lg-10">
+						<!--begin::Logo-->
+						<h1 class="fw-bolder fs-2qx text-gray-800 mb-7">Selamat Datang</h1>
+						<!--end::Logo-->
+						<!--begin::Message-->
+						<div class="fw-bold fs-3 text-muted mb-15">Proses Pengadaan Barang & Jasa Yang Cepat, Akurat, & Fair</div>
+						<!--end::Message-->
+						<!--begin::Action-->
+						<div class="text-center">
+							<a href="<?php echo site_url('login')?>" class="btn btn-lg btn-success fw-bolder">Masuk</a>
+						</div>
+						<!--end::Action-->
+					</div>
+					<!--end::Wrapper-->
+				</div>
+				<!--end::Content-->
+				<!--begin::Footer-->
+				<div class="d-flex flex-center flex-column-auto p-10">
+					<!--begin::Links-->
+					<!-- <div class="d-flex align-items-center fw-bold fs-6">
+						<a href="https://keenthemes.com" class="text-muted text-hover-primary px-2">About</a>
+						<a href="mailto:support@keenthemes.com" class="text-muted text-hover-primary px-2">Contact</a>
+						<a href="https://1.envato.market/EA4JP" class="text-muted text-hover-primary px-2">Contact Us</a>
+					</div> -->
+					<!--end::Links-->
+				</div>
+				<!--end::Footer-->
+			</div>
+			<!--end::Authentication - Signup Welcome Message-->
+		</div>
+		<!--end::Main-->
+		<!--begin::Javascript-->
+		<!--begin::Global Javascript Bundle(used by all pages)-->
+		<script src="<?php echo base_url();?>assets/plugins/global/plugins.bundle.js"></script>
+		<script src="<?php echo base_url();?>assets/js/scripts.bundle.js"></script>
+		<!--end::Global Javascript Bundle-->
+		<!--end::Javascript-->
+	</body>
+	<!--end::Body-->
 </html>
