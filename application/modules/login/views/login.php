@@ -1,6 +1,6 @@
 <div class="w-lg-500px bg-body rounded shadow-sm py-6 px-10 mx-auto">
     <!--begin::Form-->
-    <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="#">
+    <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="<?php echo site_url('login/do_login'); ?>">
         <!--begin::Heading-->
         <div class="text-center mb-2">
             <!--begin::Title-->
@@ -16,10 +16,10 @@
         <!--begin::Input group-->
         <div class="fv-row mb-10">
             <!--begin::Label-->
-            <label class="form-label fs-6 fw-bolder text-dark">Email</label>
+            <label class="form-label fs-6 fw-bolder text-dark">Username</label>
             <!--end::Label-->
             <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid" type="text" name="email" autocomplete="off" />
+            <input class="form-control form-control-lg form-control-solid" type="text" name="username" id="username" autocomplete="off" />
             <!--end::Input-->
         </div>
         <!--end::Input group-->
@@ -36,7 +36,7 @@
             </div>
             <!--end::Wrapper-->
             <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" />
+            <input class="form-control form-control-lg form-control-solid" type="password" name="password" id="password" autocomplete="off" />
             <!--end::Input-->
         </div>
         <!--end::Input group-->

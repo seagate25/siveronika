@@ -85,15 +85,16 @@ License: For each use you must have a valid license purchased only from above li
 						(e = document.querySelector("#kt_sign_in_submit")),
 						(i = FormValidation.formValidation(t, {
 							fields: {
-								email: { 
-									validators: { 
-										notEmpty: { 
-											message: "Email address is required" }, 
-											emailAddress: { 
-												message: "The value is not a valid email address" 
-											} 
-										} 
-									},
+								// email: { 
+								// 	validators: { 
+								// 		notEmpty: { 
+								// 			message: "Email address is required" }, 
+								// 			emailAddress: { 
+								// 				message: "The value is not a valid email address" 
+								// 			} 
+								// 		} 
+								// 	},
+								username: { validators: { notEmpty: { message: "Username is required" } } },
 								password: { 
 									validators: { 
 										notEmpty: { 
@@ -114,23 +115,49 @@ License: For each use you must have a valid license purchased only from above li
 									? (
 										e.setAttribute("data-kt-indicator", "on"),
 										(e.disabled = !0),
-										setTimeout(function () {
-											e.removeAttribute("data-kt-indicator"),
-											(e.disabled = !1);
-											// Swal.fire({ 
-											//     text: "You have successfully logged in!", 
-											//     icon: "success", 
-											//     buttonsStyling: !1, 
-											//     confirmButtonText: "Ok, got it!", 
-											//     customClass: { 
-											//         confirmButton: "btn btn-primary" } 
-											//     })
-											// .then(function (e) {
-											//     e.isConfirmed && ((t.querySelector('[name="email"]').value = ""), (t.querySelector('[name="password"]').value = ""));
-											// });
-										}, 2e3),
-										(window.location = "<?php echo site_url('dashboard')?>")
-										)
+										$.ajax({
+											type: "POST",
+											url: t.getAttribute('action'),
+											data: Object.fromEntries(new FormData(t).entries()),
+											success: function(response) {
+												var obj = jQuery.parseJSON(response);
+												// console.log(obj);
+												if(obj.code == 0) {
+													document.location = obj.data;
+												} else {
+													setTimeout(function () {
+														t.removeAttribute("data-kt-indicator"),
+															(t.disabled = !1),
+															Swal.fire({ 
+																text: obj.msg, 
+																icon: "error", buttonsStyling: !1, 
+																confirmButtonText: "Ok",
+																allowOutsideClick: false,
+																customClass: { confirmButton: "btn btn-primary" } })
+															.then(function (t) {
+																t.isConfirmed && ((e.querySelector('[name="username"]').value = ""), (e.querySelector('[name="password"]').value = ""));
+															});
+													}, 2e3)
+												}
+											}
+										})
+										// setTimeout(function () {
+										// 	e.removeAttribute("data-kt-indicator"),
+										// 	(e.disabled = !1);
+										// 	// Swal.fire({ 
+										// 	//     text: "You have successfully logged in!", 
+										// 	//     icon: "success", 
+										// 	//     buttonsStyling: !1, 
+										// 	//     confirmButtonText: "Ok, got it!", 
+										// 	//     customClass: { 
+										// 	//         confirmButton: "btn btn-primary" } 
+										// 	//     })
+										// 	// .then(function (e) {
+										// 	//     e.isConfirmed && ((t.querySelector('[name="email"]').value = ""), (t.querySelector('[name="password"]').value = ""));
+										// 	// });
+										// }, 2e3),
+										// (window.location = "<?php echo site_url('dashboard')?>")
+									)
 									: Swal.fire({
 											text: "Sorry, looks like there are some errors detected, please try again.",
 											icon: "error",

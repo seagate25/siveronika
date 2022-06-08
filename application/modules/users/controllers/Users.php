@@ -7,7 +7,7 @@ class Users extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        //Do your magic here
+        logged_in();
     }
     
     /**
@@ -31,6 +31,12 @@ class Users extends CI_Controller {
         $data['title']      = "Users - Settings";
         $data['content']    = "settings";
         $this->load->view('default', $data);
+    }
+
+    public function do_logout()
+    {
+        $this->session->sess_destroy();
+        redirect('welcome');
     }
 
 }
