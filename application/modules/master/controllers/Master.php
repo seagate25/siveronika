@@ -7,7 +7,7 @@ class Master extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        //Do your magic here
+        $this->load->model('Master_model', 'master');
     }
 
     /**
@@ -17,6 +17,11 @@ class Master extends CI_Controller {
      */
     public function index()
     {
+        if($this->input->is_ajax_request()) {
+            $rows   = $this->master->getAllVendor();
+            echo json_encode($rows);
+            exit;
+        }
         $data['title']      = "Data Vendor";
         $data['menu']       = "Master";
         $data['submenu']    = "Vendor";
