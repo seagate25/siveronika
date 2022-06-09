@@ -97,9 +97,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'Driver={SQL Server};Server=localhost;Database=baragud;Uid=sa;Pwd=password;',
-	'username' => 'sa',
-	'password' => 'password',
+	'hostname' => 'Driver={SQL Server};Server=192.168.0.225;Database=baragud;Uid=baragudadm;Pwd=c*&2NeRG;',
+	'username' => 'baragudadm',
+	'password' => 'c*&2NeRG',
 	'database' => 'baragud',
 	'dbdriver' => 'odbc',
 	'dbprefix' => '',

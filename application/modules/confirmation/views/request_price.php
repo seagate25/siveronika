@@ -16,7 +16,7 @@
                     <th class="min-w-125px text-center">Deskripsi</th>
                     <th class="min-w-125px text-center">Jumlah Permintaan</th>
                     <th class="min-w-125px text-center">Satuan</th>
-                    <th class="min-w-125px text-center">Tanggal Konfirmasi</th>
+                    <th class="min-w-125px text-center">Tanggal Permintaan</th>
                     <th class="min-w-50px text-center">Status</th>
                     <th class="min-w-50px text-center">Aksi</th>
                 </tr>
@@ -44,7 +44,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h5 class="modal-title text-white">Konfirmasi Harga</h5>
+                <h5 class="modal-title text-white">Permintaan Harga</h5>
 
                 <!--begin::Close-->
                 <div class="btn btn-icon btn-sm btn-danger ms-2" data-bs-dismiss="modal" aria-label="Close">
@@ -66,7 +66,7 @@
                     <!--begin::Scroll-->
                     <div class="scroll-y me-n7 pe-7" id="kt_modal_confirmation_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_confirmation_header" data-kt-scroll-wrappers="#kt_modal_confirmation_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
                         <div class="fw-bold">
-                            <h4 class="text-gray-900 fw-bolder">Data Konfirmasi</h4>
+                            <h4 class="text-gray-900 fw-bolder">Data Permintaan</h4>
                         </div>
                         <!--begin::Notice-->
                         <div class="notice bg-light-warning rounded border-warning border border-dashed mb-10 p-6">
@@ -87,7 +87,7 @@
                                 <div class="fw-bold">
                                     <!-- <h4 class="text-gray-900 fw-bolder">Please Note!</h4> -->
                                     <div class="fs-6 text-gray-700">
-                                        Konfirmasi ke vendor dengan harga
+                                        Permintaan ke vendor dengan harga
                                     </div>
                                 </div>
                                 <!--end::Content-->
@@ -100,7 +100,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="number" name="confirmation_price" class="form-control form-control-solid" readonly="true" placeholder="Harga" value="24000">
+                                    <input type="number" name="confirmation_price" class="form-control"  placeholder="Harga" value="24000">
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Col-->
                             </div>
@@ -112,7 +112,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="text" name="confirmation_currency" class="form-control form-control-solid" readonly="true" placeholder="Mata Uang" value="IDR">
+                                    <input type="text" name="confirmation_currency" class="form-control" placeholder="Mata Uang" value="IDR">
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Col-->
                             </div>

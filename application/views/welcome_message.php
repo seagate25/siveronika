@@ -58,7 +58,7 @@ License: For each use you must have a valid license purchased only from above li
 						<!--end::Message-->
 						<!--begin::Action-->
 						<div class="text-center">
-							<a href="<?php echo site_url('login')?>" class="btn btn-lg btn-success fw-bolder">Masuk <?php echo site_url('login')?></a>
+							<a href="<?php echo site_url('login')?>" class="btn btn-lg btn-success fw-bolder">Masuk</a>
 						</div>
 						<!--end::Action-->
 					</div>
