@@ -78,7 +78,7 @@ class Login_model extends CI_Model {
             ];
         } else {
 
-            $sql    = "UPDATE {$this->table} SET sandi = '{$new_password}', first_login = 0 WHERE kode_vendor = '{$vendor_id}'";
+            $sql    = "UPDATE {$this->table} SET sandi = '{$new_password}', first_login = 0, modified_date = current_timestamp WHERE kode_vendor = '{$vendor_id}'";
             $query  = $this->db->query($sql);
 
             if($this->db->affected_rows() > 0) {
