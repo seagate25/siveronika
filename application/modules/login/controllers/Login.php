@@ -16,9 +16,9 @@ class Login extends CI_Controller {
         $this->load->view('default_login', $data);
     }
 
-    public function reset()
+    public function forgot()
     {
-        $data['content']    = "reset";
+        $data['content']    = "forgot";
         $this->load->view('default_login', $data);
     }
 
