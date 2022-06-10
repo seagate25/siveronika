@@ -15,6 +15,7 @@ class Login_model extends CI_Model {
     {
         parent::__construct();
         $this->table = "TB_S_MST_PENGGUNA";
+        $this->table_vendor = "TB_S_MST_VENDOR";
     }
     
     /**
@@ -33,13 +34,25 @@ class Login_model extends CI_Model {
                     WHERE kode_vendor = '{$username}' AND sandi = '{$password}'";
         $query  = $this->db->query($sql);
         if($query->num_rows() > 0) {
+            // Get Vendor Data
+            $vendor_data = [];
+            $sql= "SELECT * 
+                    FROM {$this->table_vendor} 
+                    WHERE [kode_vendor] ='{$username}'";
+            $query_vendor = $this->db->query($sql);
+            if($query_vendor->num_rows() > 0){
+                $vendor_data = $query_vendor->row();
+            }
 
+            // Set Session
             $user_data = $query->row();
             $user_session   = [
                 'kode_vendor'   => rtrim($user_data->kode_vendor),
                 'nama'          => rtrim($user_data->nama),
                 'first_login'   => $user_data->first_login,
-                'logged_in'     => TRUE
+                'logged_in'     => TRUE,
+                'email'         => rtrim($vendor_data->email_perusahaan),
+                'kode_negara'   => rtrim($vendor_data->kode_negara)
             ];
 
             $this->session->set_userdata($user_session);

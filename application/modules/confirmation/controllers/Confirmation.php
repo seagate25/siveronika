@@ -8,6 +8,7 @@ class Confirmation extends CI_Controller {
     {
         parent::__construct();
         logged_in();
+        $this->load->model('Confirmation_model', 'confirmation');
     }
     
     public function index()
@@ -17,6 +18,11 @@ class Confirmation extends CI_Controller {
 
     public function req_price()
     {
+        if($this->input->is_ajax_request()) {
+            $rows   = $this->confirmation->getConfirmationPriceList();
+            echo json_encode($rows);
+            exit;
+        }
         $data['title']      = "Permintaan Harga";
         $data['menu']       = "Konfirmasi";
         $data['submenu']    = "Permintaan Harga";
@@ -26,6 +32,11 @@ class Confirmation extends CI_Controller {
 
     public function con_price()
     {
+        if($this->input->is_ajax_request()) {
+            $rows   = $this->confirmation->getRequestPriceList();
+            echo json_encode($rows);
+            exit;
+        }
         $data['title']      = "Konfirmasi Harga";
         $data['menu']       = "Konfirmasi";
         $data['submenu']    = "Konfirmasi Harga";

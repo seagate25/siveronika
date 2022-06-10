@@ -8,20 +8,21 @@
         </div>
     </div>
     <div class="card-body py-1">
-        <table id="kt_datatable_example_1" class="align-middle table table-row-bordered gy-5">
+        <table id="kt_datatable_request_price" class="align-middle table table-row-bordered gy-5">
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
-                    <th class="min-w-125px text-center">No.</th>
-                    <th class="min-w-125px text-center">Kode Barang</th>
-                    <th class="min-w-125px text-center">Deskripsi</th>
-                    <th class="min-w-125px text-center">Jumlah Permintaan</th>
-                    <th class="min-w-125px text-center">Satuan</th>
-                    <th class="min-w-125px text-center">Tanggal Permintaan</th>
-                    <th class="min-w-50px text-center">Status</th>
+                <th class="min-w-30px text-center">No.</th>
+                    <th class="min-w-80px text-center">Kode Barang</th>
+                    <th class="min-w-200px text-center">Deskripsi</th>
+                    <th class="min-w-80px text-center">Jumlah</th>
+                    <th class="min-w-50px text-center">Satuan</th>
+                    <th class="min-w-80px text-center">Tgl. Permintaan</th>
+                    <th class="min-w-100px text-center">Status</th>
+                    <th class="min-w-80px text-center">Status Harga</th>
                     <th class="min-w-50px text-center">Aksi</th>
                 </tr>
             </thead>
-            <tbody class="text-gray-600 fw-bold">
+            <!-- <tbody class="text-gray-600 fw-bold">
                 <tr>
                     <td class="text-center">1</td>
                     <td class="text-center">7063463</td>
@@ -36,7 +37,7 @@
                         </button>
                     </td>
                 </tr>
-            </tbody>
+            </tbody> -->
         </table>
     </div>
 </div>
@@ -100,7 +101,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="number" name="confirmation_price" class="form-control"  placeholder="Harga" value="24000">
+                                    <input type="number" name="confirmation_price" class="form-control"  placeholder="Harga">
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Col-->
                             </div>
@@ -112,7 +113,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="text" name="confirmation_currency" class="form-control" placeholder="Mata Uang" value="IDR">
+                                    <input type="text" name="confirmation_currency" class="form-control" placeholder="Mata Uang">
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Col-->
                             </div>
@@ -227,21 +228,52 @@ var KTDataTables = (function() {
     var e;
     return {
         init: function() {
-            e = $("#kt_datatable_example_1").DataTable({
-                scrollY:        "500px",
-                scrollX:        true,
-                scrollCollapse: true,
-                paging:         true,
+            e = $("#kt_datatable_request_price").DataTable({
+                processing:!0, 
+                serverSide:!0,
+                destroy: !0,
+                // responsive: !0,
+                // scrollY: "500px",
+                scrollX: !0,
+                // scrollCollapse: !0,
+                dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
                 // fixedHeader:    true,
-                fixedColumns:   {
-                    heightMatch: 'none',
-                    leftColumns: 0,
-                    rightColumns: 1
-                }
+                // fixedColumns:   {
+                //     heightMatch: 'none',
+                //     leftColumns: 1,
+                //     rightColumns: 0
+                // },
+                paging: !0,
+                ordering: !0,
+                searching: !0,
+                ajax: {
+                    type: "POST",
+                    url: "<?php echo site_url('confirmation/req_price');?>"
+                },
+                columns: [
+                    { data: 'number', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                    { data: 'kode_material', className: 'text-center' },
+                    { data: 'deskripsi'},
+                    { data: 'jumlah' },
+                    { data: 'satuan' },
+                    { data: 'modified_date', className: 'text-center' },
+                    { data: 'status' },
+                    { data: 'status_harga' },
+                    { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
+                ],
+                lengthMenu: [
+                        [10, 15, 25, -1],
+                        [10, 15, 25, "All"]
+                    ],
+                pageLength: 10,
+                order: [1, 'ASC']
             });
         }
     };
 })();
+
 
 var KTModalConfirmationPrice = (function () {
     var t, e, n, o, i, r;

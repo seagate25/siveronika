@@ -454,7 +454,7 @@ License: For each use you must have a valid license purchased only from above li
 										<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
 											<!--begin::Menu wrapper-->
 											<div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-												<img src="<?php echo base_url();?>assets/media/avatars/150-26.jpg" alt="metronic" />
+												<img src="<?php echo base_url();?>assets/media/avatars/blank.png" alt="metronic" />
 											</div>
 											<!--begin::Menu-->
 											<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
@@ -463,14 +463,14 @@ License: For each use you must have a valid license purchased only from above li
 													<div class="menu-content d-flex align-items-center px-3">
 														<!--begin::Avatar-->
 														<div class="symbol symbol-50px me-5">
-															<img alt="Logo" src="<?php echo base_url(); ?>assets/media/avatars/150-26.jpg" />
+															<img alt="Logo" src="<?php echo base_url(); ?>assets/media/avatars/blank.png" />
 														</div>
 														<!--end::Avatar-->
 														<!--begin::Username-->
 														<div class="d-flex flex-column">
-															<div class="fw-bolder d-flex align-items-center fs-5">Max Smith
-															<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span></div>
-															<a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
+															<div class="fw-bolder d-flex align-items-center fs-5"><?php echo $this->session->userdata('nama');?>
+															<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"><?php echo $this->session->userdata('kode_negara');?></span></div>
+															<a class="fw-bold text-muted text-hover-primary fs-7"><?php echo $this->session->userdata('email');?></a>
 														</div>
 														<!--end::Username-->
 													</div>
@@ -481,7 +481,7 @@ License: For each use you must have a valid license purchased only from above li
 												<!--end::Menu separator-->
 												<!--begin::Menu item-->
 												<div class="menu-item px-5">
-													<a href="../../demo1/dist/account/overview.html" class="menu-link px-5">My Profile</a>
+													<a href="<?php echo base_url()."master";?>" class="menu-link px-5">My Profile</a>
 												</div>
 												<!--end::Menu item-->
 												<!--begin::Menu item-->
@@ -661,13 +661,13 @@ License: For each use you must have a valid license purchased only from above li
 						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
 							<!--begin::Copyright-->
 							<div class="text-dark order-2 order-md-1">
-								<span class="text-muted fw-bold me-1">2022©</span>
-								<a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">Socfindo</a>
+								<!-- <span class="text-muted fw-bold me-1">2022©</span>
+								<a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">Socfindo</a> -->
 							</div>
 							<!--end::Copyright-->
 							<!--begin::Menu-->
 							<ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
-								<li class="menu-item">
+								<!-- <li class="menu-item">
 									<a href="https://keenthemes.com" target="_blank" class="menu-link px-2">About</a>
 								</li>
 								<li class="menu-item">
@@ -675,7 +675,9 @@ License: For each use you must have a valid license purchased only from above li
 								</li>
 								<li class="menu-item">
 									<a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Purchase</a>
-								</li>
+								</li> -->
+								<span class="text-muted fw-bold me-1">2022 ©</span>
+								<a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">Socfindo</a>
 							</ul>
 							<!--end::Menu-->
 						</div>

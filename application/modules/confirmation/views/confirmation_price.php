@@ -7,13 +7,13 @@
             </button>
         </div>
     </div>
-    <div class="card-body">
-        <table id="kt_datatable_example_1" class="align-middle table table-row-bordered gy-5">
+    <div class="card-body py-1">
+        <table id="kt_datatable_confirmation_price" class="align-middle table table-row-bordered gy-5">
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
                     <th class="min-w-30px text-center">No.</th>
                     <th class="min-w-80px text-center">Kode Barang</th>
-                    <th class="min-w-350px text-center">Deskripsi</th>
+                    <th class="min-w-200px text-center">Deskripsi</th>
                     <th class="min-w-80px text-center">Jumlah</th>
                     <th class="min-w-50px text-center">Satuan</th>
                     <th class="min-w-80px text-center">Tgl. Konfirmasi</th>
@@ -22,7 +22,7 @@
                     <th class="min-w-50px text-center">Aksi</th>
                 </tr>
             </thead>
-            <tbody class="text-gray-600 fw-bold">
+            <!-- <tbody class="text-gray-600 fw-bold">
                 <tr>
                     <td class="text-center">1</td>
                     <td class="text-center">7063463</td>
@@ -38,67 +38,7 @@
                         </button>
                     </td>
                 </tr>
-                <tr>
-                    <td class="text-center">2</td>
-                    <td class="text-center">7063463</td>
-                    <td class="text-center">STOP KONTAK 6 LUBANG KUNINGAN "UTICON"</td>
-                    <td class="text-center">4</td>
-                    <td class="text-center">BH</td>
-                    <td class="text-center">12 Dec 21</td>
-                    <td class="text-center">Belum Konfirmasi</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">3</td>
-                    <td class="text-center">7063463</td>
-                    <td class="text-center">STOP KONTAK 6 LUBANG KUNINGAN "UTICON"</td>
-                    <td class="text-center">4</td>
-                    <td class="text-center">BH</td>
-                    <td class="text-center">12 Dec 21</td>
-                    <td class="text-center">Belum Konfirmasi</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">4</td>
-                    <td class="text-center">7063463</td>
-                    <td class="text-center">STOP KONTAK 6 LUBANG KUNINGAN "UTICON"</td>
-                    <td class="text-center">4</td>
-                    <td class="text-center">BH</td>
-                    <td class="text-center">12 Dec 21</td>
-                    <td class="text-center">Belum Konfirmasi</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">5</td>
-                    <td class="text-center">7063463</td>
-                    <td class="text-center">STOP KONTAK 6 LUBANG KUNINGAN "UTICON"</td>
-                    <td class="text-center">4</td>
-                    <td class="text-center">BH</td>
-                    <td class="text-center">12 Dec 21</td>
-                    <td class="text-center">Belum Konfirmasi</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
+            </tbody> -->
         </table>
     </div>
 </div>
@@ -162,7 +102,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="number" name="confirmation_price" class="form-control form-control-solid" readonly="true" placeholder="Harga" value="24000">
+                                    <input type="number" name="confirmation_price" class="form-control form-control-solid" placeholder="Harga">
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Col-->
                             </div>
@@ -174,7 +114,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="text" name="confirmation_currency" class="form-control form-control-solid" readonly="true" placeholder="Mata Uang" value="IDR">
+                                    <input type="text" name="confirmation_currency" class="form-control form-control-solid"  placeholder="Mata Uang">
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Col-->
                             </div>
@@ -188,7 +128,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="request_total" class="form-control" placeholder="Jumlah Permintaan" value="4">
+                                <input type="number" id="request_total" name="request_total" class="form-control" placeholder="Jumlah Permintaan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -289,17 +229,47 @@ var KTDataTables = (function() {
     var e;
     return {
         init: function() {
-            e = $("#kt_datatable_example_1").DataTable({
-                scrollY:        "500px",
-                scrollX:        true,
-                scrollCollapse: true,
-                paging:         true,
+            e = $("#kt_datatable_confirmation_price").DataTable({
+                processing:!0, 
+                serverSide:!0,
+                destroy: !0,
+                // responsive: !0,
+                // scrollY: "500px",
+                scrollX: !0,
+                // scrollCollapse: !0,
+                dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
                 // fixedHeader:    true,
-                fixedColumns:   {
-                    heightMatch: 'none',
-                    leftColumns: 0,
-                    rightColumns: 1
-                }
+                // fixedColumns:   {
+                //     heightMatch: 'none',
+                //     leftColumns: 1,
+                //     rightColumns: 0
+                // },
+                paging: !0,
+                ordering: !0,
+                searching: !0,
+                ajax: {
+                    type: "POST",
+                    url: "<?php echo site_url('confirmation/con_price');?>"
+                },
+                columns: [
+                    { data: 'number', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                    { data: 'kode_material', className: 'text-center' },
+                    { data: 'deskripsi'},
+                    { data: 'jumlah' },
+                    { data: 'satuan' },
+                    { data: 'modified_date', className: 'text-center' },
+                    { data: 'status' },
+                    { data: 'status_harga' },
+                    { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
+                ],
+                lengthMenu: [
+                        [10, 15, 25, -1],
+                        [10, 15, 25, "All"]
+                    ],
+                pageLength: 10,
+                order: [1, 'ASC']
             });
         }
     };
