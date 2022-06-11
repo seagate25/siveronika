@@ -10,6 +10,7 @@ class Login_model extends CI_Model {
      * @var string
      */
     protected $table;
+    protected $table_vendor;
 
     public function __construct()
     {
@@ -27,7 +28,7 @@ class Login_model extends CI_Model {
      * @param String $password
      * @return array
      */
-    public function getLogin(String $username, String $password)
+    public function getLogin($username, $password)
     {
         $sql    = "SELECT *
                     FROM {$this->table}
@@ -82,7 +83,7 @@ class Login_model extends CI_Model {
      * @param String $confirm_password
      * @return array
      */
-    public function resetPassword(String $vendor_id, String $new_password, String $confirm_password)
+    public function resetPassword($vendor_id, $new_password, $confirm_password)
     {
         if($new_password != $confirm_password) {
             $response = [
