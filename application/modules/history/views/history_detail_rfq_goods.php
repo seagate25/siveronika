@@ -16,10 +16,10 @@
                     <th class="min-w-125px text-center">Nama Material</th>
                     <th class="min-w-50px text-center">Jumlah Permintaan</th>
                     <th class="min-w-50px text-center">Satuan Permintaan</th>
-                    <th class="min-w-50px text-center">Status Harga Penawaran</th>
-                    <th class="min-w-50px text-center">Harga Penawaran</th>
-                    <th class="min-w-50px text-center">Status Harga Ekuivalen</th>
-                    <th class="min-w-150px text-center">Harga Ekuivalen</th>
+                    <th class="min-w-50px text-center">Status</th>
+                    <th class="min-w-50px text-center">Harga Sesuai Permintaan</th>
+                    <!-- <th class="min-w-50px text-center">Status Harga Ekuivalen</th> -->
+                    <th class="min-w-150px text-center">Harga Permintaan Ekuivalen</th>
                 </tr>
             </thead>
             <tbody class="text-gray-600 fw-bold">
@@ -35,7 +35,7 @@
                             <i class="fas fa-envelope-open-text"></i>
                         </button>
                     </td>
-                    <td class="text-center">Sudah Isi</td>
+                    <!-- <td class="text-center">Sudah Isi</td> -->
                     <td class="text-center">
                         <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                             1
@@ -63,7 +63,7 @@
                             <i class="fas fa-envelope-open-text"></i>
                         </button>
                     </td>
-                    <td class="text-center">Sudah Isi</td>
+                    <!-- <td class="text-center">Sudah Isi</td> -->
                     <td class="text-center">
                         <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
                             1
@@ -91,7 +91,7 @@
                             <i class="fas fa-envelope-open-text"></i>
                         </button>
                     </td>
-                    <td class="text-center">Sudah Isi</td>
+                    <!-- <td class="text-center">Sudah Isi</td> -->
                     <td class="text-center">
                         <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
                             1

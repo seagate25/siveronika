@@ -12,14 +12,14 @@
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
                 <th class="min-w-30px text-center">No.</th>
-                    <th class="min-w-80px text-center">Kode Barang</th>
-                    <th class="min-w-200px text-center">Deskripsi</th>
-                    <th class="min-w-80px text-center">Jumlah</th>
-                    <th class="min-w-50px text-center">Satuan</th>
-                    <th class="min-w-80px text-center">Tgl. Permintaan</th>
-                    <th class="min-w-100px text-center">Status</th>
-                    <th class="min-w-80px text-center">Status Harga</th>
-                    <th class="min-w-50px text-center">Aksi</th>
+                <th class="min-w-80px text-center">Kode Barang</th>
+                <th class="min-w-200px text-center">Deskripsi</th>
+                <th class="min-w-80px text-center">Jumlah</th>
+                <th class="min-w-50px text-center">Satuan</th>
+                <th class="min-w-80px text-center">Tgl. Permintaan</th>
+                <th class="min-w-100px text-center">Status</th>
+                <th class="min-w-80px text-center">Status Harga</th>
+                <th class="min-w-50px text-center">Aksi</th>
                 </tr>
             </thead>
             <!-- <tbody class="text-gray-600 fw-bold">

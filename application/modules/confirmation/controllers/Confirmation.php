@@ -19,7 +19,7 @@ class Confirmation extends CI_Controller {
     public function req_price()
     {
         if($this->input->is_ajax_request()) {
-            $rows   = $this->confirmation->getConfirmationPriceList();
+            $rows   = $this->confirmation->getRequestPriceList();
             echo json_encode($rows);
             exit;
         }
@@ -33,7 +33,7 @@ class Confirmation extends CI_Controller {
     public function con_price()
     {
         if($this->input->is_ajax_request()) {
-            $rows   = $this->confirmation->getRequestPriceList();
+            $rows   = $this->confirmation->getConfirmationPriceList();
             echo json_encode($rows);
             exit;
         }

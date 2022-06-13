@@ -67,7 +67,7 @@
                             <tr class="fw-bold fs-6 text-muted">
                                 <th class="min-w-50px text-center">No.</th>
                                 <th class="min-w-80px text-center">Kode Material</th>
-                                <th class="min-w-125px text-center">Nama Material</th>
+                                <th class="min-w-125px text-center">Deskripsi</th>
                                 <th class="min-w-80px text-center">Jumlah</th>
                                 <th class="min-w-50px text-center">Satuan</th>
                                 <th class="min-w-125px text-center">Harga</th>

@@ -16,8 +16,9 @@
                     <th class="min-w-125px text-center">Nama Material</th>
                     <th class="min-w-50px text-center">Jumlah Permintaan</th>
                     <th class="min-w-50px text-center">Satuan Permintaan</th>
-                    <th class="min-w-50px text-center">Nego Harga Penawaran</th>
-                    <th class="min-w-150px text-center">Nego Harga Ekuivalen</th>
+                    <th class="min-w-50px text-center">Status</th>
+                    <th class="min-w-50px text-center">Harga Sesuai Permintaan</th>
+                    <th class="min-w-150px text-center">Harga Permintaan Ekuivalen</th>
                 </tr>
             </thead>
             <tbody class="text-gray-600 fw-bold">
@@ -27,6 +28,7 @@
                     <td class="text-center">BAYGON CAIR @1L/KG</td>
                     <td class="text-center">30</td>
                     <td class="text-center">KG</td>
+                    <td class="text-center">Sudah Diisi</td>
                     <td class="text-center">
                         <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods">
                             <i class="fas fa-envelope-open-text"></i>
@@ -53,6 +55,7 @@
                     <td class="text-center">BAYGON CAIR @1L/KG</td>
                     <td class="text-center">30</td>
                     <td class="text-center">KG</td>
+                    <td class="text-center">Sudah Diisi</td>
                     <td class="text-center">
                         <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2">
                             <i class="fas fa-envelope-open-text"></i>
@@ -79,6 +82,7 @@
                     <td class="text-center">BAYGON CAIR @1L/KG</td>
                     <td class="text-center">30</td>
                     <td class="text-center">KG</td>
+                    <td class="text-center">Sudah Diisi</td>
                     <td class="text-center">
                         <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2">
                             <i class="fas fa-envelope-open-text"></i>
@@ -129,7 +133,7 @@
                     <!--begin::Scroll-->
                     <div class="scroll-y me-n7 pe-7" id="kt_modal_det_nego_rfq_goods_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_det_nego_rfq_goods_header" data-kt-scroll-wrappers="#kt_modal_det_nego_rfq_goods_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
                         <div class="fw-bold">
-                            <h4 class="text-gray-900 fw-bolder">RFQ No : 6200272804 | 7013165</h4>
+                            <h4 class="text-gray-900 fw-bolder">Nego RFQ No : 6200272804 | 7013165</h4>
                         </div>
                        
                         <!--Begin::Input Group-->
@@ -272,7 +276,7 @@
                     <!--begin::Scroll-->
                     <div class="scroll-y me-n7 pe-7" id="kt_modal_det_nego_rfq_goods_ekuivalen_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_det_nego_rfq_goods_ekuivalen_header" data-kt-scroll-wrappers="#kt_modal_det_nego_rfq_goods_ekuivalen_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
                         <div class="fw-bold">
-                            <h4 class="text-gray-900 fw-bolder">RFQ No : 6200272804 | 7013165 | 1</h4>
+                            <h4 class="text-gray-900 fw-bolder">Nego RFQ No : 6200272804 | 7013165 | 1</h4>
                         </div>
                        
                         <!--Begin::Input Group-->

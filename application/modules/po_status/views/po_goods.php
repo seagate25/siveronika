@@ -12,9 +12,11 @@
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
                     <th class="min-w-50px text-center">No.</th>
-                    <th class="min-w-80px text-center">No. PO</th>
-                    <th class="min-w-250px text-center">Berkas PO</th>
+                    <th class="min-w-80px text-center">No. PO/ Unduh</th>
+                    <th class="min-w-250px text-center">Lampiran PO</th>
+                    <th class="min-w-250px text-center">Unggah File Batch</th>
                     <th class="min-w-50px text-center">Tanggal Dokumen</th>
+                    <th class="min-w-50px text-center">Tanggal Terima</th>
                     <th class="min-w-50px text-center">Tanggal Jatuh Tempo</th>
                     <th class="min-w-30px text-center">Aksi</th>
                 </tr>
@@ -22,9 +24,11 @@
             <tbody class="text-gray-600 fw-bold">
                 <tr>
                     <td class="text-center">1</td>
-                    <td class="text-center">4100097754</td>
-                    <td class="text-center">-</td>
+                    <td class="text-center"><a href="#">4100097754</a></td>
+                    <td class="text-center"><a href="#">logo file here</a></td>
+                    <td class="text-center"><a href="#">logo file here</a></td>
                     <td class="text-center">19.01.2022</td>
+                    <td class="text-center">26.01.2022</td>
                     <td class="text-center">26.01.2022</td>
                     <td class="text-center">
                         <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_detail_po_goods">
