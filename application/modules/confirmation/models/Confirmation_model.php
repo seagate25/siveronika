@@ -97,7 +97,7 @@ class Confirmation_model extends CI_Model {
             $row->nomor_pr          = $row->nomor_pr;
             $row->item_pr           = $row->item_pr;
             $row->kode_material     = $row->kode_material;
-            $row->deskripsi         = $row->deskripsi;
+            $row->deskripsi         = utf8_encode($row->deskripsi);
             $row->jumlah            = $row->jumlah;
             $row->harga             = $row->harga;
             $row->mata_uang         = $row->mata_uang;
@@ -205,7 +205,7 @@ class Confirmation_model extends CI_Model {
             $row->mata_uang_po_terakhir= $row->mata_uang_po_terakhir;
             $row->nomor_pr          = $row->nomor_pr;
             $row->item_pr           = $row->item_pr;
-            $row->kode_material     = $row->kode_material;
+            $row->kode_material     = utf8_encode($row->kode_material);
             $row->deskripsi         = $row->deskripsi;
             $row->jumlah            = $row->jumlah;
             $row->harga             = $row->harga;
