@@ -119,6 +119,31 @@
                                 <!--end::Col-->
                             </div>
                             <!--end::Input Group-->
+                            <!--Begin::Input Group-->
+                            <div class="d-flex flex-row">
+                                <!--begin::Label-->
+                                <label class="col-lg-5 col-form-label required fw-bold fs-6">Apakah dapat direpeat order?</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-7 fv-row fv-plugins-icon-container">
+                                    <div class="align-items-end mt-3">
+                                        <!--begin::Option-->
+                                        <label class="form-check form-check-inline form-check-solid me-5">
+                                            <input class="form-check-input" name="repeat_order" type="radio" value="Ya" checked="true">
+                                            <span class="fw-bold ps-2 fs-6">Ya</span>
+                                        </label>
+                                        <!--end::Option-->
+                                        <!--begin::Option-->
+                                        <label class="form-check form-check-inline form-check-solid">
+                                            <input class="form-check-input" name="repeat_order" type="radio" value="Tidak">
+                                            <span class="fw-bold ps-2 fs-6">Tidak</span>
+                                        </label>
+                                        <!--end::Option-->
+                                    </div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
                         </div>
                         <!--end::Notice-->
                         <!--Begin::Input Group-->
