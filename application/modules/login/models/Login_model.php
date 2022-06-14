@@ -32,36 +32,50 @@ class Login_model extends CI_Model {
     {
         $sql    = "SELECT *
                     FROM {$this->table}
-                    WHERE kode_vendor = '{$username}' AND sandi = '{$password}'";
+                    WHERE kode_vendor = '{$username}' AND sandi = '".md5($password)."'";
         $query  = $this->db->query($sql);
         if($query->num_rows() > 0) {
-            // Get Vendor Data
-            $vendor_data = [];
-            $sql= "SELECT * 
-                    FROM {$this->table_vendor} 
-                    WHERE [kode_vendor] ='{$username}'";
-            $query_vendor = $this->db->query($sql);
-            if($query_vendor->num_rows() > 0){
-                $vendor_data = $query_vendor->row();
+
+            $login_data = $query->row();
+            // Check if Vendor Blocked
+            if($login_data->deletion == 1) {
+
+                $response = [
+                    'code'  => 200,
+                    'msg'   => 'Maaf, User Anda diblokir'
+                ];
+
+            } else {
+
+                // Get Vendor Data
+                $vendor_data = [];
+                $sql= "SELECT * 
+                        FROM {$this->table_vendor} 
+                        WHERE [kode_vendor] ='{$username}'";
+                $query_vendor = $this->db->query($sql);
+                if($query_vendor->num_rows() > 0){
+                    $vendor_data = $query_vendor->row();
+                }
+
+                // Set Session
+                $user_data = $query->row();
+                $user_session   = [
+                    'kode_vendor'   => rtrim($user_data->kode_vendor),
+                    'nama'          => rtrim($user_data->nama),
+                    'first_login'   => $user_data->first_login,
+                    'logged_in'     => TRUE,
+                    'email'         => rtrim($vendor_data->email_perusahaan),
+                    'kode_negara'   => rtrim($vendor_data->kode_negara)
+                ];
+
+                $this->session->set_userdata($user_session);
+                $response = [
+                    'code'  => 0,
+                    'msg'   => 'Berhasil login',
+                    'data'  => site_url('dashboard')
+                ];
+
             }
-
-            // Set Session
-            $user_data = $query->row();
-            $user_session   = [
-                'kode_vendor'   => rtrim($user_data->kode_vendor),
-                'nama'          => rtrim($user_data->nama),
-                'first_login'   => $user_data->first_login,
-                'logged_in'     => TRUE,
-                'email'         => rtrim($vendor_data->email_perusahaan),
-                'kode_negara'   => rtrim($vendor_data->kode_negara)
-            ];
-
-            $this->session->set_userdata($user_session);
-            $response = [
-                'code'  => 0,
-                'msg'   => 'Berhasil login',
-                'data'  => site_url('dashboard')
-            ];
 
         } else {
 
@@ -92,7 +106,7 @@ class Login_model extends CI_Model {
             ];
         } else {
 
-            $sql    = "UPDATE {$this->table} SET sandi = '{$new_password}', first_login = 0, modified_date = current_timestamp WHERE kode_vendor = '{$vendor_id}'";
+            $sql    = "UPDATE {$this->table} SET sandi = '".md5($new_password)."', first_login = 0, modified_date = current_timestamp WHERE kode_vendor = '{$vendor_id}'";
             $query  = $this->db->query($sql);
 
             if($this->db->affected_rows() > 0) {
