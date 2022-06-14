@@ -32,7 +32,7 @@ class Login_model extends CI_Model {
     {
         $sql    = "SELECT *
                     FROM {$this->table}
-                    WHERE kode_vendor = '{$username}' AND sandi = '".md5($password)."'";
+                    WHERE kode_vendor = '{$username}' AND (sandi = '".md5($password)."' or sandi = '{$password}')"; 
         $query  = $this->db->query($sql);
         if($query->num_rows() > 0) {
 
