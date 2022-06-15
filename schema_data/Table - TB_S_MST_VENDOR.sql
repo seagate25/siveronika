@@ -1,7 +1,7 @@
 USE [baragud]
 GO
 
-/****** Object:  Table [dbo].[TB_S_MST_VENDOR]    Script Date: 15-Jun-22 07:47:50 ******/
+/****** Object:  Table [dbo].[TB_S_MST_PROVINSI]    Script Date: 04/06/2022 18:01:13 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -26,7 +26,6 @@ CREATE TABLE [dbo].[TB_S_MST_VENDOR](
 	[no_npwp] [char](25) NULL,
 	[nama_npwp] [char](35) NULL,
 	[nama_bank] [char](50) NULL,
-	[nama] [char](50) NULL,
 	[bidang_utama] [char](30) NULL,
 	[bidang_usaha] [char](30) NULL,
 	[nama_marketing] [char](35) NULL,
@@ -39,7 +38,8 @@ CREATE TABLE [dbo].[TB_S_MST_VENDOR](
  CONSTRAINT [PK_TB_S_MST_VENDOR] PRIMARY KEY CLUSTERED 
 (
 	[kode_vendor] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
 

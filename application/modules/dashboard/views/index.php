@@ -35,12 +35,12 @@
                 </a>
                 <!--end::Statistics Widget 5-->
             </div>
-            <div class="col-xl-3">
-                <!--begin::Statistics Widget 5-->
+            <!-- <div class="col-xl-3">
+                
                 <a href="#" class="card bg-secondary hoverable card-xl-stretch mb-xl-8">
-                    <!--begin::Body-->
+                    
                     <div class="card-body">
-                        <!--begin::Svg Icon | path: icons/duotone/Home/Building.svg-->
+                    
                         <span class="svg-icon svg-icon-dark svg-icon-3x ms-n1">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -52,14 +52,13 @@
                                 </g>
                             </svg>
                         </span>
-                        <!--end::Svg Icon-->
+                    
                         <div class="text-inverse-secondary fw-bolder fs-2 mb-2 mt-5">0 <small>Data</small></div>
                         <div class="fw-bold text-inverse-secondary fs-7">RFQ Jasa</div>
                     </div>
-                    <!--end::Body-->
+                    
                 </a>
-                <!--end::Statistics Widget 5-->
-            </div>
+            </div> -->
             <div class="col-xl-3">
                 <!--begin::Statistics Widget 5-->
                 <a href="<?php echo site_url('confirmation/req_price');?>" class="card bg-warning hoverable card-xl-stretch mb-xl-8">
@@ -124,26 +123,20 @@
                 </a>
                 <!--end::Statistics Widget 5-->
             </div>
-            <div class="col-xl-3">
-                <!--begin::Statistics Widget 5-->
+            <!-- <div class="col-xl-3">
                 <a href="#" class="card bg-warning hoverable card-xl-stretch mb-xl-8">
-                    <!--begin::Body-->
                     <div class="card-body">
-                        <!--begin::Svg Icon | path: icons/duotone/Communication/Group.svg-->
                         <span class="svg-icon svg-icon-dark svg-icon-3x ms-n1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <path d="M12.9863016,8.83409843 C12.9953113,8.88805868 13,8.94348179 13,9 L13,11 L17,11 C18.1045695,11 19,11.8954305 19,13 L19,16 L5,16 L5,13 C5,11.8954305 5.8954305,11 7,11 L11,11 L11,9 C11,8.94348179 11.0046887,8.88805868 11.0136984,8.83409843 C9.84135601,8.42615464 9,7.31133193 9,6 C9,4.34314575 10.3431458,3 12,3 C13.6568542,3 15,4.34314575 15,6 C15,7.31133193 14.158644,8.42615464 12.9863016,8.83409843 Z" fill="#000000"></path>
                                     <rect fill="#000000" opacity="0.3" x="5" y="18" width="14" height="2" rx="1"></rect>
                             </svg>
                         </span>
-                        <!--end::Svg Icon-->
                         <div class="text-inverse-warning fw-bolder fs-2 mb-2 mt-5">0 <small>Data belum selesai</small></div>
                         <div class="fw-bold text-inverse-warning fs-7">Status PO Jasa</div>
                     </div>
-                    <!--end::Body-->
                 </a>
-                <!--end::Statistics Widget 5-->
-            </div>
+            </div> -->
             <div class="col-xl-3">
                 <!--begin::Statistics Widget 5-->
                 <a href="#" class="card bg-success hoverable card-xl-stretch mb-5 mb-xl-8">
@@ -164,26 +157,25 @@
                 </a>
                 <!--end::Statistics Widget 5-->
             </div>
-            <div class="col-xl-3">
-                <!--begin::Statistics Widget 5-->
+            <!-- <div class="col-xl-3">
+                
                 <a href="#" class="card bg-primary hoverable card-xl-stretch mb-xl-8">
-                    <!--begin::Body-->
+                    
                     <div class="card-body">
-                        <!--begin::Svg Icon | path: icons/duotone/Media/Equalizer.svg-->
+                    
                         <span class="svg-icon svg-icon-dark svg-icon-3x ms-n1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <path d="M18,14 C16.3431458,14 15,12.6568542 15,11 C15,9.34314575 16.3431458,8 18,8 C19.6568542,8 21,9.34314575 21,11 C21,12.6568542 19.6568542,14 18,14 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
                                 <path d="M17.6011961,15.0006174 C21.0077043,15.0378534 23.7891749,16.7601418 23.9984937,20.4 C24.0069246,20.5466056 23.9984937,21 23.4559499,21 L19.6,21 C19.6,18.7490654 18.8562935,16.6718327 17.6011961,15.0006174 Z M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero"></path>
                             </svg>
                         </span>
-                        <!--end::Svg Icon-->
+                    
                         <div class="text-inverse-primary fw-bolder fs-2 mb-2 mt-5">0 <small>Data</small></div>
                         <div class="fw-bold text-inverse-primary fs-7">Negosiasi Jasa</div>
                     </div>
-                    <!--end::Body-->
+                    
                 </a>
-                <!--end::Statistics Widget 5-->
-            </div>
+            </div> -->
         </div>
         <!--end::Row-->
         <!--begin::Row-->
@@ -214,12 +206,12 @@
                 </a>
                 <!--end::Statistics Widget 5-->
             </div>
-            <div class="col-xl-3">
-                <!--begin::Statistics Widget 5-->
+            <!-- <div class="col-xl-3">
+                
                 <a href="#" class="card bg-success hoverable card-xl-stretch mb-5 mb-xl-8">
-                    <!--begin::Body-->
+                    
                     <div class="card-body">
-                        <!--begin::Svg Icon | path: icons/duotone/Shopping/Chart-pie.svg-->
+                    
                         <span class="svg-icon svg-icon-dark svg-icon-3x ms-n1">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -232,14 +224,14 @@
                                 </g>
                             </svg>
                         </span>
-                        <!--end::Svg Icon-->
+                    
                         <div class="text-inverse-success fw-bolder fs-2 mb-2 mt-5">0 <small>Data</small></div>
                         <div class="fw-bold text-inverse-success fs-7">Riwayat RFQ Jasa</div>
                     </div>
-                    <!--end::Body-->
+                    
                 </a>
-                <!--end::Statistics Widget 5-->
-            </div>
+                
+            </div> -->
             <div class="col-xl-3">
                 <!--begin::Statistics Widget 5-->
                 <a href="#" class="card bg-primary hoverable card-xl-stretch mb-xl-8">
@@ -266,12 +258,12 @@
                 </a>
                 <!--end::Statistics Widget 5-->
             </div>
-            <div class="col-xl-3">
-                <!--begin::Statistics Widget 5-->
+            <!-- <div class="col-xl-3">
+                
                 <a href="#" class="card bg-secondary hoverable card-xl-stretch mb-xl-8">
-                    <!--begin::Body-->
+                
                     <div class="card-body">
-                        <!--begin::Svg Icon | path: icons/duotone/Home/Building.svg-->
+                
                         <span class="svg-icon svg-icon-dark svg-icon-3x ms-n1">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -284,14 +276,14 @@
                                 </g>
                             </svg>
                         </span>
-                        <!--end::Svg Icon-->
+                
                         <div class="text-inverse-secondary fw-bolder fs-2 mb-2 mt-5">0 <small>Data</small></div>
                         <div class="fw-bold text-inverse-secondary fs-7">Riwayat Nego Jasa</div>
                     </div>
-                    <!--end::Body-->
+                
                 </a>
-                <!--end::Statistics Widget 5-->
-            </div>
+                
+            </div> -->
         </div>
         <!--end::Row-->
     </div>

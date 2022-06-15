@@ -31,7 +31,7 @@
                 <label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
                 <!--end::Label-->
                 <!--begin::Link-->
-                <a href="<?php echo site_url('login/forgot'); ?>" class="link-danger fs-6 fw-bolder">Forgot Password ?</a>
+                <!-- <a href="<?php echo site_url('login/forgot'); ?>" class="link-danger fs-6 fw-bolder">Forgot Password ?</a> -->
                 <!--end::Link-->
             </div>
             <!--end::Wrapper-->
