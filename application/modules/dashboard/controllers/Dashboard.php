@@ -8,6 +8,7 @@ class Dashboard extends CI_Controller {
     {
         parent::__construct();
         logged_in();
+        $this->load->model('Dashboard_model', 'dashboard');
     }
     
     /**
@@ -17,11 +18,19 @@ class Dashboard extends CI_Controller {
      */
     public function index()
     {
-        $data['title']      = "Dashboard";
+        $data['title']      = "Dashboard Vendor";
         $data['menu']       = "Dashboard";
         $data['submenu']    = "";
         $data['content']    = "index";
         $this->load->view('default', $data);
+    }
+
+    public function get_dashboard_data()
+    {
+        $data   = $this->dashboard->getDashboardData();
+
+        echo json_encode($data);
+        exit;
     }
 
 }
