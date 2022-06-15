@@ -1,7 +1,7 @@
 USE [baragud]
 GO
 
-/****** Object:  Table [dbo].[TB_S_MST_KONFIRMASI]    Script Date: 09/06/2022 23:59:13 ******/
+/****** Object:  Table [dbo].[TB_S_MST_KONFIRMASI]    Script Date: 15-Jun-22 07:45:41 ******/
 SET ANSI_NULLS ON
 GO
 
