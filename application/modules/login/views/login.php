@@ -57,7 +57,7 @@
 <script type="text/javascript">
     "use strict";
     var KTSigninGeneral = (function () {
-        var t, e, i;
+        var t, e, i, d;
         return {
             init: function () {
                 (t = document.querySelector("#kt_sign_in_form")),
@@ -85,10 +85,13 @@
                             ? (
                                 e.setAttribute("data-kt-indicator", "on"),
                                 (e.disabled = !0),
+                                d = Object.fromEntries(new FormData(t).entries()),
+                                d.password = $.md5(d.password),
+                                // console.log(d)
                                 $.ajax({
                                     type: "POST",
                                     url: t.getAttribute('action'),
-                                    data: Object.fromEntries(new FormData(t).entries()),
+                                    data: d,
                                     success: function(response) {
                                         var obj = jQuery.parseJSON(response);
                                         // console.log(obj);
@@ -109,22 +112,6 @@
                                         }
                                     }
                                 })
-                                // setTimeout(function () {
-                                // 	e.removeAttribute("data-kt-indicator"),
-                                // 	(e.disabled = !1);
-                                // 	// Swal.fire({ 
-                                // 	//     text: "You have successfully logged in!", 
-                                // 	//     icon: "success", 
-                                // 	//     buttonsStyling: !1, 
-                                // 	//     confirmButtonText: "Ok, got it!", 
-                                // 	//     customClass: { 
-                                // 	//         confirmButton: "btn btn-primary" } 
-                                // 	//     })
-                                // 	// .then(function (e) {
-                                // 	//     e.isConfirmed && ((t.querySelector('[name="email"]').value = ""), (t.querySelector('[name="password"]').value = ""));
-                                // 	// });
-                                // }, 2e3),
-                                // (window.location = "<?php echo site_url('dashboard')?>")
                             )
                             : Swal.fire({
                                     text: "Sorry, looks like there are some errors detected, please try again.",

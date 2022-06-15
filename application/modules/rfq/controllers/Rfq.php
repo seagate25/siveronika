@@ -33,6 +33,16 @@ class Rfq extends CI_Controller {
         $this->load->view('default', $data);
     }
 
+    public function det_rfq_goods()
+    {
+        $rfq_no             = $this->uri->segment(3);
+        $data['title']      = "RFQ No : " . $rfq_no;
+        $data['menu']       = "RFQ";
+        $data['submenu']    = "Detail RFQ Barang";
+        $data['content']    = "detail_rfq_goods";
+        $this->load->view('default', $data);
+    }
+
 }
 
 /* End of file Confirmation.php */

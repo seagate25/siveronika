@@ -36,6 +36,7 @@ License: For each use you must have a valid license purchased only from above li
 		<!--begin::Global Javascript Bundle(used by all pages)-->
 		<script src="<?php echo base_url(); ?>assets/plugins/global/plugins.bundle.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/scripts.bundle.js"></script>
+		<script src="<?php echo base_url(); ?>assets/plugins/custom/jquery-md5/jquery.md5.js"></script>
 		<!--end::Global Javascript Bundle-->
 	</head>
 	<!--end::Head-->
