@@ -1,0 +1,116 @@
+Task List
+BARAGUD
+=======================================
+1. Login
+1.1 Adjust Method Login (md5)
+1.2 Ubah Kata Sandi
+1.3 Session Login, jika blm timeout direct to Dashboard
+1.4 Session timeout 30 menit
+1.5 Flag jika diblokir pada table TB_S_MST_PENGGUNA.deletion = 1; default deletion = 0
+1.6 Ada fungsi Tampilkan password untuk melihat password, baik pada login, reset password, dan pada ubah kata sandi
+1.7 Ketika belum logout, mengakses kembali site dan masih dalam session redirect to dashboard
+1.8 Forgot Password yang mengirimkan email yg terdaftar pada table vendor, jika tidak terdaftar ditolak
+1.9 Forgot Password yang melakukan pengiriman email ke email vendor adalah dari WEB, dan di email tersebut diinformasikan password nya
+
+
+2. Dashboard
+2.1 Ditampilkan Summary sesai dengan nama menu
+	1 Konfirmasi Harga
+	2 Permintaan Harga
+	3 RFQ Barang
+	4 Nego RFQ Barang
+	5 PO Barang
+	6 List of Outstanding PO
+	6 Riwayat RFQ Barang
+	7 Riwayat Nego RFQ Barang
+	Notes : Tujuan Dashboard agar vendor mengetahui secara garis besar informasi dari Socfindo
+	Example: 
+	- RFQ -> Toal Penawaran
+	- Konfirmasi -> Total Permintaan & Total Konfirmasi
+
+3. Master
+3.1 Vendor
+3.1.1 Data yang ditampilkan harus terisi semua dr table, dan data yg ditampilkan ada data vendor login (hanya 1 record)
+3.2 Ubah Kata Sandi
+
+4. Konfirmasi
+4.1 Permintaan Harga
+4.1.1 Modifieddate => ketika user simpan pada Web;  Modified_by isinya "WEB"
+4.1.2 Pada Permintaan Harga, jika tanggal konfirmasi sudah meliwati current date, dimasukkan ke Riwayat.
+4.1.3 Tanggal Konfirmasi/ Tanggal Permintaan => TB_S_MST_KONFIRMASI.tanggal_kirim
+4.1.4 Kolom "Status" :
+		1. Belum Konfirmasi : modified_date & modified_by belum terisi
+		2. Sudah Konfirmasi : modified_date & modified_by belum sudah terisi
+4.1.5 Kolom "Status Harga" :
+		1. "HARGA SAMA" : TB_S_MST_KONFIRMASI'-HARGA_PO_TERAKHIR = (KOLOM HARGA)VENDOR YANG INPUT
+		2. "HARGA TURUN" : TB_S_MST_KONFIRMASI'-HARGA_PO_TERAKHIR > (KOLOM HARGA)VENDOR YANG INPUT
+		3. "HARGA NAIK" : TB_S_MST_KONFIRMASI'-HARGA_PO_TERAKHIR < (KOLOM HARGA)VENDOR YANG INPUT 
+		4. Jika kolom harga masih kosong, munculkan kosong
+4.1.6 Pada Form Input Permintaan Harga, untuk "Status Harga" dihilangkan, krn sudah ada validation
+4.1.7 Get Data from table TB_S_MST_KONFIRMASI.konfirmasi_status = 2
+4.1.8 Validation Form Input
+
+4.2 Konfirmasi Harga
+4.2.1 Ditambahkan Input Dibawah Mata Uang (dalam kolom kuning); "Apakah dapat di repeat Order ? (Radio Button "Tidak" "Ya")
+4.2.2 Modifieddate => ketika user simpan pada Web;  Modified_by isinya "WEB" 
+4.2.3 Pada Konfirmasi harga, jika tanggal konfirmasi sudah meliwati current date, dimasukkan ke Riwayat.
+4.2.4 Tanggal Konfirmasi/ Tanggal Permintaan => TB_S_MST_KONFIRMASI.tanggal_kirim
+4.2.5 Kolom "Status" :
+		1. Belum Konfirmasi : modified_date & modified_by belum terisi
+		2. Sudah Konfirmasi : modified_date & modified_by belum sudah terisi
+4.2.6 Kolom "Status" :
+		1. "HARGA SESUAI" : TB_S_MST_KONFIRMASI.PESAN_ULANG = '1'
+		2. "HARGA TIDAK SESUAI" : TB_S_MST_KONFIRMASI.PESAN_ULANG = '0'
+		3. Jika kolom harga masih kosong, munculkan kosong
+4.2.7 Pada Form Input Konfirmasi Harga, untuk "Status Harga" dihilangkan, krn sudah ada validation
+4.2.8 Get Data from table TB_S_MST_KONFIRMASI.konfirmasi_status = 1
+4.2.9 Validation Form Input		
+		
+5. RFQ
+5.1 RFQ Barang
+5.1.1 Ubah detail RFQ Barang, pindah page baru bukan modal
+5.1.2 Form Input dan detail disamakan dengan UI menu Riwayat'->RFQ Barang
+5.1.3 Pada Form Pengisian RFQ, ditambahkan Inputan Biaya Tambahan sesuai Document (SKIP)
+5.1.4 Pada Detail RFQ Barang, ditambahkan Button "Biaya Tambahan" di header, dan ditampilkan Modal untuk transaksi Biaya tambahan
+		a. Biaya Tambahan Input : Kode Biaya, Biaya Tambahan, Jumlah, Keterangan
+		b. Nama Biaya Tambahan akan di provide oleh ASP dan di comsume pada SQLServer 
+5.1.5 Pada Detail RFQ Barang, kolom "Nama Material" : CONCAT(TB_S_MST_RFQ_BARAG_DTL.deskripsi_barang, TB_S_MST_RFQ_BARAG_DTLdeskripsi)
+5.1.6 Pada Detail RFQ Barang, kolom "Status" ada 2 status : 
+		1. "Sudah Isi" : Jika salah satu sudah diinput
+		2. "Belum Isi" : Jika blm ada input
+
+6. Negosiasi
+6.1 Nego RFQ Barang
+6.1.1 Detail button (tombol aksi) next-page bukan dalam bentuk modal form
+6.1.2 UI Nego RFQ Barang disamakan dengan menu Riwayat -> Nego RFQ Barang
+6.1.3 *Form Input Pengisian Pada Harga Permintaan RFQ & Equivalend disamakan dengan Document Design
+6.1.4 *Riwayat readonly
+6.1.5	? *Kolom "Status" darimana ?
+6.1.6 Pada Form Nego, yang bisa diinput hanya pada "Harga Satuan Nego" pada pengisian RFQ dan Pengisian Ekuivalen, inputan lain abu2/ tdak bisa diinput dan pada Riwayat readonly/ abu2
+6.1.7 ditambahkan Dropdown Satuan sebelah inputan "Harga Satuan" => Harga Satuan [     ]  Per* [    v]
+	
+
+7. Status PO 
+7.1 PO Barang
+7.1.1 Pada kolom berkas/ unggah, disediakan icon unggah agar mempermudah bagi vendor untuk download (mudah dimengerti secara visual oleh vendor)
+7.1.2 ? Tombol "Unduh PO" perlu disediakan atau tidak ?
+7.2 List of Outstanding PO
+7.2.1 UI List of Outstanding PO disamakan dengan Document desgin
+7.2.2 ? Sumber data List of Outstanding PO darimana ?
+
+8. Berkas Data
+
+9. Riwayat
+9.1 RFQ Barang
+9.1.1 *Pada riwayat Readonly
+9.1.2 *Pada riwayat untuk tombol browse image di hidden, krn hanya untuk melihat detail data
+9.1.3 Informasi data UI yang ditampilkan pada Riwayat sama dengan RFQ Barang
+
+9.2 Nego RFQ Barang
+
+10. Lainya :
+10.1 Semua Button Proses diberikan confirmation message. ikuti document design
+10.1 Untuk semua Quantity dalam table type data Decimal (13, 3)
+	'- Validate SHow in web : Jika Qty tdak ada decimal, ditampilkan tanpa decimal (bulat), jika ada decimal ditampilkan
+		ex : 	20.000 => 20
+				20.004	=> 20.004
