@@ -26,6 +26,7 @@ CREATE TABLE [dbo].[TB_S_MST_VENDOR](
 	[no_npwp] [char](25) NULL,
 	[nama_npwp] [char](35) NULL,
 	[nama_bank] [char](50) NULL,
+	[nama] [char](50) NULL,
 	[bidang_utama] [char](30) NULL,
 	[bidang_usaha] [char](30) NULL,
 	[nama_marketing] [char](35) NULL,

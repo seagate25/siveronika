@@ -2,7 +2,7 @@
     <div class="card-header bg-success">
         <h3 class="card-title text-white"><?php echo $title; ?></h3>
         <div class="card-toolbar">
-            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
+            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2" onclick="return KTDataTables.init();">
             <i class="las la-sync fs-1 text-success"></i>
             </button>
         </div>
@@ -127,7 +127,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="request_total" class="form-control" placeholder="Jumlah Permintaan" value="4">
+                                <input type="number" name="request_total" class="form-control" placeholder="Jumlah Permintaan" min="1">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -139,7 +139,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="measurement" class="form-control" placeholder="Satuan" value="BH">
+                                <input type="text" name="measurement" class="form-control" placeholder="Satuan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -151,7 +151,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="available_total" class="form-control" placeholder="Jumlah Tersedia" value="3">
+                                <input type="number" name="available_total" class="form-control" placeholder="Jumlah Tersedia" min="0">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -163,7 +163,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="indent_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" value="1">
+                                <input type="number" name="indent_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" min="0">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -175,17 +175,13 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="indent_day" class="form-control" placeholder="Lama Indent (Hari)" value="5">
+                                <input type="number" name="indent_day" class="form-control" placeholder="Lama Indent (Hari)" min="0">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
-                            <!--begin::Label-->
+                         <!-- <div class="row mb-6">
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Harga</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <select class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih Status" data-hide-search="true">
                                     <option></option>
@@ -196,9 +192,7 @@
                                     <option value="5">Option 5</option>
                                 </select>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
+                        </div> -->
                     </div>
                     <!--end::Scroll-->
                 </div>
@@ -258,7 +252,7 @@ var KTDataTables = (function() {
                     { data: 'deskripsi'},
                     { data: 'jumlah' },
                     { data: 'satuan' },
-                    { data: 'modified_date', className: 'text-center' },
+                    { data: 'tanggal_kirim', className: 'text-center' },
                     { data: 'status' },
                     { data: 'status_harga' },
                     { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
@@ -269,6 +263,11 @@ var KTDataTables = (function() {
                     ],
                 pageLength: 10,
                 order: [1, 'ASC']
+            }),
+            $('#kt_datatable_request_price tbody').on('click', 'button', function () {
+                var data = e.row($(this).parents('tr')).data();
+                $("input[name=request_total]").val(data.jumlah);
+                $("input[name=measurement]").val(data.satuan);
             });
         }
     };
@@ -345,5 +344,21 @@ var KTModalConfirmationPrice = (function () {
 KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();
     KTModalConfirmationPrice.init();
+    $("input[name=available_total]").on('keyup', function() {
+        var request_total   = $("input[name=request_total]").val();
+        var indent_total    = parseInt(request_total) - parseInt(this.value);
+        if(indent_total < 0) {
+            indent_total    = 0;
+        } else {
+            indent_total    = indent_total;
+        }
+
+        if(indent_total == 0) {
+            $("input[name=indent_day]").attr('readonly', true).addClass('form-control-solid');
+        } else {
+            $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
+        }
+        $("input[name=indent_total]").val(indent_total);
+    })
 }));
 </script>
