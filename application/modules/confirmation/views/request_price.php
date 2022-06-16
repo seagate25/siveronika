@@ -48,7 +48,7 @@
                 <h5 class="modal-title text-white">Permintaan Harga</h5>
 
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-danger ms-2" data-bs-dismiss="modal" aria-label="Close">
+                <div class="btn btn-icon btn-sm btn-danger ms-2" data-kt-confirmation-modal-action="close" aria-label="Close">
                     <span class="svg-icon svg-icon-2x">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
@@ -275,7 +275,7 @@ var KTDataTables = (function() {
 
 
 var KTModalConfirmationPrice = (function () {
-    var t, e, n, o, i, r;
+    var t, e, n, o, i, r, z;
     return {
         init: function () {
             (r = document.querySelector("#kt_modal_confirmation")) &&
@@ -283,6 +283,7 @@ var KTModalConfirmationPrice = (function () {
                 (o = document.querySelector("#kt_modal_confirmation_form")),
                 (t = document.getElementById("kt_modal_confirmation_submit")),
                 (e = document.getElementById("kt_modal_confirmation_cancel")),
+                (z = document.querySelector('[data-kt-confirmation-modal-action="close"]')),
                 $(o.querySelector('[name="category"]')).on("change", function () {
                     n.revalidateField("category");
                 }),
@@ -334,9 +335,25 @@ var KTModalConfirmationPrice = (function () {
                         }).then(function (t) {
                             t.value
                                 ? (o.reset(), i.hide())
-                                : "cancel" === t.dismiss && Swal.fire({ text: "Your form has not been cancelled!.", icon: "error", buttonsStyling: !1, confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn btn-primary" } });
+                                : "cancel" === t.dismiss;
                         });
-                }));
+                })),
+                z.addEventListener("click", function (t) {
+                    t.preventDefault(),
+                        Swal.fire({
+                            text: "Are you sure you would like to cancel?",
+                            icon: "warning",
+                            showCancelButton: !0,
+                            buttonsStyling: !1,
+                            confirmButtonText: "Yes, cancel it!",
+                            cancelButtonText: "No, return",
+                            customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
+                        }).then(function (t) {
+                            t.value
+                                ? (o.reset(), i.hide())
+                                : "cancel" === t.dismiss;
+                        });
+                })
         },
     };
 })();
@@ -359,6 +376,6 @@ KTUtil.onDOMContentLoaded((function() {
             $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
         }
         $("input[name=indent_total]").val(indent_total);
-    })
+    });
 }));
 </script>
