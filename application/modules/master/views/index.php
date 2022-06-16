@@ -27,7 +27,7 @@
                     <th class="min-w-250px text-center">Surel</th>
                     <th class="min-w-250px text-center">Alamat</th>
                     <th class="min-w-80px text-center">No. Kantor</th>
-                    <th class="min-w-30px text-center">Aksi</th>
+                    <!-- <th class="min-w-30px text-center">Aksi</th> -->
                 </tr>
             </thead>
             <!-- <tbody class="text-gray-600 fw-bold">
@@ -86,8 +86,8 @@ var KTDataTables = (function() {
                     { data: 'tanggal_registrasi', className: 'text-center' },
                     { data: 'email_perusahaan' },
                     { data: 'alamat_perusahaan' },
-                    { data: 'no_telepon', className: 'text-center' },
-                    { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
+                    { data: 'no_telepon', className: 'text-center' }
+                    // { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
                 ],
                 lengthMenu: [
                         [10, 15, 25, -1],
