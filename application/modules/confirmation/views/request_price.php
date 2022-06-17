@@ -63,6 +63,7 @@
 
             <form id="kt_modal_confirmation_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" action="#">
                 <!--begin::Modal body-->
+                <input type="hidden" name="id">
                 <div class="modal-body py-4 px-lg-17">
                     <!--begin::Scroll-->
                     <div class="scroll-y me-n7 pe-7" id="kt_modal_confirmation_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_confirmation_header" data-kt-scroll-wrappers="#kt_modal_confirmation_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
@@ -200,14 +201,14 @@
                 <!--begin::Modal footer-->
                 <div class="modal-footer flex-center">
                     <!--begin::Button-->
-                    <button type="reset" id="kt_modal_confirmation_cancel" class="btn btn-light me-3">Tutup</button>
-                    <!--end::Button-->
-                    <!--begin::Button-->
                     <button type="submit" id="kt_modal_confirmation_submit" class="btn btn-primary">
                         <span class="indicator-label">Simpan</span>
                         <span class="indicator-progress">Please wait...
                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                     </button>
+                    <!--end::Button-->
+                    <!--begin::Button-->
+                    <button type="reset" id="kt_modal_confirmation_cancel" class="btn btn-light me-3">Tutup</button>
                     <!--end::Button-->
                 </div>
                 <!--end::Modal footer-->
@@ -266,6 +267,7 @@ var KTDataTables = (function() {
             }),
             $('#kt_datatable_request_price tbody').on('click', 'button', function () {
                 var data = e.row($(this).parents('tr')).data();
+                $("input[name=id]").val(data.kode_konfirmasi);
                 $("input[name=request_total]").val(data.jumlah);
                 $("input[name=measurement]").val(data.satuan);
             });
@@ -284,15 +286,18 @@ var KTModalConfirmationPrice = (function () {
                 (t = document.getElementById("kt_modal_confirmation_submit")),
                 (e = document.getElementById("kt_modal_confirmation_cancel")),
                 (z = document.querySelector('[data-kt-confirmation-modal-action="close"]')),
-                $(o.querySelector('[name="category"]')).on("change", function () {
-                    n.revalidateField("category");
-                }),
+                // $(o.querySelector('[name="category"]')).on("change", function () {
+                //     n.revalidateField("category");
+                // }),
                 (n = FormValidation.formValidation(o, {
                     fields: {
-                        name: { validators: { notEmpty: { message: "API name is required" } } },
-                        description: { validators: { notEmpty: { message: "Description is required" } } },
-                        category: { validators: { notEmpty: { message: "Country is required" } } },
-                        method: { validators: { notEmpty: { message: "API method is required" } } },
+                        confirmation_price: { validators: { notEmpty: { message: "Harga tidak boleh kosong" } } },
+                        confirmation_currency: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
+                        request_total: { validators: { notEmpty: { message: "Jumlah permintaan tidak boleh kosong" } } },
+                        measurement: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
+                        available_total: { validators: { notEmpty: { message: "Jumlah tersedia tidak boleh kosong" } } },
+                        indent_total: { validators: { notEmpty: { message: "Jumlah indent tidak boleh kosong" } } },
+                        indent_day: { validators: { notEmpty: { message: "Lama indent tidak boleh kosong" } } },
                     },
                     plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
                 })),
@@ -302,58 +307,76 @@ var KTModalConfirmationPrice = (function () {
                             n.validate().then(function (e) {
                                 console.log("validated!"),
                                     "Valid" == e
-                                        ? (t.setAttribute("data-kt-indicator", "on"),
-                                          (t.disabled = !0),
-                                          setTimeout(function () {
-                                              t.removeAttribute("data-kt-indicator"),
-                                                  (t.disabled = !1),
-                                                  Swal.fire({ text: "Form has been successfully submitted!", icon: "success", buttonsStyling: !1, confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn btn-primary" } }).then(
-                                                      function (t) {
-                                                          t.isConfirmed && i.hide();
-                                                      }
-                                                  );
-                                          }, 2e3))
+                                        ? (
+                                            Swal.fire({
+                                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                                                icon: "warning",
+                                                showCancelButton: !0,
+                                                buttonsStyling: !1,
+                                                confirmButtonText: "Ya, Simpan",
+                                                cancelButtonText: "Kembali",
+                                                customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
+                                            }).then(function (r) {
+                                                r.value
+                                                    ? 
+                                                    (
+                                                        $.ajax({
+                                                            type: 'POST',
+                                                            url: '<?php echo site_url("confirmation/save_req_price"); ?>',
+                                                            data: Object.fromEntries(new FormData(o).entries()),
+                                                            beforeSend: function() {
+                                                                t.setAttribute("data-kt-indicator", "on"),
+                                                                (t.disabled = !0);
+                                                            },
+                                                            success: function(response) {
+                                                                var obj = jQuery.parseJSON(response);
+                                                                t.removeAttribute("data-kt-indicator"),
+                                                                (t.disabled = !1);
+                                                                Swal.fire({ 
+                                                                    text: obj.msg, 
+                                                                    icon: obj.status, 
+                                                                    buttonsStyling: !1, 
+                                                                    confirmButtonText: "Tutup", 
+                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
+                                                                    function (t) {
+                                                                        t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),i.hide()) : r.dismiss;
+                                                                    }
+                                                                );
+                                                            },
+                                                            error: function() {
+                                                                t.removeAttribute("data-kt-indicator"),
+                                                                (t.disabled = !1);
+                                                                Swal.fire({ 
+                                                                    text: "Terjadi masalah koneksi", 
+                                                                    icon: "error", 
+                                                                    buttonsStyling: !1, 
+                                                                    confirmButtonText: "Tutup", 
+                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
+                                                                    function (t) {
+                                                                        t.isConfirmed && r.dismiss;
+                                                                    }
+                                                                );
+                                                            }
+                                                        })
+                                                    )
+                                                    : "cancel" === r.dismiss;
+                                            })
+                                          )
                                         : Swal.fire({
-                                              text: "Sorry, looks like there are some errors detected, please try again.",
+                                              text: "Maaf, masih ada field yang kosong, silahkan diisi.",
                                               icon: "error",
                                               buttonsStyling: !1,
-                                              confirmButtonText: "Ok, got it!",
+                                              confirmButtonText: "Tutup",
                                               customClass: { confirmButton: "btn btn-primary" },
                                           });
                             });
                 }),
                 e.addEventListener("click", function (t) {
-                    t.preventDefault(),
-                        Swal.fire({
-                            text: "Are you sure you would like to cancel?",
-                            icon: "warning",
-                            showCancelButton: !0,
-                            buttonsStyling: !1,
-                            confirmButtonText: "Yes, cancel it!",
-                            cancelButtonText: "No, return",
-                            customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
-                        }).then(function (t) {
-                            t.value
-                                ? (o.reset(), i.hide())
-                                : "cancel" === t.dismiss;
-                        });
+                    o.reset(), i.hide()
                 })),
                 z.addEventListener("click", function (t) {
-                    t.preventDefault(),
-                        Swal.fire({
-                            text: "Are you sure you would like to cancel?",
-                            icon: "warning",
-                            showCancelButton: !0,
-                            buttonsStyling: !1,
-                            confirmButtonText: "Yes, cancel it!",
-                            cancelButtonText: "No, return",
-                            customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
-                        }).then(function (t) {
-                            t.value
-                                ? (o.reset(), i.hide())
-                                : "cancel" === t.dismiss;
-                        });
-                })
+                    o.reset(), i.hide()
+                });
         },
     };
 })();
@@ -371,7 +394,7 @@ KTUtil.onDOMContentLoaded((function() {
         }
 
         if(indent_total == 0) {
-            $("input[name=indent_day]").attr('readonly', true).addClass('form-control-solid');
+            $("input[name=indent_day]").attr('readonly', true).addClass('form-control-solid').val(0);
         } else {
             $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
         }

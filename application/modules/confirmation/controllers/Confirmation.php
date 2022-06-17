@@ -44,6 +44,40 @@ class Confirmation extends CI_Controller {
         $this->load->view('default', $data);
     }
 
+    public function save_req_price()
+    {
+        $id             = $this->input->post('id');
+        $price          = $this->input->post('confirmation_price');
+        $currency       = $this->input->post('confirmation_currency');
+        $num_request    = $this->input->post('request_total');
+        $measure        = $this->input->post('measurement');
+        $num_available  = $this->input->post('available_total');
+        $num_indent     = $this->input->post('indent_total');
+        $indent_day     = $this->input->post('indent_day');
+
+        $update         = $this->confirmation->update_request($id, $price, $currency, $num_request, $measure, $num_available, $num_indent, $indent_day);
+        if($update > 0) {
+
+            $response    = array(
+                'code'      => 0,
+                'msg'       => 'Berhasil',
+                'status'    => 'success'
+            );
+
+        } else {
+
+            $response    = array(
+                'code'      => 100,
+                'msg'       => 'Gagal',
+                'status'    => 'error'
+            );
+
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
 }
 
 /* End of file Confirmation.php */
