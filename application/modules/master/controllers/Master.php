@@ -18,6 +18,11 @@ class Master extends CI_Controller {
      */
     public function index()
     {
+        
+    }
+
+    public function vendor()
+    {
         if($this->input->is_ajax_request()) {
             $rows   = $this->master->getAllVendor();
             echo json_encode($rows);
@@ -27,6 +32,15 @@ class Master extends CI_Controller {
         $data['menu']       = "Master";
         $data['submenu']    = "Vendor";
         $data['content']    = "index";
+        $this->load->view('default', $data);
+    }
+
+    public function change_password()
+    {
+        $data['title']      = "Ubah Password";
+        $data['menu']       = "Master";
+        $data['submenu']    = "Ubah Password";
+        $data['content']    = "change_password";
         $this->load->view('default', $data);
     }
 

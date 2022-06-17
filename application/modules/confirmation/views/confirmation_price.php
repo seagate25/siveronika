@@ -99,7 +99,7 @@
                             <!--Begin::Input Group-->
                             <div class="d-flex flex-row mb-6">
                                 <!--begin::Label-->
-                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Harga</label>
+                                <label class="col-lg-4 col-form-label fw-bold fs-6">Harga</label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
@@ -111,7 +111,7 @@
                             <!--Begin::Input Group-->
                             <div class="d-flex flex-row mb-6">
                                 <!--begin::Label-->
-                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Mata Uang</label>
+                                <label class="col-lg-4 col-form-label fw-bold fs-6">Mata Uang</label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
@@ -130,13 +130,13 @@
                                     <div class="align-items-end mt-3">
                                         <!--begin::Option-->
                                         <label class="form-check form-check-inline form-check-solid me-5">
-                                            <input class="form-check-input" name="repeat_order" type="radio" value="Ya">
+                                            <input class="form-check-input" name="repeat_order" type="radio" value="1">
                                             <span class="fw-bold ps-2 fs-6">Ya</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label class="form-check form-check-inline form-check-solid">
-                                            <input class="form-check-input" name="repeat_order" type="radio" value="Tidak">
+                                            <input class="form-check-input" name="repeat_order" type="radio" value="0">
                                             <span class="fw-bold ps-2 fs-6">Tidak</span>
                                         </label>
                                         <!--end::Option-->
@@ -150,11 +150,11 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Permintaan</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">Jumlah Permintaan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" id="request_total" name="request_total" class="form-control" placeholder="Jumlah Permintaan">
+                                <input type="number" id="request_total" name="request_total" class="form-control" readonly="true" placeholder="Jumlah Permintaan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -162,11 +162,11 @@
                          <!--Begin::Input Group-->
                          <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Satuan</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">Satuan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="measurement" class="form-control" placeholder="Satuan">
+                                <input type="text" name="measurement" class="form-control" placeholder="Satuan" readonly="true">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -325,10 +325,10 @@ var KTModalConfirmationPrice = (function () {
                 (n = FormValidation.formValidation(o, {
                     fields: {
                         repeat_order: { validators: { notEmpty: { message: "Wajib diisi" } } },
-                        confirmation_price: { validators: { notEmpty: { message: "Harga tidak boleh kosong" } } },
-                        confirmation_currency: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
-                        request_total: { validators: { notEmpty: { message: "Jumlah permintaan tidak boleh kosong" } } },
-                        measurement: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
+                        // confirmation_price: { validators: { notEmpty: { message: "Harga tidak boleh kosong" } } },
+                        // confirmation_currency: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
+                        // request_total: { validators: { notEmpty: { message: "Jumlah permintaan tidak boleh kosong" } } },
+                        // measurement: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
                         available_total: { validators: { notEmpty: { message: "Jumlah tersedia tidak boleh kosong" } } },
                         indent_total: { validators: { notEmpty: { message: "Jumlah indent tidak boleh kosong" } } },
                         indent_day: { validators: { notEmpty: { message: "Lama indent tidak boleh kosong" } } },
@@ -353,31 +353,53 @@ var KTModalConfirmationPrice = (function () {
                                                 r.value
                                                     ? 
                                                     (
-                                                        t.setAttribute("data-kt-indicator", "on"),
-                                                        (t.disabled = !0),
-                                                        setTimeout(function () {
-                                                            t.removeAttribute("data-kt-indicator"),
-                                                                (t.disabled = !1),
+                                                        $.ajax({
+                                                            type: 'POST',
+                                                            url: '<?php echo site_url("confirmation/save_con_price"); ?>',
+                                                            data: Object.fromEntries(new FormData(o).entries()),
+                                                            beforeSend: function() {
+                                                                t.setAttribute("data-kt-indicator", "on"),
+                                                                (t.disabled = !0);
+                                                            },
+                                                            success: function(response) {
+                                                                var obj = jQuery.parseJSON(response);
+                                                                t.removeAttribute("data-kt-indicator"),
+                                                                (t.disabled = !1);
                                                                 Swal.fire({ 
-                                                                    text: "Form has been successfully submitted!", 
-                                                                    icon: "success", 
+                                                                    text: obj.msg, 
+                                                                    icon: obj.status, 
                                                                     buttonsStyling: !1, 
-                                                                    confirmButtonText: "Ok, got it!", 
+                                                                    confirmButtonText: "Tutup", 
                                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
                                                                     function (t) {
-                                                                        t.isConfirmed && i.hide();
+                                                                        t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),i.hide()) : r.dismiss;
                                                                     }
                                                                 );
-                                                        }, 2e3)
+                                                            },
+                                                            error: function() {
+                                                                t.removeAttribute("data-kt-indicator"),
+                                                                (t.disabled = !1);
+                                                                Swal.fire({ 
+                                                                    text: "Terjadi masalah koneksi", 
+                                                                    icon: "error", 
+                                                                    buttonsStyling: !1, 
+                                                                    confirmButtonText: "Tutup", 
+                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
+                                                                    function (t) {
+                                                                        t.isConfirmed && r.dismiss;
+                                                                    }
+                                                                );
+                                                            }
+                                                        })
                                                     )
                                                     : "cancel" === r.dismiss;
                                             })
                                           )
                                         : Swal.fire({
-                                              text: "Sorry, looks like there are some errors detected, please try again.",
+                                              text: "Maaf, masih ada field yang kosong, silahkan diisi.",
                                               icon: "error",
                                               buttonsStyling: !1,
-                                              confirmButtonText: "Ok, got it!",
+                                              confirmButtonText: "Tutup",
                                               customClass: { confirmButton: "btn btn-primary" },
                                           });
                             });
@@ -405,7 +427,7 @@ KTUtil.onDOMContentLoaded((function() {
         }
 
         if(indent_total == 0) {
-            $("input[name=indent_day]").attr('readonly', true).addClass('form-control-solid');
+            $("input[name=indent_day]").attr('readonly', true).addClass('form-control-solid').val(0);
         } else {
             $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
         }

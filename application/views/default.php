@@ -114,7 +114,7 @@ License: For each use you must have a valid license purchased only from above li
 									</span>
 									<div class="menu-sub menu-sub-accordion menu-active-bg">
 										<div class="menu-item">
-											<a class="menu-link" href="<?php echo site_url('master');?>">
+											<a class="menu-link" href="<?php echo site_url('master/vendor');?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -122,7 +122,7 @@ License: For each use you must have a valid license purchased only from above li
 											</a>
 										</div>
 										<div class="menu-item">
-											<a class="menu-link">
+											<a class="menu-link" href="<?php echo site_url('master/change_password');?>">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>

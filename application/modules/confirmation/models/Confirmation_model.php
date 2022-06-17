@@ -269,9 +269,21 @@ class Confirmation_model extends CI_Model {
         return $this->db->affected_rows();
     }
 
-    public function update_confirm()
+    public function update_confirm($id, $num_available, $num_indent, $indent_day, $repeat_order)
     {
+        $sql    = " UPDATE {$this->table}
+                    SET
+                        jumlah_tersedia = '{$num_available}',
+                        jumlah_inden = '{$num_indent}',
+                        lama_inden = '{$indent_day}',
+                        pesan_ulang = '{$repeat_order}',
+                        modified_by = 'WEB',
+                        modified_date = current_timestamp
+                    WHERE
+                        kode_konfirmasi = '{$id}'";
+        $query  = $this->db->query($sql);
         
+        return $this->db->affected_rows();
     }
 }
 

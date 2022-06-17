@@ -77,7 +77,7 @@ var KTDataTables = (function() {
                 searching: !0,
                 ajax: {
                     type: "POST",
-                    url: "<?php echo site_url('master');?>"
+                    url: "<?php echo site_url('master/vendor');?>"
                 },
                 columns: [
                     { data: 'number', className: 'text-center', sortable: false, searchable: false, orderable: false },

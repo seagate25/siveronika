@@ -60,7 +60,7 @@ class Confirmation extends CI_Controller {
 
             $response    = array(
                 'code'      => 0,
-                'msg'       => 'Berhasil',
+                'msg'       => 'Berhasil menyimpan data',
                 'status'    => 'success'
             );
 
@@ -68,7 +68,38 @@ class Confirmation extends CI_Controller {
 
             $response    = array(
                 'code'      => 100,
-                'msg'       => 'Gagal',
+                'msg'       => 'Gagal menyimpan data',
+                'status'    => 'error'
+            );
+
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
+    public function save_con_price()
+    {
+        $id             = $this->input->post('id');
+        $repeat_order   = $this->input->post('repeat_order');
+        $num_available  = $this->input->post('available_total');
+        $num_indent     = $this->input->post('indent_total');
+        $indent_day     = $this->input->post('indent_day');
+
+        $update         = $this->confirmation->update_confirm($id, $num_available, $num_indent, $indent_day, $repeat_order);
+        if($update > 0) {
+
+            $response    = array(
+                'code'      => 0,
+                'msg'       => 'Berhasil menyimpan data',
+                'status'    => 'success'
+            );
+
+        } else {
+
+            $response    = array(
+                'code'      => 100,
+                'msg'       => 'Gagal menyimpan data',
                 'status'    => 'error'
             );
 

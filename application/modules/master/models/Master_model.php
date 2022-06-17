@@ -19,6 +19,7 @@ class Master_model extends CI_Model {
     
     public function getAllVendor()
     {
+        $vendor = $this->session->userdata('kode_vendor');
         $start = $this->input->post('start');
 		$length = $this->input->post('length') != -1 ? $this->input->post('length') : 10;
 		$draw = $this->input->post('draw');
@@ -36,14 +37,14 @@ class Master_model extends CI_Model {
         );
         
         $order_column = $field[$order_column];
-		$where = "";
+		$where = " WHERE kode_vendor = '{$vendor}'";
 		if(!empty($search['value'])) {
-            $where .= " WHERE kode_vendor LIKE '%".$search['value']."%'";
+            $where .= " AND (kode_vendor LIKE '%".$search['value']."%'";
             $where .= " OR nama_perusahaan LIKE '%".$search['value']."%'";
             $where .= " OR tanggal_registrasi LIKE '%".$search['value']."%'";
             $where .= " OR email_perusahaan LIKE '%".$search['value']."%'";
             $where .= " OR alamat_perusahaan LIKE '%".$search['value']."%'";
-            $where .= " OR no_telepon LIKE '%".$search['value']."%'";
+            $where .= " OR no_telepon LIKE '%".$search['value']."%')";
         }
 
         $sql        = "SELECT * FROM {$this->table}{$where}";
