@@ -89,6 +89,22 @@ class Master_model extends CI_Model {
 			'data' => $rows,
         );
     }
+
+    public function getUserDetail($id)
+    {
+        $sql    = "SELECT * FROM TB_S_MST_PENGGUNA WHERE kode_vendor = '{$id}'";
+        $query  = $this->db->query($sql);
+
+        return $query->row();
+    }
+
+    public function changeUserPassword($vendor_id, $password)
+    {
+        $sql    = "UPDATE TB_S_MST_PENGGUNA SET sandi = '{$password}' WHERE kode_vendor = '{$vendor_id}'";
+        $this->db->query($sql);
+        
+        return $this->db->affected_rows();
+    }
 }
 
 /* End of file Master_model.php */
