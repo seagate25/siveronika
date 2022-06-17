@@ -7,7 +7,7 @@
             <h1 class="text-dark mb-1">Sistem Baragud</h1>
             <!--end::Title-->
             <!--begin::Link-->
-            <div class="text-gray-400 fw-bold fs-4">Proses Pengadaan Barang & Jasa Yang Cepat, Akurat, & Fair
+            <div class="text-gray-400 fw-bold fs-4">Proses Pengadaan Barang yang Cepat, Akurat, & Fair
                 <!-- <a href="../../demo1/dist/authentication/flows/basic/sign-up.html" class="link-primary fw-bolder">Create an Account</a> -->
             </div>
             <!--end::Link-->
@@ -24,7 +24,7 @@
         </div>
         <!--end::Input group-->
         <!--begin::Input group-->
-        <div class="fv-row mb-10">
+        <div class="fv-row mb-4">
             <!--begin::Wrapper-->
             <div class="d-flex flex-stack mb-2">
                 <!--begin::Label-->
@@ -40,6 +40,11 @@
             <!--end::Input-->
         </div>
         <!--end::Input group-->
+        <div class="fv-row mb-10">
+            <!--begin::Input-->
+            <input type="checkbox" onclick="showPassword()">Tampilkan Password
+            <!--end::Input-->
+        </div>
         <!--begin::Actions-->
         <div class="text-center">
             <!--begin::Submit button-->
@@ -129,4 +134,13 @@
     KTUtil.onDOMContentLoaded(function () {
         KTSigninGeneral.init();
     });
+
+    function showPassword() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
 </script>

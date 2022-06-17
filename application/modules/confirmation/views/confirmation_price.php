@@ -207,12 +207,12 @@
                         </div>
                         <!--end::Input Group-->
                          <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                         <!-- <div class="row mb-6"> -->
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Harga</label>
+                            <!-- <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Harga</label> -->
                             <!--end::Label-->
                             <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                            <!-- <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <select class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih Status" data-hide-search="true">
                                     <option></option>
                                     <option value="1">Option 1</option>
@@ -221,9 +221,9 @@
                                     <option value="4">Option 4</option>
                                     <option value="5">Option 5</option>
                                 </select>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div> -->
                             <!--end::Col-->
-                        </div>
+                        <!-- </div> -->
                         <!--end::Input Group-->
                     </div>
                     <!--end::Scroll-->

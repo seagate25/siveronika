@@ -264,10 +264,9 @@ License: For each use you must have a valid license purchased only from above li
 										</div>
 									</div>
 								</div>
-								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+								<!-- <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">
-											<!--begin::Svg Icon | path: assets/media/icons/duotone/Files/Uploaded-file.svg-->
 											<span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
 												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 													<polygon points="0 0 24 0 24 24 0 24"/>
@@ -275,30 +274,11 @@ License: For each use you must have a valid license purchased only from above li
 													<path d="M8.95128003,13.8153448 L10.9077535,13.8153448 L10.9077535,15.8230161 C10.9077535,16.0991584 11.1316112,16.3230161 11.4077535,16.3230161 L12.4310522,16.3230161 C12.7071946,16.3230161 12.9310522,16.0991584 12.9310522,15.8230161 L12.9310522,13.8153448 L14.8875257,13.8153448 C15.1636681,13.8153448 15.3875257,13.5914871 15.3875257,13.3153448 C15.3875257,13.1970331 15.345572,13.0825545 15.2691225,12.9922598 L12.3009997,9.48659872 C12.1225648,9.27584861 11.8070681,9.24965194 11.596318,9.42808682 C11.5752308,9.44594059 11.5556598,9.46551156 11.5378061,9.48659872 L8.56968321,12.9922598 C8.39124833,13.2030099 8.417445,13.5185067 8.62819511,13.6969416 C8.71848979,13.773391 8.8329684,13.8153448 8.95128003,13.8153448 Z" fill="#000000"/>
 												</g>
 											</svg></span>
-											<!--end::Svg Icon-->
 										</span>
 										<span class="menu-title">Berkas Data</span>
 										<span class="menu-arrow"></span>
 									</span>
-									<!-- <div class="menu-sub menu-sub-accordion menu-active-bg">
-										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/overview.html">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<span class="menu-title">Vendor</span>
-											</a>
-										</div>
-										<div class="menu-item">
-											<a class="menu-link" href="../../demo1/dist/account/settings.html">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<span class="menu-title">Ubah Kata Sandi</span>
-											</a>
-										</div>
-									</div> -->
-								</div>
+								</div> -->
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">
@@ -468,9 +448,9 @@ License: For each use you must have a valid license purchased only from above li
 														<!--end::Avatar-->
 														<!--begin::Username-->
 														<div class="d-flex flex-column">
-															<div class="fw-bolder d-flex align-items-center fs-5"><?php echo $this->session->userdata('nama');?>
+															<div class="fw-bolder d-flex align-items-center fs-7"><?php echo $this->session->userdata('nama');?>
 															<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"><?php echo $this->session->userdata('kode_negara');?></span></div>
-															<a class="fw-bold text-muted text-hover-primary fs-7"><?php echo $this->session->userdata('email');?></a>
+															<a class="fw-bold text-muted text-hover-primary fs-8"><?php echo $this->session->userdata('email');?></a>
 														</div>
 														<!--end::Username-->
 													</div>
