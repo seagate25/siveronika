@@ -300,8 +300,8 @@ var KTDataTables = (function() {
             $('#kt_datatable_confirmation_price tbody').on('click', 'button', function () {
                 var data = e.row($(this).parents('tr')).data();
                 $("input[name=id]").val(data.kode_konfirmasi);
-                $("input[name=confirmation_price]").val(data.harga);
-                $("input[name=confirmation_currency]").val(data.mata_uang);
+                $("input[name=confirmation_price]").val(data.harga_po_terakhir);
+                $("input[name=confirmation_currency]").val(data.mata_uang_po_terakhir);
                 $("input[name=request_total]").val(data.jumlah);
                 $("input[name=measurement]").val(data.satuan);
             });
