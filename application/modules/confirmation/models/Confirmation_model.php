@@ -10,11 +10,14 @@ class Confirmation_model extends CI_Model {
      * @var string
      */
     protected $table;
+
+    protected $vendor_code;
     
     public function __construct()
     {
         parent::__construct();
-        $this->table    = "TB_S_MST_KONFIRMASI";
+        $this->table        = "TB_S_MST_KONFIRMASI";
+        $this->vendor_code  = $this->session->userdata('kode_vendor');
     }
     
     public function getConfirmationPriceList()
@@ -53,7 +56,7 @@ class Confirmation_model extends CI_Model {
         );
         
         $order_column = $field[$order_column];
-		$where = " WHERE (konfirmasi_status ='1') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+		$where = " WHERE (konfirmasi_status = '1' AND kode_vendor = '{$this->vendor_code}') ";  // Get Konfirmasi harga with konfirmasi_status = 1
 		if(!empty($search['value'])) {
             $where .= " AND ";
             $where .= " (kode_konfirmasi LIKE '%".$search['value']."%'";
@@ -170,7 +173,7 @@ class Confirmation_model extends CI_Model {
         );
         
         $order_column = $field[$order_column];
-		$where = " WHERE (konfirmasi_status ='2') ";  // Get Konfirmasi harga with konfirmasi_status = 2
+		$where = " WHERE (konfirmasi_status = '2' AND kode_vendor = '{$this->vendor_code}') ";  // Get Konfirmasi harga with konfirmasi_status = 2
 		if(!empty($search['value'])) {
             $where .= " AND ";
             $where .= " kode_konfirmasi LIKE '%".$search['value']."%'";
@@ -217,7 +220,7 @@ class Confirmation_model extends CI_Model {
             $row->deskripsi         = $row->deskripsi;
             $row->jumlah            = (int)$row->jumlah;
             $row->harga             = (int)$row->harga;
-            $row->mata_uang         = $row->mata_uang;
+            $row->mata_uang         = trim($row->mata_uang);
             $row->satuan            = $row->satuan;
             $row->konfirmasi_status = $row->konfirmasi_status;
             $row->jumlah_tersedia   = (int)$row->jumlah_tersedia;

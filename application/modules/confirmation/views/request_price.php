@@ -1,3 +1,4 @@
+<script src="<?php echo base_url(); ?>assets/plugins/custom/jquery-maskMoney/jquery.maskMoney.js"></script>
 <div class="card shadow-sm">
     <div class="card-header bg-success">
         <h3 class="card-title text-white"><?php echo $title; ?></h3>
@@ -102,7 +103,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="number" name="confirmation_price" class="form-control"  placeholder="Harga">
+                                    <input type="text" name="confirmation_price" class="form-control"  placeholder="Harga">
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Col-->
                             </div>
@@ -128,7 +129,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="request_total" class="form-control" placeholder="Jumlah Permintaan" min="1">
+                                <input type="number" name="request_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan" min="1">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -140,7 +141,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="measurement" class="form-control" placeholder="Satuan">
+                                <input type="text" name="measurement" class="form-control form-control-solid" readonly="true" placeholder="Satuan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -268,6 +269,8 @@ var KTDataTables = (function() {
             $('#kt_datatable_request_price tbody').on('click', 'button', function () {
                 var data = e.row($(this).parents('tr')).data();
                 $("input[name=id]").val(data.kode_konfirmasi);
+                $("input[name=confirmation_price]").val(data.harga);
+                $("input[name=confirmation_currency]").val(data.mata_uang);
                 $("input[name=request_total]").val(data.jumlah);
                 $("input[name=measurement]").val(data.satuan);
             });
@@ -384,6 +387,7 @@ var KTModalConfirmationPrice = (function () {
 KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();
     KTModalConfirmationPrice.init();
+    $("input[name=confirmation_price]").maskMoney({ thousands:'.', decimal:',', affixesStay: false, precision: 0});
     $("input[name=available_total]").on('keyup', function() {
         var request_total   = $("input[name=request_total]").val();
         var indent_total    = parseInt(request_total) - parseInt(this.value);
@@ -399,6 +403,9 @@ KTUtil.onDOMContentLoaded((function() {
             $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
         }
         $("input[name=indent_total]").val(indent_total);
+    });
+    $('#kt_modal_confirmation').on('shown.bs.modal', function () {
+        $('input[name=confirmation_price]').trigger('focus');
     });
 }));
 </script>
