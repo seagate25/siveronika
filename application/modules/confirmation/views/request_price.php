@@ -209,7 +209,7 @@
                     </button>
                     <!--end::Button-->
                     <!--begin::Button-->
-                    <button type="reset" id="kt_modal_confirmation_cancel" class="btn btn-light me-3">Tutup</button>
+                    <button type="reset" id="kt_modal_confirmation_cancel" class="btn btn-danger me-3">Tutup</button>
                     <!--end::Button-->
                 </div>
                 <!--end::Modal footer-->
@@ -269,7 +269,8 @@ var KTDataTables = (function() {
             $('#kt_datatable_request_price tbody').on('click', 'button', function () {
                 var data = e.row($(this).parents('tr')).data();
                 $("input[name=id]").val(data.kode_konfirmasi);
-                $("input[name=confirmation_price]").val(data.harga);
+                $("input[name=confirmation_price]").maskMoney('mask', data.harga);
+                // $("input[name=confirmation_price]").val(data.harga);
                 $("input[name=confirmation_currency]").val(data.mata_uang);
                 $("input[name=request_total]").val(data.jumlah);
                 $("input[name=measurement]").val(data.satuan);
@@ -404,8 +405,8 @@ KTUtil.onDOMContentLoaded((function() {
         }
         $("input[name=indent_total]").val(indent_total);
     });
-    $('#kt_modal_confirmation').on('shown.bs.modal', function () {
-        $('input[name=confirmation_price]').trigger('focus');
-    });
+    // $('#kt_modal_confirmation').on('shown.bs.modal', function () {
+    //     $('input[name=confirmation_price]').trigger('focus');
+    // });
 }));
 </script>
