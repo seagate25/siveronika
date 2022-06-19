@@ -47,7 +47,7 @@ class Confirmation extends CI_Controller {
     public function save_req_price()
     {
         $id             = $this->input->post('id');
-        $price          = $this->input->post('confirmation_price');
+        $price          = str_replace('.', '', $this->input->post('confirmation_price'));
         $currency       = $this->input->post('confirmation_currency');
         $num_request    = $this->input->post('request_total');
         $measure        = $this->input->post('measurement');
