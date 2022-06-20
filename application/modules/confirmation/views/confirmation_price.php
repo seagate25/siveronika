@@ -304,6 +304,12 @@ var KTDataTables = (function() {
                 $("input[name=confirmation_price]").maskMoney('mask', data.harga_po_terakhir);
                 // $("input[name=confirmation_price]").val(data.harga_po_terakhir);
                 $("input[name=confirmation_currency]").val(data.mata_uang_po_terakhir);
+                if(data.modified_date != null && data.modified_by != null) {
+                    $("input[name=repeat_order][value="+data.pesan_ulang+"]").prop('checked', true);
+                    $("input[name=available_total]").val(data.jumlah_tersedia);
+                    $("input[name=indent_total]").val(data.jumlah_inden);
+                    $("input[name=indent_day]").val(data.lama_inden);
+                }
                 $("input[name=request_total]").val(data.jumlah);
                 $("input[name=measurement]").val(data.satuan);
             });
