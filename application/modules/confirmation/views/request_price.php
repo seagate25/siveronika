@@ -274,6 +274,11 @@ var KTDataTables = (function() {
                 $("input[name=confirmation_currency]").val(data.mata_uang);
                 $("input[name=request_total]").val(data.jumlah);
                 $("input[name=measurement]").val(data.satuan);
+                if(data.modified_date != null && data.modified_by != null) {
+                    $("input[name=available_total]").val(data.jumlah_tersedia);
+                    $("input[name=indent_total]").val(data.jumlah_inden);
+                    $("input[name=indent_day]").val(data.lama_inden);
+                }
             });
         }
     };
@@ -376,10 +381,10 @@ var KTModalConfirmationPrice = (function () {
                             });
                 }),
                 e.addEventListener("click", function (t) {
-                    o.reset(), i.hide()
+                    n.resetForm(true), i.hide()
                 })),
                 z.addEventListener("click", function (t) {
-                    o.reset(), i.hide()
+                    n.resetForm(true), i.hide()
                 });
         },
     };

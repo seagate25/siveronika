@@ -173,7 +173,7 @@ class Confirmation_model extends CI_Model {
         );
         
         $order_column = $field[$order_column];
-		$where = " WHERE (konfirmasi_status = '2' AND kode_vendor = '{$this->vendor_code}') ";  // Get Konfirmasi harga with konfirmasi_status = 2
+		$where = " WHERE (konfirmasi_status = '2' AND kode_vendor = '{$this->vendor_code}' and tanggal_kirim = '".date('Y-m-d')."') ";  // Get Konfirmasi harga with konfirmasi_status = 2
 		if(!empty($search['value'])) {
             $where .= " AND ";
             $where .= " kode_konfirmasi LIKE '%".$search['value']."%'";
@@ -219,8 +219,8 @@ class Confirmation_model extends CI_Model {
             $row->kode_material     = $row->kode_material;
             $row->deskripsi         = utf8_encode($row->deskripsi);
             $row->jumlah            = (int)$row->jumlah;
-            $row->harga             = (int)$row->harga;
-            $row->mata_uang         = trim($row->mata_uang);
+            $row->harga             = ($row->modified_by == NULL && $row->modified_date == NULL) ? 0 : (int)$row->harga;
+            $row->mata_uang         = ($row->modified_by == NULL && $row->modified_date == NULL) ? '' : trim($row->mata_uang);
             $row->satuan            = $row->satuan;
             $row->konfirmasi_status = $row->konfirmasi_status;
             $row->jumlah_tersedia   = (int)$row->jumlah_tersedia;
@@ -233,7 +233,7 @@ class Confirmation_model extends CI_Model {
             // $row->actions           = '<a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation"><i class="fas fa-envelope-open-text"></i></a>';
             $row->actions           = '<button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation"><i class="fas fa-envelope-open-text"></i></button>';
             $row->status            = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Konfirmasi" : "Sudah Konfirmasi";
-            if($row->harga == 0) {
+            if($row->harga == 0 || ($row->modified_by == NULL && $row->modified_date == NULL)) {
                 $row->status_harga      = "";
             } else if($row->harga_po_terakhir == $row->harga) {
                 $row->status_harga      = "HARGA SAMA";
@@ -264,7 +264,9 @@ class Confirmation_model extends CI_Model {
                         satuan = '{$measure}',
                         jumlah_tersedia = '{$num_available}',
                         jumlah_inden = '{$num_indent}',
-                        lama_inden = '{$indent_day}'
+                        lama_inden = '{$indent_day}',
+                        modified_date = current_timestamp,
+                        modified_by = 'WEB'
                     WHERE
                         kode_konfirmasi = '{$id}'";
         $query  = $this->db->query($sql);
