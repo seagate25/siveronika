@@ -4,7 +4,7 @@
         <!--begin::Heading-->
         <div class="text-center mb-10">
             <!--begin::Title-->
-            <h1 class="text-dark mb-3">Forgot Password ?</h1>
+            <h1 class="text-dark mb-3">Lupa Password ?</h1>
             <!--end::Title-->
             <!--begin::Link-->
             <div class="text-gray-400 fw-bold fs-4">Silahkan masukkan email Anda untuk mereset password.</div>

@@ -461,7 +461,7 @@ License: For each use you must have a valid license purchased only from above li
 												<!--end::Menu separator-->
 												<!--begin::Menu item-->
 												<div class="menu-item px-5">
-													<a href="<?php echo base_url()."master";?>" class="menu-link px-5">My Profile</a>
+													<a href="<?php echo base_url()."master/vendor";?>" class="menu-link px-5">Profil</a>
 												</div>
 												<!--end::Menu item-->
 												<!--begin::Menu item-->

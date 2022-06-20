@@ -114,9 +114,9 @@ class Login extends CI_Controller {
             $mail->Port = 587; // TLS only
             $mail->SMTPSecure = 'tls'; // ssl is depracated
             $mail->SMTPAuth = true;
-            $mail->Username = 'sigidh.budi@gmail.com';
-            $mail->Password = 'mrdagvxoaexrciiw';
-            $mail->setFrom('baragud@socfindo.co.id', 'Baragud Socfindo');
+            $mail->Username = 'muhamad.wik@gmail.com';
+            $mail->Password = 'yaqlmppkftfgqija';
+            $mail->setFrom('testmail.info.noreplay@gmail.com', 'Baragud Socfindo');
             $mail->addAddress($get_user_mail['data']->email_perusahaan);
             $mail->Subject = 'Reset Password';
             $mail->msgHTML($mail_body); //$mail->msgHTML(file_get_contents('contents.html'), __DIR__); //Read an HTML message body from an external file, convert referenced images to embedded,
