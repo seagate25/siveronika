@@ -11,14 +11,16 @@ class Dashboard_model extends CI_Model {
             'konfirmasi_harga'  => 0
         );
 
+        $vendor_code =   $this->session->userdata('kode_vendor');
+
         // Total Permintaan Harga
-        $sql    = "SELECT COUNT(kode_konfirmasi) AS permintaan_harga FROM TB_S_MST_KONFIRMASI WHERE konfirmasi_status=2";
+        $sql    = "SELECT COUNT(kode_konfirmasi) AS permintaan_harga FROM TB_S_MST_KONFIRMASI WHERE konfirmasi_status=2 AND kode_vendor='{$vendor_code}'AND modified_date IS NULL AND modified_by IS NULL";
         $query  = $this->db->query($sql);
         $result = $query->row();
         $graph_data['permintaan_harga'] = (int)$result->permintaan_harga;
 
         // Total Konfirmasi Harga
-        $sql    = "SELECT COUNT(kode_konfirmasi) AS konfirmasi_harga FROM TB_S_MST_KONFIRMASI WHERE konfirmasi_status=1";
+        $sql    = "SELECT COUNT(kode_konfirmasi) AS konfirmasi_harga FROM TB_S_MST_KONFIRMASI WHERE konfirmasi_status=1 AND kode_vendor='{$vendor_code}'AND modified_date IS NULL AND modified_by IS NULL";
         $query  = $this->db->query($sql);
         $result = $query->row();
         $graph_data['konfirmasi_harga'] = (int)$result->konfirmasi_harga;

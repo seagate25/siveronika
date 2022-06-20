@@ -426,7 +426,7 @@ KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();
     KTModalConfirmationPrice.init();
     $("input[name=confirmation_price]").maskMoney({ thousands:'.', decimal:',', affixesStay: false, precision: 0});
-    $("input[name=available_total]").on('keyup', function() {
+    $("input[name=available_total]").on('keyup change', function() {
         var request_total   = $("input[name=request_total]").val();
         var indent_total    = parseInt(request_total) - parseInt(this.value);
         if(indent_total < 0) {
