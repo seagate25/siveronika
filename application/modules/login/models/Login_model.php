@@ -137,6 +137,78 @@ class Login_model extends CI_Model {
 
         return $response;
     }
+
+    public function getUserMail($vendor_code, $vendor_mail)
+    {
+        $sql    = "SELECT
+                        a.deletion,
+                        a.kode_vendor,
+                        b.nama_perusahaan,
+                        b.email_perusahaan
+                    FROM
+                        TB_S_MST_PENGGUNA a
+                    JOIN
+                        TB_S_MST_VENDOR b ON (a.kode_vendor = b.kode_vendor and a.kode_vendor='{$vendor_code}')";
+        $query  = $this->db->query($sql);
+        if($query->num_rows() > 0) {
+
+            $vendor_data = $query->row();
+            if($vendor_data->deletion == 1) {
+
+                $response   = array(
+                    'code'  => 200,
+                    'msg'   => 'Maaf, akun Anda diblokir. Silahkan hubungi Administrator.'
+                );
+
+            } else {
+
+                if($vendor_data->email_perusahaan == $vendor_mail) {
+
+                    $new_password   = '123456';
+                    $sql_update     = "UPDATE TB_S_MST_PENGGUNA SET sandi = '".md5($new_password)."', modified_date = current_timestamp, modified_by = 'WEB' WHERE kode_vendor = '{$vendor_code}'";
+                    $query_update   = $this->db->query($sql_update);
+
+                    if($this->db->affected_rows() > 0) {
+
+                        $vendor_data->sandi = $new_password;
+
+                        $response   = array(
+                            'code'  => 0,
+                            'msg'   => 'SUCCESS',
+                            'data'  => $vendor_data
+                        );
+
+                    } else {
+
+                        $response   = array(
+                            'code'  => 300,
+                            'msg'   => 'Gagal mereset password'
+                        );
+
+                    }
+
+                } else {
+
+                    $response   = array(
+                        'code'  => 100,
+                        'msg'   => 'Email yang Anda masukkan tidak terdaftar.'
+                    );
+
+                }
+
+            }
+            
+        } else {
+
+            $response   = array(
+                'code'  => 100,
+                'msg'   => 'Maaf, Kode Vendor / Email tidak ditemukan'
+            );
+
+        }
+
+        return $response;
+    }
 }
 
 /* End of file Login_model.php */
