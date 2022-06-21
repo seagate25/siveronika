@@ -101,11 +101,15 @@ class Login extends CI_Controller {
     {
         $vendor_id      = $this->input->post('vendor_code');
         $vendor_mail    = $this->input->post('email');
-
+        
         $get_user_mail  = $this->login->getUserMail($vendor_id, $vendor_mail);
+        $mail_body      = '';
         if($get_user_mail['code'] == 0) {
 
-            $mail_body  = "Kepada Yth:, <br><b>PT. ".$get_user_mail['data']->nama_perusahaan."</b>,<br>Silahkan login dengan credential berikut:<br><br><b>USERNAME</b><br><b>".$get_user_mail['data']->kode_vendor."</b><br><b>PASSWORD</b><br><b>".$get_user_mail['data']->sandi."</b>";
+            $mail_body  .= 'Kepada Yth:, <br><b>PT. '.$get_user_mail['data']->nama_perusahaan.'</b>,';
+            $mail_body  .= '<br>Silahkan login dengan credential berikut:<br><br>';
+            $mail_body  .= '<b>USERNAME</b><br><b>'.$get_user_mail['data']->kode_vendor.'</b><br>';
+            $mail_body  .= '<b>PASSWORD</b><br><b>'.$get_user_mail['data']->sandi.'</b>';
 
             $mail = new PHPMailer;
             $mail->isSMTP(); 
