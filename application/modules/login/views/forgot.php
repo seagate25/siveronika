@@ -13,8 +13,8 @@
         <!--begin::Heading-->
         <!--begin::Input group-->
         <div class="fv-row mb-10">
-            <label class="form-label fw-bolder text-gray-900 fs-6">Kode Vendor</label>
-            <input class="form-control" type="text" placeholder="Masukkan Kode Vendor" name="vendor_code" autocomplete="off" />
+            <label class="form-label fw-bolder text-gray-900 fs-6">Username</label>
+            <input class="form-control" type="text" placeholder="Masukkan Username" name="vendor_code" autocomplete="off" />
         </div>
         <!--end::Input group-->
         <!--begin::Input group-->
