@@ -42,8 +42,14 @@
         <!--end::Input group-->
         <div class="fv-row mb-10">
             <!--begin::Input-->
-            <input type="checkbox" onclick="showPassword()">Tampilkan Password
+            <!-- <input type="checkbox" onclick="showPassword()">Tampilkan Password -->
             <!--end::Input-->
+            <div class="form-check form-check-custom form-check-solid form-check-sm">
+                <input class="form-check-input" type="checkbox" value="" id="flexRadioLg" onclick="showPassword()"/>
+                <label class="form-check-label fw-bold text-gray-700 fs-6" for="flexRadioLg">
+                Tampilkan Password
+                </label>
+            </div>
         </div>
         <!--begin::Actions-->
         <div class="text-center">

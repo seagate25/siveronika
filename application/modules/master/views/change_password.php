@@ -23,37 +23,55 @@
                 </div>
                 <!--begin::Heading-->
                 <!--begin::Input group-->
-                <div class="fv-row mb-10">
+                <div class="fv-row mb-0">
                     <label class="form-label fw-bolder text-gray-900 fs-6">Password Lama</label>
                     <input class="form-control" type="password" placeholder="Masukkan Password Lama" id="current_password" name="current_password" autocomplete="off" />
                 </div>
                 <div class="fv-row mb-10">
                     <!--begin::Input-->
-                    <input type="checkbox" onclick="showPassword('current')">Tampilkan Password
+                    <!-- <input type="checkbox" onclick="showPassword('current')">Tampilkan Password -->
                     <!--end::Input-->
+                    <div class="form-check form-check-custom form-check-solid form-check-sm">
+                        <input class="form-check-input" type="checkbox" onclick="showPassword('current')"/>
+                        <label class="form-check-label fw-bold text-gray-700 fs-6" for="flexRadioLg">
+                        Tampilkan Password
+                        </label>
+                    </div>
                 </div>
                 <!--end::Input group-->
                 <!--begin::Input group-->
-                <div class="fv-row mb-10">
+                <div class="fv-row mb-0">
                     <label class="form-label fw-bolder text-gray-900 fs-6">Password Baru</label>
                     <input class="form-control" type="password" placeholder="Masukkan Password Baru" id="new_password" name="new_password" autocomplete="off" />
                 </div>
                 <div class="fv-row mb-10">
                     <!--begin::Input-->
-                    <input type="checkbox" onclick="showPassword('new')">Tampilkan Password
+                    <!-- <input type="checkbox" onclick="showPassword('new')">Tampilkan Password -->
                     <!--end::Input-->
+                    <div class="form-check form-check-custom form-check-solid form-check-sm">
+                        <input class="form-check-input" type="checkbox" onclick="showPassword('new')"/>
+                        <label class="form-check-label fw-bold text-gray-700 fs-6" for="flexRadioLg">
+                        Tampilkan Password
+                        </label>
+                    </div>
                 </div>
                 <!--end::Input group-->
                 <!--begin::Input group-->
-                <div class="fv-row mb-10">
+                <div class="fv-row mb-0">
                     <label class="form-label fw-bolder text-gray-900 fs-6">Konfirmasi Password Baru</label>
                     <input class="form-control" type="password" placeholder="Konfirmasi Password Baru" id="confirm_password" name="confirm_password" autocomplete="off" />
                 </div>
                 <!--end::Input group-->
                 <div class="fv-row mb-10">
                     <!--begin::Input-->
-                    <input type="checkbox" onclick="showPassword('confirm')">Tampilkan Password
+                    <!-- <input type="checkbox" onclick="showPassword('confirm')">Tampilkan Password -->
                     <!--end::Input-->
+                    <div class="form-check form-check-custom form-check-solid form-check-sm">
+                        <input class="form-check-input" type="checkbox" value="" id="flexRadioLg" onclick="showPassword('confirm')"/>
+                        <label class="form-check-label fw-bold text-gray-700 fs-6" for="flexRadioLg">
+                        Tampilkan Password
+                        </label>
+                    </div>
                 </div>
                 <!--begin::Actions-->
                 <div class="d-flex flex-wrap justify-content-center pb-lg-0">
