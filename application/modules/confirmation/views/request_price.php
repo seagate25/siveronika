@@ -249,7 +249,9 @@ var KTDataTables = (function() {
                     url: "<?php echo site_url('confirmation/req_price');?>"
                 },
                 columns: [
-                    { data: 'number', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                    { data: 'number', className: 'text-center', sortable: false, searchable: false, orderable: false, render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    } },
                     { data: 'kode_material', className: 'text-center' },
                     { data: 'deskripsi'},
                     { data: 'jumlah' },
@@ -260,8 +262,8 @@ var KTDataTables = (function() {
                     { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
                 ],
                 lengthMenu: [
-                        [10, 15, 25, -1],
-                        [10, 15, 25, "All"]
+                        [5, 10, 15, 25, -1],
+                        [5, 10, 15, 25, "All"]
                     ],
                 pageLength: 10,
                 order: [1, 'ASC']
@@ -348,7 +350,7 @@ var KTModalConfirmationPrice = (function () {
                                                                     confirmButtonText: "Tutup", 
                                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
                                                                     function (t) {
-                                                                        t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),i.hide()) : r.dismiss;
+                                                                        t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),n.resetForm(true),i.hide()) : r.dismiss;
                                                                     }
                                                                 );
                                                             },
