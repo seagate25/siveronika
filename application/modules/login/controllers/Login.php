@@ -106,11 +106,6 @@ class Login extends CI_Controller {
         $mail_body      = '';
         if($get_user_mail['code'] == 0) {
 
-            $mail_body  .= 'Kepada Yth:, <br><b>PT. '.$get_user_mail['data']->nama_perusahaan.'</b>,';
-            $mail_body  .= '<br>Silahkan login dengan credential berikut:<br><br>';
-            $mail_body  .= '<b>USERNAME</b><br><b>'.$get_user_mail['data']->kode_vendor.'</b><br>';
-            $mail_body  .= '<b>PASSWORD</b><br><b>'.$get_user_mail['data']->sandi.'</b>';
-
             $mail = new PHPMailer;
             $mail->isSMTP(); 
             $mail->SMTPDebug = 0; // 0 = off (for production use) - 1 = client messages - 2 = client and server messages
@@ -123,8 +118,64 @@ class Login extends CI_Controller {
             $mail->setFrom('testmail.info.noreplay@gmail.com', 'Baragud Socfindo');
             $mail->addAddress($get_user_mail['data']->email_perusahaan);
             $mail->Subject = 'Reset Password';
+            $mail->AddEmbeddedImage('assets/media/logos/Socfindo-Logo.svg', 'logo_socfin', 'Socfindo-Logo.svg');
+            $mail_body  = '<html><head><style>html,body { padding: 0; margin:0; }</style>
+            </head><body style=""><div style="font-family:Arial,Helvetica,sans-serif; line-height: 1.5; font-weight: normal; font-size: 15px; color: #2F3044; min-height: 100%; margin:0; padding:0; width:100%; background-color:#edf2f7">
+                <br><table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;margin:0 auto; padding:0; max-width:600px">
+                    <tbody>
+                        <tr>
+                            <td align="center" valign="center" style="text-align:center; padding: 40px">
+                            <img src="cid:logo_socfin" style="height: 45px" alt="logo"></td></tr><tr>
+                                            <td align="left" valign="center">
+                                                <div style="text-align:left; margin: 0 20px; padding: 40px; background-color:#ffffff; border-radius: 6px">
+                                                    <!--begin:Email content-->
+                                                    <div style="padding-bottom: 30px; font-size: 17px;">
+                                                        <p>Kepada Yth,</p>
+                                                        <strong>PT. '.$get_user_mail['data']->nama_perusahaan.'</strong>
+                                                    </div>
+                                                    <div style="padding-bottom: 30px">Silahkan login dengan kridensial berikut:</div>
+                                                    <div style="padding-top: 40px;padding-bottom: 40px; text-align:center; background-color:#50cd89!important;border-radius: 6px">
+                                                        <div style="padding-bottom: 10px; text-align:center; color:">
+                                                            <strong>USERNAME</strong>
+                                                            <br>
+                                                            <strong style="color:#f1416c!important">'.$get_user_mail['data']->kode_vendor.'</strong>
+                                                        </div>
+                                                        <div style="padding-bottom: 10px; text-align:center;">
+                                                            <strong>PASSWORD</strong>
+                                                            <br>
+                                                            <strong style="color:#f1416c!important">'.$get_user_mail['data']->sandi.'</strong>
+                                                        </div>
+                                                        <div style="padding-bottom: 10px; text-align:center;">
+                                                            <strong>TAUTAN</strong>
+                                                            <br>
+                                                            <strong>baragud.socfindo.co.id</strong>
+                                                        </div>
+                                                    </div>
+                                                    <div style="border-bottom: 1px solid #eeeeee; margin: 15px 0"></div>
+                                                    <div style="padding-bottom: 50px; word-wrap: break-all;">
+                                                        <p style="margin-bottom: 10px;">Harap menghubungi petugas kami apabila membutuhkan informasi lebih lanjut di alamat email: </p>
+                                                        <a href="https://keenthemes.com/password/reset/07579ae29b6?email=max%40kt.com" rel="noopener" target="_blank" style="text-decoration:none;color: #009EF7">support@socfindo.co.id</a>
+                                                    </div>
+                                                    <!--end:Email content-->
+                                                    <div style="padding-bottom: 10px">Hormat Kami,
+                                                    <br><br><br><br>PT. Socfin Indonesia.
+                                                    </div></div></td></tr><tr>
+                                                        <td align="center" valign="center" style="font-size: 13px; text-align:center;padding: 20px; color: #6d6e7c;">
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                
+                                            
+                                        
+                                    
+                                
+                            
+                        
+                    </tbody>
+                </table>
+            </div><input id="ext-version" type="hidden" value="1.2.6"><input id="ext-id" type="hidden" value="ledliampejcpphmpamgpcgmodbjocnnn"></body></html>';
             $mail->msgHTML($mail_body); //$mail->msgHTML(file_get_contents('contents.html'), __DIR__); //Read an HTML message body from an external file, convert referenced images to embedded,
-            $mail->AltBody = 'HTML messaging not supported';
+            // $mail->AltBody = 'HTML messaging not supported';
             // $mail->addStringAttachment($email_data['file'], 'Slip_Gaji_'.$email_data['emp_data']['emp_salary']['nik'].'_'.$periode.'.pdf'); //Attach an image file
 
             if(!$mail->send()){
