@@ -78,7 +78,7 @@ class Confirmation_model extends CI_Model {
                             {$where}
                             ) AS RowConstrainedResult
                     WHERE   RowNum > {$start}
-                        AND RowNum < ({$start} + {$length})
+                        AND RowNum < (({$start} + 1) + {$length})
                     ORDER BY RowNum";
         // $sql_ .= " ORDER BY " . $order_column . " {$order_dir}";
 		// $sql_ .= " LIMIT {$length} OFFSET {$start}";
@@ -193,7 +193,7 @@ class Confirmation_model extends CI_Model {
                             {$where}
                             ) AS RowConstrainedResult
                     WHERE   RowNum > {$start}
-                        AND RowNum < ({$start} + {$length})
+                        AND RowNum < (({$start} + 1) + {$length})
                     ORDER BY RowNum";
         // $sql_ .= " ORDER BY " . $order_column . " {$order_dir}";
 		// $sql_ .= " LIMIT {$length} OFFSET {$start}";
@@ -206,31 +206,31 @@ class Confirmation_model extends CI_Model {
 
         foreach($rows_data as $row) {
             $row->number                = $i;
-            $row->kode_konfirmasi   = $row->kode_konfirmasi;
-            $row->tanggal_kirim     = date('d M y', strtotime($row->tanggal_kirim));
-            $row->kode_vendor       = $row->kode_vendor;
-            $row->nama_vendor       = $row->nama_vendor;
-            $row->harga_po_terakhir = (int)$row->harga_po_terakhir;
-            $row->mata_uang_po_terakhir= $row->mata_uang_po_terakhir;
-            $row->nomor_pr          = $row->nomor_pr;
-            $row->item_pr           = $row->item_pr;
-            $row->kode_material     = $row->kode_material;
-            $row->deskripsi         = utf8_encode($row->deskripsi);
-            $row->jumlah            = (int)$row->jumlah;
-            $row->harga             = ($row->modified_by == NULL && $row->modified_date == NULL) ? 0 : (int)$row->harga;
-            $row->mata_uang         = ($row->modified_by == NULL && $row->modified_date == NULL) ? '' : trim($row->mata_uang);
-            $row->satuan            = $row->satuan;
-            $row->konfirmasi_status = $row->konfirmasi_status;
-            $row->jumlah_tersedia   = (int)$row->jumlah_tersedia;
-            $row->jumlah_inden      = (int)$row->jumlah_inden;
-            $row->lama_inden        = (int)$row->lama_inden;
-            $row->pesan_ulang       = $row->pesan_ulang;
-            $row->modified_date     = ($row->modified_date == NULL) ? $row->modified_date : date('d M y', strtotime($row->modified_date));
-            $row->modified_by       = $row->modified_by;
+            $row->kode_konfirmasi       = $row->kode_konfirmasi;
+            $row->tanggal_kirim         = date('d M y', strtotime($row->tanggal_kirim));
+            $row->kode_vendor           = $row->kode_vendor;
+            $row->nama_vendor           = $row->nama_vendor;
+            $row->harga_po_terakhir     = (int)$row->harga_po_terakhir;
+            $row->mata_uang_po_terakhir = $row->mata_uang_po_terakhir;
+            $row->nomor_pr              = $row->nomor_pr;
+            $row->item_pr               = $row->item_pr;
+            $row->kode_material         = $row->kode_material;
+            $row->deskripsi             = utf8_encode($row->deskripsi);
+            $row->jumlah                = (int)$row->jumlah;
+            $row->harga                 = ($row->modified_by == NULL && $row->modified_date == NULL) ? 0 : (int)$row->harga;
+            $row->mata_uang             = ($row->modified_by == NULL && $row->modified_date == NULL) ? '' : trim($row->mata_uang);
+            $row->satuan                = $row->satuan;
+            $row->konfirmasi_status     = $row->konfirmasi_status;
+            $row->jumlah_tersedia       = (int)$row->jumlah_tersedia;
+            $row->jumlah_inden          = (int)$row->jumlah_inden;
+            $row->lama_inden            = (int)$row->lama_inden;
+            $row->pesan_ulang           = $row->pesan_ulang;
+            $row->modified_date         = ($row->modified_date == NULL) ? $row->modified_date : date('d M y', strtotime($row->modified_date));
+            $row->modified_by           = $row->modified_by;
             // $row->actions           = '<a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2"><i class="fas fa-envelope-open-text"></i></a>';
             // $row->actions           = '<a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation"><i class="fas fa-envelope-open-text"></i></a>';
-            $row->actions           = '<button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation"><i class="fas fa-envelope-open-text"></i></button>';
-            $row->status            = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Konfirmasi" : "Sudah Konfirmasi";
+            $row->actions               = '<button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation"><i class="fas fa-envelope-open-text"></i></button>';
+            $row->status                = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Konfirmasi" : "Sudah Konfirmasi";
             if($row->harga == 0 || ($row->modified_by == NULL && $row->modified_date == NULL)) {
                 $row->status_harga      = "";
             } else if($row->harga_po_terakhir == $row->harga) {
