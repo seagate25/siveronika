@@ -8,6 +8,8 @@ class Rfq extends CI_Controller {
     {
         parent::__construct();
         logged_in();
+        $this->load->model('Rfq_model', 'rfq');
+        $this->load->library('Crypto');
     }
     
     public function index()
@@ -17,6 +19,11 @@ class Rfq extends CI_Controller {
 
     public function rfq_goods()
     {
+        if($this->input->is_ajax_request()) {
+            $rows   = $this->rfq->getRfqGoodsList();
+            echo json_encode($rows);
+            exit;
+        }
         $data['title']      = "RFQ Barang";
         $data['menu']       = "RFQ";
         $data['submenu']    = "RFQ Barang";
@@ -35,7 +42,12 @@ class Rfq extends CI_Controller {
 
     public function det_rfq_goods()
     {
-        $rfq_no             = $this->uri->segment(3);
+        $rfq_no             = $this->crypto->decode($this->uri->segment(3));
+        if($this->input->is_ajax_request()) {
+            $rows   = $this->rfq->getDetRfqGoodsList($rfq_no);
+            echo json_encode($rows);
+            exit;
+        }
         $data['title']      = "RFQ No : " . $rfq_no;
         $data['menu']       = "RFQ";
         $data['submenu']    = "Detail RFQ Barang";

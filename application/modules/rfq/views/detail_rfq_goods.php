@@ -2,13 +2,13 @@
     <div class="card-header bg-success">
         <h3 class="card-title text-white"><?php echo $title; ?></h3>
         <div class="card-toolbar">
-            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
-            <i class="las la-sync fs-1"></i>
+            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2" onclick="return KTDataTables.init();">
+                <i class="las la-sync fs-1 text-success"></i>
             </button>
         </div>
     </div>
     <div class="card-body">
-        <table id="kt_datatable_example_1" class="align-middle table table-row-bordered gy-5">
+        <table id="kt_datatable_detail_rfq_goods" class="align-middle table table-row-bordered gy-5">
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
                     <th class="min-w-50px text-center">No.</th>
@@ -22,92 +22,6 @@
                     <th class="min-w-150px text-center">Harga Permintaan Ekuivalen</th>
                 </tr>
             </thead>
-            <tbody class="text-gray-600 fw-bold">
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">7013165</td>
-                    <td class="text-center">BAYGON CAIR @1L/KG</td>
-                    <td class="text-center">30</td>
-                    <td class="text-center">KG</td>
-                    <td class="text-center">Sudah Isi</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                    <!-- <td class="text-center">Sudah Isi</td> -->
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
-                            1
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            2
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            3
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            4
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">2</td>
-                    <td class="text-center">7013165</td>
-                    <td class="text-center">BAYGON CAIR @1L/KG</td>
-                    <td class="text-center">30</td>
-                    <td class="text-center">KG</td>
-                    <td class="text-center">Sudah Isi</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                    <!-- <td class="text-center">Sudah Isi</td> -->
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            1
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            2
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            3
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            4
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">3</td>
-                    <td class="text-center">7013165</td>
-                    <td class="text-center">BAYGON CAIR @1L/KG</td>
-                    <td class="text-center">30</td>
-                    <td class="text-center">KG</td>
-                    <td class="text-center">Sudah Isi</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                    <!-- <td class="text-center">Sudah Isi</td> -->
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            1
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            2
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            3
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            4
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
         </table>
     </div>
 </div>
@@ -728,7 +642,51 @@ var KTDataTables = (function() {
     var e;
     return {
         init: function() {
-            e = $("#kt_datatable_example_1").DataTable();
+            e = $("#kt_datatable_detail_rfq_goods").DataTable({
+                processing:!0, 
+                serverSide:!0,
+                destroy: !0,
+                // responsive: !0,
+                // scrollY: "500px",
+                scrollX: !0,
+                // scrollCollapse: !0,
+                dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
+                // fixedHeader:    true,
+                // fixedColumns:   {
+                //     heightMatch: 'none',
+                //     leftColumns: 1,
+                //     rightColumns: 0
+                // },
+                paging: !0,
+                ordering: !0,
+                searching: !0,
+                ajax: {
+                    type: "POST",
+                    url: "<?php echo site_url('rfq/det_rfq_goods/'.$this->uri->segment(3));?>"
+                },
+                columns: [
+                    { data: 'number', className: 'text-center', sortable: false, searchable: false, orderable: false, 
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { data: 'kode_barang', className: 'text-center' },
+                    { data: 'deskripsi_barang', className: 'text-center' },
+                    { data: 'jumlah_permintaan', className: 'text-center' },
+                    { data: 'satuan', className: 'text-center' },
+                    { data: 'status', className: 'text-center' },
+                    { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                    { data: 'actions_equivalen', className: 'text-center', sortable: false, searchable: false, orderable: false }
+                ],
+                lengthMenu: [
+                        [5, 10, 15, 25, -1],
+                        [5, 10, 15, 25, "All"]
+                    ],
+                pageLength: 10,
+                order: [1, 'ASC']
+            });
         }
     };
 })();
