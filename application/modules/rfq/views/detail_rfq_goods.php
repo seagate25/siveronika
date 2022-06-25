@@ -109,7 +109,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="IDR">
+                                <input type="text" name="indent_day" class="form-control" placeholder="Mata uang" value="IDR">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -121,7 +121,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="25.000">
+                                <input type="text" name="indent_day" class="form-control" placeholder="Harga satuan" value="25.000">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                             <!--begin::Label-->
@@ -160,9 +160,9 @@
                         </div>
                         <!--end::Input Group-->
                         <!--Begin::Input Group-->
-                        <div class="row mb-6">
+                        <div class="row mb-6" id="convertion_section">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Masukkan Satuan</label>
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Masukkan Satuan X</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
@@ -241,7 +241,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" placeholder="Pick date rage" id=""/>
+                                <input class="form-control" placeholder="Keterangan" id=""/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -253,7 +253,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" placeholder="Pick date rage" id=""/>
+                                <input class="form-control" placeholder="Dibuat oleh" id=""/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -291,7 +291,7 @@
                 <!--begin::Modal footer-->
                 <div class="modal-footer flex-center">
                     <!--begin::Button-->
-                    <button type="reset" id="kt_modal_det_rfq_goods_cancel" class="btn btn-light me-3">Tutup</button>
+                    <button type="reset" id="kt_modal_det_rfq_goods_cancel" class="btn btn-danger me-3">Tutup</button>
                     <!--end::Button-->
                     <!--begin::Button-->
                     <button type="submit" id="kt_modal_det_rfq_goods_submit" class="btn btn-primary">
