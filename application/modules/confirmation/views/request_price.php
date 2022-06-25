@@ -23,22 +23,6 @@
                 <th class="min-w-50px text-center">Aksi</th>
                 </tr>
             </thead>
-            <!-- <tbody class="text-gray-600 fw-bold">
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">7063463</td>
-                    <td class="text-center">STOP KONTAK 6 LUBANG KUNINGAN "UTICON"</td>
-                    <td class="text-center">4</td>
-                    <td class="text-center">BH</td>
-                    <td class="text-center">12 Dec 21</td>
-                    <td class="text-center">Belum Konfirmasi</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody> -->
         </table>
     </div>
 </div>
