@@ -51,7 +51,7 @@
                     <!--begin::Scroll-->
                     <div class="scroll-y me-n7 pe-7" id="kt_modal_det_rfq_goods_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_det_rfq_goods_header" data-kt-scroll-wrappers="#kt_modal_det_rfq_goods_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
                         <div class="fw-bold">
-                            <h4 class="text-gray-900 fw-bolder">RFQ No : 6200272804 | 7013165</h4>
+                            <h4 class="text-gray-900 fw-bolder">RFQ No : <span id="txt_rfq_no"></span> | <span id="txt_material_code"></span></h4>
                         </div>
                        
                         <!--Begin::Input Group-->
@@ -61,7 +61,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="request_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan" value="7013165">
+                                <input type="text" name="material_code" class="form-control form-control-solid" readonly="true" placeholder="Kode Material">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -73,7 +73,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="measurement" class="form-control form-control-solid" readonly="true" placeholder="Satuan" value="BAYGON CAIR @1L/KLG">
+                                <input type="text" name="material_name" class="form-control form-control-solid" readonly="true" placeholder="Nama Material">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -85,7 +85,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="available_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Tersedia" value="30">
+                                <input type="number" name="request_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -97,7 +97,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" value="KLG (KALENG)">
+                                <input type="text" name="measurement" class="form-control form-control-solid" readonly="true" placeholder="Satuan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -109,7 +109,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="IDR">
+                                <input type="text" name="currency" class="form-control" placeholder="Mata Uang">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -121,7 +121,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="25.000">
+                                <input type="text" name="unit_price" class="form-control" placeholder="Harga Satuan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                             <!--begin::Label-->
@@ -129,7 +129,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control" placeholder="Lama Indent (Hari)" value="KALENG">
+                                <input type="text" name="unit_measure" class="form-control" placeholder="Lama Indent (Hari)" value="KALENG">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -144,13 +144,13 @@
                                 <div class="align-items-center mt-3">
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="convert" type="radio" value="Ya" checked="true">
+                                        <input class="form-check-input" name="convert" type="radio" value="1" checked="true">
                                         <span class="fw-bold ps-2 fs-6">Ya</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="convert" type="radio" value="Tidak">
+                                        <input class="form-check-input" name="convert" type="radio" value="0">
                                         <span class="fw-bold ps-2 fs-6">Tidak</span>
                                     </label>
                                     <!--end::Option-->
@@ -160,7 +160,7 @@
                         </div>
                         <!--end::Input Group-->
                         <!--Begin::Input Group-->
-                        <div class="row mb-6">
+                        <div class="row mb-6" id="form_convertion">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Masukkan Satuan</label>
                             <!--end::Label-->
@@ -179,7 +179,7 @@
                                     <tbody>
                                         <tr>
                                             <td>Satuan Permintaan</td>
-                                            <td class="text-center">1</td>
+                                            <td class="text-center"><input type="text" name="convertion_total"></td>
                                             <td class="text-center">KLG</td>
                                             <td class="text-center"></td>
                                             <td class="text-center"></td>
@@ -686,6 +686,22 @@ var KTDataTables = (function() {
                     ],
                 pageLength: 10,
                 order: [1, 'ASC']
+            }),
+            $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.rfq_form', function () {
+                var data = e.row($(this).parents('tr')).data();
+                $("#kt_modal_det_rfq_goods h4 span#txt_rfq_no").text(data.nomor_rfq);
+                $("#kt_modal_det_rfq_goods h4 span#txt+material_code").text(data.kode_barang);
+                $("input[name=id]").val(data.kode_konfirmasi);
+                // $("input[name=confirmation_price]").maskMoney('mask', data.harga);
+                $("input[name=material_code]").val(data.kode_barang);
+                $("input[name=material_name]").val(data.deskripsi_barang);
+                $("input[name=request_total]").val(data.jumlah_permintaan);
+                $("input[name=measurement]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
+                // if(data.modified_date != null && data.modified_by != null) {
+                //     $("input[name=available_total]").val(data.jumlah_tersedia);
+                //     $("input[name=indent_total]").val(data.jumlah_inden);
+                //     $("input[name=indent_day]").val(data.lama_inden);
+                // }
             });
         }
     };
@@ -702,5 +718,14 @@ KTUtil.onDOMContentLoaded((function() {
         var years = moment().diff(start, "years");
         alert("You are " + years + " years old!");
     });
+    $("input[name=convert]").on("change", function() {
+        if($(this).is(':checked')) {
+            if($(this).val() == 0) {
+                $("#form_convertion").hide();
+            } else {
+                $("#form_convertion").show();
+            }
+        }
+    })
 }));
 </script>

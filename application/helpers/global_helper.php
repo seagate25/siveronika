@@ -318,7 +318,11 @@ if(!function_exists('diff_date')) {
     function diff_date(string $date_1, string $date_2 = NULL)
     {
         $date_2 = ($date_2 === NULL) ? date('Y-m-d') : $date_2;
-        $diff   = abs(strtotime($date_1) - strtotime($date_2));
+        if(strtotime($date_1) > strtotime($date_2)) {
+            $diff   = abs(strtotime($date_1) - strtotime($date_2));
+        } else {
+            $diff   = strtotime($date_1) - strtotime($date_2);
+        }
 
         $years  = floor($diff / (365*60*60*24));
         $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
