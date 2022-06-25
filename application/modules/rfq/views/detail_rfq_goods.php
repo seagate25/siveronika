@@ -160,9 +160,13 @@
                         </div>
                         <!--end::Input Group-->
                         <!--Begin::Input Group-->
+<<<<<<< HEAD
                         <div class="row mb-6" id="form_convertion">
+=======
+                        <div class="row mb-6" id="convertion_section">
+>>>>>>> ca88eb454f3fa3486acfe3f1218f1b50ffb92309
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Masukkan Satuan</label>
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Masukkan Satuan X</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
@@ -241,7 +245,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" placeholder="Pick date rage" id=""/>
+                                <input class="form-control" placeholder="Keterangan" id=""/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -253,7 +257,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" placeholder="Pick date rage" id=""/>
+                                <input class="form-control" placeholder="Dibuat oleh" id=""/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -291,7 +295,7 @@
                 <!--begin::Modal footer-->
                 <div class="modal-footer flex-center">
                     <!--begin::Button-->
-                    <button type="reset" id="kt_modal_det_rfq_goods_cancel" class="btn btn-light me-3">Tutup</button>
+                    <button type="reset" id="kt_modal_det_rfq_goods_cancel" class="btn btn-danger me-3">Tutup</button>
                     <!--end::Button-->
                     <!--begin::Button-->
                     <button type="submit" id="kt_modal_det_rfq_goods_submit" class="btn btn-primary">
