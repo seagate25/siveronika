@@ -296,3 +296,38 @@ if(!function_exists('generate_menu')) {
                 </div>';
     }
 }
+
+if(!function_exists('diff_date')) {
+    /**
+     * Get difference between 2 dates
+     *
+     * @param string $date_1
+     * Must be filled
+     * Like End Date or Max Date
+     * 
+     * @param string|null $date_2
+     * 
+     * [optional]
+     * Default value : date('Y-m-d') / Current Date.
+     * 
+     * @return array
+     * ['years'] integer
+     * ['months'] integer
+     * ['days'] integer
+     */
+    function diff_date(string $date_1, string $date_2 = NULL)
+    {
+        $date_2 = ($date_2 === NULL) ? date('Y-m-d') : $date_2;
+        $diff   = abs(strtotime($date_1) - strtotime($date_2));
+
+        $years  = floor($diff / (365*60*60*24));
+        $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+        $days   = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+
+        return array(
+            'years'     => (int)$years,
+            'months'    => (int)$months,
+            'days'      => (int)$days
+        );
+    }
+}
