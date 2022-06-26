@@ -71,9 +71,14 @@ class Rfq extends CI_Controller {
         $notes          = $this->input->post('notes');
         $created_by     = $this->input->post('created_by');
 
-        $explode_ed_price   = explode("/", $ed_price);
-        $new_ed_price       = $explode_ed_price[2].'-'.$explode_ed_price[0].'-'.$explode_ed_price[1];
-        
+        $new_ed_price = '';
+        if(strpos($ed_price, '/')){
+            $explode_ed_price   = explode("/", $ed_price);
+            $new_ed_price       = $explode_ed_price[2].'-'.$explode_ed_price[0].'-'.$explode_ed_price[1];
+        } else {
+            $new_ed_price = $ed_price;
+        }
+
         $params = array(
             'nomor_rfq'     => $rfq_no,
             'kode_barang'   => $material_code
