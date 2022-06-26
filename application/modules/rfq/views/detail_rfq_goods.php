@@ -160,11 +160,7 @@
                         </div>
                         <!--end::Input Group-->
                         <!--Begin::Input Group-->
-<<<<<<< HEAD
                         <div class="row mb-6" id="form_convertion">
-=======
-                        <div class="row mb-6" id="convertion_section">
->>>>>>> ca88eb454f3fa3486acfe3f1218f1b50ffb92309
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Masukkan Satuan X</label>
                             <!--end::Label-->
