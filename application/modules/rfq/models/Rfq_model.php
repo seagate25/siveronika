@@ -195,6 +195,44 @@ class Rfq_model extends CI_Model {
         );
     }
 
+    public function saveRFQ($params = array(), $data = array())
+    {
+        $sql    = "";
+        $sql    .= "UPDATE {$this->table[1]} SET ";
+        $i      = 0;
+        foreach($data as $key => $value) {
+            $sql .= "{$key} = '{$value}'";
+            if($i === (count($data) - 1)) {
+                $sql .= " ";
+            } else {
+                $sql .= ", ";
+            }
+
+            $i++;
+        }
+
+        $sql .= " WHERE ";
+        foreach($params as $key => $value) {
+            $sql .= "{$key} = '{$value}'";
+            if(!next($params)) {
+                $sql .= " ";
+            } else {
+                $sql .= " AND ";
+            }
+        }
+
+        $this->db->query($sql);
+
+        return $this->db->affected_rows();
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $rfq_no
+     * @param integer $equivalen
+     * @return void
+     */
     public function enableEqivBtn(string $rfq_no, int $equivalen)
     {
         $enable = 'false';

@@ -32,7 +32,7 @@
                 <h5 class="modal-title text-white">Pengisian RFQ</h5>
 
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-danger ms-2" data-bs-dismiss="modal" aria-label="Close">
+                <div class="btn btn-icon btn-sm btn-danger ms-2" data-kt-det-rfq-goods-modal-action="close" aria-label="Close">
                     <span class="svg-icon svg-icon-2x">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
@@ -53,7 +53,7 @@
                         <div class="fw-bold">
                             <h4 class="text-gray-900 fw-bolder">RFQ No : <span id="txt_rfq_no"></span> | <span id="txt_material_code"></span></h4>
                         </div>
-                       
+                        <input type="hidden" name="id_rfq">
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
@@ -129,7 +129,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <input type="text" name="unit_measure" class="form-control" placeholder="Lama Indent (Hari)" value="KALENG">
+                                <input type="text" name="unit_measure" class="form-control" placeholder="Per Satuan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -144,13 +144,13 @@
                                 <div class="align-items-center mt-3">
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="convert" type="radio" value="1" checked="true">
+                                        <input class="form-check-input" name="convert" type="radio" value="1">
                                         <span class="fw-bold ps-2 fs-6">Ya</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="convert" type="radio" value="0">
+                                        <input class="form-check-input" name="convert" type="radio" value="0" checked="true">
                                         <span class="fw-bold ps-2 fs-6">Tidak</span>
                                     </label>
                                     <!--end::Option-->
@@ -207,13 +207,13 @@
                                 <div class="align-items-center mt-3">
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="available" type="radio" value="Tersedia" checked="true">
+                                        <input class="form-check-input" name="available" type="radio" value="0">
                                         <span class="fw-bold ps-2 fs-6">Tersedia</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="available" type="radio" value="Indent" checked="true">
+                                        <input class="form-check-input" name="available" type="radio" value="1" checked="true">
                                         <span class="fw-bold ps-2 fs-6">Indent</span>
                                     </label>
                                     <!--end::Option-->
@@ -229,7 +229,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" placeholder="Pick date rage" id="kt_daterangepicker_3"/>
+                                <input class="form-control form-control-solid" name="ed_price" placeholder="Pick date rage" id="kt_daterangepicker_3"/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -237,11 +237,11 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Keterangan</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">Keterangan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control" placeholder="Keterangan" id=""/>
+                                <input class="form-control" name="notes" placeholder="Keterangan"/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -253,7 +253,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control" placeholder="Dibuat oleh" id=""/>
+                                <input class="form-control" name="created_by" placeholder="Dibuat oleh"/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -334,7 +334,6 @@
                         <div class="fw-bold">
                             <h4 class="text-gray-900 fw-bolder">RFQ No : 6200272804 | 7013165 | 1</h4>
                         </div>
-                       
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
@@ -691,7 +690,7 @@ var KTDataTables = (function() {
                 var data = e.row($(this).parents('tr')).data();
                 $("#kt_modal_det_rfq_goods h4 span#txt_rfq_no").text(data.nomor_rfq);
                 $("#kt_modal_det_rfq_goods h4 span#txt+material_code").text(data.kode_barang);
-                $("input[name=id]").val(data.kode_konfirmasi);
+                $("input[name=id_rfq]").val('<?php echo $this->uri->segment(3);?>');
                 // $("input[name=confirmation_price]").maskMoney('mask', data.harga);
                 $("input[name=material_code]").val(data.kode_barang);
                 $("input[name=material_name]").val(data.deskripsi_barang);
@@ -707,8 +706,215 @@ var KTDataTables = (function() {
     };
 })();
 
+var KTModalForm = (function() {
+    var a, b, c, d, e, f, g, t, u, v, w, x, y, z;
+    return {
+        rfq_form: function() {
+            (a = document.querySelector("#kt_modal_det_rfq_goods")) &&
+                ((b = new bootstrap.Modal(a)),
+                (c = document.querySelector("#kt_modal_det_rfq_goods_form")),
+                (d = document.getElementById("kt_modal_det_rfq_goods_submit")),
+                (e = document.getElementById("kt_modal_det_rfq_goods_cancel")),
+                (f = document.querySelector('[data-kt-det-rfq-goods-modal-action="close"]')),
+                (g = FormValidation.formValidation(c, {
+                    fields: {
+                        material_code: { validators: { notEmpty: { message: "Kode Material tidak boleh kosong" } } },
+                        material_name: { validators: { notEmpty: { message: "Nama Material tidak boleh kosong" } } },
+                        request_total: { validators: { notEmpty: { message: "Jumlah Permintaan tidak boleh kosong" } } },
+                        measurement: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
+                        currency: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
+                        unit_price: { validators: { notEmpty: { message: "Harga Satuan tidak boleh kosong" } } },
+                        unit_measure: { validators: { notEmpty: { message: "Per Satuan tidak boleh kosong" } } },
+                        convert: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
+                        available: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
+                        ed_price: { validators: { notEmpty: { message: "Masa Berlaku Harga tidak boleh kosong" } } },
+                        created_by: { validators: { notEmpty: { message: "Dibuat Oleh tidak boleh kosong" } } },
+                    },
+                    plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
+                })),
+                d.addEventListener("click", function (e) {
+                    e.preventDefault(),
+                        g &&
+                            g.validate().then(function (e) {
+                                console.log("validated!"),
+                                    "Valid" == e
+                                        ? (
+                                            Swal.fire({
+                                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                                                icon: "warning",
+                                                showCancelButton: !0,
+                                                buttonsStyling: !1,
+                                                confirmButtonText: "Ya, Simpan",
+                                                cancelButtonText: "Kembali",
+                                                customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
+                                            }).then(function (r) {
+                                                r.value
+                                                    ? 
+                                                    (
+                                                        $.ajax({
+                                                            type: 'POST',
+                                                            url: '<?php echo site_url("rfq/save_rfq"); ?>',
+                                                            data: Object.fromEntries(new FormData(c).entries()),
+                                                            beforeSend: function() {
+                                                                d.setAttribute("data-kt-indicator", "on"),
+                                                                (d.disabled = !0);
+                                                            },
+                                                            success: function(response) {
+                                                                var obj = jQuery.parseJSON(response);
+                                                                d.removeAttribute("data-kt-indicator"),
+                                                                (d.disabled = !1);
+                                                                Swal.fire({ 
+                                                                    text: obj.msg, 
+                                                                    icon: obj.status, 
+                                                                    buttonsStyling: !1, 
+                                                                    confirmButtonText: "Tutup", 
+                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
+                                                                    function (t) {
+                                                                        t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),g.resetForm(true),b.hide()) : r.dismiss;
+                                                                    }
+                                                                );
+                                                            },
+                                                            error: function() {
+                                                                d.removeAttribute("data-kt-indicator"),
+                                                                (d.disabled = !1);
+                                                                Swal.fire({ 
+                                                                    text: "Terjadi masalah koneksi", 
+                                                                    icon: "error", 
+                                                                    buttonsStyling: !1, 
+                                                                    confirmButtonText: "Tutup", 
+                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
+                                                                    function (t) {
+                                                                        t.isConfirmed && r.dismiss;
+                                                                    }
+                                                                );
+                                                            }
+                                                        })
+                                                    )
+                                                    : "cancel" === r.dismiss;
+                                            })
+                                          )
+                                        : Swal.fire({
+                                              text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                                              icon: "error",
+                                              buttonsStyling: !1,
+                                              confirmButtonText: "Tutup",
+                                              customClass: { confirmButton: "btn btn-primary" },
+                                          });
+                            });
+                }),
+                e.addEventListener("click", function (t) {
+                    g.resetForm(true), b.hide()
+                })),
+                f.addEventListener("click", function (t) {
+                    g.resetForm(true), b.hide()
+                });
+        }
+        // eqiv_form: function(id) {
+        //     (t = document.querySelector("#kt_modal_det_rfq_goods")) &&
+        //         ((u = new bootstrap.Modal(t)),
+        //         (v = document.querySelector("#kt_modal_det_rfq_goods_form")),
+        //         (w = document.getElementById("kt_modal_det_rfq_goods_submit")),
+        //         (x = document.getElementById("kt_modal_det_rfq_goods_cancel")),
+        //         (y = document.querySelector('[data-kt-confirmation-modal-action="close"]')),
+        //         (z = FormValidation.formValidation(c, {
+        //             fields: {
+        //                 material_code: { validators: { notEmpty: { message: "Kode Material tidak boleh kosong" } } },
+        //                 material_name: { validators: { notEmpty: { message: "Nama Material tidak boleh kosong" } } },
+        //                 request_total: { validators: { notEmpty: { message: "Jumlah Permintaan tidak boleh kosong" } } },
+        //                 measurement: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
+        //                 currency: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
+        //                 unit_price: { validators: { notEmpty: { message: "Harga Satuan tidak boleh kosong" } } },
+        //                 unit_measure: { validators: { notEmpty: { message: "Per Satuan tidak boleh kosong" } } },
+        //                 convert: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
+        //                 available: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
+        //                 ed_price: { validators: { notEmpty: { message: "Masa Berlaku Harga tidak boleh kosong" } } },
+        //                 created_by: { validators: { notEmpty: { message: "Dibuat Oleh tidak boleh kosong" } } },
+        //             },
+        //             plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
+        //         })),
+        //         d.addEventListener("click", function (e) {
+        //             e.preventDefault(),
+        //                 g &&
+        //                     g.validate().then(function (e) {
+        //                         console.log("validated!"),
+        //                             "Valid" == e
+        //                                 ? (
+        //                                     Swal.fire({
+        //                                         text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+        //                                         icon: "warning",
+        //                                         showCancelButton: !0,
+        //                                         buttonsStyling: !1,
+        //                                         confirmButtonText: "Ya, Simpan",
+        //                                         cancelButtonText: "Kembali",
+        //                                         customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
+        //                                     }).then(function (r) {
+        //                                         r.value
+        //                                             ? 
+        //                                             (
+        //                                                 $.ajax({
+        //                                                     type: 'POST',
+        //                                                     url: '<?php echo site_url("confirmation/save_req_price"); ?>',
+        //                                                     data: Object.fromEntries(new FormData(c).entries()),
+        //                                                     beforeSend: function() {
+        //                                                         d.setAttribute("data-kt-indicator", "on"),
+        //                                                         (d.disabled = !0);
+        //                                                     },
+        //                                                     success: function(response) {
+        //                                                         var obj = jQuery.parseJSON(response);
+        //                                                         d.removeAttribute("data-kt-indicator"),
+        //                                                         (d.disabled = !1);
+        //                                                         Swal.fire({ 
+        //                                                             text: obj.msg, 
+        //                                                             icon: obj.status, 
+        //                                                             buttonsStyling: !1, 
+        //                                                             confirmButtonText: "Tutup", 
+        //                                                             customClass: { confirmButton: "btn btn-primary" } }).then(
+        //                                                             function (t) {
+        //                                                                 t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),g.resetForm(true),b.hide()) : r.dismiss;
+        //                                                             }
+        //                                                         );
+        //                                                     },
+        //                                                     error: function() {
+        //                                                         d.removeAttribute("data-kt-indicator"),
+        //                                                         (d.disabled = !1);
+        //                                                         Swal.fire({ 
+        //                                                             text: "Terjadi masalah koneksi", 
+        //                                                             icon: "error", 
+        //                                                             buttonsStyling: !1, 
+        //                                                             confirmButtonText: "Tutup", 
+        //                                                             customClass: { confirmButton: "btn btn-primary" } }).then(
+        //                                                             function (t) {
+        //                                                                 t.isConfirmed && r.dismiss;
+        //                                                             }
+        //                                                         );
+        //                                                     }
+        //                                                 })
+        //                                             )
+        //                                             : "cancel" === r.dismiss;
+        //                                     })
+        //                                   )
+        //                                 : Swal.fire({
+        //                                       text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+        //                                       icon: "error",
+        //                                       buttonsStyling: !1,
+        //                                       confirmButtonText: "Tutup",
+        //                                       customClass: { confirmButton: "btn btn-primary" },
+        //                                   });
+        //                     });
+        //         }),
+        //         e.addEventListener("click", function (t) {
+        //             g.resetForm(true), b.hide()
+        //         })),
+        //         z.addEventListener("click", function (t) {
+        //             g.resetForm(true), b.hide()
+        //         });
+        // }
+    }
+})();
+
 KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();
+    KTModalForm.rfq_form();
     $("#kt_daterangepicker_3").daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
