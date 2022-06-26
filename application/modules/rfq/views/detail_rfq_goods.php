@@ -129,7 +129,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <input type="text" name="unit_measure" class="form-control" placeholder="Per Satuan">
+                                <input type="text" name="unit_measure" class="form-control" placeholder="Satuan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -313,7 +313,7 @@
                 <h5 class="modal-title text-white">Pengisian Ekuivalen</h5>
 
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-danger ms-2" data-bs-dismiss="modal" aria-label="Close">
+                <div class="btn btn-icon btn-sm btn-danger ms-2" data-kt-det-rfq-goods-ekuivalen-modal-action="close" aria-label="Close">
                     <span class="svg-icon svg-icon-2x">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
@@ -332,8 +332,9 @@
                     <!--begin::Scroll-->
                     <div class="scroll-y me-n7 pe-7" id="kt_modal_det_rfq_goods_ekuivalen_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_det_rfq_goods_ekuivalen_header" data-kt-scroll-wrappers="#kt_modal_det_rfq_goods_ekuivalen_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
                         <div class="fw-bold">
-                            <h4 class="text-gray-900 fw-bolder">RFQ No : 6200272804 | 7013165 | 1</h4>
+                            <h4 class="text-gray-900 fw-bolder">RFQ No : <span id="txt_rfq_no_eqiv"></span> | <span id="txt_material_code_eqiv"></span> | <span id="txt_seq_eqiv"></span></h4>
                         </div>
+                        <input type="hidden" name="id_rfq_eqiv">
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
@@ -341,7 +342,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="request_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan" value="7013165">
+                                <input type="text" name="material_code_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Kode Material">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -353,7 +354,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="measurement" class="form-control form-control-solid" readonly="true" placeholder="Satuan" value="BAYGON CAIR @1L/KLG">
+                                <input type="text" name="material_name_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Nama Material">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -365,7 +366,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="available_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Tersedia" value="30">
+                                <input type="number" name="request_total_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -377,7 +378,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" value="KLG (KALENG)">
+                                <input type="text" name="measurement_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Satuan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -385,47 +386,11 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Spesifikasi</label>
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Mata Uang</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <textarea name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)">BAYGON CAIR</textarea>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Merk</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="BAYGON">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Tipe</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="Type 1">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Buatan</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="Baygon">
+                                <input class="form-control" name="currency_eqiv" placeholder="Mata Uang" id=""/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -437,7 +402,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="25.000">
+                                <input type="text" name="unit_price_eqiv" class="form-control" placeholder="Harga Satuan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                             <!--begin::Label-->
@@ -445,7 +410,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control" placeholder="Lama Indent (Hari)" value="KALENG">
+                                <input type="text" name="unit_measure_eqiv" class="form-control" placeholder="Satuan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -460,13 +425,13 @@
                                 <div class="align-items-center mt-3">
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="convert" type="radio" value="Ya" checked="true">
+                                        <input class="form-check-input" name="convert_eqiv" type="radio" value="1">
                                         <span class="fw-bold ps-2 fs-6">Ya</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="convert" type="radio" value="Tidak">
+                                        <input class="form-check-input" name="convert_eqiv" type="radio" value="0" checked="true">
                                         <span class="fw-bold ps-2 fs-6">Tidak</span>
                                     </label>
                                     <!--end::Option-->
@@ -476,7 +441,7 @@
                         </div>
                         <!--end::Input Group-->
                         <!--Begin::Input Group-->
-                        <div class="row mb-6">
+                        <div class="row mb-6" id="form_convertion_eqiv">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Masukkan Satuan</label>
                             <!--end::Label-->
@@ -516,18 +481,6 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Mata Uang</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" placeholder="" id="" value="IDR"/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Ketersediaan Barang</label>
                             <!--end::Label-->
                             <!--begin::Col-->
@@ -535,13 +488,13 @@
                                 <div class="align-items-center mt-3">
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="available" type="radio" value="Tersedia" checked="true">
+                                        <input class="form-check-input" name="available_eqiv" type="radio" value="0" checked="true">
                                         <span class="fw-bold ps-2 fs-6">Tersedia</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="available" type="radio" value="Indent" checked="true">
+                                        <input class="form-check-input" name="available_eqiv" type="radio" value="1">
                                         <span class="fw-bold ps-2 fs-6">Indent</span>
                                     </label>
                                     <!--end::Option-->
@@ -557,7 +510,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" placeholder="Pick date rage" id="kt_daterangepicker_3"/>
+                                <input class="form-control" readonly name="ed_price_eqiv" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_4"/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -569,7 +522,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" placeholder="" id=""/>
+                                <input class="form-control" name="notes_eqiv" placeholder="Keterangan" id=""/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -581,7 +534,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" placeholder="Pick date rage" id=""/>
+                                <input class="form-control" name="created_by_eqiv" placeholder="Dibuat Oleh" id=""/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -689,17 +642,54 @@ var KTDataTables = (function() {
             $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.rfq_form', function () {
                 var data = e.row($(this).parents('tr')).data();
                 $("#kt_modal_det_rfq_goods h4 span#txt_rfq_no").text(data.nomor_rfq);
-                $("#kt_modal_det_rfq_goods h4 span#txt+material_code").text(data.kode_barang);
+                $("#kt_modal_det_rfq_goods h4 span#txt_material_code").text(data.kode_barang);
                 $("input[name=id_rfq]").val('<?php echo $this->uri->segment(3);?>');
                 // $("input[name=confirmation_price]").maskMoney('mask', data.harga);
                 $("input[name=material_code]").val(data.kode_barang);
                 $("input[name=material_name]").val(data.deskripsi_barang);
                 $("input[name=request_total]").val(data.jumlah_permintaan);
                 $("input[name=measurement]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
+                if($('input[name="convert"]:checked').val() == 0) {
+                    $("#form_convertion").hide();
+                } else {
+                    $("#form_convertion").show();
+                }
+
+                if(data.modified_date != null && data.modified_by != null) {
+                    $("input[name=currency]").val(data.mata_uang);
+                    $("input[name=unit_price]").val(data.harga_satuan);
+                    $("input[name=unit_measure]").val(data.per_harga_satuan);
+                    $("input[name=available]:checked").val(data.ketersediaan_barang);
+                    $("input[name=ed_price]").val(data.masa_berlaku_harga);
+                    $("input[name=notes]").val(data.keterangan);
+                    $("input[name=created_by]").val(data.dibuat_oleh);
+                }
+            }),
+            $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form', function () {
+                var data = e.row($(this).parents('tr')).data();
+                $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_rfq_no_eqiv").text(data.nomor_rfq);
+                $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_material_code_eqiv").text(data.kode_barang);
+                $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_seq_eqiv").text('1');
+                $("input[name=id_rfq_eqiv]").val('<?php echo $this->uri->segment(3);?>');
+                // $("input[name=confirmation_price_eqiv]").maskMoney('mask', data.harga);
+                $("input[name=material_code_eqiv]").val(data.kode_barang);
+                $("input[name=material_name_eqiv]").val(data.deskripsi_barang);
+                $("input[name=request_total_eqiv]").val(data.jumlah_permintaan);
+                $("input[name=measurement_eqiv]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
+                if($('input[name="convert_eqiv"]:checked').val() == 0) {
+                    $("#form_convertion_eqiv").hide();
+                } else {
+                    $("#form_convertion_eqiv").show();
+                }
+
                 // if(data.modified_date != null && data.modified_by != null) {
-                //     $("input[name=available_total]").val(data.jumlah_tersedia);
-                //     $("input[name=indent_total]").val(data.jumlah_inden);
-                //     $("input[name=indent_day]").val(data.lama_inden);
+                //     $("input[name=currency_eqiv]").val(data.mata_uang);
+                //     $("input[name=harga_satuan_eqiv]").val(data.harga_satuan);
+                //     $("input[name=per_harga_satuan_eqiv]").val(data.per_harga_satuan);
+                //     $("input[name=available_eqiv]:checked").val(data.ketersediaan_barang);
+                //     $("input[name=ed_price_eqiv]").val(data.masa_berlaku_harga);
+                //     $("input[name=notes_eqiv]").val(data.keterangan);
+                //     $("input[name=created_by_eqiv]").val(data.dibuat_oleh);
                 // }
             });
         }
@@ -724,7 +714,7 @@ var KTModalForm = (function() {
                         measurement: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
                         currency: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
                         unit_price: { validators: { notEmpty: { message: "Harga Satuan tidak boleh kosong" } } },
-                        unit_measure: { validators: { notEmpty: { message: "Per Satuan tidak boleh kosong" } } },
+                        unit_measure: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
                         convert: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
                         available: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
                         ed_price: { validators: { notEmpty: { message: "Masa Berlaku Harga tidak boleh kosong" } } },
@@ -808,118 +798,122 @@ var KTModalForm = (function() {
                 f.addEventListener("click", function (t) {
                     g.resetForm(true), b.hide()
                 });
+        },
+        eqiv_form: function() {
+            (t = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen")) &&
+                ((u = new bootstrap.Modal(t)),
+                (v = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen_form")),
+                (w = document.getElementById("kt_modal_det_rfq_goods_ekuivalen_submit")),
+                (x = document.getElementById("kt_modal_det_rfq_goods_ekuivalen_cancel")),
+                (y = document.querySelector('[data-kt-det-rfq-goods-ekuivalen-modal-action="close"]')),
+                (z = FormValidation.formValidation(v, {
+                    fields: {
+                        material_code_eqiv: { validators: { notEmpty: { message: "Kode Material tidak boleh kosong" } } },
+                        material_name_eqiv: { validators: { notEmpty: { message: "Nama Material tidak boleh kosong" } } },
+                        request_total_eqiv: { validators: { notEmpty: { message: "Jumlah Permintaan tidak boleh kosong" } } },
+                        measurement_eqiv: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
+                        currency_eqiv: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
+                        unit_price_eqiv: { validators: { notEmpty: { message: "Harga Satuan tidak boleh kosong" } } },
+                        unit_measure_eqiv: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
+                        convert_eqiv: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
+                        available_eqiv: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
+                        ed_price_eqiv: { validators: { notEmpty: { message: "Masa Berlaku Harga tidak boleh kosong" } } },
+                        created_by_eqiv: { validators: { notEmpty: { message: "Dibuat Oleh tidak boleh kosong" } } },
+                    },
+                    plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
+                })),
+                w.addEventListener("click", function (e) {
+                    e.preventDefault(),
+                        z &&
+                            z.validate().then(function (e) {
+                                console.log("validated!"),
+                                    "Valid" == e
+                                        ? (
+                                            Swal.fire({
+                                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                                                icon: "warning",
+                                                showCancelButton: !0,
+                                                buttonsStyling: !1,
+                                                confirmButtonText: "Ya, Simpan",
+                                                cancelButtonText: "Kembali",
+                                                customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
+                                            }).then(function (r) {
+                                                r.value
+                                                    ? 
+                                                    (
+                                                        $.ajax({
+                                                            type: 'POST',
+                                                            url: '<?php echo site_url("rfq/save_eqiv"); ?>',
+                                                            data: Object.fromEntries(new FormData(v).entries()),
+                                                            beforeSend: function() {
+                                                                w.setAttribute("data-kt-indicator", "on"),
+                                                                (w.disabled = !0);
+                                                            },
+                                                            success: function(response) {
+                                                                var obj = jQuery.parseJSON(response);
+                                                                w.removeAttribute("data-kt-indicator"),
+                                                                (w.disabled = !1);
+                                                                Swal.fire({ 
+                                                                    text: obj.msg, 
+                                                                    icon: obj.status, 
+                                                                    buttonsStyling: !1, 
+                                                                    confirmButtonText: "Tutup", 
+                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
+                                                                    function (t) {
+                                                                        t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),z.resetForm(true),u.hide()) : r.dismiss;
+                                                                    }
+                                                                );
+                                                            },
+                                                            error: function() {
+                                                                w.removeAttribute("data-kt-indicator"),
+                                                                (w.disabled = !1);
+                                                                Swal.fire({ 
+                                                                    text: "Terjadi masalah koneksi", 
+                                                                    icon: "error", 
+                                                                    buttonsStyling: !1, 
+                                                                    confirmButtonText: "Tutup", 
+                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
+                                                                    function (t) {
+                                                                        t.isConfirmed && r.dismiss;
+                                                                    }
+                                                                );
+                                                            }
+                                                        })
+                                                    )
+                                                    : "cancel" === r.dismiss;
+                                            })
+                                          )
+                                        : Swal.fire({
+                                              text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                                              icon: "error",
+                                              buttonsStyling: !1,
+                                              confirmButtonText: "Tutup",
+                                              customClass: { confirmButton: "btn btn-primary" },
+                                          });
+                            });
+                }),
+                x.addEventListener("click", function (t) {
+                    z.resetForm(true), u.hide()
+                })),
+                y.addEventListener("click", function (t) {
+                    z.resetForm(true), u.hide()
+                });
         }
-        // eqiv_form: function(id) {
-        //     (t = document.querySelector("#kt_modal_det_rfq_goods")) &&
-        //         ((u = new bootstrap.Modal(t)),
-        //         (v = document.querySelector("#kt_modal_det_rfq_goods_form")),
-        //         (w = document.getElementById("kt_modal_det_rfq_goods_submit")),
-        //         (x = document.getElementById("kt_modal_det_rfq_goods_cancel")),
-        //         (y = document.querySelector('[data-kt-confirmation-modal-action="close"]')),
-        //         (z = FormValidation.formValidation(c, {
-        //             fields: {
-        //                 material_code: { validators: { notEmpty: { message: "Kode Material tidak boleh kosong" } } },
-        //                 material_name: { validators: { notEmpty: { message: "Nama Material tidak boleh kosong" } } },
-        //                 request_total: { validators: { notEmpty: { message: "Jumlah Permintaan tidak boleh kosong" } } },
-        //                 measurement: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
-        //                 currency: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
-        //                 unit_price: { validators: { notEmpty: { message: "Harga Satuan tidak boleh kosong" } } },
-        //                 unit_measure: { validators: { notEmpty: { message: "Per Satuan tidak boleh kosong" } } },
-        //                 convert: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
-        //                 available: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
-        //                 ed_price: { validators: { notEmpty: { message: "Masa Berlaku Harga tidak boleh kosong" } } },
-        //                 created_by: { validators: { notEmpty: { message: "Dibuat Oleh tidak boleh kosong" } } },
-        //             },
-        //             plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
-        //         })),
-        //         d.addEventListener("click", function (e) {
-        //             e.preventDefault(),
-        //                 g &&
-        //                     g.validate().then(function (e) {
-        //                         console.log("validated!"),
-        //                             "Valid" == e
-        //                                 ? (
-        //                                     Swal.fire({
-        //                                         text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
-        //                                         icon: "warning",
-        //                                         showCancelButton: !0,
-        //                                         buttonsStyling: !1,
-        //                                         confirmButtonText: "Ya, Simpan",
-        //                                         cancelButtonText: "Kembali",
-        //                                         customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
-        //                                     }).then(function (r) {
-        //                                         r.value
-        //                                             ? 
-        //                                             (
-        //                                                 $.ajax({
-        //                                                     type: 'POST',
-        //                                                     url: '<?php echo site_url("confirmation/save_req_price"); ?>',
-        //                                                     data: Object.fromEntries(new FormData(c).entries()),
-        //                                                     beforeSend: function() {
-        //                                                         d.setAttribute("data-kt-indicator", "on"),
-        //                                                         (d.disabled = !0);
-        //                                                     },
-        //                                                     success: function(response) {
-        //                                                         var obj = jQuery.parseJSON(response);
-        //                                                         d.removeAttribute("data-kt-indicator"),
-        //                                                         (d.disabled = !1);
-        //                                                         Swal.fire({ 
-        //                                                             text: obj.msg, 
-        //                                                             icon: obj.status, 
-        //                                                             buttonsStyling: !1, 
-        //                                                             confirmButtonText: "Tutup", 
-        //                                                             customClass: { confirmButton: "btn btn-primary" } }).then(
-        //                                                             function (t) {
-        //                                                                 t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),g.resetForm(true),b.hide()) : r.dismiss;
-        //                                                             }
-        //                                                         );
-        //                                                     },
-        //                                                     error: function() {
-        //                                                         d.removeAttribute("data-kt-indicator"),
-        //                                                         (d.disabled = !1);
-        //                                                         Swal.fire({ 
-        //                                                             text: "Terjadi masalah koneksi", 
-        //                                                             icon: "error", 
-        //                                                             buttonsStyling: !1, 
-        //                                                             confirmButtonText: "Tutup", 
-        //                                                             customClass: { confirmButton: "btn btn-primary" } }).then(
-        //                                                             function (t) {
-        //                                                                 t.isConfirmed && r.dismiss;
-        //                                                             }
-        //                                                         );
-        //                                                     }
-        //                                                 })
-        //                                             )
-        //                                             : "cancel" === r.dismiss;
-        //                                     })
-        //                                   )
-        //                                 : Swal.fire({
-        //                                       text: "Maaf, masih ada field yang kosong, silahkan diisi.",
-        //                                       icon: "error",
-        //                                       buttonsStyling: !1,
-        //                                       confirmButtonText: "Tutup",
-        //                                       customClass: { confirmButton: "btn btn-primary" },
-        //                                   });
-        //                     });
-        //         }),
-        //         e.addEventListener("click", function (t) {
-        //             g.resetForm(true), b.hide()
-        //         })),
-        //         z.addEventListener("click", function (t) {
-        //             g.resetForm(true), b.hide()
-        //         });
-        // }
     }
 })();
 
 KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();
     KTModalForm.rfq_form();
-    $("#kt_daterangepicker_3").daterangepicker({
+    KTModalForm.eqiv_form();
+    $("#kt_daterangepicker_3, #kt_daterangepicker_4").daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
         minYear: 1901,
-        maxYear: parseInt(moment().format("YYYY"),10)
+        maxYear: parseInt(moment().format("YYYY"),10),
+        locale: {
+            format: 'YYYY-MM-DD'
+        }
     }, function(start, end, label) {
         var years = moment().diff(start, "years");
         alert("You are " + years + " years old!");
@@ -932,6 +926,6 @@ KTUtil.onDOMContentLoaded((function() {
                 $("#form_convertion").show();
             }
         }
-    })
+    });
 }));
 </script>

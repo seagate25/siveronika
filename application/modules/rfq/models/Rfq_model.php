@@ -166,20 +166,20 @@ class Rfq_model extends CI_Model {
             $row->satuan            = $row->satuan;
             $row->deskripsi_satuan  = trim($row->deskripsi_satuan);
             $row->status            = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
-            $btn_eqiv_1             = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'true' : 'false';
+            $btn_eqiv_1             = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'disabled' : '';
             $row->actions           = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods">
                                             <i class="fas fa-envelope-open-text"></i>
                                         </button>';
-            $row->actions_equivalen = '<button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2" disabled="'.$btn_eqiv_1.'" data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+            $row->actions_equivalen = '<button type="button" class="eqiv_form btn btn-icon btn-sm btn-primary me-2 mb-2" '.$btn_eqiv_1.' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             1
                                         </button>
-                                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2" disabled="'.$this->enableEqivBtn($row->nomor_rfq, 1).'">
+                                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2" '.$this->enableEqivBtn($row->nomor_rfq, 1).'>
                                             2
                                         </button>
-                                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2" disabled="'.$this->enableEqivBtn($row->nomor_rfq, 2).'">
+                                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2" '.$this->enableEqivBtn($row->nomor_rfq, 2).'>
                                             3
                                         </button>
-                                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2" disabled="'.$this->enableEqivBtn($row->nomor_rfq, 3).'">
+                                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2" '.$this->enableEqivBtn($row->nomor_rfq, 3).'>
                                             4
                                         </button>';
 
@@ -235,11 +235,11 @@ class Rfq_model extends CI_Model {
      */
     public function enableEqivBtn(string $rfq_no, int $equivalen)
     {
-        $enable = 'false';
+        $enable = 'disabled';
         $sql    = "SELECT * FROM {$this->table[2]} WHERE nomor_rfq = '{$rfq_no}' AND ekuivalen = {$equivalen}";
         $query  = $this->db->query($sql);
         if($query->num_rows() > 0) {
-            $enable = 'true';
+            $enable = '';
         }
 
         return $enable;
