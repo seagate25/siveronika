@@ -122,63 +122,68 @@ class Rfq extends CI_Controller {
 
     public function save_eqiv()
     {
-        var_dump($this->input->post());exit;
-        // $rfq_no         = $this->crypto->decode($this->input->post('id_rfq'));
-        // $material_code  = $this->input->post('material_code');
-        // $material_name  = $this->input->post('material_name');
-        // $request_total  = $this->input->post('request_total');
-        // $measurement    = $this->input->post('measurement');
-        // $currency       = $this->input->post('currency');
-        // $unit_price     = $this->input->post('unit_price');
-        // $unit_measure   = $this->input->post('unit_measure');
-        // $convert        = $this->input->post('convert');
-        // $available      = $this->input->post('available');
-        // $ed_price       = $this->input->post('ed_price');
-        // $notes          = $this->input->post('notes');
-        // $created_by     = $this->input->post('created_by');
+        // var_dump($this->input->post());exit;
+        $rfq_no         = $this->crypto->decode($this->input->post('id_rfq_eqiv'));
+        $material_code  = $this->input->post('material_code_eqiv');
+        $material_name  = $this->input->post('material_name_eqiv');
+        $request_total  = $this->input->post('request_total_eqiv');
+        $measurement    = $this->input->post('measurement_eqiv');
+        $currency       = $this->input->post('currency_eqiv');
+        $unit_price     = $this->input->post('unit_price_eqiv');
+        $unit_measure   = $this->input->post('unit_measure_eqiv');
+        $convert        = $this->input->post('convert_eqiv');
+        $available      = $this->input->post('available_eqiv');
+        $ed_price       = $this->input->post('ed_price_eqiv');
+        $notes          = $this->input->post('notes_eqiv');
+        $created_by     = $this->input->post('created_by_eqiv');
 
-        // $explode_ed_price   = explode("/", $ed_price);
-        // $new_ed_price       = $explode_ed_price[2].'-'.$explode_ed_price[0].'-'.$explode_ed_price[1];
-        
-        // $params = array(
-        //     'nomor_rfq'     => $rfq_no,
-        //     'kode_barang'   => $material_code
-        // );
+        $new_ed_price = '';
+        if(strpos($ed_price, '/')){
+            $explode_ed_price   = explode("/", $ed_price);
+            $new_ed_price       = $explode_ed_price[2].'-'.$explode_ed_price[0].'-'.$explode_ed_price[1];
+        } else {
+            $new_ed_price = $ed_price;
+        }
 
-        // $data   = array(
-        //     'mata_uang'             => $currency,
-        //     'harga_satuan'         => $unit_price,
-        //     'per_harga_satuan'      => $unit_measure,
-        //     'konversi'              => $convert,
-        //     'ketersediaan_barang'   => $available,
-        //     'masa_berlaku_harga'    => $new_ed_price,
-        //     'keterangan'            => $notes,
-        //     'dibuat_oleh'           => $created_by,
-        //     'modified_date'         => date('Y-m-d'),
-        //     'modified_by'           => 'WEB'
-        // );
+        $params = array(
+            'nomor_rfq'     => $rfq_no,
+            'kode_barang'   => $material_code
+        );
 
-        // $save   = $this->rfq->saveRFQ($params, $data);
-        // if($save > 0) {
+        $data   = array(
+            'mata_uang'             => $currency,
+            'harga_satuan'         => $unit_price,
+            'per_harga_satuan'      => $unit_measure,
+            'konversi'              => $convert,
+            'ketersediaan_barang'   => $available,
+            'masa_berlaku_harga'    => $new_ed_price,
+            'keterangan'            => $notes,
+            'dibuat_oleh'           => $created_by,
+            'modified_date'         => date('Y-m-d'),
+            'modified_by'           => 'WEB'
+        );
+
+        $save   = $this->rfq->saveRFQEqiv($params, $data);
+        if($save > 0) {
             
-        //     $response = array(
-        //         'code'      => 0,
-        //         'msg'       => 'Berhasil menyimpan data',
-        //         'status'    => 'success'
-        //     );
+            $response = array(
+                'code'      => 0,
+                'msg'       => 'Berhasil menyimpan data',
+                'status'    => 'success'
+            );
 
-        // } else {
+        } else {
 
-        //     $response = array(
-        //         'code'      => 100,
-        //         'msg'       => 'Gagal menyimpan data',
-        //         'status'    => 'error'
-        //     );
+            $response = array(
+                'code'      => 100,
+                'msg'       => 'Gagal menyimpan data',
+                'status'    => 'error'
+            );
 
-        // }
+        }
 
-        // echo json_encode($response, JSON_PRETTY_PRINT);
-        // exit;
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
     }
 
 }

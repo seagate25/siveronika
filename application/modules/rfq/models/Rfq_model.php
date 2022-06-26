@@ -226,6 +226,36 @@ class Rfq_model extends CI_Model {
         return $this->db->affected_rows();
     }
 
+    public function saveRFQEqiv($params = array(), $data = array())
+    {
+        // $sql    = "INSERT INTO {$this->table[0]} ";
+        // $sql    .= "(";
+        //             foreach($data as $key => $value) {
+        //                 $sql .= "{$key}";
+        //                 if($i === (count($data) - 1)) {
+        //                     $sql .= " ";
+        //                 } else {
+        //                     $sql .= ", ";
+        //                 }
+        //                 $i++;
+        //             }
+        // $sql    .= ")";
+        // $sql    .= "VALUES (";
+        //             foreach($data as $key => $value) {
+        //                 $sql .= "{$value}";
+        //                 if($i === (count($data) - 1)) {
+        //                     $sql .= " ";
+        //                 } else {
+        //                     $sql .= ", ";
+        //                 }
+        //                 $i++;
+        //             }
+        // $sql    .= ")";
+        // var_dump($sql);
+        // log($sql);
+        // return $this->db->affected_rows();
+    }
+
     /**
      * Undocumented function
      *
