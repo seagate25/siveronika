@@ -159,27 +159,31 @@ class Rfq_model extends CI_Model {
         $i = (0 + 1);
 
         foreach($rows_data as $row) {
-            $row->number            = $i;
-            $row->kode_barang       = $row->kode_barang;
-            $row->deskripsi_barang  = $row->deskripsi_barang;
-            $row->jumlah_permintaan = (int)$row->jumlah_permintaan;
-            $row->satuan            = $row->satuan;
-            $row->deskripsi_satuan  = trim($row->deskripsi_satuan);
-            $row->status            = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
-            $btn_eqiv_1             = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'disabled' : '';
-            $row->actions           = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods">
+            $row->number                = $i;
+            $row->kode_barang           = $row->kode_barang;
+            $row->deskripsi_barang      = $row->deskripsi_barang;
+            $row->jumlah_permintaan     = (int)$row->jumlah_permintaan;
+            $row->satuan                = $row->satuan;
+            $row->harga_satuan          = (int)$row->harga_satuan;
+            $row->konversi              = (int)$row->konversi;
+            $row->ketersediaan_barang   = (int)$row->ketersediaan_barang;
+            $row->deskripsi_satuan      = trim($row->deskripsi_satuan);
+            $row->urutan_rfq            = trim($row->urutan_rfq);
+            $row->status                = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
+            $btn_eqiv_1                 = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'disabled' : '';
+            $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods">
                                             <i class="fas fa-envelope-open-text"></i>
                                         </button>';
-            $row->actions_equivalen = '<button type="button" class="eqiv_form btn btn-icon btn-sm btn-primary me-2 mb-2" '.$btn_eqiv_1.' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+            $row->actions_equivalen     = '<button type="button" class="eqiv_form btn btn-icon btn-sm btn-primary me-2 mb-2" id="btn_eqiv_1" '.$btn_eqiv_1.' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             1
                                         </button>
-                                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2" '.$this->enableEqivBtn($row->nomor_rfq, 1).'>
+                                        <button type="button" class="eqiv_form btn btn-icon btn-sm btn-primary me-2 mb-2" id="btn_eqiv_2" '.$this->enableEqivBtn($row->nomor_rfq, 1).' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             2
                                         </button>
-                                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2" '.$this->enableEqivBtn($row->nomor_rfq, 2).'>
+                                        <button type="button" class="eqiv_form btn btn-icon btn-sm btn-primary me-2 mb-2" id="btn_eqiv_3" '.$this->enableEqivBtn($row->nomor_rfq, 2).' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             3
                                         </button>
-                                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2" '.$this->enableEqivBtn($row->nomor_rfq, 3).'>
+                                        <button type="button" class="eqiv_form btn btn-icon btn-sm btn-primary me-2 mb-2" id="btn_eqiv_4" '.$this->enableEqivBtn($row->nomor_rfq, 3).' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             4
                                         </button>';
 
@@ -195,6 +199,13 @@ class Rfq_model extends CI_Model {
         );
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param array $params
+     * @param array $data
+     * @return void
+     */
     public function saveRFQ($params = array(), $data = array())
     {
         $sql    = "";
@@ -226,34 +237,100 @@ class Rfq_model extends CI_Model {
         return $this->db->affected_rows();
     }
 
-    public function saveRFQEqiv($params = array(), $data = array())
+    /**
+     * Undocumented function
+     *
+     * @param array $params
+     * @param array $data
+     * @return void
+     */
+    public function saveRFQEqiv($data = array())
     {
-        // $sql    = "INSERT INTO {$this->table[0]} ";
-        // $sql    .= "(";
-        //             foreach($data as $key => $value) {
-        //                 $sql .= "{$key}";
-        //                 if($i === (count($data) - 1)) {
-        //                     $sql .= " ";
-        //                 } else {
-        //                     $sql .= ", ";
-        //                 }
-        //                 $i++;
-        //             }
-        // $sql    .= ")";
-        // $sql    .= "VALUES (";
-        //             foreach($data as $key => $value) {
-        //                 $sql .= "{$value}";
-        //                 if($i === (count($data) - 1)) {
-        //                     $sql .= " ";
-        //                 } else {
-        //                     $sql .= ", ";
-        //                 }
-        //                 $i++;
-        //             }
-        // $sql    .= ")";
-        // var_dump($sql);
-        // log($sql);
-        // return $this->db->affected_rows();
+        $sql    = "INSERT INTO {$this->table[2]} ";
+        $sql    .= "(";
+
+        $i      = 0;
+        foreach($data as $key => $value) {
+            $sql .= "{$key}";
+            if($i === (count($data) - 1)) {
+                $sql .= "";
+            } else {
+                $sql .= ", ";
+            }
+            $i++;
+        }
+
+        $sql    .= ")";
+        $sql    .= " VALUES (";
+        $j      = 0;
+        foreach($data as $key => $value) {
+            $sql .= "'{$value}'";
+            if($j === (count($data) - 1)) {
+                $sql .= " ";
+            } else {
+                $sql .= ", ";
+            }
+            $j++;
+        }
+
+        $sql    .= ")";
+
+        $this->db->query($sql);
+
+        return $this->db->affected_rows();
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $params
+     * @param array $data
+     * @return void
+     */
+    public function updateRFQEqiv($params = array(), $data = array())
+    {
+        $sql    = "";
+        $sql    .= "UPDATE {$this->table[2]} SET ";
+        $i      = 0;
+        foreach($data as $key => $value) {
+            $sql .= "{$key} = '{$value}'";
+            if($i === (count($data) - 1)) {
+                $sql .= " ";
+            } else {
+                $sql .= ", ";
+            }
+
+            $i++;
+        }
+
+        $sql .= " WHERE ";
+        foreach($params as $key => $value) {
+            $sql .= "{$key} = '{$value}'";
+            if(!next($params)) {
+                $sql .= " ";
+            } else {
+                $sql .= " AND ";
+            }
+        }
+        var_dump($sql);exit;
+        $this->db->query($sql);
+
+        return $this->db->affected_rows();
+    }
+    
+    /**
+     * Undocumented function
+     *
+     * @param string $rfq_no
+     * @param integer $id
+     * @return void
+     */
+    public function getDetailEqiv(string $rfq_no, int $id)
+    {
+        $sql    = "SELECT * FROM {$this->table[2]} WHERE nomor_rfq = '{$rfq_no}' AND ekuivalen = {$id}";
+        $query  = $this->db->query($sql);
+
+        return $query;
     }
 
     /**

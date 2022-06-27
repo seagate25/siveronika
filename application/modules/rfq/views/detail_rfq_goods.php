@@ -1,3 +1,4 @@
+<script src="<?php echo base_url(); ?>assets/plugins/custom/jquery-maskMoney/jquery.maskMoney.js"></script>
 <div class="card shadow-sm">
     <div class="card-header bg-success">
         <div class="card-toolbar">
@@ -340,6 +341,8 @@
                             <h4 class="text-gray-900 fw-bolder">RFQ No : <span id="txt_rfq_no_eqiv"></span> | <span id="txt_material_code_eqiv"></span> | <span id="txt_seq_eqiv"></span></h4>
                         </div>
                         <input type="hidden" name="id_rfq_eqiv">
+                        <input type="hidden" name="id_eqiv">
+                        <input type="hidden" name="seq_eqiv">
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
@@ -384,6 +387,8 @@
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="measurement_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Satuan">
+                                <input type="hidden" name="r_measurement_eqiv">
+                                <input type="hidden" name="desc_measure_eqiv">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -595,6 +600,9 @@
 <script type="text/javascript">
 "use strict";
 
+var target = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen .modal-content");
+var blockUI = new KTBlockUI(target);
+
 var KTDataTables = (function() {
     var e;
     return {
@@ -649,7 +657,7 @@ var KTDataTables = (function() {
                 $("#kt_modal_det_rfq_goods h4 span#txt_rfq_no").text(data.nomor_rfq);
                 $("#kt_modal_det_rfq_goods h4 span#txt_material_code").text(data.kode_barang);
                 $("input[name=id_rfq]").val('<?php echo $this->uri->segment(3);?>');
-                // $("input[name=confirmation_price]").maskMoney('mask', data.harga);
+                $("input[name=unit_price]").maskMoney('mask', data.harga_satuan);
                 $("input[name=material_code]").val(data.kode_barang);
                 $("input[name=material_name]").val(data.deskripsi_barang);
                 $("input[name=request_total]").val(data.jumlah_permintaan);
@@ -662,9 +670,14 @@ var KTDataTables = (function() {
 
                 if(data.modified_date != null && data.modified_by != null) {
                     $("input[name=currency]").val(data.mata_uang);
-                    $("input[name=unit_price]").val(data.harga_satuan);
                     $("input[name=unit_measure]").val(data.per_harga_satuan);
-                    $("input[name=available]:checked").val(data.ketersediaan_barang);
+                    $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
+                    if($('input[name="convert"]:checked').val() == 0) {
+                        $("#form_convertion").hide();
+                    } else {
+                        $("#form_convertion").show();
+                    }
+                    $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
                     $("input[name=ed_price]").val(data.masa_berlaku_harga);
                     $("input[name=notes]").val(data.keterangan);
                     $("input[name=created_by]").val(data.dibuat_oleh);
@@ -672,30 +685,55 @@ var KTDataTables = (function() {
             }),
             $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form', function () {
                 var data = e.row($(this).parents('tr')).data();
+                var id = $(this).attr('id');
+                var eqiv_id = id.replace('btn_eqiv_', '');
+
                 $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_rfq_no_eqiv").text(data.nomor_rfq);
                 $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_material_code_eqiv").text(data.kode_barang);
-                $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_seq_eqiv").text('1');
+                $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_seq_eqiv").text(eqiv_id);
                 $("input[name=id_rfq_eqiv]").val('<?php echo $this->uri->segment(3);?>');
-                // $("input[name=confirmation_price_eqiv]").maskMoney('mask', data.harga);
+                $("input[name=id_eqiv]").val(eqiv_id);
+                $("input[name=seq_eqiv]").val(data.urutan_rfq);
                 $("input[name=material_code_eqiv]").val(data.kode_barang);
                 $("input[name=material_name_eqiv]").val(data.deskripsi_barang);
                 $("input[name=request_total_eqiv]").val(data.jumlah_permintaan);
                 $("input[name=measurement_eqiv]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
+                $("input[name=r_measurement_eqiv]").val(data.satuan);
+                $("input[name=desc_measure_eqiv]").val(data.deskripsi_satuan);
+                $('input[name="convert_eqiv"][value="0"]').prop('checked', true);
+                $('input[name="available_eqiv"][value="0"]').prop('checked', true);
+                $("input[name=ed_price_eqiv]").val('<?php echo date('Y-m-d'); ?>');
                 if($('input[name="convert_eqiv"]:checked').val() == 0) {
                     $("#form_convertion_eqiv").hide();
                 } else {
                     $("#form_convertion_eqiv").show();
                 }
 
-                // if(data.modified_date != null && data.modified_by != null) {
-                //     $("input[name=currency_eqiv]").val(data.mata_uang);
-                //     $("input[name=harga_satuan_eqiv]").val(data.harga_satuan);
-                //     $("input[name=per_harga_satuan_eqiv]").val(data.per_harga_satuan);
-                //     $("input[name=available_eqiv]:checked").val(data.ketersediaan_barang);
-                //     $("input[name=ed_price_eqiv]").val(data.masa_berlaku_harga);
-                //     $("input[name=notes_eqiv]").val(data.keterangan);
-                //     $("input[name=created_by_eqiv]").val(data.dibuat_oleh);
-                // }
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('rfq/get_det_rfq_eqiv');?>",
+                    data: { val_1: '<?php echo $this->uri->segment(3);?>', val_2: eqiv_id },
+                    beforeSend: function() {
+                        blockUI.block();
+                    },
+                    success: function(response) {
+                        var obj = jQuery.parseJSON(response);
+                        blockUI.release();
+                        if(obj.code == 0) {
+                            $("input[name=currency_eqiv]").val(obj.data.mata_uang);
+                            $("input[name=unit_price_eqiv]").maskMoney('mask', parseInt(obj.data.harga_satuan));
+                            $("input[name=unit_measure_eqiv]").val(obj.data.per_harga_satuan);
+                            $('input[name="convert_eqiv"][value="' + obj.data.konversi + '"]').prop('checked', true);
+                            $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
+                            $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
+                            $("input[name=notes_eqiv]").val(obj.data.keterangan);
+                            $("input[name=created_by_eqiv]").val(obj.data.dibuat_oleh);
+                        }
+                    },
+                    error: function () {
+                        blockUI.release();
+                    } 
+                });
             });
         }
     };
@@ -911,6 +949,8 @@ KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();
     KTModalForm.rfq_form();
     KTModalForm.eqiv_form();
+    $("input[name=unit_price]").maskMoney({ thousands:'.', decimal:',', affixesStay: false, precision: 0});
+    $("input[name=unit_price_eqiv]").maskMoney({ thousands:'.', decimal:',', affixesStay: false, precision: 0});
     $("#kt_daterangepicker_3, #kt_daterangepicker_4").daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
@@ -919,9 +959,6 @@ KTUtil.onDOMContentLoaded((function() {
         locale: {
             format: 'YYYY-MM-DD'
         }
-    }, function(start, end, label) {
-        var years = moment().diff(start, "years");
-        alert("You are " + years + " years old!");
     });
     $("input[name=convert]").on("change", function() {
         if($(this).is(':checked')) {
