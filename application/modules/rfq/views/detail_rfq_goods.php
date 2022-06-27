@@ -600,11 +600,10 @@
 <script type="text/javascript">
 "use strict";
 
-var target = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen .modal-content");
-var blockUI = new KTBlockUI(target);
-
 var KTDataTables = (function() {
     var e;
+    var target = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen .modal-content");
+    var blockUI = new KTBlockUI(target);
     return {
         init: function() {
             e = $("#kt_datatable_detail_rfq_goods").DataTable({
@@ -684,6 +683,8 @@ var KTDataTables = (function() {
                 }
             }),
             $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form', function () {
+                blockUI.release();
+                
                 var data = e.row($(this).parents('tr')).data();
                 var id = $(this).attr('id');
                 var eqiv_id = id.replace('btn_eqiv_', '');
@@ -717,8 +718,8 @@ var KTDataTables = (function() {
                         blockUI.block();
                     },
                     success: function(response) {
-                        var obj = jQuery.parseJSON(response);
                         blockUI.release();
+                        var obj = jQuery.parseJSON(response);
                         if(obj.code == 0) {
                             $("input[name=currency_eqiv]").val(obj.data.mata_uang);
                             $("input[name=unit_price_eqiv]").maskMoney('mask', parseInt(obj.data.harga_satuan));

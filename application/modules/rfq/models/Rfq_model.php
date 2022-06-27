@@ -312,7 +312,7 @@ class Rfq_model extends CI_Model {
                 $sql .= " AND ";
             }
         }
-        var_dump($sql);exit;
+        
         $this->db->query($sql);
 
         return $this->db->affected_rows();

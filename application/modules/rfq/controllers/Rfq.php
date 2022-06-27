@@ -160,6 +160,7 @@ class Rfq extends CI_Controller {
 
             $params = array(
                 'nomor_rfq'     => $rfq_no,
+                'ekuivalen'     => $id_eqiv,
                 'kode_barang'   => $material_code
             );
 
