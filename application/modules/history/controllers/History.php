@@ -8,6 +8,8 @@ class History extends CI_Controller {
     {
         parent::__construct();
         logged_in();
+        $this->load->model('History_model', 'history');
+        $this->load->library('Crypto');
     }
 
     /**
@@ -17,9 +19,14 @@ class History extends CI_Controller {
      */
     public function rfq_goods()
     {
-        $data['title']      = "RFQ Barang";
+        if($this->input->is_ajax_request()) {
+            $rows   = $this->history>getRfqGoodsList();
+            echo json_encode($rows);
+            exit;
+        }
+        $data['title']      = "Riwayat RFQ Barang";
         $data['menu']       = "Riwayat";
-        $data['submenu']    = "RFQ Barang";
+        $data['submenu']    = "Riwayat RFQ Barang";
         $data['content']    = "history_rfq_goods";
         $this->load->view('default', $data);
     }
