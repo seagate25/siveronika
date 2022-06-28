@@ -10,7 +10,14 @@ class History_model extends CI_Model {
      *
      * @var array
      */
-    protected $table;
+    protected $table_rfq;
+
+    /**
+     * Undocumented variable
+     *
+     * @var array
+     */
+    protected $table_nego;
 
     /**
      * Declare variable of vendor code
@@ -35,8 +42,8 @@ class History_model extends CI_Model {
     {
         parent::__construct();
         $this->load->library('Crypto');
-        $this->table_rfq        = ['TB_S_MST_RFQ_BARANG_HEAD','TB_S_MST_RFQ_BARANG_DTL','TB_S_MST_RFQ_BARANG_EQIV','TB_S_MST_RFQ_BIAYA_TAMBAHAN','TB_S_MST_RFQ_LAMPIRAN_BARANG', 'TB_TR_QUOTATION_LAMPIRAN'];
-        $this->table_nego       = [''];
+        $this->table_rfq    = ['TB_S_MST_RFQ_BARANG_HEAD','TB_S_MST_RFQ_BARANG_DTL','TB_S_MST_RFQ_BARANG_EQIV','TB_S_MST_RFQ_BIAYA_TAMBAHAN','TB_S_MST_RFQ_LAMPIRAN_BARANG', 'TB_TR_QUOTATION_LAMPIRAN'];
+        $this->table_nego   = [''];
         $this->vendor_code  = $this->session->userdata('kode_vendor');
         $this->today        = date('Y-m-d');
     }
@@ -66,14 +73,14 @@ class History_model extends CI_Model {
             // $where .= " OR tanggal_jatuh_tempo LIKE '%".$search['value']."%')";
         }
 
-        $sql        = "SELECT * FROM {$this->table[0]}{$where}";
+        $sql        = "SELECT * FROM {$this->table_rfq[0]}{$where}";
         
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
         
         $sql_   = "SELECT  *
                     FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, *
-                            FROM      {$this->table[0]}
+                            FROM      {$this->table_rfq[0]}
                             {$where}
                             ) AS RowConstrainedResult
                     WHERE   RowNum > {$start}

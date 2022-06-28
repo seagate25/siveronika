@@ -20,7 +20,7 @@ class History extends CI_Controller {
     public function rfq_goods()
     {
         if($this->input->is_ajax_request()) {
-            $rows   = $this->history>getRfqGoodsList();
+            $rows   = $this->history->getRfqGoodsList();
             echo json_encode($rows);
             exit;
         }
