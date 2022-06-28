@@ -61,11 +61,12 @@ var KTDataTables = (function() {
                         }
                     },
                     { data: 'nomor_rfq', className: 'text-center' },
-                    { data: 'berkas',
-                        render: function (data, type, row, meta) {
-                            return '';
-                        }    
-                    },
+                    // { data: 'berkas',
+                    //     render: function (data, type, row, meta) {
+                    //         return '';
+                    //     }    
+                    // },
+                    { data: 'berkas', className: 'text-center', sortable: false, searchable: false, orderable: false },
                     { data: 'tanggal_rfq', className: 'text-center' },
                     { data: 'tanggal_jatuh_tempo', className: 'text-center' },
                     { data: 'sisa_hari', className: 'text-center' },

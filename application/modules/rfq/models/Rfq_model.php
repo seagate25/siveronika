@@ -64,14 +64,24 @@ class Rfq_model extends CI_Model {
             $where .= " OR tanggal_jatuh_tempo LIKE '%".$search['value']."%')";
         }
 
-        $sql        = "SELECT * FROM {$this->table[0]}{$where}";
-        
+        // $sql        = "SELECT * FROM {$this->table[0]}{$where}";
+        $sql        = "SELECT trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung FROM {$this->table[0]} trfq LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq) {$where}";
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
         
+        // $sql_   = "SELECT  *
+        //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, *
+        //                     FROM      {$this->table[0]}
+        //                     {$where}
+        //                     ) AS RowConstrainedResult
+        //             WHERE   RowNum > {$start}
+        //                 AND RowNum < (({$start} + 1) + {$length})
+        //             ORDER BY RowNum";
         $sql_   = "SELECT  *
-                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, *
-                            FROM      {$this->table[0]}
+                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum, 
+                                        trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
+                            FROM      {$this->table[0]} trfq 
+                            LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq)
                             {$where}
                             ) AS RowConstrainedResult
                     WHERE   RowNum > {$start}
@@ -80,12 +90,23 @@ class Rfq_model extends CI_Model {
 
 		$query = $this->db->query($sql_);
         $rows_data = $query->result();
-
+        // var_dump($rows_data);
         $rows = array();
         $i = (0 + 1);
-
+        
         foreach($rows_data as $row) {
+            $berkas = '';
+            
+            if(strlen($row->nama_berkas) > 0){
+                $berkas = 
+                '<a href="'.base_url('upload_files/Dokumen_RFQ/'.$row->nama_berkas).'" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
+                                <i class="las la-arrow-down fs-1 text-white"></i>
+                            </a>';
+            } else {
+                $berkas = '';
+            }
             $row->number                = $i;
+            $row->berkas                = $berkas;
             $row->nomor_rfq             = $row->nomor_rfq;
             $row->tanggal_rfq           = date('d.M.y', strtotime($row->tanggal_rfq));
             $row->tanggal_jatuh_tempo   = date('d.M.y', strtotime($row->tanggal_jatuh_tempo));
