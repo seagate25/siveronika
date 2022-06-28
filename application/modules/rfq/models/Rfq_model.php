@@ -353,6 +353,8 @@ class Rfq_model extends CI_Model {
         }
 
         $this->db->query($sql);
+
+        return $this->db->affected_rows();
     }
     
     /**

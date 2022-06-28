@@ -147,7 +147,7 @@ class Rfq extends CI_Controller {
                     );
 
                     $attach_files[] = $upload_data;
-				}   
+				}
 			}
 		}
 
@@ -171,13 +171,14 @@ class Rfq extends CI_Controller {
 
         $save   = $this->rfq->saveRFQ($params, $data);
         if($save > 0) {
-
-            // $this->rfq->saveFile($attach_files);
+            
+            $uploaded_files = $this->rfq->saveFile($attach_files);
             
             $response = array(
                 'code'      => 0,
                 'msg'       => 'Berhasil menyimpan data',
-                'status'    => 'success'
+                'status'    => 'success',
+                'data'      => $uploaded_files.' file berhasil diupload.'
             );
 
         } else {
