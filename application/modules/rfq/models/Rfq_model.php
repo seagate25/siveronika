@@ -35,7 +35,7 @@ class Rfq_model extends CI_Model {
     {
         parent::__construct();
         $this->load->library('Crypto');
-        $this->table        = ['TB_S_MST_RFQ_BARANG_HEAD','TB_S_MST_RFQ_BARANG_DTL','TB_S_MST_RFQ_BARANG_EQIV','TB_S_MST_RFQ_BIAYA_TAMBAHAN','TB_S_MST_RFQ_LAMPIRAN_BARANG'];
+        $this->table        = ['TB_S_MST_RFQ_BARANG_HEAD','TB_S_MST_RFQ_BARANG_DTL','TB_S_MST_RFQ_BARANG_EQIV','TB_S_MST_RFQ_BIAYA_TAMBAHAN','TB_S_MST_RFQ_LAMPIRAN_BARANG','TB_TR_QUOTATION_LAMPIRAN'];
         $this->vendor_code  = $this->session->userdata('kode_vendor');
         $this->today        = date('Y-m-d');
     }
@@ -316,6 +316,43 @@ class Rfq_model extends CI_Model {
         $this->db->query($sql);
 
         return $this->db->affected_rows();
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $data
+     * @return void
+     */
+    public function saveFile($data = array())
+    {
+        $sql    = "INSERT INTO {$this->table[5]} ";
+        $sql    .= "VALUES ";
+        
+        $i  = 0;
+        foreach($data as $row) {
+            $j = 0;
+            $sql    .= "(";
+            foreach($row as $val) {
+                $sql .= "'{$val}'";
+                if($j === (count($row) - 1)) {
+                    $sql .= "";
+                } else {
+                    $sql .= ",";
+                }
+                $j++;
+            }
+            $sql    .= ")";
+
+            if($i === (count($data) - 1)) {
+                $sql .= "";
+            } else {
+                $sql .= ",";
+            }
+            $i++;
+        }
+
+        $this->db->query($sql);
     }
     
     /**

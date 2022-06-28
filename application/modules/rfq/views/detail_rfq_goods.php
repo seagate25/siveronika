@@ -51,7 +51,7 @@
                 <!--end::Close-->
             </div>
 
-            <form id="kt_modal_det_rfq_goods_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" action="#">
+            <form id="kt_modal_det_rfq_goods_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url('rfq/save_rfq'); ?>">
                 <!--begin::Modal body-->
                 <div class="modal-body py-4 px-lg-17">
                     <!--begin::Scroll-->
@@ -267,24 +267,24 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">File Brosur</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">File Brosur</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
+                                    <input class="form-control" type="file" name="rfq_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
+                                    <input class="form-control" type="file" name="rfq_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
+                                    <input class="form-control" type="file" name="rfq_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
+                                    <input class="form-control" type="file" name="rfq_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
+                                    <input class="form-control" type="file" name="rfq_file[]">
                                 </div>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
@@ -770,7 +770,7 @@ var KTModalForm = (function() {
                     e.preventDefault(),
                         g &&
                             g.validate().then(function (e) {
-                                console.log("validated!"),
+                                    var frmData = new FormData(c);
                                     "Valid" == e
                                         ? (
                                             Swal.fire({
@@ -787,8 +787,10 @@ var KTModalForm = (function() {
                                                     (
                                                         $.ajax({
                                                             type: 'POST',
-                                                            url: '<?php echo site_url("rfq/save_rfq"); ?>',
-                                                            data: Object.fromEntries(new FormData(c).entries()),
+                                                            url: c.getAttribute('action'),
+                                                            data: frmData,
+                                                            processData: false,
+                                                            contentType: false,
                                                             beforeSend: function() {
                                                                 d.setAttribute("data-kt-indicator", "on"),
                                                                 (d.disabled = !0);

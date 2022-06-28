@@ -95,6 +95,62 @@ class Rfq extends CI_Controller {
         $notes          = $this->input->post('notes');
         $created_by     = $this->input->post('created_by');
 
+        $attach_files   = array();
+
+        $path   = 'upload_files/dokumen_quotation/';
+        if(!file_exists($path . $rfq_no)) {
+            mkdir($path . $rfq_no, 0777, TRUE);
+        }
+
+        /** Upload Config */
+        // $config['file_name']        = $new_file_name;
+        $config['upload_path']      = $path.$rfq_no.'/';
+        $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+
+        /** Load CodeIgniter Upload Library */
+        $this->load->library('upload', $config);
+
+        $jumlah_berkas = count($_FILES['rfq_file']['name']);
+		for($i = 0; $i < $jumlah_berkas;$i++)
+		{
+            if(!empty($_FILES['rfq_file']['name'][$i])){
+ 
+				$_FILES['file']['name'] = $_FILES['rfq_file']['name'][$i];
+				$_FILES['file']['type'] = $_FILES['rfq_file']['type'][$i];
+				$_FILES['file']['tmp_name'] = $_FILES['rfq_file']['tmp_name'][$i];
+				$_FILES['file']['error'] = $_FILES['rfq_file']['error'][$i];
+				$_FILES['file']['size'] = $_FILES['rfq_file']['size'][$i];
+
+                $filename  = date('Ymd').'_'.$rfq_no.'_0_'.($i+1);
+
+                /** Upload Config */
+                $config['file_name']        = $filename;
+                $config['upload_path']      = $path.$rfq_no.'/';
+                $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+
+                /** Load CodeIgniter Upload Library */
+                $this->load->library('upload', $config);
+
+                $this->upload->initialize($config);
+	   
+				if($this->upload->do_upload('file')){
+					
+					// $uploadData = $this->upload->data();
+                    $upload_data    = array(
+                        'nomor_quotation'   => $rfq_no,
+                        'ekuivalen'         => 0,
+                        'kode_barang'       => $material_code,
+                        'alamat_berkas'     => $path.$rfq_no.'/',
+                        'nama_berkas'       => $filename,
+                        'modified_date'     => date('Y-m-d H:i:s'),
+                        'modified_by'       => 'WEB'
+                    );
+
+                    $attach_files[] = $upload_data;
+				}   
+			}
+		}
+
         $params = array(
             'nomor_rfq'     => $rfq_no,
             'kode_barang'   => $material_code
@@ -115,6 +171,8 @@ class Rfq extends CI_Controller {
 
         $save   = $this->rfq->saveRFQ($params, $data);
         if($save > 0) {
+
+            // $this->rfq->saveFile($attach_files);
             
             $response = array(
                 'code'      => 0,
