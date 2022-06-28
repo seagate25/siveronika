@@ -195,16 +195,16 @@ class Rfq_model extends CI_Model {
             $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods">
                                             <i class="fas fa-envelope-open-text"></i>
                                         </button>';
-            $row->actions_equivalen     = '<button type="button" class="eqiv_form_1 btn btn-icon btn-sm btn-primary me-2 mb-2" id="btn_eqiv_1" '.$btn_eqiv_1.' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+            $row->actions_equivalen     = '<button type="button" class="eqiv_form_1 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_1" '.$btn_eqiv_1.' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             1
                                         </button>
-                                        <button type="button" class="eqiv_form_2 btn btn-icon btn-sm btn-primary me-2 mb-2" id="btn_eqiv_2" '.$this->enableEqivBtn($row->nomor_rfq, 1).' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_2 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_2" '.$this->enableEqivBtn($row->nomor_rfq, 1).' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             2
                                         </button>
-                                        <button type="button" class="eqiv_form_3 btn btn-icon btn-sm btn-primary me-2 mb-2" id="btn_eqiv_3" '.$this->enableEqivBtn($row->nomor_rfq, 2).' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_3 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_3" '.$this->enableEqivBtn($row->nomor_rfq, 2).' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             3
                                         </button>
-                                        <button type="button" class="eqiv_form_4 btn btn-icon btn-sm btn-primary me-2 mb-2" id="btn_eqiv_4" '.$this->enableEqivBtn($row->nomor_rfq, 3).' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_4 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_4" '.$this->enableEqivBtn($row->nomor_rfq, 3).' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             4
                                         </button>';
 
