@@ -64,23 +64,23 @@ class History_model extends CI_Model {
         );
         
         $order_column = $field[$order_column];
-		// $where = " WHERE (kode_vendor = '{$this->vendor_code}') AND format(tanggal_jatuh_tempo, 'yyyyMMdd') < ".date("Ymd").""; 
-        $where = " WHERE (kode_vendor = '{$this->vendor_code}') "; 
+		$where = " WHERE (kode_vendor = '{$this->vendor_code}') ";  // Get Konfirmasi harga with konfirmasi_status = 1
 		if(!empty($search['value'])) {
             $where .= " AND ";
             $where .= " (nomor_rfq LIKE '%".$search['value']."%'";
             $where .= " OR tanggal_rfq LIKE '%".$search['value']."%'";
-            // $where .= " OR tanggal_jatuh_tempo LIKE '%".$search['value']."%')";
+            $where .= " OR tanggal_jatuh_tempo LIKE '%".$search['value']."%')";
         }
 
-        $sql        = "SELECT * FROM {$this->table_rfq[0]}{$where}";
-        
+        $sql        = "SELECT trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung FROM {$this->table_rfq[0]} trfq LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq) {$where}";
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
         
         $sql_   = "SELECT  *
-                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, *
-                            FROM      {$this->table_rfq[0]}
+                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum, 
+                                        trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
+                            FROM      {$this->table_rfq[0]} trfq 
+                            LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq)
                             {$where}
                             ) AS RowConstrainedResult
                     WHERE   RowNum > {$start}
@@ -89,16 +89,27 @@ class History_model extends CI_Model {
 
 		$query = $this->db->query($sql_);
         $rows_data = $query->result();
-
+        // var_dump($rows_data);
         $rows = array();
         $i = (0 + 1);
-
+        
         foreach($rows_data as $row) {
+            $berkas = '';
+            
+            if(strlen($row->nama_berkas) > 0){
+                $berkas = 
+                '<a href="'.base_url('upload_files/Dokumen_RFQ/'.$row->nama_berkas).'" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
+                                <i class="las la-arrow-down fs-1 text-white"></i>
+                            </a>';
+            } else {
+                $berkas = '';
+            }
             $row->number                = $i;
+            $row->berkas                = $berkas;
             $row->nomor_rfq             = $row->nomor_rfq;
             $row->tanggal_rfq           = date('d.M.y', strtotime($row->tanggal_rfq));
             $row->tanggal_jatuh_tempo   = date('d.M.y', strtotime($row->tanggal_jatuh_tempo));
-            $row->actions               = '<a href="'.site_url('rfq/det_rfq_goods/'.$this->crypto->encode($row->nomor_rfq)).'" class="btn btn-icon btn-sm btn-success me-2 mb-2">
+            $row->actions               = '<a href="'.site_url('history/det_rfq_goods/'.$this->crypto->encode($row->nomor_rfq)).'" class="btn btn-icon btn-sm btn-success me-2 mb-2">
                                                 <i class="fas fa-envelope-open-text"></i>
                                             </a>';
             $row->sisa_hari             = diff_date($row->tanggal_jatuh_tempo)['days']. ' Hari';
@@ -121,7 +132,7 @@ class History_model extends CI_Model {
      * @param string $rfq_no
      * @return array
      */
-    public function getDetRfqGoodsDueDateList($rfq_no)
+    public function getDetRfqGoodsList($rfq_no)
     {
         $start = $this->input->post('start');
 		$length = $this->input->post('length') != -1 ? $this->input->post('length') : 10;
@@ -147,14 +158,14 @@ class History_model extends CI_Model {
             $where .= " OR satuan LIKE '%".$search['value']."%')";
         }
 
-        $sql        = "SELECT * FROM {$this->table[1]}{$where}";
+        $sql        = "SELECT * FROM {$this->table_rfq[1]}{$where}";
         
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
         
         $sql_   = "SELECT  *
                     FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, *
-                            FROM      {$this->table[1]}
+                            FROM      {$this->table_rfq[1]}
                             {$where}
                             ) AS RowConstrainedResult
                     WHERE   RowNum > {$start}
@@ -215,35 +226,50 @@ class History_model extends CI_Model {
      * @param array $data
      * @return void
      */
-    public function saveRFQ($params = array(), $data = array())
+    // public function saveRFQ($params = array(), $data = array())
+    // {
+    //     $sql    = "";
+    //     $sql    .= "UPDATE {$this->table[1]} SET ";
+    //     $i      = 0;
+    //     foreach($data as $key => $value) {
+    //         $sql .= "{$key} = '{$value}'";
+    //         if($i === (count($data) - 1)) {
+    //             $sql .= " ";
+    //         } else {
+    //             $sql .= ", ";
+    //         }
+
+    //         $i++;
+    //     }
+
+    //     $sql .= " WHERE ";
+    //     foreach($params as $key => $value) {
+    //         $sql .= "{$key} = '{$value}'";
+    //         if(!next($params)) {
+    //             $sql .= " ";
+    //         } else {
+    //             $sql .= " AND ";
+    //         }
+    //     }
+
+    //     $this->db->query($sql);
+
+    //     return $this->db->affected_rows();
+    // }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $rfq_no
+     * @param integer $id
+     * @return void
+     */
+    public function getDetailEqiv(string $rfq_no, int $id)
     {
-        $sql    = "";
-        $sql    .= "UPDATE {$this->table[1]} SET ";
-        $i      = 0;
-        foreach($data as $key => $value) {
-            $sql .= "{$key} = '{$value}'";
-            if($i === (count($data) - 1)) {
-                $sql .= " ";
-            } else {
-                $sql .= ", ";
-            }
+        $sql    = "SELECT * FROM {$this->table[2]} WHERE nomor_rfq = '{$rfq_no}' AND ekuivalen = {$id}";
+        $query  = $this->db->query($sql);
 
-            $i++;
-        }
-
-        $sql .= " WHERE ";
-        foreach($params as $key => $value) {
-            $sql .= "{$key} = '{$value}'";
-            if(!next($params)) {
-                $sql .= " ";
-            } else {
-                $sql .= " AND ";
-            }
-        }
-
-        $this->db->query($sql);
-
-        return $this->db->affected_rows();
+        return $query;
     }
 
     /**

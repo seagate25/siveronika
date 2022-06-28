@@ -2,8 +2,8 @@
 <div class="card shadow-sm">
     <div class="card-header bg-success">
         <div class="card-toolbar">
-            <a href="<?php echo site_url('rfq/rfq_goods'); ?>" class="btn btn-sm btn-bg-danger btn-icon me-2 mb-2">
-                <i class="las la-arrow-left fs-1 text-white"></i>
+            <a href="<?php echo site_url('rfq/rfq_goods'); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
+                <i class="las la-arrow-left fs-1 text-success"></i>
             </a>
         </div>
         <h3 class="card-title text-white"><?php echo $title; ?></h3>
