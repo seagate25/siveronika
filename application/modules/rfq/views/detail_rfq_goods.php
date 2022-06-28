@@ -682,7 +682,7 @@ var KTDataTables = (function() {
                     $("input[name=created_by]").val(data.dibuat_oleh);
                 }
             }),
-            $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form', function () {
+            $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form_1, button.eqiv_form_2, button.eqiv_form_3, button.eqiv_form_4', function () {
                 blockUI.release();
                 
                 var data = e.row($(this).parents('tr')).data();
@@ -703,7 +703,9 @@ var KTDataTables = (function() {
                 $("input[name=desc_measure_eqiv]").val(data.deskripsi_satuan);
                 $('input[name="convert_eqiv"][value="0"]').prop('checked', true);
                 $('input[name="available_eqiv"][value="0"]').prop('checked', true);
-                $("input[name=ed_price_eqiv]").val('<?php echo date('Y-m-d'); ?>');
+                $("input[name=ed_price_eqiv]").val('');
+                $("input[name=notes_eqiv]").val('');
+                $("input[name=created_by_eqiv]").val('');
                 if($('input[name="convert_eqiv"]:checked').val() == 0) {
                     $("#form_convertion_eqiv").hide();
                 } else {
