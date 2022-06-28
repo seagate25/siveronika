@@ -332,7 +332,7 @@
                 <!--end::Close-->
             </div>
 
-            <form id="kt_modal_det_rfq_goods_ekuivalen_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" action="#">
+            <form id="kt_modal_det_rfq_goods_ekuivalen_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url('rfq/save_eqiv'); ?>">
                 <!--begin::Modal body-->
                 <div class="modal-body py-4 px-lg-17">
                     <!--begin::Scroll-->
@@ -528,7 +528,7 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Keterangan</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">Keterangan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
@@ -552,24 +552,24 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">File Brosur</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">File Brosur</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
+                                    <input class="form-control" type="file" name="eqiv_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
+                                    <input class="form-control" type="file" name="eqiv_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
+                                    <input class="form-control" type="file" name="eqiv_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
+                                    <input class="form-control" type="file" name="eqiv_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
+                                    <input class="form-control" type="file" name="eqiv_file[]">
                                 </div>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
@@ -872,7 +872,7 @@ var KTModalForm = (function() {
                     e.preventDefault(),
                         z &&
                             z.validate().then(function (e) {
-                                console.log("validated!"),
+                                    var frmData_eqiv = new FormData(v);
                                     "Valid" == e
                                         ? (
                                             Swal.fire({
@@ -889,8 +889,10 @@ var KTModalForm = (function() {
                                                     (
                                                         $.ajax({
                                                             type: 'POST',
-                                                            url: '<?php echo site_url("rfq/save_eqiv"); ?>',
-                                                            data: Object.fromEntries(new FormData(v).entries()),
+                                                            url: v.getAttribute('action'),
+                                                            data: frmData_eqiv,
+                                                            processData: false,
+                                                            contentType: false,
                                                             beforeSend: function() {
                                                                 w.setAttribute("data-kt-indicator", "on"),
                                                                 (w.disabled = !0);
