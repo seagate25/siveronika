@@ -766,78 +766,78 @@ var KTModalForm = (function() {
                     },
                     plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
                 })),
-                d.addEventListener("click", function (e) {
-                    e.preventDefault(),
-                        g &&
-                            g.validate().then(function (e) {
-                                    var frmData = new FormData(c);
-                                    "Valid" == e
-                                        ? (
-                                            Swal.fire({
-                                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
-                                                icon: "warning",
-                                                showCancelButton: !0,
-                                                buttonsStyling: !1,
-                                                confirmButtonText: "Ya, Simpan",
-                                                cancelButtonText: "Kembali",
-                                                customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
-                                            }).then(function (r) {
-                                                r.value
-                                                    ? 
-                                                    (
-                                                        $.ajax({
-                                                            type: 'POST',
-                                                            url: c.getAttribute('action'),
-                                                            data: frmData,
-                                                            processData: false,
-                                                            contentType: false,
-                                                            beforeSend: function() {
-                                                                d.setAttribute("data-kt-indicator", "on"),
-                                                                (d.disabled = !0);
-                                                            },
-                                                            success: function(response) {
-                                                                var obj = jQuery.parseJSON(response);
-                                                                d.removeAttribute("data-kt-indicator"),
-                                                                (d.disabled = !1);
-                                                                Swal.fire({ 
-                                                                    text: obj.msg, 
-                                                                    icon: obj.status, 
-                                                                    buttonsStyling: !1, 
-                                                                    confirmButtonText: "Tutup", 
-                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
-                                                                    function (t) {
-                                                                        t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),g.resetForm(true),b.hide()) : r.dismiss;
-                                                                    }
-                                                                );
-                                                            },
-                                                            error: function() {
-                                                                d.removeAttribute("data-kt-indicator"),
-                                                                (d.disabled = !1);
-                                                                Swal.fire({ 
-                                                                    text: "Terjadi masalah koneksi", 
-                                                                    icon: "error", 
-                                                                    buttonsStyling: !1, 
-                                                                    confirmButtonText: "Tutup", 
-                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
-                                                                    function (t) {
-                                                                        t.isConfirmed && r.dismiss;
-                                                                    }
-                                                                );
-                                                            }
-                                                        })
-                                                    )
-                                                    : "cancel" === r.dismiss;
-                                            })
-                                          )
-                                        : Swal.fire({
-                                              text: "Maaf, masih ada field yang kosong, silahkan diisi.",
-                                              icon: "error",
-                                              buttonsStyling: !1,
-                                              confirmButtonText: "Tutup",
-                                              customClass: { confirmButton: "btn btn-primary" },
-                                          });
-                            });
-                }),
+                // d.addEventListener("click", function (e) {
+                //     e.preventDefault(),
+                //         g &&
+                //             g.validate().then(function (e) {
+                //                     var frmData = new FormData(c);
+                //                     "Valid" == e
+                //                         ? (
+                //                             Swal.fire({
+                //                                 text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                //                                 icon: "warning",
+                //                                 showCancelButton: !0,
+                //                                 buttonsStyling: !1,
+                //                                 confirmButtonText: "Ya, Simpan",
+                //                                 cancelButtonText: "Kembali",
+                //                                 customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
+                //                             }).then(function (r) {
+                //                                 r.value
+                //                                     ? 
+                //                                     (
+                //                                         $.ajax({
+                //                                             type: 'POST',
+                //                                             url: c.getAttribute('action'),
+                //                                             data: frmData,
+                //                                             processData: false,
+                //                                             contentType: false,
+                //                                             beforeSend: function() {
+                //                                                 d.setAttribute("data-kt-indicator", "on"),
+                //                                                 (d.disabled = !0);
+                //                                             },
+                //                                             success: function(response) {
+                //                                                 var obj = jQuery.parseJSON(response);
+                //                                                 d.removeAttribute("data-kt-indicator"),
+                //                                                 (d.disabled = !1);
+                //                                                 Swal.fire({ 
+                //                                                     text: obj.msg, 
+                //                                                     icon: obj.status, 
+                //                                                     buttonsStyling: !1, 
+                //                                                     confirmButtonText: "Tutup", 
+                //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
+                //                                                     function (t) {
+                //                                                         t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),g.resetForm(true),b.hide()) : r.dismiss;
+                //                                                     }
+                //                                                 );
+                //                                             },
+                //                                             error: function() {
+                //                                                 d.removeAttribute("data-kt-indicator"),
+                //                                                 (d.disabled = !1);
+                //                                                 Swal.fire({ 
+                //                                                     text: "Terjadi masalah koneksi", 
+                //                                                     icon: "error", 
+                //                                                     buttonsStyling: !1, 
+                //                                                     confirmButtonText: "Tutup", 
+                //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
+                //                                                     function (t) {
+                //                                                         t.isConfirmed && r.dismiss;
+                //                                                     }
+                //                                                 );
+                //                                             }
+                //                                         })
+                //                                     )
+                //                                     : "cancel" === r.dismiss;
+                //                             })
+                //                           )
+                //                         : Swal.fire({
+                //                               text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                //                               icon: "error",
+                //                               buttonsStyling: !1,
+                //                               confirmButtonText: "Tutup",
+                //                               customClass: { confirmButton: "btn btn-primary" },
+                //                           });
+                //             });
+                // }),
                 e.addEventListener("click", function (t) {
                     g.resetForm(true), b.hide()
                 })),
@@ -868,78 +868,78 @@ var KTModalForm = (function() {
                     },
                     plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
                 })),
-                w.addEventListener("click", function (e) {
-                    e.preventDefault(),
-                        z &&
-                            z.validate().then(function (e) {
-                                    var frmData_eqiv = new FormData(v);
-                                    "Valid" == e
-                                        ? (
-                                            Swal.fire({
-                                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
-                                                icon: "warning",
-                                                showCancelButton: !0,
-                                                buttonsStyling: !1,
-                                                confirmButtonText: "Ya, Simpan",
-                                                cancelButtonText: "Kembali",
-                                                customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
-                                            }).then(function (r) {
-                                                r.value
-                                                    ? 
-                                                    (
-                                                        $.ajax({
-                                                            type: 'POST',
-                                                            url: v.getAttribute('action'),
-                                                            data: frmData_eqiv,
-                                                            processData: false,
-                                                            contentType: false,
-                                                            beforeSend: function() {
-                                                                w.setAttribute("data-kt-indicator", "on"),
-                                                                (w.disabled = !0);
-                                                            },
-                                                            success: function(response) {
-                                                                var obj = jQuery.parseJSON(response);
-                                                                w.removeAttribute("data-kt-indicator"),
-                                                                (w.disabled = !1);
-                                                                Swal.fire({ 
-                                                                    text: obj.msg, 
-                                                                    icon: obj.status, 
-                                                                    buttonsStyling: !1, 
-                                                                    confirmButtonText: "Tutup", 
-                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
-                                                                    function (t) {
-                                                                        t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),z.resetForm(true),u.hide()) : r.dismiss;
-                                                                    }
-                                                                );
-                                                            },
-                                                            error: function() {
-                                                                w.removeAttribute("data-kt-indicator"),
-                                                                (w.disabled = !1);
-                                                                Swal.fire({ 
-                                                                    text: "Terjadi masalah koneksi", 
-                                                                    icon: "error", 
-                                                                    buttonsStyling: !1, 
-                                                                    confirmButtonText: "Tutup", 
-                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
-                                                                    function (t) {
-                                                                        t.isConfirmed && r.dismiss;
-                                                                    }
-                                                                );
-                                                            }
-                                                        })
-                                                    )
-                                                    : "cancel" === r.dismiss;
-                                            })
-                                          )
-                                        : Swal.fire({
-                                              text: "Maaf, masih ada field yang kosong, silahkan diisi.",
-                                              icon: "error",
-                                              buttonsStyling: !1,
-                                              confirmButtonText: "Tutup",
-                                              customClass: { confirmButton: "btn btn-primary" },
-                                          });
-                            });
-                }),
+                // w.addEventListener("click", function (e) {
+                //     e.preventDefault(),
+                //         z &&
+                //             z.validate().then(function (e) {
+                //                     var frmData_eqiv = new FormData(v);
+                //                     "Valid" == e
+                //                         ? (
+                //                             Swal.fire({
+                //                                 text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                //                                 icon: "warning",
+                //                                 showCancelButton: !0,
+                //                                 buttonsStyling: !1,
+                //                                 confirmButtonText: "Ya, Simpan",
+                //                                 cancelButtonText: "Kembali",
+                //                                 customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
+                //                             }).then(function (r) {
+                //                                 r.value
+                //                                     ? 
+                //                                     (
+                //                                         $.ajax({
+                //                                             type: 'POST',
+                //                                             url: v.getAttribute('action'),
+                //                                             data: frmData_eqiv,
+                //                                             processData: false,
+                //                                             contentType: false,
+                //                                             beforeSend: function() {
+                //                                                 w.setAttribute("data-kt-indicator", "on"),
+                //                                                 (w.disabled = !0);
+                //                                             },
+                //                                             success: function(response) {
+                //                                                 var obj = jQuery.parseJSON(response);
+                //                                                 w.removeAttribute("data-kt-indicator"),
+                //                                                 (w.disabled = !1);
+                //                                                 Swal.fire({ 
+                //                                                     text: obj.msg, 
+                //                                                     icon: obj.status, 
+                //                                                     buttonsStyling: !1, 
+                //                                                     confirmButtonText: "Tutup", 
+                //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
+                //                                                     function (t) {
+                //                                                         t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),z.resetForm(true),u.hide()) : r.dismiss;
+                //                                                     }
+                //                                                 );
+                //                                             },
+                //                                             error: function() {
+                //                                                 w.removeAttribute("data-kt-indicator"),
+                //                                                 (w.disabled = !1);
+                //                                                 Swal.fire({ 
+                //                                                     text: "Terjadi masalah koneksi", 
+                //                                                     icon: "error", 
+                //                                                     buttonsStyling: !1, 
+                //                                                     confirmButtonText: "Tutup", 
+                //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
+                //                                                     function (t) {
+                //                                                         t.isConfirmed && r.dismiss;
+                //                                                     }
+                //                                                 );
+                //                                             }
+                //                                         })
+                //                                     )
+                //                                     : "cancel" === r.dismiss;
+                //                             })
+                //                           )
+                //                         : Swal.fire({
+                //                               text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                //                               icon: "error",
+                //                               buttonsStyling: !1,
+                //                               confirmButtonText: "Tutup",
+                //                               customClass: { confirmButton: "btn btn-primary" },
+                //                           });
+                //             });
+                // }),
                 x.addEventListener("click", function (t) {
                     z.resetForm(true), u.hide()
                 })),
