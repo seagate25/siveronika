@@ -112,7 +112,8 @@ class History_model extends CI_Model {
             $row->actions               = '<a href="'.site_url('history/det_rfq_goods/'.$this->crypto->encode($row->nomor_rfq)).'" class="btn btn-icon btn-sm btn-success me-2 mb-2">
                                                 <i class="fas fa-envelope-open-text"></i>
                                             </a>';
-            $row->sisa_hari             = diff_date($row->tanggal_jatuh_tempo)['days']. ' Hari';
+            // $row->sisa_hari             = diff_date($row->tanggal_jatuh_tempo)['days']. ' Hari';
+            $row->sisa_hari             = 0 . ' hari';
 
 			$rows[] = $row;
 			$i++;
