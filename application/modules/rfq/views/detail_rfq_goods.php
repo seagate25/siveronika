@@ -270,22 +270,22 @@
                             <label class="col-lg-4 col-form-label fw-bold fs-6">File Brosur</label>
                             <!--end::Label-->
                             <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                            <div class="col-lg-6 fv-row fv-plugins-icon-container">
                                 <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" name="rfq_file[]">
+                                    <input class="form-control rfq_file" type="file" name="rfq_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" name="rfq_file[]">
+                                    <input class="form-control rfq_file" type="file" name="rfq_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" name="rfq_file[]">
+                                    <input class="form-control rfq_file" type="file" name="rfq_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" name="rfq_file[]">
+                                    <input class="form-control rfq_file" type="file" name="rfq_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" name="rfq_file[]">
+                                    <input class="form-control rfq_file" type="file" name="rfq_file[]">
                                 </div>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
@@ -556,22 +556,22 @@
                             <label class="col-lg-4 col-form-label fw-bold fs-6">File Brosur</label>
                             <!--end::Label-->
                             <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                            <div class="col-lg-6 fv-row fv-plugins-icon-container">
                                 <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" name="eqiv_file[]">
+                                    <input class="form-control eqiv_file" type="file" name="eqiv_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" name="eqiv_file[]">
+                                    <input class="form-control eqiv_file" type="file" name="eqiv_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" name="eqiv_file[]">
+                                    <input class="form-control eqiv_file" type="file" name="eqiv_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" name="eqiv_file[]">
+                                    <input class="form-control eqiv_file" type="file" name="eqiv_file[]">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" name="eqiv_file[]">
+                                    <input class="form-control eqiv_file" type="file" name="eqiv_file[]">
                                 </div>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
@@ -767,6 +767,28 @@ var KTModalForm = (function() {
                         available: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
                         ed_price: { validators: { notEmpty: { message: "Masa Berlaku Harga tidak boleh kosong" } } },
                         created_by: { validators: { notEmpty: { message: "Dibuat Oleh tidak boleh kosong" } } },
+                        // rfq_file: {
+                        //     validators: {
+                        //         file: {
+                        //             extension: 'jpeg jpg,png,pdf',
+                        //             type: 'image/jpeg,image/png,application/pdf',
+                        //             message: 'Please choose a JPEG, JPG, PNG, & PDF file',
+                        //         },
+                        //     },
+                        // },
+                        rfq_file: {
+                            // The children's full name are inputs with class .childFullName
+                            selector: '.rfq_file',
+                            // The field is placed inside .col-xs-6 div instead of .form-group
+                            row: '.col-lg-6',
+                            validators: {
+                                file: {
+                                    extension: 'jpeg jpg,png,pdf',
+                                    type: 'image/jpeg,image/png,application/pdf',
+                                    message: 'Please choose a JPEG, JPG, PNG, & PDF file',
+                                },
+                            },
+                        },
                     },
                     plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
                 })),
@@ -869,6 +891,19 @@ var KTModalForm = (function() {
                         available_eqiv: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
                         ed_price_eqiv: { validators: { notEmpty: { message: "Masa Berlaku Harga tidak boleh kosong" } } },
                         created_by_eqiv: { validators: { notEmpty: { message: "Dibuat Oleh tidak boleh kosong" } } },
+                        eqiv_file: {
+                            // The children's full name are inputs with class .childFullName
+                            selector: '.eqiv_file',
+                            // The field is placed inside .col-xs-6 div instead of .form-group
+                            row: '.col-lg-6',
+                            validators: {
+                                file: {
+                                    extension: 'jpeg jpg,png,pdf',
+                                    type: 'image/jpeg,image/png,application/pdf',
+                                    message: 'Please choose a JPEG, JPG, PNG, & PDF file',
+                                },
+                            },
+                        },
                     },
                     plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
                 })),
