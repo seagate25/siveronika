@@ -271,6 +271,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span>
                                 <div class="mb-3">
                                     <input class="form-control" type="file" name="rfq_file[]">
                                 </div>
@@ -556,6 +557,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span>
                                 <div class="mb-3">
                                     <input class="form-control" type="file" name="eqiv_file[]">
                                 </div>

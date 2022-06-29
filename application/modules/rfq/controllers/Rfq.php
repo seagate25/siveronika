@@ -102,14 +102,6 @@ class Rfq extends CI_Controller {
             mkdir($path . $rfq_no, 0777, TRUE);
         }
 
-        /** Upload Config */
-        // $config['file_name']        = $new_file_name;
-        $config['upload_path']      = $path.$rfq_no.'/';
-        $config['allowed_types']    = 'jpg|jpeg|png|pdf';
-
-        /** Load CodeIgniter Upload Library */
-        $this->load->library('upload', $config);
-
         $jumlah_berkas = count($_FILES['rfq_file']['name']);
 		for($i = 0; $i < $jumlah_berkas;$i++)
 		{
@@ -229,14 +221,6 @@ class Rfq extends CI_Controller {
                 mkdir($path . $rfq_no, 0777, TRUE);
             }
 
-            /** Upload Config */
-            // $config['file_name']        = $new_file_name;
-            $config['upload_path']      = $path.$rfq_no.'/';
-            $config['allowed_types']    = 'jpg|jpeg|png|pdf';
-
-            /** Load CodeIgniter Upload Library */
-            $this->load->library('upload', $config);
-
             $jumlah_berkas = count($_FILES['eqiv_file']['name']);
             for($i = 0; $i < $jumlah_berkas;$i++)
             {
@@ -332,14 +316,6 @@ class Rfq extends CI_Controller {
             if(!file_exists($path . $rfq_no)) {
                 mkdir($path . $rfq_no, 0777, TRUE);
             }
-
-            /** Upload Config */
-            // $config['file_name']        = $new_file_name;
-            $config['upload_path']      = $path.$rfq_no.'/';
-            $config['allowed_types']    = 'jpg|jpeg|png|pdf';
-
-            /** Load CodeIgniter Upload Library */
-            $this->load->library('upload', $config);
 
             $jumlah_berkas = count($_FILES['eqiv_file']['name']);
             for($i = 0; $i < $jumlah_berkas;$i++)
