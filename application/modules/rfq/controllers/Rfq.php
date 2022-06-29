@@ -120,6 +120,7 @@ class Rfq extends CI_Controller {
                 $config['file_name']        = $filename;
                 $config['upload_path']      = $path.$rfq_no.'/';
                 $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+                $config['max_size']         = '51200';
 
                 /** Load CodeIgniter Upload Library */
                 $this->load->library('upload', $config);
@@ -239,6 +240,7 @@ class Rfq extends CI_Controller {
                     $config['file_name']        = $filename;
                     $config['upload_path']      = $path.$rfq_no.'/';
                     $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+                    $config['max_size']         = '51200';
 
                     /** Load CodeIgniter Upload Library */
                     $this->load->library('upload', $config);
@@ -335,6 +337,7 @@ class Rfq extends CI_Controller {
                     $config['file_name']        = $filename;
                     $config['upload_path']      = $path.$rfq_no.'/';
                     $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+                    $config['max_size']         = '51200';
 
                     /** Load CodeIgniter Upload Library */
                     $this->load->library('upload', $config);

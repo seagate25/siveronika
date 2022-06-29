@@ -783,7 +783,7 @@ var KTModalForm = (function() {
                             row: '.col-lg-6',
                             validators: {
                                 file: {
-                                    extension: 'jpeg jpg,png,pdf',
+                                    extension: 'jpeg,jpg,png,pdf',
                                     type: 'image/jpeg,image/png,application/pdf',
                                     message: 'Please choose a JPEG, JPG, PNG, & PDF file',
                                 },
