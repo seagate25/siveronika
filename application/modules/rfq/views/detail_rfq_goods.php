@@ -270,7 +270,7 @@
                             <label class="col-lg-4 col-form-label fw-bold fs-6">File Brosur</label>
                             <!--end::Label-->
                             <!--begin::Col-->
-                            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container" id="input_file">
                                 <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span>
                                 <div class="mb-3">
                                     <input class="form-control rfq_file" type="file" name="rfq_file[]">
@@ -654,6 +654,8 @@ var KTDataTables = (function() {
                 order: [1, 'ASC']
             }),
             $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.rfq_form', function () {
+                blockUI.release();
+
                 var data = e.row($(this).parents('tr')).data();
                 $("#kt_modal_det_rfq_goods h4 span#txt_rfq_no").text(data.nomor_rfq);
                 $("#kt_modal_det_rfq_goods h4 span#txt_material_code").text(data.kode_barang);
@@ -682,6 +684,56 @@ var KTDataTables = (function() {
                     $("input[name=ed_price]").val(data.masa_berlaku_harga);
                     $("input[name=notes]").val(data.keterangan);
                     $("input[name=created_by]").val(data.dibuat_oleh);
+
+                    // $.ajax({
+                    //     type: "POST",
+                    //     url: "<?php //echo site_url('rfq/get_files');?>",
+                    //     data: { val_1: '<?php //echo $this->uri->segment(3);?>', val_2: 0 },
+                    //     beforeSend: function() {
+                    //         blockUI.block();
+                    //     },
+                    //     success: function(response) {
+                    //         blockUI.release();
+                    //         var obj = jQuery.parseJSON(response);
+                    //         if(obj.code == 0) {
+                    //             var uploaded_files = obj.data.length;
+                    //             if(uploaded_files > 0) {
+                    //                 $("#input_file .rfq_file").remove();
+                    //                 var i_file = '';
+                    //                 $.each(obj.data, function(index, value) {
+                    //                     i_file += '<div class="row mb-3">';
+                    //                     i_file += '<div class="col-lg-8" id="row_'+index+'"><input class="form-control form-control-solid" type="text" readonly value="'+value.nama_berkas_asli+'"></div>';
+                    //                     i_file += '<div class="col-lg-4">';
+                    //                     i_file += '<div class="form-check form-switch form-check-custom form-check-solid me-10">';
+                    //                     i_file += '<input class="form-check-input h-40px w-60px" type="checkbox" onchange="Elements.switch(event,'+index+',\''+value.nama_berkas_asli+'\')" value="1" id="flexSwitch40x60"/>';
+                    //                     i_file += '<label class="form-check-label" for="flexSwitch40x60">Ganti Berkas</label>';
+                    //                     i_file += '</div>';
+                    //                     i_file += '</div>';
+                    //                     i_file += '</div>';
+                    //                 });
+
+                    //                 for(var i = 0; i < (5-uploaded_files); i++) {
+                    //                     i_file += '<div class="row mb-3">';
+                    //                     i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
+                    //                     i_file += '</div>';
+                    //                 }
+
+                    //                 $("#input_file span").after(i_file);
+                    //             } else {
+                    //                 var i_file = '';
+                    //                 for(var i=0; i < 5; i++) {
+                    //                     i_file += '<div class="row mb-3">';
+                    //                     i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
+                    //                     i_file += '</div>';
+                    //                 }
+                    //                 $("#input_file span").after(i_file);
+                    //             }
+                    //         }
+                    //     },
+                    //     error: function () {
+                    //         blockUI.release();
+                    //     } 
+                    // });
                 }
             }),
             $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form_1, button.eqiv_form_2, button.eqiv_form_3, button.eqiv_form_4', function () {
@@ -780,7 +832,7 @@ var KTModalForm = (function() {
                             // The children's full name are inputs with class .childFullName
                             selector: '.rfq_file',
                             // The field is placed inside .col-xs-6 div instead of .form-group
-                            row: '.col-lg-6',
+                            row: '.col-lg-8',
                             validators: {
                                 file: {
                                     extension: 'jpeg,jpg,png,pdf',
@@ -988,6 +1040,21 @@ var KTModalForm = (function() {
         }
     }
 })();
+
+// var Elements = (function() {
+//     return {
+//         switch: function(e, index, name) {
+//             var checked = e.target.checked;
+//             if(checked) {
+//                 $("#row_"+index+" > input").remove();
+//                 $("#row_"+index).append('<input class="form-control rfq_file" type="file" name="rfq_file['+index+']"><input type="hidden" name="old_name['+index+']" value="'+name+'">');
+//             } else {
+//                 $("#row_"+index+" > input").remove();
+//                 $("#row_"+index).append('<input class="form-control form-control-solid" type="text" readonly value="'+name+'">');
+//             }
+//         }
+//     }
+// })();
 
 KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();

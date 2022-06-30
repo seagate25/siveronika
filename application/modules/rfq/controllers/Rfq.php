@@ -17,6 +17,11 @@ class Rfq extends CI_Controller {
         
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function rfq_goods()
     {
         if($this->input->is_ajax_request()) {
@@ -31,6 +36,11 @@ class Rfq extends CI_Controller {
         $this->load->view('default', $data);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function rfq_service()
     {
         $data['title']      = "RFQ Jasa";
@@ -40,6 +50,11 @@ class Rfq extends CI_Controller {
         $this->load->view('default', $data);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function det_rfq_goods()
     {
         $rfq_no             = $this->crypto->decode($this->uri->segment(3));
@@ -55,6 +70,11 @@ class Rfq extends CI_Controller {
         $this->load->view('default', $data);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function get_det_rfq_eqiv()
     {
         $rfq_no = $this->crypto->decode($this->input->post('val_1'));
@@ -79,6 +99,44 @@ class Rfq extends CI_Controller {
         exit;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function get_files()
+    {
+        $rfq_no     = $this->crypto->decode($this->input->post('val_1'));
+        $ekuivalen  = (int)$this->input->post('val_2');
+
+        $result = $this->rfq->getFiles($rfq_no, (int)$ekuivalen);
+        if($result->num_rows() > 0) {
+
+            $response   = array(
+                'code'  => 0,
+                'msg'   => 'SUCCESS',
+                'data'  => $result->result()
+            );
+
+        } else {
+
+            $response   = array(
+                'code'  => 100,
+                'msg'   => 'NOT FOUND',
+                'data'  => NULL
+            );
+
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function save_rfq()
     {
         $rfq_no         = $this->crypto->decode($this->input->post('id_rfq'));
@@ -94,6 +152,22 @@ class Rfq extends CI_Controller {
         $ed_price       = $this->input->post('ed_price');
         $notes          = $this->input->post('notes');
         $created_by     = $this->input->post('created_by');
+
+        // $old_name   = $this->input->post('old_name');
+        // $files      = $_FILES['rfq_file']['name'];
+        // $arr_exists = array();
+        // if(isset($old_name)) {
+        //     foreach($old_name as $key => $value) {
+        //         if(array_key_exists($key, $files)) {
+        //             array_push($arr_exists, $key);
+        //         }
+        //     }
+
+
+        // } else {
+            
+        // }
+        // exit;
 
         $attach_files   = array();
 
@@ -116,6 +190,8 @@ class Rfq extends CI_Controller {
                 $next = $i + 1;
                 $filename  = date('Ymd').'_'.$rfq_no.'_0_'.$next;
 
+                $original_name  = $_FILES['file']['name'];
+
                 /** Upload Config */
                 $config['file_name']        = $filename;
                 $config['upload_path']      = $path.$rfq_no.'/';
@@ -136,6 +212,7 @@ class Rfq extends CI_Controller {
                         'urutan_berkas'     => $next,
                         'kode_barang'       => $material_code,
                         'alamat_berkas'     => $path.$rfq_no.'/',
+                        'nama_berkas_asli'  => $original_name,
                         'nama_berkas'       => $uploadData['orig_name'],
                         'modified_date'     => date('Y-m-d H:i:s'),
                         'modified_by'       => 'WEB'
@@ -193,6 +270,11 @@ class Rfq extends CI_Controller {
         exit;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function save_eqiv()
     {
         $id_eqiv        = (int)$this->input->post('id_eqiv');

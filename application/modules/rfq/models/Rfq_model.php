@@ -40,6 +40,11 @@ class Rfq_model extends CI_Model {
         $this->today        = date('Y-m-d');
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function getRfqGoodsList()
     {
         $start = $this->input->post('start');
@@ -410,6 +415,14 @@ class Rfq_model extends CI_Model {
         }
 
         return $enable;
+    }
+
+    public function getFiles(string $rfq_no, int $equivalent)
+    {
+        $sql    = "SELECT * FROM {$this->table[5]} WHERE nomor_quotation = '{$rfq_no}' AND ekuivalen = {$equivalent} ORDER BY urutan_berkas ASC";
+        $query  = $this->db->query($sql);
+
+        return $query;
     }
 
 }
