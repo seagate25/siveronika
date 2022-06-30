@@ -178,24 +178,26 @@
                                             <th class="text-center min-w-80px">Keterangan</th>
                                             <th class="text-center min-w-50px">Jumlah</th>
                                             <th class="text-center min-w-50px">Satuan</th>
+                                            <th class="text-center min-w-20px"></th>
                                             <th class="text-center min-w-80px">Konversi Jumlah</th>
                                             <th class="text-center min-w-50px">Satuan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>Satuan Permintaan</td>
                                             <td class="text-center"><input type="text" name="convertion_total"></td>
                                             <td class="text-center">KLG</td>
                                             <td class="text-center"></td>
                                             <td class="text-center"></td>
-                                        </tr>
+                                        </tr> -->
                                         <tr>
-                                            <td>Satuan Konversi yang ditawarkan</td>
+                                            <td>Satuan Konversi</td>
                                             <td class="text-center">1</td>
-                                            <td class="text-center">KLG</td>
-                                            <td class="text-center">10</td>
-                                            <td class="text-center">BOX</td>
+                                            <td class="text-center"><input type="text" name="satuan" class="form-control form-control-solid" readonly="true"></td>
+                                            <td class="text-center">=</td>
+                                            <td class="text-center"><input type="text" class="form-control" name="convertion_qty"></td>
+                                            <td class="text-center"><input type="text" name="measurement"  class="form-control form-control-solid" readonly="true"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -464,24 +466,26 @@
                                             <th class="text-center min-w-80px">Keterangan</th>
                                             <th class="text-center min-w-50px">Jumlah</th>
                                             <th class="text-center min-w-50px">Satuan</th>
+                                            <th class="text-center min-w-20px"></th>
                                             <th class="text-center min-w-80px">Konversi Jumlah</th>
                                             <th class="text-center min-w-50px">Satuan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>Satuan Permintaan</td>
                                             <td class="text-center">1</td>
                                             <td class="text-center">KLG</td>
                                             <td class="text-center"></td>
                                             <td class="text-center"></td>
-                                        </tr>
+                                        </tr> -->
                                         <tr>
-                                            <td>Satuan Konversi yang ditawarkan</td>
+                                            <td>Satuan Konversi</td>
                                             <td class="text-center">1</td>
-                                            <td class="text-center">KLG</td>
-                                            <td class="text-center">10</td>
-                                            <td class="text-center">BOX</td>
+                                            <td class="text-center"><input type="text" name="satuan" class="form-control form-control-solid" readonly="true"></td>
+                                            <td class="text-center">=</td>
+                                            <td class="text-center"><input type="text" name="convertion_qty"></td>
+                                            <td class="text-center"><input type="text" name="measurement_eqiv" class="form-control form-control-solid" readonly="true"></td>
                                         </tr>
                                     </tbody>
                                 </table>
