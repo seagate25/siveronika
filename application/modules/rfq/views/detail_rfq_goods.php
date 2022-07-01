@@ -733,6 +733,7 @@ var KTDataTables = (function() {
                                     $("#input_file span").after(i_file);
                                 }
                             } else {
+                                $("#input_file div").remove();
                                 var i_file = '';
                                 for(var i=0; i < 5; i++) {
                                     i_file += '<div class="row mb-3">';
