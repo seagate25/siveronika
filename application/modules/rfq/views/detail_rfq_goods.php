@@ -171,12 +171,12 @@
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Masukkan Satuan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <table class="table table-row-dashed table-row-gray-300 gy-7">
+                            <div class="col-lg-8 fv-row">
+                                <table class="table table-row-dashed table-row-gray-300 gy-7 align-middle">
                                     <thead>
                                         <tr class="fw-bolder fs-6 text-gray-800">
-                                            <th class="text-center min-w-80px">Keterangan</th>
-                                            <th class="text-center min-w-50px">Jumlah</th>
+                                            <th class="text-center min-w-150px">Keterangan</th>
+                                            <th class="text-center min-w-30px">Jumlah</th>
                                             <th class="text-center min-w-50px">Satuan</th>
                                             <th class="text-center min-w-20px"></th>
                                             <th class="text-center min-w-80px">Konversi Jumlah</th>
@@ -184,24 +184,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- <tr>
-                                            <td>Satuan Permintaan</td>
-                                            <td class="text-center"><input type="text" name="convertion_total"></td>
-                                            <td class="text-center">KLG</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center"></td>
-                                        </tr> -->
                                         <tr>
                                             <td>Satuan Konversi</td>
                                             <td class="text-center">1</td>
-                                            <td class="text-center"><input type="text" name="satuan" class="form-control form-control-solid" readonly="true"></td>
+                                            <td class="text-center">
+                                                <input type="text" name="convertion_measure" class="form-control form-control-solid" readonly="true">
+                                            </td>
                                             <td class="text-center">=</td>
-                                            <td class="text-center"><input type="text" class="form-control" name="convertion_qty"></td>
+                                            <td class="text-center">
+                                                <div class="fv-row fv-plugins-icon-container">
+                                                    <input type="text" class="form-control" name="convertion_qty" placeholder="Konversi Jumlah">
+                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                </div>
+                                            </td>
                                             <td class="text-center"><input type="text" name="measurement"  class="form-control form-control-solid" readonly="true"></td>
                                         </tr>
                                     </tbody>
                                 </table>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -237,7 +237,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" name="ed_price" placeholder="Pick date rage" id="kt_daterangepicker_3"/>
+                                <input class="form-control form-control-solid" name="ed_price" placeholder="Pilih Masa Berlaku Harga" id="kt_daterangepicker_3"/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -482,9 +482,14 @@
                                         <tr>
                                             <td>Satuan Konversi</td>
                                             <td class="text-center">1</td>
-                                            <td class="text-center"><input type="text" name="satuan" class="form-control form-control-solid" readonly="true"></td>
+                                            <td class="text-center">
+                                                <input type="text" name="satuan" class="form-control form-control-solid" readonly="true">
+                                            </td>
                                             <td class="text-center">=</td>
-                                            <td class="text-center"><input type="text" name="convertion_qty"></td>
+                                            <td class="text-center">
+                                                <input type="text" name="convertion_qty">
+                                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                                            </td>
                                             <td class="text-center"><input type="text" name="measurement_eqiv" class="form-control form-control-solid" readonly="true"></td>
                                         </tr>
                                     </tbody>
@@ -669,11 +674,22 @@ var KTDataTables = (function() {
                 $("input[name=material_name]").val(data.deskripsi_barang);
                 $("input[name=request_total]").val(data.jumlah_permintaan);
                 $("input[name=measurement]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
+                $('input[name="convert"][value="0"]').prop('checked', true);
                 if($('input[name="convert"]:checked').val() == 0) {
                     $("#form_convertion").hide();
                 } else {
                     $("#form_convertion").show();
                 }
+                $('input[name="available"][value="0"]').prop('checked', true);
+                $("input[name=ed_price]").val('');
+
+                var i_file = '';
+                for(var i=0; i < 5; i++) {
+                    i_file += '<div class="row mb-3">';
+                    i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
+                    i_file += '</div>';
+                }
+                $("#input_file span").after(i_file);
 
                 if(data.modified_date != null && data.modified_by != null) {
                     $("input[name=currency]").val(data.mata_uang);
@@ -683,6 +699,8 @@ var KTDataTables = (function() {
                         $("#form_convertion").hide();
                     } else {
                         $("#form_convertion").show();
+                        $("input[name=convertion_qty]").val(parseInt(data.jumlah_konversi));
+                        $("input[name=convertion_measure]").val(data.per_harga_satuan);
                     }
                     $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
                     $("input[name=ed_price]").val(data.masa_berlaku_harga);
@@ -829,18 +847,27 @@ var KTModalForm = (function() {
                         unit_price: { validators: { notEmpty: { message: "Harga Satuan tidak boleh kosong" } } },
                         unit_measure: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
                         convert: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
+                        convertion_qty: {
+                            validators: {
+                                callback: {
+                                    message: 'Konversi Jumlah tidak boleh kosong',
+                                    callback: function(input) {
+                                        const selectedCheckbox = c.querySelector('[name="convert"]:checked');
+                                        const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+
+                                        return (convertion !== '1')
+                                                // The field is valid if user picks
+                                                // a given convertion from the list
+                                                ? true
+                                                // Otherwise, the field value is required
+                                                : (input.value !== '');
+                                    }
+                                }
+                            }
+                        },
                         available: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
                         ed_price: { validators: { notEmpty: { message: "Masa Berlaku Harga tidak boleh kosong" } } },
                         created_by: { validators: { notEmpty: { message: "Dibuat Oleh tidak boleh kosong" } } },
-                        // rfq_file: {
-                        //     validators: {
-                        //         file: {
-                        //             extension: 'jpeg jpg,png,pdf',
-                        //             type: 'image/jpeg,image/png,application/pdf',
-                        //             message: 'Please choose a JPEG, JPG, PNG, & PDF file',
-                        //         },
-                        //     },
-                        // },
                         rfq_file: {
                             // The children's full name are inputs with class .childFullName
                             selector: '.rfq_file',
@@ -1076,6 +1103,7 @@ KTUtil.onDOMContentLoaded((function() {
     $("input[name=unit_price]").maskMoney({ thousands:'.', decimal:',', affixesStay: false, precision: 0});
     $("input[name=unit_price_eqiv]").maskMoney({ thousands:'.', decimal:',', affixesStay: false, precision: 0});
     $("#kt_daterangepicker_3, #kt_daterangepicker_4").daterangepicker({
+        autoApply: true,
         singleDatePicker: true,
         showDropdowns: true,
         minYear: 1901,
@@ -1090,7 +1118,14 @@ KTUtil.onDOMContentLoaded((function() {
                 $("#form_convertion").hide();
             } else {
                 $("#form_convertion").show();
+                $("input[name=convertion_measure]").val($("input[name=unit_measure]").val());
             }
+        }
+    });
+
+    $("input[name=unit_measure]").on("keyup", function() {
+        if($("input[name=convert]:checked").val() == '1') {
+            $("input[name=convertion_measure]").val(this.value);
         }
     });
 }));

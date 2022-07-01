@@ -148,6 +148,7 @@ class Rfq extends CI_Controller {
         $unit_price     = str_replace('.', '', $this->input->post('unit_price'));
         $unit_measure   = $this->input->post('unit_measure');
         $convert        = $this->input->post('convert');
+        $convertion_qty = $this->input->post('convertion_qty');
         $available      = $this->input->post('available');
         $ed_price       = $this->input->post('ed_price');
         $notes          = $this->input->post('notes');
@@ -411,6 +412,8 @@ class Rfq extends CI_Controller {
                 'harga_satuan'          => $unit_price,
                 'per_harga_satuan'      => $unit_measure,
                 'konversi'              => $convert,
+                'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : '',
+                'satuan_konversi'       => ($convert == '1') ? $measurement : '',
                 'ketersediaan_barang'   => $available,
                 'masa_berlaku_harga'    => $ed_price,
                 'keterangan'            => $notes,
