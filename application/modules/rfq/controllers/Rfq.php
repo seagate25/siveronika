@@ -153,117 +153,400 @@ class Rfq extends CI_Controller {
         $notes          = $this->input->post('notes');
         $created_by     = $this->input->post('created_by');
 
-        // $old_name   = $this->input->post('old_name');
-        // $files      = $_FILES['rfq_file']['name'];
-        // $arr_exists = array();
-        // if(isset($old_name)) {
-        //     foreach($old_name as $key => $value) {
-        //         if(array_key_exists($key, $files)) {
-        //             array_push($arr_exists, $key);
-        //         }
-        //     }
-
-
-        // } else {
-            
-        // }
-        // exit;
-
-        $attach_files   = array();
-
-        $path   = 'upload_files/dokumen_quotation/';
-        if(!file_exists($path . $rfq_no)) {
-            mkdir($path . $rfq_no, 0777, TRUE);
-        }
-
-        $jumlah_berkas = count($_FILES['rfq_file']['name']);
-		for($i = 0; $i < $jumlah_berkas;$i++)
-		{
-            if(!empty($_FILES['rfq_file']['name'][$i])){
- 
-				$_FILES['file']['name'] = $_FILES['rfq_file']['name'][$i];
-				$_FILES['file']['type'] = $_FILES['rfq_file']['type'][$i];
-				$_FILES['file']['tmp_name'] = $_FILES['rfq_file']['tmp_name'][$i];
-				$_FILES['file']['error'] = $_FILES['rfq_file']['error'][$i];
-				$_FILES['file']['size'] = $_FILES['rfq_file']['size'][$i];
-
-                $next = $i + 1;
-                $filename  = date('Ymd').'_'.$rfq_no.'_0_'.$next;
-
-                $original_name  = $_FILES['file']['name'];
-
-                /** Upload Config */
-                $config['file_name']        = $filename;
-                $config['upload_path']      = $path.$rfq_no.'/';
-                $config['allowed_types']    = 'jpg|jpeg|png|pdf';
-                $config['max_size']         = '51200';
-
-                /** Load CodeIgniter Upload Library */
-                $this->load->library('upload', $config);
-
-                $this->upload->initialize($config);
-	   
-				if($this->upload->do_upload('file')){
-					
-					$uploadData = $this->upload->data();
-                    $upload_data    = array(
-                        'nomor_quotation'   => $rfq_no,
-                        'ekuivalen'         => 0,
-                        'urutan_berkas'     => $next,
-                        'kode_barang'       => $material_code,
-                        'alamat_berkas'     => $path.$rfq_no.'/',
-                        'nama_berkas_asli'  => $original_name,
-                        'nama_berkas'       => $uploadData['orig_name'],
-                        'modified_date'     => date('Y-m-d H:i:s'),
-                        'modified_by'       => 'WEB'
-                    );
-
-                    $attach_files[] = $upload_data;
-				}
-			}
-		}
-
-        $params = array(
-            'nomor_rfq'     => $rfq_no,
-            'kode_barang'   => $material_code
-        );
-
-        $data   = array(
-            'mata_uang'             => $currency,
-            'harga_satuan'          => $unit_price,
-            'per_harga_satuan'      => $unit_measure,
-            'konversi'              => $convert,
-            'ketersediaan_barang'   => $available,
-            'masa_berlaku_harga'    => $ed_price,
-            'keterangan'            => $notes,
-            'dibuat_oleh'           => $created_by,
-            'modified_date'         => date('Y-m-d'),
-            'modified_by'           => 'WEB'
-        );
-
-        $save   = $this->rfq->saveRFQ($params, $data);
-        if($save > 0) {
-            
-            if(count($attach_files) > 0) {
-                $uploaded_files = $this->rfq->saveFile($attach_files);
-            } else {
-                $uploaded_files = 0;
+        $old_name       = $this->input->post('old_name');
+        $files          = $_FILES['rfq_file']['name'];
+        $arr_exists     = array();
+        $arr_not_exists = array();
+        if(isset($old_name)) {
+            foreach($files as $key => $value) {
+                if(array_key_exists($key, $old_name)) {
+                    if(!empty($value)) {
+                        array_push($arr_exists, $key);
+                    }
+                } else {
+                    array_push($arr_not_exists, $key);
+                }
             }
+
+            $attach_files       = array();
+            $attach_new_files   = array();
+
+            $path   = 'upload_files/dokumen_quotation/';
+            if(!file_exists($path . $rfq_no)) {
+                mkdir($path . $rfq_no, 0777, TRUE);
+            }
+
+            foreach($arr_exists as $x) {
+
+                $sequence   = $x + 1;
+
+                $fileData   = $this->rfq->getFiles($rfq_no, 0)->result();
+                foreach($fileData as $fData) {
+                    if($sequence == $fData->urutan_berkas) {
+                        $path_file = $fData->alamat_berkas.$fData->nama_berkas;
+                        unlink($path_file);
+                        break;
+                    }
+                }
+
+                if(!empty($files[$x])) {
+                    
+                    $_FILES['file']['name'] = $_FILES['rfq_file']['name'][$x];
+                    $_FILES['file']['type'] = $_FILES['rfq_file']['type'][$x];
+                    $_FILES['file']['tmp_name'] = $_FILES['rfq_file']['tmp_name'][$x];
+                    $_FILES['file']['error'] = $_FILES['rfq_file']['error'][$x];
+                    $_FILES['file']['size'] = $_FILES['rfq_file']['size'][$x];
+
+                    $next = $sequence;
+                    $filename  = date('Ymd').'_'.$rfq_no.'_0_'.$next;
+
+                    $original_name  = $_FILES['file']['name'];
+
+                    /** Upload Config */
+                    $config['file_name']        = $filename;
+                    $config['upload_path']      = $path.$rfq_no.'/';
+                    $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+                    $config['max_size']         = '51200';
+
+                    /** Load CodeIgniter Upload Library */
+                    $this->load->library('upload', $config);
+
+                    $this->upload->initialize($config);
+        
+                    if($this->upload->do_upload('file')){
+                        
+                        $uploadData = $this->upload->data();
+                        $upload_data    = array(
+                            'nama_berkas_asli'  => $original_name,
+                            'nama_berkas'       => $uploadData['orig_name'],
+                            'modified_date'     => date('Y-m-d H:i:s'),
+                            'modified_by'       => 'WEB'
+                        );
+
+                        $attach_files[] = $upload_data;
+                    }
+
+                }
+
+                $params_file = array(
+                    'nomor_quotation'   => $rfq_no,
+                    'ekuivalen'         => 0,
+                    'urutan_berkas'     => $sequence
+                );
+
+                $this->rfq->updateFiles($params_file, $upload_data);
+            }
+
+            if(count($arr_not_exists) > 0) {
+                $check_files    = $this->rfq->getFiles($rfq_no, 0);
+                $files_data     = $check_files->result();
+                $sequence       = array_column($files_data, 'urutan_berkas');
+                $last_sequence  = max($sequence);
+
+                foreach($arr_not_exists as $x) {
+
+                    if(!empty($files[$x])){
+        
+                        $_FILES['file']['name'] = $_FILES['rfq_file']['name'][$x];
+                        $_FILES['file']['type'] = $_FILES['rfq_file']['type'][$x];
+                        $_FILES['file']['tmp_name'] = $_FILES['rfq_file']['tmp_name'][$x];
+                        $_FILES['file']['error'] = $_FILES['rfq_file']['error'][$x];
+                        $_FILES['file']['size'] = $_FILES['rfq_file']['size'][$x];
+
+                        $next = $last_sequence + 1;
+                        $filename  = date('Ymd').'_'.$rfq_no.'_0_'.$next;
+
+                        $original_name  = $_FILES['file']['name'];
+
+                        /** Upload Config */
+                        $config['file_name']        = $filename;
+                        $config['upload_path']      = $path.$rfq_no.'/';
+                        $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+                        $config['max_size']         = '51200';
+
+                        /** Load CodeIgniter Upload Library */
+                        $this->load->library('upload', $config);
+
+                        $this->upload->initialize($config);
             
-            $response = array(
-                'code'      => 0,
-                'msg'       => 'Berhasil menyimpan data. '.$uploaded_files.' file berhasil diupload.',
-                'status'    => 'success'
+                        if($this->upload->do_upload('file')){
+                            
+                            $uploadData = $this->upload->data();
+                            $upload_data    = array(
+                                'nomor_quotation'   => $rfq_no,
+                                'ekuivalen'         => 0,
+                                'urutan_berkas'     => $next,
+                                'kode_barang'       => $material_code,
+                                'alamat_berkas'     => $path.$rfq_no.'/',
+                                'nama_berkas_asli'  => $original_name,
+                                'nama_berkas'       => $uploadData['orig_name'],
+                                'modified_date'     => date('Y-m-d H:i:s'),
+                                'modified_by'       => 'WEB'
+                            );
+
+                            $attach_new_files[] = $upload_data;
+                        }
+
+                        $last_sequence++;
+                    }
+
+                }
+            }
+
+            $params = array(
+                'nomor_rfq'     => $rfq_no,
+                'kode_barang'   => $material_code
             );
+
+            $data   = array(
+                'mata_uang'             => $currency,
+                'harga_satuan'          => $unit_price,
+                'per_harga_satuan'      => $unit_measure,
+                'konversi'              => $convert,
+                'ketersediaan_barang'   => $available,
+                'masa_berlaku_harga'    => $ed_price,
+                'keterangan'            => $notes,
+                'dibuat_oleh'           => $created_by,
+                'modified_date'         => date('Y-m-d'),
+                'modified_by'           => 'WEB'
+            );
+
+            $save   = $this->rfq->saveRFQ($params, $data);
+            if($save > 0) {
+                
+                if(count($attach_new_files) > 0) {
+                    $this->rfq->saveFile($attach_new_files);
+                    $uploaded_files = count($attach_files) + count($attach_new_files);
+                } else {
+                    $uploaded_files = count($attach_files);
+                }
+                
+                $response = array(
+                    'code'      => 0,
+                    'msg'       => 'Berhasil menyimpan data. '.$uploaded_files.' file berhasil diupload.',
+                    'status'    => 'success'
+                );
+
+            } else {
+
+                $response = array(
+                    'code'      => 100,
+                    'msg'       => 'Gagal menyimpan data',
+                    'status'    => 'error'
+                );
+
+            }
 
         } else {
 
-            $response = array(
-                'code'      => 100,
-                'msg'       => 'Gagal menyimpan data',
-                'status'    => 'error'
-            );
+            $check_files    = $this->rfq->getFiles($rfq_no, 0);
+            if($check_files->num_rows() > 0) {
 
+                $files_data     = $check_files->result();
+                $sequence       = array_column($files_data, 'urutan_berkas');
+                $last_sequence  = max($sequence);
+
+                $attach_files   = array();
+
+                $path   = 'upload_files/dokumen_quotation/';
+                if(!file_exists($path . $rfq_no)) {
+                    mkdir($path . $rfq_no, 0777, TRUE);
+                }
+
+                $jumlah_berkas = count($_FILES['rfq_file']['name']);
+                for($i = 0; $i < $jumlah_berkas;$i++)
+                {
+                    if(!empty($_FILES['rfq_file']['name'][$i])){
+        
+                        $_FILES['file']['name'] = $_FILES['rfq_file']['name'][$i];
+                        $_FILES['file']['type'] = $_FILES['rfq_file']['type'][$i];
+                        $_FILES['file']['tmp_name'] = $_FILES['rfq_file']['tmp_name'][$i];
+                        $_FILES['file']['error'] = $_FILES['rfq_file']['error'][$i];
+                        $_FILES['file']['size'] = $_FILES['rfq_file']['size'][$i];
+
+                        $next = $last_sequence + 1;
+                        $filename  = date('Ymd').'_'.$rfq_no.'_0_'.$next;
+
+                        $original_name  = $_FILES['file']['name'];
+
+                        /** Upload Config */
+                        $config['file_name']        = $filename;
+                        $config['upload_path']      = $path.$rfq_no.'/';
+                        $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+                        $config['max_size']         = '51200';
+
+                        /** Load CodeIgniter Upload Library */
+                        $this->load->library('upload', $config);
+
+                        $this->upload->initialize($config);
+            
+                        if($this->upload->do_upload('file')){
+                            
+                            $uploadData = $this->upload->data();
+                            $upload_data    = array(
+                                'nomor_quotation'   => $rfq_no,
+                                'ekuivalen'         => 0,
+                                'urutan_berkas'     => $next,
+                                'kode_barang'       => $material_code,
+                                'alamat_berkas'     => $path.$rfq_no.'/',
+                                'nama_berkas_asli'  => $original_name,
+                                'nama_berkas'       => $uploadData['orig_name'],
+                                'modified_date'     => date('Y-m-d H:i:s'),
+                                'modified_by'       => 'WEB'
+                            );
+
+                            $attach_files[] = $upload_data;
+                        }
+
+                        $last_sequence++;
+                    }
+                }
+
+                $params = array(
+                    'nomor_rfq'     => $rfq_no,
+                    'kode_barang'   => $material_code
+                );
+
+                $data   = array(
+                    'mata_uang'             => $currency,
+                    'harga_satuan'          => $unit_price,
+                    'per_harga_satuan'      => $unit_measure,
+                    'konversi'              => $convert,
+                    'ketersediaan_barang'   => $available,
+                    'masa_berlaku_harga'    => $ed_price,
+                    'keterangan'            => $notes,
+                    'dibuat_oleh'           => $created_by,
+                    'modified_date'         => date('Y-m-d'),
+                    'modified_by'           => 'WEB'
+                );
+
+                $save   = $this->rfq->saveRFQ($params, $data);
+                if($save > 0) {
+                    
+                    if(count($attach_files) > 0) {
+                        $uploaded_files = $this->rfq->saveFile($attach_files);
+                    } else {
+                        $uploaded_files = 0;
+                    }
+                    
+                    $response = array(
+                        'code'      => 0,
+                        'msg'       => 'Berhasil menyimpan data. '.$uploaded_files.' file berhasil diupload.',
+                        'status'    => 'success'
+                    );
+
+                } else {
+
+                    $response = array(
+                        'code'      => 100,
+                        'msg'       => 'Gagal menyimpan data',
+                        'status'    => 'error'
+                    );
+
+                }
+                
+
+            } else {
+
+                $attach_files   = array();
+
+                $path   = 'upload_files/dokumen_quotation/';
+                if(!file_exists($path . $rfq_no)) {
+                    mkdir($path . $rfq_no, 0777, TRUE);
+                }
+
+                $jumlah_berkas = count($_FILES['rfq_file']['name']);
+                for($i = 0; $i < $jumlah_berkas;$i++)
+                {
+                    if(!empty($_FILES['rfq_file']['name'][$i])){
+        
+                        $_FILES['file']['name'] = $_FILES['rfq_file']['name'][$i];
+                        $_FILES['file']['type'] = $_FILES['rfq_file']['type'][$i];
+                        $_FILES['file']['tmp_name'] = $_FILES['rfq_file']['tmp_name'][$i];
+                        $_FILES['file']['error'] = $_FILES['rfq_file']['error'][$i];
+                        $_FILES['file']['size'] = $_FILES['rfq_file']['size'][$i];
+
+                        $next = $i + 1;
+                        $filename  = date('Ymd').'_'.$rfq_no.'_0_'.$next;
+
+                        $original_name  = $_FILES['file']['name'];
+
+                        /** Upload Config */
+                        $config['file_name']        = $filename;
+                        $config['upload_path']      = $path.$rfq_no.'/';
+                        $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+                        $config['max_size']         = '51200';
+
+                        /** Load CodeIgniter Upload Library */
+                        $this->load->library('upload', $config);
+
+                        $this->upload->initialize($config);
+            
+                        if($this->upload->do_upload('file')){
+                            
+                            $uploadData = $this->upload->data();
+                            $upload_data    = array(
+                                'nomor_quotation'   => $rfq_no,
+                                'ekuivalen'         => 0,
+                                'urutan_berkas'     => $next,
+                                'kode_barang'       => $material_code,
+                                'alamat_berkas'     => $path.$rfq_no.'/',
+                                'nama_berkas_asli'  => $original_name,
+                                'nama_berkas'       => $uploadData['orig_name'],
+                                'modified_date'     => date('Y-m-d H:i:s'),
+                                'modified_by'       => 'WEB'
+                            );
+
+                            $attach_files[] = $upload_data;
+                        }
+                    }
+                }
+
+                $params = array(
+                    'nomor_rfq'     => $rfq_no,
+                    'kode_barang'   => $material_code
+                );
+
+                $data   = array(
+                    'mata_uang'             => $currency,
+                    'harga_satuan'          => $unit_price,
+                    'per_harga_satuan'      => $unit_measure,
+                    'konversi'              => $convert,
+                    'ketersediaan_barang'   => $available,
+                    'masa_berlaku_harga'    => $ed_price,
+                    'keterangan'            => $notes,
+                    'dibuat_oleh'           => $created_by,
+                    'modified_date'         => date('Y-m-d'),
+                    'modified_by'           => 'WEB'
+                );
+
+                $save   = $this->rfq->saveRFQ($params, $data);
+                if($save > 0) {
+                    
+                    if(count($attach_files) > 0) {
+                        $uploaded_files = $this->rfq->saveFile($attach_files);
+                    } else {
+                        $uploaded_files = 0;
+                    }
+                    
+                    $response = array(
+                        'code'      => 0,
+                        'msg'       => 'Berhasil menyimpan data. '.$uploaded_files.' file berhasil diupload.',
+                        'status'    => 'success'
+                    );
+
+                } else {
+
+                    $response = array(
+                        'code'      => 100,
+                        'msg'       => 'Gagal menyimpan data',
+                        'status'    => 'error'
+                    );
+
+                }
+
+            }
+            
         }
 
         echo json_encode($response, JSON_PRETTY_PRINT);

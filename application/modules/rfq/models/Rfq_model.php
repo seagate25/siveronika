@@ -95,7 +95,6 @@ class Rfq_model extends CI_Model {
 
 		$query = $this->db->query($sql_);
         $rows_data = $query->result();
-        // var_dump($rows_data);
         $rows = array();
         $i = (0 + 1);
         
@@ -417,12 +416,53 @@ class Rfq_model extends CI_Model {
         return $enable;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string $rfq_no
+     * @param integer $equivalent
+     * @return void
+     */
     public function getFiles(string $rfq_no, int $equivalent)
     {
         $sql    = "SELECT * FROM {$this->table[5]} WHERE nomor_quotation = '{$rfq_no}' AND ekuivalen = {$equivalent} ORDER BY urutan_berkas ASC";
         $query  = $this->db->query($sql);
 
         return $query;
+    }
+
+    public function updateFiles($params = array(), $data = array())
+    {
+        $sql    = "";
+        $sql    .= "UPDATE {$this->table[5]} SET ";
+        $i      = 0;
+        foreach($data as $key => $value) {
+            $sql .= "{$key} = '{$value}'";
+            if($i === (count($data) - 1)) {
+                $sql .= " ";
+            } else {
+                $sql .= ", ";
+            }
+
+            $i++;
+        }
+
+        $sql .= " WHERE ";
+        $j  = 0;
+        foreach($params as $key => $value) {
+            $sql .= "{$key} = '{$value}'";
+            if($j === (count($params) - 1)) {
+                $sql .= " ";
+            } else {
+                $sql .= " AND ";
+            }
+
+            $j++;
+        }
+
+        $this->db->query($sql);
+
+        return $this->db->affected_rows();
     }
 
 }
