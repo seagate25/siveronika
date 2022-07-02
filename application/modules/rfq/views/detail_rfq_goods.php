@@ -237,7 +237,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" name="ed_price" placeholder="Pilih Masa Berlaku Harga" id="kt_daterangepicker_3"/>
+                                <input class="form-control form-control-solid" name="ed_price" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_3"/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -460,7 +460,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <table class="table table-row-dashed table-row-gray-300 gy-7">
+                                <table class="table table-row-dashed table-row-gray-300 gy-7 align-middle">
                                     <thead>
                                         <tr class="fw-bolder fs-6 text-gray-800">
                                             <th class="text-center min-w-80px">Keterangan</th>
@@ -472,23 +472,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- <tr>
-                                            <td>Satuan Permintaan</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">KLG</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center"></td>
-                                        </tr> -->
                                         <tr>
                                             <td>Satuan Konversi</td>
                                             <td class="text-center">1</td>
                                             <td class="text-center">
-                                                <input type="text" name="satuan" class="form-control form-control-solid" readonly="true">
+                                                <input type="text" name="convertion_measure_eqiv" class="form-control form-control-solid" readonly="true">
                                             </td>
                                             <td class="text-center">=</td>
                                             <td class="text-center">
-                                                <input type="text" name="convertion_qty">
-                                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                <div class="fv-row fv-plugins-icon-container">
+                                                    <input type="text" class="form-control" name="convertion_qty_eqiv" placeholder="Konversi Jumlah">
+                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                </div>
                                             </td>
                                             <td class="text-center"><input type="text" name="measurement_eqiv" class="form-control form-control-solid" readonly="true"></td>
                                         </tr>
@@ -565,7 +560,7 @@
                             <label class="col-lg-4 col-form-label fw-bold fs-6">File Brosur</label>
                             <!--end::Label-->
                             <!--begin::Col-->
-                            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container" id="input_file_eqiv">
                                 <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span>
                                 <div class="mb-3">
                                     <input class="form-control eqiv_file" type="file" name="eqiv_file[]">
@@ -769,7 +764,7 @@ var KTDataTables = (function() {
             }),
             $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form_1, button.eqiv_form_2, button.eqiv_form_3, button.eqiv_form_4', function () {
                 blockUI.release();
-                
+                $("#input_file_eqiv div").remove();
                 var data = e.row($(this).parents('tr')).data();
                 var id = $(this).attr('id');
                 var eqiv_id = id.replace('btn_eqiv_', '');
@@ -795,7 +790,17 @@ var KTDataTables = (function() {
                     $("#form_convertion_eqiv").hide();
                 } else {
                     $("#form_convertion_eqiv").show();
+                    $("input[name=convertion_qty_eqiv]").val('');
+                    $("input[name=convertion_measure_eqiv]").val('');
                 }
+
+                var i_file = '';
+                for(var i=0; i < 5; i++) {
+                    i_file += '<div class="row mb-3">';
+                    i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
+                    i_file += '</div>';
+                }
+                $("#input_file_eqiv span").after(i_file);
 
                 $.ajax({
                     type: "POST",
@@ -812,10 +817,58 @@ var KTDataTables = (function() {
                             $("input[name=unit_price_eqiv]").maskMoney('mask', parseInt(obj.data.harga_satuan));
                             $("input[name=unit_measure_eqiv]").val(obj.data.per_harga_satuan);
                             $('input[name="convert_eqiv"][value="' + obj.data.konversi + '"]').prop('checked', true);
+                            if($('input[name="convert_eqiv"]:checked').val() == 0) {
+                                $("#form_convertion_eqiv").hide();
+                            } else {
+                                $("#form_convertion_eqiv").show();
+                                $("input[name=convertion_qty_eqiv]").val(parseInt(obj.data.jumlah_konversi));
+                                $("input[name=convertion_measure_eqiv]").val(obj.data.per_harga_satuan);
+                            }
                             $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
                             $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
                             $("input[name=notes_eqiv]").val(obj.data.keterangan);
                             $("input[name=created_by_eqiv]").val(obj.data.dibuat_oleh);
+                            $("#input_file_eqiv div").remove();
+                            if(obj.files.length > 0) {
+                                $("#input_file_eqiv div").remove();
+                                var i_file = '';
+                                $.each(obj.files, function(index, value) {
+                                    i_file += '<div class="row mb-3">';
+                                    i_file += '<div class="col-lg-8" id="row_eqiv_'+index+'"><input class="form-control form-control-solid" type="text" readonly value="'+value.nama_berkas_asli+'"></div>';
+                                    i_file += '<div class="col-lg-4">';
+                                    i_file += '<div class="form-check form-switch form-check-custom form-check-solid me-10">';
+                                    i_file += '<input class="form-check-input h-40px w-60px" type="checkbox" onchange="Elements.switch_eqiv(event,'+index+',\''+value.nama_berkas_asli+'\')" value="1" id="flexSwitch40x60"/>';
+                                    i_file += '<label class="form-check-label" for="flexSwitch40x60">Ganti Berkas</label>';
+                                    i_file += '</div>';
+                                    i_file += '</div>';
+                                    i_file += '</div>';
+                                });
+
+                                for(var i = 0; i < (5-obj.files.length); i++) {
+                                    i_file += '<div class="row mb-3">';
+                                    i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
+                                    i_file += '</div>';
+                                }
+
+                                $("#input_file_eqiv span").after(i_file);
+                            } else {
+                                var i_file = '';
+                                for(var i=0; i < 5; i++) {
+                                    i_file += '<div class="row mb-3">';
+                                    i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
+                                    i_file += '</div>';
+                                }
+                                $("#input_file_eqiv span").after(i_file);
+                            }
+                        } else {
+                            $("#input_file_eqiv div").remove();
+                            var i_file = '';
+                            for(var i=0; i < 5; i++) {
+                                i_file += '<div class="row mb-3">';
+                                i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
+                                i_file += '</div>';
+                            }
+                            $("#input_file_eqiv span").after(i_file);
                         }
                     },
                     error: function () {
@@ -980,6 +1033,24 @@ var KTModalForm = (function() {
                         unit_price_eqiv: { validators: { notEmpty: { message: "Harga Satuan tidak boleh kosong" } } },
                         unit_measure_eqiv: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
                         convert_eqiv: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
+                        convertion_qty_eqiv: {
+                            validators: {
+                                callback: {
+                                    message: 'Konversi Jumlah tidak boleh kosong',
+                                    callback: function(input) {
+                                        const selectedCheckbox = c.querySelector('[name="convert_eqiv"]:checked');
+                                        const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+
+                                        return (convertion !== '1')
+                                                // The field is valid if user picks
+                                                // a given convertion from the list
+                                                ? true
+                                                // Otherwise, the field value is required
+                                                : (input.value !== '');
+                                    }
+                                }
+                            }
+                        },
                         available_eqiv: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
                         ed_price_eqiv: { validators: { notEmpty: { message: "Masa Berlaku Harga tidak boleh kosong" } } },
                         created_by_eqiv: { validators: { notEmpty: { message: "Dibuat Oleh tidak boleh kosong" } } },
@@ -1092,6 +1163,16 @@ var Elements = (function() {
                 $("#row_"+index+" > input").remove();
                 $("#row_"+index).append('<input class="form-control form-control-solid" type="text" readonly value="'+name+'">');
             }
+        },
+        switch_eqiv: function(e, index, name) {
+            var checked = e.target.checked;
+            if(checked) {
+                $("#row_eqiv_"+index+" > input").remove();
+                $("#row_eqiv_"+index).append('<input class="form-control eqiv_file" type="file" name="eqiv_file['+index+']"><input type="hidden" name="old_name_eqiv['+index+']" value="'+name+'">');
+            } else {
+                $("#row_eqiv_"+index+" > input").remove();
+                $("#row_eqiv_"+index).append('<input class="form-control form-control-solid" type="text" readonly value="'+name+'">');
+            }
         }
     }
 })();
@@ -1126,6 +1207,23 @@ KTUtil.onDOMContentLoaded((function() {
     $("input[name=unit_measure]").on("keyup", function() {
         if($("input[name=convert]:checked").val() == '1') {
             $("input[name=convertion_measure]").val(this.value);
+        }
+    });
+
+    $("input[name=convert_eqiv]").on("change", function() {
+        if($(this).is(':checked')) {
+            if($(this).val() == 0) {
+                $("#form_convertion_eqiv").hide();
+            } else {
+                $("#form_convertion_eqiv").show();
+                $("input[name=convertion_measure_eqiv]").val($("input[name=unit_measure_eqiv]").val());
+            }
+        }
+    });
+
+    $("input[name=unit_measure_eqiv]").on("keyup", function() {
+        if($("input[name=convert_eqiv]:checked").val() == '1') {
+            $("input[name=convertion_measure_eqiv]").val(this.value);
         }
     });
 }));
