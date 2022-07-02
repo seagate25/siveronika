@@ -501,6 +501,8 @@ class Rfq extends CI_Controller {
                     $next = $i + 1;
                     $filename  = date('Ymd').'_'.$rfq_no.'_'.$id_eqiv.'_'.$next;
 
+                    $original_name  = $_FILES['file']['name'];
+
                     /** Upload Config */
                     $config['file_name']        = $filename;
                     $config['upload_path']      = $path.$rfq_no.'/';
@@ -521,6 +523,7 @@ class Rfq extends CI_Controller {
                             'urutan_berkas'     => $next,
                             'kode_barang'       => $material_code,
                             'alamat_berkas'     => $path.$rfq_no.'/',
+                            'nama_berkas_asli'  => $original_name,
                             'nama_berkas'       => $uploadData['orig_name'],
                             'modified_date'     => date('Y-m-d H:i:s'),
                             'modified_by'       => 'WEB'
@@ -598,6 +601,8 @@ class Rfq extends CI_Controller {
                     $next = $i + 1;
                     $filename  = date('Ymd').'_'.$rfq_no.'_'.$id_eqiv.'_'.$next;
 
+                    $original_name  = $_FILES['file']['name'];
+
                     /** Upload Config */
                     $config['file_name']        = $filename;
                     $config['upload_path']      = $path.$rfq_no.'/';
@@ -618,6 +623,7 @@ class Rfq extends CI_Controller {
                             'urutan_berkas'     => $next,
                             'kode_barang'       => $material_code,
                             'alamat_berkas'     => $path.$rfq_no.'/',
+                            'nama_berkas_asli'  => $original_name,
                             'nama_berkas'       => $uploadData['orig_name'],
                             'modified_date'     => date('Y-m-d H:i:s'),
                             'modified_by'       => 'WEB'
