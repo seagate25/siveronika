@@ -221,7 +221,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="available" type="radio" value="1" checked="true" disabled>
+                                        <input class="form-check-input" name="available" type="radio" value="1" disabled>
                                         <span class="fw-bold ps-2 fs-6">Indent</span>
                                     </label>
                                     <!--end::Option-->
@@ -402,7 +402,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" name="currency_eqiv" placeholder="Mata Uang" id="" readonly="true"/>
+                                <input class="form-control form-control-solid" name="currency_eqiv" placeholder="Mata Uang" id="" disabled/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -414,7 +414,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                                <input type="text" name="unit_price_eqiv" class="form-control  form-control-solid" placeholder="Harga Satuan" readonly="true">
+                                <input type="text" name="unit_price_eqiv" class="form-control form-control-solid" placeholder="Harga Satuan" disabled>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                             <!--begin::Label-->
@@ -422,7 +422,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <input type="text" name="unit_measure_eqiv" class="form-control" placeholder="Satuan" readonly="true">
+                                <input type="text" name="unit_measure_eqiv" class="form-control form-control-solid" placeholder="Satuan" disabled>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col--> 
                         </div>
@@ -437,13 +437,13 @@
                                 <div class="align-items-center mt-3">
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="convert_eqiv" type="radio" value="1">
+                                        <input class="form-check-input" name="convert_eqiv" type="radio" value="1" disabled>
                                         <span class="fw-bold ps-2 fs-6">Ya</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="convert_eqiv" type="radio" value="0" checked="true">
+                                        <input class="form-check-input" name="convert_eqiv" type="radio" value="0" disabled>
                                         <span class="fw-bold ps-2 fs-6">Tidak</span>
                                     </label>
                                     <!--end::Option-->
@@ -459,30 +459,32 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <table class="table table-row-dashed table-row-gray-300 gy-7">
+                                <table class="table table-row-dashed table-row-gray-300 gy-7 align-middle">
                                     <thead>
                                         <tr class="fw-bolder fs-6 text-gray-800">
-                                            <th class="text-center min-w-80px">Keterangan</th>
-                                            <th class="text-center min-w-50px">Jumlah</th>
+                                            <th class="text-center min-w-150px">Keterangan</th>
+                                            <th class="text-center min-w-30px">Jumlah</th>
                                             <th class="text-center min-w-50px">Satuan</th>
+                                            <th class="text-center min-w-20px"></th>
                                             <th class="text-center min-w-80px">Konversi Jumlah</th>
                                             <th class="text-center min-w-50px">Satuan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Satuan Permintaan</td>
+                                            <td>Satuan Konversi</td>
                                             <td class="text-center">1</td>
-                                            <td class="text-center">KLG</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Satuan Konversi yang ditawarkan</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">KLG</td>
-                                            <td class="text-center">10</td>
-                                            <td class="text-center">BOX</td>
+                                            <td class="text-center">
+                                                <input type="text" name="convertion_measure_eqiv" class="form-control form-control-solid" disabled>
+                                            </td>
+                                            <td class="text-center">=</td>
+                                            <td class="text-center">
+                                                <div class="fv-row fv-plugins-icon-container">
+                                                    <input type="text" class="form-control form-control-solid" name="convertion_qty_eqiv" disabled placeholder="Konversi Jumlah">
+                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center"><input type="text" name="measurement_eqiv"  class="form-control form-control-solid" disabled></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -500,13 +502,13 @@
                                 <div class="align-items-center mt-3">
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="available_eqiv" type="radio" value="0" checked="true">
+                                        <input class="form-check-input" name="available_eqiv" type="radio" value="0" disabled>
                                         <span class="fw-bold ps-2 fs-6">Tersedia</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="available_eqiv" type="radio" value="1">
+                                        <input class="form-check-input" name="available_eqiv" type="radio" value="1" disabled>
                                         <span class="fw-bold ps-2 fs-6">Indent</span>
                                     </label>
                                     <!--end::Option-->
@@ -522,7 +524,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control" readonly name="ed_price_eqiv" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_4"/>
+                                <input class="form-control form-control-solid" name="ed_price_eqiv" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_4" disabled/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -534,7 +536,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control  form-control-solid" name="notes_eqiv" placeholder="Keterangan" id="" readonly="true"/>
+                                <input class="form-control form-control-solid" name="notes_eqiv" placeholder="Keterangan" id="" disabled/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -546,7 +548,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control  form-control-solid" name="created_by_eqiv" placeholder="Dibuat Oleh" id="" readonly="true"/>
+                                <input class="form-control  form-control-solid" name="created_by_eqiv" placeholder="Dibuat Oleh" id="" disabled/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -557,8 +559,8 @@
                             <label class="col-lg-4 col-form-label fw-bold fs-6">File Brosur</label>
                             <!--end::Label-->
                             <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <div class="mb-3">
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container" id="input_file_eqiv">
+                                <!-- <div class="mb-3">
                                     <input class="form-control" type="file" name="eqiv_file[]">
                                 </div>
                                 <div class="mb-3">
@@ -572,7 +574,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <input class="form-control" type="file" name="eqiv_file[]">
-                                </div>
+                                </div> -->
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -731,7 +733,7 @@ var KTDataTables = (function() {
                     });
                 }
             }),
-            $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form', function () {
+            $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form_1, button.eqiv_form_2, button.eqiv_form_3, button.eqiv_form_4', function () {
                 blockUI.release();
                 
                 var data = e.row($(this).parents('tr')).data();
@@ -750,18 +752,10 @@ var KTDataTables = (function() {
                 $("input[name=measurement_eqiv]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
                 $("input[name=r_measurement_eqiv]").val(data.satuan);
                 $("input[name=desc_measure_eqiv]").val(data.deskripsi_satuan);
-                $('input[name="convert_eqiv"][value="0"]').prop('checked', true);
-                $('input[name="available_eqiv"][value="0"]').prop('checked', true);
-                $("input[name=ed_price_eqiv]").val('<?php echo date('Y-m-d'); ?>');
-                if($('input[name="convert_eqiv"]:checked').val() == 0) {
-                    $("#form_convertion_eqiv").hide();
-                } else {
-                    $("#form_convertion_eqiv").show();
-                }
 
                 $.ajax({
                     type: "POST",
-                    url: "<?php echo site_url('rfq/get_det_rfq_eqiv');?>",
+                    url: "<?php echo site_url('history/get_det_rfq_eqiv');?>",
                     data: { val_1: '<?php echo $this->uri->segment(3);?>', val_2: eqiv_id },
                     beforeSend: function() {
                         blockUI.block();
@@ -774,10 +768,30 @@ var KTDataTables = (function() {
                             $("input[name=unit_price_eqiv]").maskMoney('mask', parseInt(obj.data.harga_satuan));
                             $("input[name=unit_measure_eqiv]").val(obj.data.per_harga_satuan);
                             $('input[name="convert_eqiv"][value="' + obj.data.konversi + '"]').prop('checked', true);
+                            if($('input[name="convert_eqiv"]:checked').val() == 0) {
+                                $("#form_convertion_eqiv").hide();
+                            } else {
+                                $("#form_convertion_eqiv").show();
+                                $("input[name=convertion_qty_eqiv]").val(parseInt(obj.data.jumlah_konversi));
+                                $("input[name=convertion_measure_eqiv]").val(obj.data.satuan_konversi);
+                            }
                             $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
                             $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
                             $("input[name=notes_eqiv]").val(obj.data.keterangan);
                             $("input[name=created_by_eqiv]").val(obj.data.dibuat_oleh);
+                            var i_file = '';
+                            if(obj.files.length > 0) {
+                                $.each(obj.files, function(index, value) {
+                                    i_file += '<div class="mb-3">';
+                                    i_file += '<div class="col-lg-8" id="row_eqiv_'+index+'"><input class="form-control form-control-solid" type="text" disabled value="'+value.nama_berkas_asli+'"></div>';
+                                    i_file += '</div>';
+                                });
+                            } else {
+                                i_file += '<div class="mb-3">';
+                                i_file += '<div class="col-lg-8" id="row_eqiv"><input class="form-control form-control-solid" type="text" disabled value="Tidak ada berkas yang diupload"></div>';
+                                i_file += '</div>';
+                            }
+                            $("#input_file_eqiv").html(i_file);
                         }
                     },
                     error: function () {
@@ -990,10 +1004,10 @@ var KTModalForm = (function() {
                 //             });
                 // }),
                 x.addEventListener("click", function (t) {
-                    z.resetForm(true), u.hide()
+                    $("#input_file_eqiv div").remove(), z.resetForm(true), u.hide()
                 })),
                 y.addEventListener("click", function (t) {
-                    z.resetForm(true), u.hide()
+                    $("#input_file_eqiv div").remove(), z.resetForm(true), u.hide()
                 });
         }
     }

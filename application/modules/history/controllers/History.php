@@ -115,6 +115,39 @@ class History extends CI_Controller {
         echo json_encode($response, JSON_PRETTY_PRINT);
         exit;
     }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function get_det_rfq_eqiv()
+    {
+        $rfq_no = $this->crypto->decode($this->input->post('val_1'));
+        $id     = (int)$this->input->post('val_2');
+
+        $data   = $this->history->getDetailEqiv($rfq_no, $id);
+        if($data->num_rows() > 0) {
+
+            $files_data = $this->history->getFiles($rfq_no, $id);
+
+            $response = array(
+                'code'  => 0,
+                'msg'   => 'SUCCESS',
+                'data'  => $data->row(),
+                'files' => $files_data->result()
+            );
+        } else {
+            $response = array(
+                'code'  => 100,
+                'msg'   => 'FAILED',
+                'data'  => NULL
+            );
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
 }
 
 /* End of file Master.php */
