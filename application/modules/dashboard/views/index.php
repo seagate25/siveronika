@@ -28,7 +28,7 @@
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
-                        <div class="text-inverse-primary fw-bolder fs-2 mb-2 mt-5">0 <small>Data</small></div>
+                        <div class="text-inverse-primary fw-bolder fs-2 mb-2 mt-5" id="c_rfq_goods"></div>
                         <div class="fw-bold text-inverse-primary fs-7">RFQ Barang</div>
                     </div>
                     <!--end::Body-->
@@ -303,6 +303,7 @@
                         var obj = jQuery.parseJSON(response);
                         $("#c_request_price").html(obj.permintaan_harga + " <small>Data belum diisi</small>");
                         $("#c_confirm_price").html(obj.konfirmasi_harga + " <small>Data belum diisi</small>");
+                        $("#c_rfq_goods").html(obj.rfq_barang + " <small>Data</small>");
                     }
                 })
                 return false;
