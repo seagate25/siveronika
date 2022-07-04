@@ -902,6 +902,12 @@ var KTModalForm = (function() {
                         convert: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
                         convertion_qty: {
                             validators: {
+                                numeric: {
+                                    message: 'Konversi Jumlah harus angka',
+                                    // The default separators
+                                    thousandsSeparator: '',
+                                    decimalSeparator: '.',
+                                },
                                 callback: {
                                     message: 'Konversi Jumlah tidak boleh kosong',
                                     callback: function(input) {
@@ -1035,6 +1041,12 @@ var KTModalForm = (function() {
                         convert_eqiv: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
                         convertion_qty_eqiv: {
                             validators: {
+                                numeric: {
+                                    message: 'Konversi Jumlah harus angka',
+                                    // The default separators
+                                    thousandsSeparator: '',
+                                    decimalSeparator: '.',
+                                },
                                 callback: {
                                     message: 'Konversi Jumlah tidak boleh kosong',
                                     callback: function(input) {
