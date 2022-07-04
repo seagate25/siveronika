@@ -57,7 +57,7 @@ License: For each use you must have a valid license purchased only from above li
 					<!--begin::Brand-->
 					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 						<!--begin::Logo-->
-						<a href="../../demo1/dist/index.html">
+						<a href="<?php echo site_url('dashboard'); ?>">
 							<img alt="Logo" src="<?php echo base_url(); ?>assets/media/logos/Socfindo-Logo.svg" class="h-45px logo" />
 						</a>
 						<!--end::Logo-->
@@ -386,7 +386,7 @@ License: For each use you must have a valid license purchased only from above li
 							<!--end::Aside mobile toggle-->
 							<!--begin::Mobile logo-->
 							<div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-								<a href="../../demo1/dist/index.html" class="d-lg-none">
+								<a href="<?php echo site_url('dashboard'); ?>" class="d-lg-none">
 									<img alt="Logo" src="<?php echo base_url(); ?>assets/media/logos/logo-3.svg" class="h-30px" />
 								</a>
 							</div>
@@ -407,7 +407,7 @@ License: For each use you must have a valid license purchased only from above li
 										<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
 											<!--begin::Item-->
 											<li class="breadcrumb-item text-muted">
-												<a href="../../demo1/dist/index.html" class="text-muted text-hover-primary"><?php echo $menu;?></a>
+												<a href="<?php echo site_url('dashboard'); ?>" class="text-muted text-hover-primary"><?php echo $menu;?></a>
 											</li>
 											<!--end::Item-->
 											<!--begin::Item-->
@@ -657,7 +657,7 @@ License: For each use you must have a valid license purchased only from above li
 									<a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Purchase</a>
 								</li> -->
 								<span class="text-muted fw-bold me-1">2022 ©</span>
-								<a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">Socfindo</a>
+								<a href="https://socfindo.co.id" target="_blank" class="text-gray-800 text-hover-primary">Socfindo</a>
 							</ul>
 							<!--end::Menu-->
 						</div>
