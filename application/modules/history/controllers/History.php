@@ -62,7 +62,7 @@ class History extends CI_Controller {
     {
         $rfq_no             = $this->crypto->decode($this->uri->segment(3));
         if($this->input->is_ajax_request()) {
-            $rows   = $this->rfq->getDetRfqGoodsList($rfq_no);
+            $rows   = $this->history->getDetRfqGoodsList($rfq_no);
             echo json_encode($rows);
             exit;
         }
@@ -81,6 +81,39 @@ class History extends CI_Controller {
         $data['submenu']    = "Nego RFQ Barang";
         $data['content']    = "history_detail_negotiation_rfq_goods";
         $this->load->view('default', $data);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function get_files()
+    {
+        $rfq_no     = $this->crypto->decode($this->input->post('val_1'));
+        $ekuivalen  = (int)$this->input->post('val_2');
+
+        $result     = $this->history->getFiles($rfq_no, (int)$ekuivalen);
+        if($result->num_rows() > 0) {
+
+            $response   = array(
+                'code'  => 0,
+                'msg'   => 'SUCCESS',
+                'data'  => $result->result()
+            );
+
+        } else {
+
+            $response   = array(
+                'code'  => 100,
+                'msg'   => 'NOT FOUND',
+                'data'  => NULL
+            );
+
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
     }
 }
 

@@ -2,7 +2,7 @@
 <div class="card shadow-sm">
     <div class="card-header bg-success">
         <div class="card-toolbar">
-            <a href="<?php echo site_url('rfq/rfq_goods'); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
+            <a href="<?php echo site_url('history/rfq_goods'); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
                 <i class="las la-arrow-left fs-1 text-success"></i>
             </a>
         </div>
@@ -103,7 +103,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="measurement" class="form-control form-control-solid" readonly="true" placeholder="Satuan">
+                                <input type="text" name="measurement" class="form-control form-control-solid" disabled placeholder="Satuan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -115,7 +115,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="currency" class="form-control form-control-solid" placeholder="Mata Uang" readonly="true">
+                                <input type="text" name="currency" class="form-control form-control-solid" placeholder="Mata Uang" disabled>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -127,7 +127,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                                <input type="text" name="unit_price" class="form-control form-control-solid" placeholder="Harga Satuan" readonly="true">
+                                <input type="text" name="unit_price" class="form-control form-control-solid" placeholder="Harga Satuan" disabled>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                             <!--begin::Label-->
@@ -135,7 +135,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <input type="text" name="unit_measure" class="form-control" placeholder="Satuan">
+                                <input type="text" name="unit_measure" class="form-control" placeholder="Satuan" disabled>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -150,13 +150,13 @@
                                 <div class="align-items-center mt-3">
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="convert" type="radio" value="1">
+                                        <input class="form-check-input" name="convert" type="radio" value="1" disabled>
                                         <span class="fw-bold ps-2 fs-6">Ya</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="convert" type="radio" value="0" checked="true">
+                                        <input class="form-check-input" name="convert" type="radio" value="0" disabled>
                                         <span class="fw-bold ps-2 fs-6">Tidak</span>
                                     </label>
                                     <!--end::Option-->
@@ -172,30 +172,32 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <table class="table table-row-dashed table-row-gray-300 gy-7">
+                                <table class="table table-row-dashed table-row-gray-300 gy-7 align-middle">
                                     <thead>
                                         <tr class="fw-bolder fs-6 text-gray-800">
-                                            <th class="text-center min-w-80px">Keterangan</th>
-                                            <th class="text-center min-w-50px">Jumlah</th>
+                                            <th class="text-center min-w-150px">Keterangan</th>
+                                            <th class="text-center min-w-30px">Jumlah</th>
                                             <th class="text-center min-w-50px">Satuan</th>
+                                            <th class="text-center min-w-20px"></th>
                                             <th class="text-center min-w-80px">Konversi Jumlah</th>
                                             <th class="text-center min-w-50px">Satuan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Satuan Permintaan</td>
-                                            <td class="text-center"><input type="text" name="convertion_total"></td>
-                                            <td class="text-center">KLG</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Satuan Konversi yang ditawarkan</td>
+                                            <td>Satuan Konversi</td>
                                             <td class="text-center">1</td>
-                                            <td class="text-center">KLG</td>
-                                            <td class="text-center">10</td>
-                                            <td class="text-center">BOX</td>
+                                            <td class="text-center">
+                                                <input type="text" name="convertion_measure" class="form-control form-control-solid" disabled>
+                                            </td>
+                                            <td class="text-center">=</td>
+                                            <td class="text-center">
+                                                <div class="fv-row fv-plugins-icon-container">
+                                                    <input type="text" class="form-control" name="convertion_qty" disabled placeholder="Konversi Jumlah">
+                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center"><input type="text" name="measurement"  class="form-control form-control-solid" disabled></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -213,13 +215,13 @@
                                 <div class="align-items-center mt-3">
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="available" type="radio" value="0">
+                                        <input class="form-check-input" name="available" type="radio" value="0" disabled>
                                         <span class="fw-bold ps-2 fs-6">Tersedia</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="available" type="radio" value="1" checked="true">
+                                        <input class="form-check-input" name="available" type="radio" value="1" checked="true" disabled>
                                         <span class="fw-bold ps-2 fs-6">Indent</span>
                                     </label>
                                     <!--end::Option-->
@@ -235,7 +237,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" name="ed_price" placeholder="Pick date rage" id="kt_daterangepicker_3"/>
+                                <input class="form-control form-control-solid" name="ed_price" placeholder="Pick date rage" id="kt_daterangepicker_3" disabled/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -247,7 +249,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control  form-control-solid" name="notes" placeholder="Keterangan" readonly="true"/>
+                                <input class="form-control  form-control-solid" name="notes" placeholder="Keterangan" disabled/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -259,7 +261,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control  form-control-solid" name="created_by" placeholder="Dibuat oleh" readonly="true"/>
+                                <input class="form-control  form-control-solid" name="created_by" placeholder="Dibuat oleh" disabled/>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -270,8 +272,8 @@
                             <label class="col-lg-4 col-form-label fw-bold fs-6">File Brosur</label>
                             <!--end::Label-->
                             <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <div class="mb-3">
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container" id="input_file">
+                                <!-- <div class="mb-3">
                                     <input class="form-control" type="file" name="rfq_file[]">
                                 </div>
                                 <div class="mb-3">
@@ -285,7 +287,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <input class="form-control" type="file" name="rfq_file[]">
-                                </div>
+                                </div> -->
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -661,25 +663,72 @@ var KTDataTables = (function() {
                 $("input[name=material_name]").val(data.deskripsi_barang);
                 $("input[name=request_total]").val(data.jumlah_permintaan);
                 $("input[name=measurement]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
+                // if($('input[name="convert"]:checked').val() == 0) {
+                //     $("#form_convertion").hide();
+                // } else {
+                //     $("#form_convertion").show();
+                // }
+
+                // if(data.modified_date != null && data.modified_by != null) {
+                //     $("input[name=currency]").val(data.mata_uang);
+                //     $("input[name=unit_measure]").val(data.per_harga_satuan);
+                //     $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
+                //     if($('input[name="convert"]:checked').val() == 0) {
+                //         $("#form_convertion").hide();
+                //     } else {
+                //         $("#form_convertion").show();
+                //     }
+                //     $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
+                //     $("input[name=ed_price]").val(data.masa_berlaku_harga);
+                //     $("input[name=notes]").val(data.keterangan);
+                //     $("input[name=created_by]").val(data.dibuat_oleh);
+                // }
+
+                // Last Modify (2022-07-04)
+                $("input[name=currency]").val(data.mata_uang);
+                $("input[name=unit_measure]").val(data.per_harga_satuan);
+                $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
                 if($('input[name="convert"]:checked').val() == 0) {
                     $("#form_convertion").hide();
                 } else {
                     $("#form_convertion").show();
+                    $("input[name=convertion_qty]").val(parseInt(data.jumlah_konversi));
+                    $("input[name=convertion_measure]").val(data.per_harga_satuan);
                 }
+                $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
+                $("input[name=ed_price]").val(data.masa_berlaku_harga);
+                $("input[name=notes]").val(data.keterangan);
+                $("input[name=created_by]").val(data.dibuat_oleh);
 
                 if(data.modified_date != null && data.modified_by != null) {
-                    $("input[name=currency]").val(data.mata_uang);
-                    $("input[name=unit_measure]").val(data.per_harga_satuan);
-                    $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
-                    if($('input[name="convert"]:checked').val() == 0) {
-                        $("#form_convertion").hide();
-                    } else {
-                        $("#form_convertion").show();
-                    }
-                    $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
-                    $("input[name=ed_price]").val(data.masa_berlaku_harga);
-                    $("input[name=notes]").val(data.keterangan);
-                    $("input[name=created_by]").val(data.dibuat_oleh);
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo site_url('history/get_files');?>",
+                        data: { val_1: '<?php echo $this->uri->segment(3);?>', val_2: 0 },
+                        success: function(response) {
+                            var obj = jQuery.parseJSON(response);
+                            var i_file = '';
+                            if(obj.code == 0) {
+                                var uploaded_files = obj.data.length;
+                                if(uploaded_files > 0) {
+                                    $.each(obj.data, function(index, value) {
+                                        i_file += '<div class="mb-3">';
+                                        i_file += '<div class="col-lg-8" id="row_'+index+'"><input class="form-control form-control-solid" type="text" disabled value="'+value.nama_berkas_asli+'"></div>';
+                                        i_file += '</div>';
+                                    });
+                                } else {
+                                    i_file += '<div class="mb-3">';
+                                    i_file += '<div class="col-lg-8" id="row"><input class="form-control form-control-solid" type="text" disabled value="Tidak ada berkas yang diupload"></div>';
+                                    i_file += '</div>';
+                                }
+                            } else {
+                                i_file += '<div class="mb-3">';
+                                i_file += '<div class="col-lg-8" id="row"><input class="form-control form-control-solid" type="text" disabled value="Tidak ada berkas yang diupload"></div>';
+                                i_file += '</div>';
+                            }
+                            $("#input_file").html(i_file);
+                        }
+                    });
                 }
             }),
             $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form', function () {
@@ -839,10 +888,10 @@ var KTModalForm = (function() {
                 //             });
                 // }),
                 e.addEventListener("click", function (t) {
-                    g.resetForm(true), b.hide()
+                    $("#input_file div").remove(), g.resetForm(true), b.hide()
                 })),
                 f.addEventListener("click", function (t) {
-                    g.resetForm(true), b.hide()
+                    $("#input_file div").remove(), g.resetForm(true), b.hide()
                 });
         },
         eqiv_form: function() {

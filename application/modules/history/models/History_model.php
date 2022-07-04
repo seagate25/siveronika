@@ -267,7 +267,7 @@ class History_model extends CI_Model {
      */
     public function getDetailEqiv(string $rfq_no, int $id)
     {
-        $sql    = "SELECT * FROM {$this->table[2]} WHERE nomor_rfq = '{$rfq_no}' AND ekuivalen = {$id}";
+        $sql    = "SELECT * FROM {$this->table_rfq[2]} WHERE nomor_rfq = '{$rfq_no}' AND ekuivalen = {$id}";
         $query  = $this->db->query($sql);
 
         return $query;
@@ -283,13 +283,28 @@ class History_model extends CI_Model {
     public function enableEqivBtn(string $rfq_no, int $equivalen)
     {
         $enable = 'disabled';
-        $sql    = "SELECT * FROM {$this->table[2]} WHERE nomor_rfq = '{$rfq_no}' AND ekuivalen = {$equivalen}";
+        $sql    = "SELECT * FROM {$this->table_rfq[2]} WHERE nomor_rfq = '{$rfq_no}' AND ekuivalen = {$equivalen}";
         $query  = $this->db->query($sql);
         if($query->num_rows() > 0) {
             $enable = '';
         }
 
         return $enable;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $rfq_no
+     * @param integer $equivalent
+     * @return void
+     */
+    public function getFiles(string $rfq_no, int $equivalent)
+    {
+        $sql    = "SELECT * FROM {$this->table_rfq[5]} WHERE nomor_quotation = '{$rfq_no}' AND ekuivalen = {$equivalent} ORDER BY urutan_berkas ASC";
+        $query  = $this->db->query($sql);
+
+        return $query;
     }
 
 }
