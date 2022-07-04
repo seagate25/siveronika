@@ -300,7 +300,7 @@
                 <!--begin::Modal footer-->
                 <div class="modal-footer flex-center">
                     <!--begin::Button-->
-                    <button type="reset" id="kt_modal_det_rfq_goods_cancel" class="btn btn-danger me-3">Tutup</button>
+                    <button type="reset" id="kt_modal_det_rfq_goods_cancel" class="btn btn-light me-3">Tutup</button>
                     <!--end::Button-->
                     <!--begin::Button-->
                     <button type="submit" id="kt_modal_det_rfq_goods_submit" class="btn btn-primary">
