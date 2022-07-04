@@ -64,7 +64,7 @@ class History_model extends CI_Model {
         );
         
         $order_column = $field[$order_column];
-		$where = " WHERE (kode_vendor = '{$this->vendor_code}' AND tanggal_jatuh_tempo <= '".date('Y-m-d')."') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+		$where = " WHERE (kode_vendor = '{$this->vendor_code}' AND tanggal_jatuh_tempo < '".date('Y-m-d')."') ";  // Get Konfirmasi harga with konfirmasi_status = 1
 		if(!empty($search['value'])) {
             $where .= " AND ";
             $where .= " (nomor_rfq LIKE '%".$search['value']."%'";
