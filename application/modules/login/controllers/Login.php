@@ -1,6 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 require_once 'vendor/autoload.php';
 
@@ -11,8 +11,9 @@ require 'vendor/phpmailer/src/Exception.php';
 require 'vendor/phpmailer/src/PHPMailer.php';
 require 'vendor/phpmailer/src/SMTP.php';
 
-class Login extends CI_Controller {
-    
+class Login extends CI_Controller
+{
+
     /**
      * Construct Function
      */
@@ -21,7 +22,7 @@ class Login extends CI_Controller {
         parent::__construct();
         $this->load->model('Login_model', 'login');
     }
-    
+
     /**
      * Index Function
      * 
@@ -101,13 +102,13 @@ class Login extends CI_Controller {
     {
         $vendor_id      = $this->input->post('vendor_code');
         $vendor_mail    = $this->input->post('email');
-        
+
         $get_user_mail  = $this->login->getUserMail($vendor_id, $vendor_mail);
         $mail_body      = '';
-        if($get_user_mail['code'] == 0) {
+        if ($get_user_mail['code'] == 0) {
 
             $mail = new PHPMailer;
-            $mail->isSMTP(); 
+            $mail->isSMTP();
             $mail->SMTPDebug = 0; // 0 = off (for production use) - 1 = client messages - 2 = client and server messages
             $mail->Host = "smtp.gmail.com"; // use $mail->Host = gethostbyname('smtp.gmail.com'); // if your network does not support SMTP over IPv6
             $mail->Port = 587; // TLS only
@@ -131,19 +132,19 @@ class Login extends CI_Controller {
                                                     <!--begin:Email content-->
                                                     <div style="padding-bottom: 30px; font-size: 17px;">
                                                         <p>Kepada Yth,</p>
-                                                        <strong>PT. '.$get_user_mail['data']->nama_perusahaan.'</strong>
+                                                        <strong>PT. ' . $get_user_mail['data']->nama_perusahaan . '</strong>
                                                     </div>
                                                     <div style="padding-bottom: 30px">Silahkan login dengan kridensial berikut:</div>
                                                     <div style="padding-top: 40px;padding-bottom: 40px; text-align:center; background-color:#50cd89!important;border-radius: 6px">
                                                         <div style="padding-bottom: 10px; text-align:center; color:">
                                                             <strong>USERNAME</strong>
                                                             <br>
-                                                            <strong style="color:#f1416c!important">'.$get_user_mail['data']->kode_vendor.'</strong>
+                                                            <strong style="color:#f1416c!important">' . $get_user_mail['data']->kode_vendor . '</strong>
                                                         </div>
                                                         <div style="padding-bottom: 10px; text-align:center;">
                                                             <strong>PASSWORD</strong>
                                                             <br>
-                                                            <strong style="color:#f1416c!important">'.$get_user_mail['data']->sandi.'</strong>
+                                                            <strong style="color:#f1416c!important">' . $get_user_mail['data']->sandi . '</strong>
                                                         </div>
                                                         <div style="padding-bottom: 10px; text-align:center;">
                                                             <strong>TAUTAN</strong>
@@ -178,14 +179,14 @@ class Login extends CI_Controller {
             // $mail->AltBody = 'HTML messaging not supported';
             // $mail->addStringAttachment($email_data['file'], 'Slip_Gaji_'.$email_data['emp_data']['emp_salary']['nik'].'_'.$periode.'.pdf'); //Attach an image file
 
-            if(!$mail->send()){
+            if (!$mail->send()) {
                 // echo "Mailer Error: " . $mail->ErrorInfo;
                 $response   = array(
                     'code'      => 100,
                     'status'    => 'error',
                     'msg'       => 'Gagal mengirim email'
                 );
-            }else{
+            } else {
                 // echo "Message sent!";
                 $response   = array(
                     'code'      => 0,
@@ -193,17 +194,14 @@ class Login extends CI_Controller {
                     'msg'       => 'Berhasil mengirim email. Silahkan cek email Anda.'
                 );
             }
-
         } else {
-            
-            $response   = $get_user_mail;
 
+            $response   = $get_user_mail;
         }
 
         echo json_encode($response, JSON_PRETTY_PRINT);
         exit;
     }
-
 }
 
 /* End of file Login.php */
