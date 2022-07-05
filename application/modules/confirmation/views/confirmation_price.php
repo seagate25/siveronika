@@ -19,7 +19,7 @@
                     <th class="min-w-50px text-center">Satuan</th>
                     <th class="min-w-80px text-center">Tgl. Konfirmasi</th>
                     <th class="min-w-100px text-center">Status</th>
-                    <th class="min-w-80px text-center">Status Harga</th>
+                    <!-- <th class="min-w-80px text-center">Status Harga</th> -->
                     <th class="min-w-50px text-center">Aksi</th>
                 </tr>
             </thead>
@@ -290,7 +290,7 @@ var KTDataTables = (function() {
                     { data: 'satuan' },
                     { data: 'tanggal_kirim', className: 'text-center' },
                     { data: 'status' },
-                    { data: 'status_harga' },
+                    // { data: 'status_harga' },
                     { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
                 ],
                 lengthMenu: [
