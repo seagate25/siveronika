@@ -294,7 +294,12 @@ class Rfq_model extends CI_Model {
         $sql    .= " VALUES (";
         $j      = 0;
         foreach($data as $key => $value) {
-            $sql .= "'{$value}'";
+            if($value !== '') {
+                $sql .= "'{$value}'";
+            } else {
+                $sql .= "NULL";
+            }
+            
             if($j === (count($data) - 1)) {
                 $sql .= " ";
             } else {
@@ -323,7 +328,12 @@ class Rfq_model extends CI_Model {
         $sql    .= "UPDATE {$this->table[2]} SET ";
         $i      = 0;
         foreach($data as $key => $value) {
-            $sql .= "{$key} = '{$value}'";
+            if($value !== '') {
+                $sql .= "{$key} = '{$value}'";
+            } else {
+                $sql .= "{$key} = NULL";
+            }
+
             if($i === (count($data) - 1)) {
                 $sql .= " ";
             } else {
