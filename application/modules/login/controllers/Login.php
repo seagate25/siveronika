@@ -119,14 +119,14 @@ class Login extends CI_Controller
             $mail->setFrom('testmail.info.noreplay@gmail.com', 'Baragud Socfindo');
             $mail->addAddress($get_user_mail['data']->email_perusahaan);
             $mail->Subject = 'Reset Password';
-            $mail->AddEmbeddedImage('assets/media/logos/Socfindo-Logo.svg', 'logo_socfin', 'Socfindo-Logo.svg');
+            $mail->AddEmbeddedImage('assets/media/logos/Socfindo-Logo.jpg', 'logo_socfin', 'Socfindo-Logo.jpg');
             $mail_body  = '<html><head><style>html,body { padding: 0; margin:0; }</style>
             </head><body style=""><div style="font-family:Arial,Helvetica,sans-serif; line-height: 1.5; font-weight: normal; font-size: 15px; color: #2F3044; min-height: 100%; margin:0; padding:0; width:100%; background-color:#edf2f7">
                 <br><table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;margin:0 auto; padding:0; max-width:600px">
                     <tbody>
                         <tr>
                             <td align="center" valign="center" style="text-align:center; padding: 40px">
-                            <img src="cid:logo_socfin" style="height: 45px" alt="logo"></td></tr><tr>
+                            <img src="cid:logo_socfin" style="height: 92px" alt="logo"></td></tr><tr>
                                             <td align="left" valign="center">
                                                 <div style="text-align:left; margin: 0 20px; padding: 40px; background-color:#ffffff; border-radius: 6px">
                                                     <!--begin:Email content-->
