@@ -1,16 +1,17 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
-    
+class Dashboard extends CI_Controller
+{
+
     public function __construct()
     {
         parent::__construct();
         logged_in();
         $this->load->model('Dashboard_model', 'dashboard');
     }
-    
+
     /**
      * Index Function
      *
@@ -22,6 +23,7 @@ class Dashboard extends CI_Controller {
         $data['menu']       = "Dashboard";
         $data['submenu']    = "";
         $data['content']    = "index";
+
         $this->load->view('default', $data);
     }
 
@@ -32,7 +34,6 @@ class Dashboard extends CI_Controller {
         echo json_encode($data);
         exit;
     }
-
 }
 
 /* End of file Dashboard.php */
