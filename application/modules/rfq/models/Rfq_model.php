@@ -1,8 +1,9 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Rfq_model extends CI_Model {
+class Rfq_model extends CI_Model
+{
 
     /**
      * Declare variable of table name
@@ -35,7 +36,7 @@ class Rfq_model extends CI_Model {
     {
         parent::__construct();
         $this->load->library('Crypto');
-        $this->table        = ['TB_S_MST_RFQ_BARANG_HEAD','TB_S_MST_RFQ_BARANG_DTL','TB_S_MST_RFQ_BARANG_EQIV','TB_S_MST_RFQ_BIAYA_TAMBAHAN','TB_S_MST_RFQ_LAMPIRAN_BARANG','TB_TR_QUOTATION_LAMPIRAN'];
+        $this->table        = ['TB_S_MST_RFQ_BARANG_HEAD', 'TB_S_MST_RFQ_BARANG_DTL', 'TB_S_MST_RFQ_BARANG_EQIV', 'TB_S_MST_RFQ_BIAYA_TAMBAHAN', 'TB_S_MST_RFQ_LAMPIRAN_BARANG', 'TB_TR_QUOTATION_LAMPIRAN'];
         $this->vendor_code  = $this->session->userdata('kode_vendor');
         $this->today        = date('Y-m-d');
     }
@@ -48,32 +49,32 @@ class Rfq_model extends CI_Model {
     public function getRfqGoodsList()
     {
         $start = $this->input->post('start');
-		$length = $this->input->post('length') != -1 ? $this->input->post('length') : 10;
-		$draw = $this->input->post('draw');
-		$search = $this->input->post('search');
-		$order = $this->input->post('order');
-		$order_column = $order[0]['column'];
-		$order_dir = strtoupper($order[0]['dir']);
-		$field  = array(
+        $length = $this->input->post('length') != -1 ? $this->input->post('length') : 10;
+        $draw = $this->input->post('draw');
+        $search = $this->input->post('search');
+        $order = $this->input->post('order');
+        $order_column = $order[0]['column'];
+        $order_dir = strtoupper($order[0]['dir']);
+        $field  = array(
             1 => 'nomor_rfq',
-            3 => 'tanggal_rfq', 
+            3 => 'tanggal_rfq',
             4 => 'tanggal_jatuh_tempo',
         );
-        
+
         $order_column = $field[$order_column];
-		$where = " WHERE (kode_vendor = '{$this->vendor_code}' AND tanggal_jatuh_tempo >= '".date('Y-m-d')."') ";  // Get Konfirmasi harga with konfirmasi_status = 1
-		if(!empty($search['value'])) {
+        $where = " WHERE (kode_vendor = '{$this->vendor_code}' AND tanggal_jatuh_tempo >= '" . date('Y-m-d') . "') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+        if (!empty($search['value'])) {
             $where .= " AND ";
-            $where .= " (nomor_rfq LIKE '%".$search['value']."%'";
-            $where .= " OR tanggal_rfq LIKE '%".$search['value']."%'";
-            $where .= " OR tanggal_jatuh_tempo LIKE '%".$search['value']."%')";
+            $where .= " (nomor_rfq LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tanggal_rfq LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tanggal_jatuh_tempo LIKE '%" . $search['value'] . "%')";
         }
 
         // $sql        = "SELECT * FROM {$this->table[0]}{$where}";
         $sql        = "SELECT trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung FROM {$this->table[0]} trfq LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq) {$where}";
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
-        
+
         // $sql_   = "SELECT  *
         //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, *
         //                     FROM      {$this->table[0]}
@@ -93,17 +94,17 @@ class Rfq_model extends CI_Model {
                         AND RowNum < (({$start} + 1) + {$length})
                     ORDER BY RowNum";
 
-		$query = $this->db->query($sql_);
+        $query = $this->db->query($sql_);
         $rows_data = $query->result();
         $rows = array();
         $i = (0 + 1);
-        
-        foreach($rows_data as $row) {
+
+        foreach ($rows_data as $row) {
             $berkas = '';
-            
-            if($row->nama_berkas !== NULL){
-                $berkas = 
-                '<a href="'.base_url('upload_files/Dokumen_RFQ/'.$row->nama_berkas).'" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
+
+            if ($row->nama_berkas !== NULL) {
+                $berkas =
+                    '<a href="' . base_url('upload_files/Dokumen_RFQ/' . $row->nama_berkas) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
                                 <i class="las la-arrow-down fs-1 text-white"></i>
                             </a>';
             } else {
@@ -114,20 +115,20 @@ class Rfq_model extends CI_Model {
             $row->nomor_rfq             = $row->nomor_rfq;
             $row->tanggal_rfq           = date('d.M.y', strtotime($row->tanggal_rfq));
             $row->tanggal_jatuh_tempo   = date('d.M.y', strtotime($row->tanggal_jatuh_tempo));
-            $row->actions               = '<a href="'.site_url('rfq/det_rfq_goods/'.$this->crypto->encode($row->nomor_rfq)).'" class="btn btn-icon btn-sm btn-success me-2 mb-2">
+            $row->actions               = '<a href="' . site_url('rfq/det_rfq_goods/' . $this->crypto->encode($row->nomor_rfq)) . '" class="btn btn-icon btn-sm btn-success me-2 mb-2">
                                                 <i class="fas fa-envelope-open-text"></i>
                                             </a>';
-            $row->sisa_hari             = diff_date($row->tanggal_jatuh_tempo)['days']. ' Hari';
+            $row->sisa_hari             = diff_date($row->tanggal_jatuh_tempo)['days'] . ' Hari';
 
-			$rows[] = $row;
-			$i++;
+            $rows[] = $row;
+            $i++;
         }
 
         return array(
-			'draw' => $draw,
-			'recordsTotal' => $records_total,
-			'recordsFiltered' => $records_total,
-			'data' => $rows,
+            'draw' => $draw,
+            'recordsTotal' => $records_total,
+            'recordsFiltered' => $records_total,
+            'data' => $rows,
         );
     }
 
@@ -140,34 +141,34 @@ class Rfq_model extends CI_Model {
     public function getDetRfqGoodsList($rfq_no)
     {
         $start = $this->input->post('start');
-		$length = $this->input->post('length') != -1 ? $this->input->post('length') : 10;
-		$draw = $this->input->post('draw');
-		$search = $this->input->post('search');
-		$order = $this->input->post('order');
-		$order_column = $order[0]['column'];
-		$order_dir = strtoupper($order[0]['dir']);
-		$field  = array(
+        $length = $this->input->post('length') != -1 ? $this->input->post('length') : 10;
+        $draw = $this->input->post('draw');
+        $search = $this->input->post('search');
+        $order = $this->input->post('order');
+        $order_column = $order[0]['column'];
+        $order_dir = strtoupper($order[0]['dir']);
+        $field  = array(
             1 => 'kode_barang',
-            2 => 'deskripsi_barang', 
+            2 => 'deskripsi_barang',
             3 => 'jumlah_permintaan',
             4 => 'satuan'
         );
-        
+
         $order_column = $field[$order_column];
-		$where = " WHERE (nomor_rfq = '{$rfq_no}') ";  // Get Konfirmasi harga with konfirmasi_status = 1
-		if(!empty($search['value'])) {
+        $where = " WHERE (nomor_rfq = '{$rfq_no}') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+        if (!empty($search['value'])) {
             $where .= " AND ";
-            $where .= " (kode_barang LIKE '%".$search['value']."%'";
-            $where .= " OR deskripsi_barang LIKE '%".$search['value']."%'";
-            $where .= " OR jumlah_permintaan LIKE '%".$search['value']."%'";
-            $where .= " OR satuan LIKE '%".$search['value']."%')";
+            $where .= " (kode_barang LIKE '%" . $search['value'] . "%'";
+            $where .= " OR deskripsi_barang LIKE '%" . $search['value'] . "%'";
+            $where .= " OR jumlah_permintaan LIKE '%" . $search['value'] . "%'";
+            $where .= " OR satuan LIKE '%" . $search['value'] . "%')";
         }
 
         $sql        = "SELECT * FROM {$this->table[1]}{$where}";
-        
+
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
-        
+
         $sql_   = "SELECT  *
                     FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, *
                             FROM      {$this->table[1]}
@@ -177,13 +178,13 @@ class Rfq_model extends CI_Model {
                         AND RowNum < (({$start} + 1) + {$length})
                     ORDER BY RowNum";
 
-		$query = $this->db->query($sql_);
+        $query = $this->db->query($sql_);
         $rows_data = $query->result();
 
         $rows = array();
         $i = (0 + 1);
 
-        foreach($rows_data as $row) {
+        foreach ($rows_data as $row) {
             $row->number                = $i;
             $row->kode_barang           = $row->kode_barang;
             $row->deskripsi_barang      = $row->deskripsi_barang;
@@ -199,28 +200,28 @@ class Rfq_model extends CI_Model {
             $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods">
                                             <i class="fas fa-envelope-open-text"></i>
                                         </button>';
-            $row->actions_equivalen     = '<button type="button" class="eqiv_form_1 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_1" '.$btn_eqiv_1.' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+            $row->actions_equivalen     = '<button type="button" class="eqiv_form_1 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_1" ' . $btn_eqiv_1 . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             1
                                         </button>
-                                        <button type="button" class="eqiv_form_2 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_2" '.$this->enableEqivBtn($row->nomor_rfq, 1).' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_2 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_2" ' . $this->enableEqivBtn($row->nomor_rfq, 1) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             2
                                         </button>
-                                        <button type="button" class="eqiv_form_3 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_3" '.$this->enableEqivBtn($row->nomor_rfq, 2).' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_3 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_3" ' . $this->enableEqivBtn($row->nomor_rfq, 2) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             3
                                         </button>
-                                        <button type="button" class="eqiv_form_4 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_4" '.$this->enableEqivBtn($row->nomor_rfq, 3).' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_4 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_4" ' . $this->enableEqivBtn($row->nomor_rfq, 3) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             4
                                         </button>';
 
-			$rows[] = $row;
-			$i++;
+            $rows[] = $row;
+            $i++;
         }
 
         return array(
-			'draw' => $draw,
-			'recordsTotal' => $records_total,
-			'recordsFiltered' => $records_total,
-			'data' => $rows,
+            'draw' => $draw,
+            'recordsTotal' => $records_total,
+            'recordsFiltered' => $records_total,
+            'data' => $rows,
         );
     }
 
@@ -236,14 +237,14 @@ class Rfq_model extends CI_Model {
         $sql    = "";
         $sql    .= "UPDATE {$this->table[1]} SET ";
         $i      = 0;
-        foreach($data as $key => $value) {
-            if($value !== '') {
+        foreach ($data as $key => $value) {
+            if ($value !== '') {
                 $sql .= "{$key} = '{$value}'";
             } else {
                 $sql .= "{$key} = NULL";
             }
-            
-            if($i === (count($data) - 1)) {
+
+            if ($i === (count($data) - 1)) {
                 $sql .= " ";
             } else {
                 $sql .= ", ";
@@ -253,9 +254,9 @@ class Rfq_model extends CI_Model {
         }
 
         $sql .= " WHERE ";
-        foreach($params as $key => $value) {
+        foreach ($params as $key => $value) {
             $sql .= "{$key} = '{$value}'";
-            if(!next($params)) {
+            if (!next($params)) {
                 $sql .= " ";
             } else {
                 $sql .= " AND ";
@@ -280,9 +281,9 @@ class Rfq_model extends CI_Model {
         $sql    .= "(";
 
         $i      = 0;
-        foreach($data as $key => $value) {
+        foreach ($data as $key => $value) {
             $sql .= "{$key}";
-            if($i === (count($data) - 1)) {
+            if ($i === (count($data) - 1)) {
                 $sql .= "";
             } else {
                 $sql .= ", ";
@@ -293,14 +294,14 @@ class Rfq_model extends CI_Model {
         $sql    .= ")";
         $sql    .= " VALUES (";
         $j      = 0;
-        foreach($data as $key => $value) {
-            if($value !== '') {
+        foreach ($data as $key => $value) {
+            if ($value !== '') {
                 $sql .= "'{$value}'";
             } else {
                 $sql .= "NULL";
             }
-            
-            if($j === (count($data) - 1)) {
+
+            if ($j === (count($data) - 1)) {
                 $sql .= " ";
             } else {
                 $sql .= ", ";
@@ -327,14 +328,14 @@ class Rfq_model extends CI_Model {
         $sql    = "";
         $sql    .= "UPDATE {$this->table[2]} SET ";
         $i      = 0;
-        foreach($data as $key => $value) {
-            if($value !== '') {
+        foreach ($data as $key => $value) {
+            if ($value !== '') {
                 $sql .= "{$key} = '{$value}'";
             } else {
                 $sql .= "{$key} = NULL";
             }
 
-            if($i === (count($data) - 1)) {
+            if ($i === (count($data) - 1)) {
                 $sql .= " ";
             } else {
                 $sql .= ", ";
@@ -344,15 +345,15 @@ class Rfq_model extends CI_Model {
         }
 
         $sql .= " WHERE ";
-        foreach($params as $key => $value) {
+        foreach ($params as $key => $value) {
             $sql .= "{$key} = '{$value}'";
-            if(!next($params)) {
+            if (!next($params)) {
                 $sql .= " ";
             } else {
                 $sql .= " AND ";
             }
         }
-        
+
         $this->db->query($sql);
 
         return $this->db->affected_rows();
@@ -368,14 +369,14 @@ class Rfq_model extends CI_Model {
     {
         $sql    = "INSERT INTO {$this->table[5]} ";
         $sql    .= "VALUES ";
-        
+
         $i  = 0;
-        foreach($data as $row) {
+        foreach ($data as $row) {
             $j = 0;
             $sql    .= "(";
-            foreach($row as $val) {
+            foreach ($row as $val) {
                 $sql .= "'{$val}'";
-                if($j === (count($row) - 1)) {
+                if ($j === (count($row) - 1)) {
                     $sql .= "";
                 } else {
                     $sql .= ",";
@@ -384,7 +385,7 @@ class Rfq_model extends CI_Model {
             }
             $sql    .= ")";
 
-            if($i === (count($data) - 1)) {
+            if ($i === (count($data) - 1)) {
                 $sql .= "";
             } else {
                 $sql .= ",";
@@ -396,7 +397,7 @@ class Rfq_model extends CI_Model {
 
         return $this->db->affected_rows();
     }
-    
+
     /**
      * Undocumented function
      *
@@ -424,7 +425,7 @@ class Rfq_model extends CI_Model {
         $enable = 'disabled';
         $sql    = "SELECT * FROM {$this->table[2]} WHERE nomor_rfq = '{$rfq_no}' AND ekuivalen = {$equivalen}";
         $query  = $this->db->query($sql);
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) {
             $enable = '';
         }
 
@@ -451,9 +452,9 @@ class Rfq_model extends CI_Model {
         $sql    = "";
         $sql    .= "UPDATE {$this->table[5]} SET ";
         $i      = 0;
-        foreach($data as $key => $value) {
+        foreach ($data as $key => $value) {
             $sql .= "{$key} = '{$value}'";
-            if($i === (count($data) - 1)) {
+            if ($i === (count($data) - 1)) {
                 $sql .= " ";
             } else {
                 $sql .= ", ";
@@ -464,9 +465,9 @@ class Rfq_model extends CI_Model {
 
         $sql .= " WHERE ";
         $j  = 0;
-        foreach($params as $key => $value) {
+        foreach ($params as $key => $value) {
             $sql .= "{$key} = '{$value}'";
-            if($j === (count($params) - 1)) {
+            if ($j === (count($params) - 1)) {
                 $sql .= " ";
             } else {
                 $sql .= " AND ";
@@ -479,7 +480,6 @@ class Rfq_model extends CI_Model {
 
         return $this->db->affected_rows();
     }
-
 }
 
 /* End of file Rfq_model.php */
