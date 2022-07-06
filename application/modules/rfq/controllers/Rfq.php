@@ -174,6 +174,8 @@ class Rfq extends CI_Controller
         $files          = $_FILES['rfq_file']['name'];
         $arr_exists     = array();
         $arr_not_exists = array();
+
+        $rfq_params = array('nomor_quotation' => $rfq_no, 'ekuivalen' => 0);
         if (isset($old_name)) {
             foreach ($files as $key => $value) {
                 if (array_key_exists($key, $old_name)) {
@@ -189,7 +191,7 @@ class Rfq extends CI_Controller
 
                 $sequence   = $x + 1;
 
-                $fileData   = $this->rfq->getFiles($rfq_no, 0)->result();
+                $fileData   = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $rfq_params)->result();
                 foreach ($fileData as $fData) {
                     if ($sequence == $fData->urutan_berkas) {
                         $path_file = $fData->alamat_berkas . $fData->nama_berkas;
@@ -246,7 +248,7 @@ class Rfq extends CI_Controller
             }
 
             if (count($arr_not_exists) > 0) {
-                $check_files    = $this->rfq->getFiles($rfq_no, 0);
+                $check_files    = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $rfq_params);
                 $files_data     = $check_files->result();
                 $sequence       = array_column($files_data, 'urutan_berkas');
                 $last_sequence  = max($sequence);
@@ -345,7 +347,7 @@ class Rfq extends CI_Controller
             }
         } else {
 
-            $check_files    = $this->rfq->getFiles($rfq_no, 0);
+            $check_files    = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $rfq_params);
             if ($check_files->num_rows() > 0) {
 
                 $files_data     = $check_files->result();
