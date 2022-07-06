@@ -58,7 +58,7 @@ class Rfq extends CI_Controller
      */
     public function det_rfq_goods()
     {
-        $rfq_no             = $this->crypto->decode($this->uri->segment(3));
+        $rfq_no = $this->crypto->decode($this->uri->segment(3));
         if ($this->input->is_ajax_request()) {
             $rows   = $this->rfq->getDetRfqGoodsList($rfq_no);
             echo json_encode($rows);
@@ -118,7 +118,8 @@ class Rfq extends CI_Controller
         $rfq_no     = $this->crypto->decode($this->input->post('val_1'));
         $ekuivalen  = (int)$this->input->post('val_2');
 
-        $result = $this->rfq->getFiles($rfq_no, (int)$ekuivalen);
+        $params = array('nomor_quotation' => $rfq_no, 'ekuivalen' => $ekuivalen);
+        $result = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $params);
         if ($result->num_rows() > 0) {
 
             $response   = array(
@@ -489,10 +490,14 @@ class Rfq extends CI_Controller
         $arr_exists     = array();
         $arr_not_exists = array();
 
-        $exist  = $this->rfq->getDetailEqiv($rfq_no, $id_eqiv);
-        if ($exist->num_rows() > 0) {
+        $eqiv_params    = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $id_eqiv);
+        $eqiv_data      = $this->global->get_by('TB_S_MST_RFQ_BARANG_EQIV', $eqiv_params);
+        if ($eqiv_data->num_rows() > 0) {
 
+            unset($eqiv_params['nomor_rfq']);
+            $eqiv_params['nomor_quotation'] = $rfq_no;
             if (isset($old_name)) {
+
                 foreach ($files as $key => $value) {
                     if (array_key_exists($key, $old_name)) {
                         if (!empty($value)) {
@@ -506,7 +511,7 @@ class Rfq extends CI_Controller
                 foreach ($arr_exists as $x) {
                     $sequence   = $x + 1;
 
-                    $fileData   = $this->rfq->getFiles($rfq_no, (int)$id_eqiv)->result();
+                    $fileData   = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $eqiv_params)->result();
                     foreach ($fileData as $fData) {
                         if ($sequence == $fData->urutan_berkas) {
                             $path_file = $fData->alamat_berkas . $fData->nama_berkas;
@@ -563,7 +568,7 @@ class Rfq extends CI_Controller
                 }
 
                 if (count($arr_not_exists) > 0) {
-                    $check_files    = $this->rfq->getFiles($rfq_no, (int)$id_eqiv);
+                    $check_files    = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $eqiv_params);
                     $files_data     = $check_files->result();
                     $sequence       = array_column($files_data, 'urutan_berkas');
                     $last_sequence  = max($sequence);
@@ -662,7 +667,7 @@ class Rfq extends CI_Controller
                 }
             } else {
 
-                $check_files    = $this->rfq->getFiles($rfq_no, $id_eqiv);
+                $check_files    = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $eqiv_params);
                 if ($check_files->num_rows() > 0) {
 
                     $files_data     = $check_files->result();
