@@ -99,7 +99,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="text" name="confirmation_currency" class="form-control" placeholder="Mata Uang">
+                                    <input type="text" name="confirmation_currency" class="form-control form-control-solid" readonly="true" placeholder="Mata Uang">
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Col-->
                             </div>
@@ -257,7 +257,7 @@ var KTDataTables = (function() {
                 $("input[name=id]").val(data.kode_konfirmasi);
                 $("input[name=confirmation_price]").maskMoney('mask', data.harga);
                 // $("input[name=confirmation_price]").val(data.harga);
-                $("input[name=confirmation_currency]").val(data.mata_uang);
+                $("input[name=confirmation_currency]").val(data.mata_uang_po_terakhir);
                 $("input[name=request_total]").val(data.jumlah);
                 $("input[name=measurement]").val(data.satuan);
                 if(data.modified_date != null && data.modified_by != null) {

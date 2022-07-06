@@ -101,7 +101,7 @@
             </div>
             <div class="col-xl-3">
                 <!--begin::Statistics Widget 5-->
-                <a href="#" class="card bg-secondary hoverable card-xl-stretch mb-xl-8">
+                <a href="<?php echo site_url('dashboard'); ?>" class="card bg-secondary hoverable card-xl-stretch mb-xl-8">
                     <!--begin::Body-->
                     <div class="card-body">
                         <!--begin::Svg Icon | path: icons/duotone/Home/Building.svg-->
@@ -139,7 +139,7 @@
             </div> -->
             <div class="col-xl-3">
                 <!--begin::Statistics Widget 5-->
-                <a href="#" class="card bg-success hoverable card-xl-stretch mb-5 mb-xl-8">
+                <a href="<?php echo site_url('dashboard'); ?>" class="card bg-success hoverable card-xl-stretch mb-5 mb-xl-8">
                     <!--begin::Body-->
                     <div class="card-body">
                         <!--begin::Svg Icon | path: icons/duotone/Shopping/Chart-pie.svg-->
@@ -159,7 +159,7 @@
             </div>
             <div class="col-xl-3">
                 <!--begin::Statistics Widget 5-->
-                <a href="#" class="card bg-warning hoverable card-xl-stretch mb-xl-8">
+                <a href="<?php echo site_url('history/rfq_goods'); ?>" class="card bg-warning hoverable card-xl-stretch mb-xl-8">
                     <!--begin::Body-->
                     <div class="card-body">
                         <!--begin::Svg Icon | path: icons/duotone/Communication/Group.svg-->
@@ -185,7 +185,7 @@
             </div>
             <div class="col-xl-3">
                 <!--begin::Statistics Widget 5-->
-                <a href="#" class="card bg-primary hoverable card-xl-stretch mb-xl-8">
+                <a href="<?php echo site_url('dashboard'); ?>" class="card bg-primary hoverable card-xl-stretch mb-xl-8">
                     <!--begin::Body-->
                     <div class="card-body">
                         <!--begin::Svg Icon | path: icons/duotone/Media/Equalizer.svg-->
