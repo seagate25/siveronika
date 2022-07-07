@@ -7,7 +7,7 @@
             <h1 class="text-dark mb-1">Sistem Baragud</h1>
             <!--end::Title-->
             <!--begin::Link-->
-            <div class="text-gray-400 fw-bold fs-4">Proses Pengadaan Barang yang Cepat, Akurat, & Fair
+            <div class="text-gray-400 fw-bold fs-4">Proses Pengadaan Barang yang Cepat, Akurat, & Terbuka
                 <!-- <a href="../../demo1/dist/authentication/flows/basic/sign-up.html" class="link-primary fw-bolder">Create an Account</a> -->
             </div>
             <!--end::Link-->

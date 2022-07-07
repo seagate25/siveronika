@@ -63,7 +63,7 @@ License: For each use you must have a valid license purchased only from above li
 					<h1 class="fw-bolder fs-2qx text-gray-800 mb-7">Selamat Datang</h1>
 					<!--end::Logo-->
 					<!--begin::Message-->
-					<div class="fw-bold fs-3 text-muted mb-15">Proses Pengadaan Barang yang Cepat, Akurat, & Fair</div>
+					<div class="fw-bold fs-3 text-muted mb-15">Proses Pengadaan Barang yang Cepat, Akurat, & Terbuka</div>
 					<!--end::Message-->
 					<!--begin::Action-->
 					<div class="text-center">
