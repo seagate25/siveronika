@@ -1,24 +1,24 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Confirmation extends CI_Controller {
-    
+class Confirmation extends CI_Controller
+{
+
     public function __construct()
     {
         parent::__construct();
         logged_in();
         $this->load->model('Confirmation_model', 'confirmation');
     }
-    
+
     public function index()
     {
-        
     }
 
     public function req_price()
     {
-        if($this->input->is_ajax_request()) {
+        if ($this->input->is_ajax_request()) {
             $rows   = $this->confirmation->getRequestPriceList();
             echo json_encode($rows);
             exit;
@@ -32,7 +32,7 @@ class Confirmation extends CI_Controller {
 
     public function con_price()
     {
-        if($this->input->is_ajax_request()) {
+        if ($this->input->is_ajax_request()) {
             $rows   = $this->confirmation->getConfirmationPriceList();
             echo json_encode($rows);
             exit;
@@ -46,6 +46,8 @@ class Confirmation extends CI_Controller {
 
     public function save_req_price()
     {
+        $this->load->model('Global_model', 'global');
+
         $id             = $this->input->post('id');
         $price          = str_replace('.', '', $this->input->post('confirmation_price'));
         $currency       = $this->input->post('confirmation_currency');
@@ -55,15 +57,27 @@ class Confirmation extends CI_Controller {
         $num_indent     = $this->input->post('indent_total');
         $indent_day     = $this->input->post('indent_day');
 
-        $update         = $this->confirmation->update_request($id, $price, $currency, $num_request, $measure, $num_available, $num_indent, $indent_day);
-        if($update > 0) {
+        $params = array('kode_konfirmasi' => $id);
+        $data   = array(
+            'harga'             => $price,
+            'mata_uang'         => $currency,
+            'jumlah'            => $num_request,
+            'satuan'            => $measure,
+            'jumlah_tersedia'   => $num_available,
+            'jumlah_inden'      => $num_indent,
+            'lama_inden'        => $indent_day,
+            'modified_date'     => date('Y-m-d H:i:s'),
+            'modified_by'       => 'WEB'
+        );
+
+        $update = $this->global->update('TB_S_MST_KONFIRMASI', $params, $data);
+        if ($update > 0) {
 
             $response    = array(
                 'code'      => 0,
                 'msg'       => 'Berhasil menyimpan data',
                 'status'    => 'success'
             );
-
         } else {
 
             $response    = array(
@@ -71,7 +85,6 @@ class Confirmation extends CI_Controller {
                 'msg'       => 'Gagal menyimpan data',
                 'status'    => 'error'
             );
-
         }
 
         echo json_encode($response, JSON_PRETTY_PRINT);
@@ -80,21 +93,32 @@ class Confirmation extends CI_Controller {
 
     public function save_con_price()
     {
+        $this->load->model('Global_model', 'global');
+
         $id             = $this->input->post('id');
         $repeat_order   = $this->input->post('repeat_order');
         $num_available  = $this->input->post('available_total');
         $num_indent     = $this->input->post('indent_total');
         $indent_day     = $this->input->post('indent_day');
 
-        $update         = $this->confirmation->update_confirm($id, $num_available, $num_indent, $indent_day, $repeat_order);
-        if($update > 0) {
+        $params = array('kode_konfirmasi' => $id);
+        $data   = array(
+            'jumlah_tersedia'   => $num_available,
+            'jumlah_inden'      => $num_indent,
+            'lama_inden'        => $indent_day,
+            'pesan_ulang'       => $repeat_order,
+            'modified_by'       => 'WEB',
+            'modified_date'     => date('Y-m-d H:i:s')
+        );
+
+        $update = $this->global->update('TB_S_MST_KONFIRMASI', $params, $data);
+        if ($update > 0) {
 
             $response    = array(
                 'code'      => 0,
                 'msg'       => 'Berhasil menyimpan data',
                 'status'    => 'success'
             );
-
         } else {
 
             $response    = array(
@@ -102,13 +126,11 @@ class Confirmation extends CI_Controller {
                 'msg'       => 'Gagal menyimpan data',
                 'status'    => 'error'
             );
-
         }
 
         echo json_encode($response, JSON_PRETTY_PRINT);
         exit;
     }
-
 }
 
 /* End of file Confirmation.php */

@@ -55,7 +55,8 @@ class Global_model extends CI_Model
 
         $this->query    .= "(" . $column . ") VALUES (" . $value . ")";
 
-        return $this->db->query($this->query);
+        $this->db->query($this->query);
+        return $this->db->affected_rows();
     }
 
     /**
@@ -93,16 +94,20 @@ class Global_model extends CI_Model
 
         $this->query .= " WHERE ";
 
+        $j  = 0;
         foreach ($params as $key => $value) {
             $this->query .= "{$key} = '{$value}'";
-            if (!next($params)) {
-                $this->query .= " ";
+            if ($j === (count($params) - 1)) {
+                $this->query .= "";
             } else {
                 $this->query .= " AND ";
             }
+
+            $j++;
         }
 
-        return $this->db->query($this->query);
+        $this->db->query($this->query);
+        return $this->db->affected_rows();
     }
 
     /**
@@ -139,7 +144,8 @@ class Global_model extends CI_Model
 
         $this->query    .= $values;
 
-        return $this->db->query($this->query);
+        $this->db->query($this->query);
+        return $this->db->affected_rows();
     }
 
     /**
@@ -181,9 +187,12 @@ class Global_model extends CI_Model
     {
         $this->query    = "";
         $where          = "";
+
+        $i  = 0;
         foreach ($params as $key => $value) {
             $where  .= ($value !== 'NULL') ? "{$key} = '{$value}'" : "{$key} IS NULL";
-            $where  .= (!next($params)) ? "" : " AND ";
+            $where  .= ($i === (count($params) - 1)) ? "" : " AND ";
+            $i++;
         }
 
         $this->query    .= "SELECT * FROM {$table} WHERE {$where}";

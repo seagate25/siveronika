@@ -1,9 +1,10 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class History extends CI_Controller {
-    
+class History extends CI_Controller
+{
+
     public function __construct()
     {
         parent::__construct();
@@ -19,7 +20,7 @@ class History extends CI_Controller {
      */
     public function rfq_goods()
     {
-        if($this->input->is_ajax_request()) {
+        if ($this->input->is_ajax_request()) {
             $rows   = $this->history->getRfqGoodsList();
             echo json_encode($rows);
             exit;
@@ -61,7 +62,7 @@ class History extends CI_Controller {
     public function det_rfq_goods()
     {
         $rfq_no             = $this->crypto->decode($this->uri->segment(3));
-        if($this->input->is_ajax_request()) {
+        if ($this->input->is_ajax_request()) {
             $rows   = $this->history->getDetRfqGoodsList($rfq_no);
             echo json_encode($rows);
             exit;
@@ -84,7 +85,9 @@ class History extends CI_Controller {
     }
 
     /**
-     * Undocumented function
+     * Get_files function
+     * 
+     * Get equivalent uploaded files
      *
      * @return void
      */
@@ -93,15 +96,17 @@ class History extends CI_Controller {
         $rfq_no     = $this->crypto->decode($this->input->post('val_1'));
         $ekuivalen  = (int)$this->input->post('val_2');
 
-        $result     = $this->history->getFiles($rfq_no, (int)$ekuivalen);
-        if($result->num_rows() > 0) {
+        $this->load->model('Global_model', 'global');
+
+        $params = array('nomor_quotation' => $rfq_no, 'ekuivalen' => $ekuivalen);
+        $result = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $params);
+        if ($result->num_rows() > 0) {
 
             $response   = array(
                 'code'  => 0,
                 'msg'   => 'SUCCESS',
                 'data'  => $result->result()
             );
-
         } else {
 
             $response   = array(
@@ -109,7 +114,6 @@ class History extends CI_Controller {
                 'msg'   => 'NOT FOUND',
                 'data'  => NULL
             );
-
         }
 
         echo json_encode($response, JSON_PRETTY_PRINT);
@@ -126,16 +130,22 @@ class History extends CI_Controller {
         $rfq_no = $this->crypto->decode($this->input->post('val_1'));
         $id     = (int)$this->input->post('val_2');
 
-        $data   = $this->history->getDetailEqiv($rfq_no, $id);
-        if($data->num_rows() > 0) {
+        $this->load->model('Global_model', 'global');
 
-            $files_data = $this->history->getFiles($rfq_no, $id);
+        $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $id);
+        $data   = $this->global->get_by('TB_S_MST_RFQ_BARANG_EQIV', $params);
+        if ($data->num_rows() > 0) {
+
+            unset($params['nomor_rfq']);
+            $params['nomor_quotation']  = $rfq_no;
+
+            $files  = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $params);
 
             $response = array(
                 'code'  => 0,
                 'msg'   => 'SUCCESS',
                 'data'  => $data->row(),
-                'files' => $files_data->result()
+                'files' => $files->result()
             );
         } else {
             $response = array(

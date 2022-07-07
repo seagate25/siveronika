@@ -189,7 +189,7 @@ class Rfq extends CI_Controller
 
             foreach ($arr_exists as $x) {
 
-                $sequence   = $x + 1;
+                $sequence   = (int)$x + 1;
 
                 $fileData   = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $rfq_params)->result();
                 foreach ($fileData as $fData) {
@@ -244,14 +244,14 @@ class Rfq extends CI_Controller
                     'urutan_berkas'     => $sequence
                 );
 
-                $this->rfq->updateFiles($params_file, $upload_data);
+                $this->global->update('TB_TR_QUOTATION_LAMPIRAN', $params_file, $upload_data);
             }
 
             if (count($arr_not_exists) > 0) {
                 $check_files    = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $rfq_params);
                 $files_data     = $check_files->result();
                 $sequence       = array_column($files_data, 'urutan_berkas');
-                $last_sequence  = max($sequence);
+                $last_sequence  = (int)max($sequence);
 
                 foreach ($arr_not_exists as $x) {
 
@@ -263,7 +263,7 @@ class Rfq extends CI_Controller
                         $_FILES['file']['error'] = $_FILES['rfq_file']['error'][$x];
                         $_FILES['file']['size'] = $_FILES['rfq_file']['size'][$x];
 
-                        $next = $last_sequence + 1;
+                        $next = (int)$last_sequence + 1;
                         $filename  = date('Ymd') . '_' . $rfq_no . '_0_' . $next;
 
                         $original_name  = $_FILES['file']['name'];
@@ -312,8 +312,8 @@ class Rfq extends CI_Controller
                 'harga_satuan'          => $unit_price,
                 'per_harga_satuan'      => $unit_measure,
                 'konversi'              => $convert,
-                'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : '',
-                'satuan_konversi'       => ($convert == '1') ? $measurement : '',
+                'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : 'NULL',
+                'satuan_konversi'       => ($convert == '1') ? $measurement : 'NULL',
                 'ketersediaan_barang'   => $available,
                 'masa_berlaku_harga'    => $ed_price,
                 'keterangan'            => $notes,
@@ -322,11 +322,11 @@ class Rfq extends CI_Controller
                 'modified_by'           => 'WEB'
             );
 
-            $save   = $this->rfq->saveRFQ($params, $data);
+            $save   = $this->global->update('TB_S_MST_RFQ_BARANG_DTL', $params, $data);
             if ($save > 0) {
 
                 if (count($attach_new_files) > 0) {
-                    $updated_files  = $this->rfq->saveFile($attach_new_files);
+                    $updated_files  = $this->global->insert_batch('TB_TR_QUOTATION_LAMPIRAN', $attach_new_files);
                     $uploaded_files = count($attach_files) + $updated_files;
                 } else {
                     $uploaded_files = count($attach_files);
@@ -352,7 +352,7 @@ class Rfq extends CI_Controller
 
                 $files_data     = $check_files->result();
                 $sequence       = array_column($files_data, 'urutan_berkas');
-                $last_sequence  = max($sequence);
+                $last_sequence  = (int)max($sequence);
             } else {
 
                 $last_sequence = 0;
@@ -368,7 +368,7 @@ class Rfq extends CI_Controller
                     $_FILES['file']['error'] = $_FILES['rfq_file']['error'][$i];
                     $_FILES['file']['size'] = $_FILES['rfq_file']['size'][$i];
 
-                    $next = $last_sequence + 1;
+                    $next = (int)$last_sequence + 1;
                     $filename  = date('Ymd') . '_' . $rfq_no . '_0_' . $next;
 
                     $original_name  = $_FILES['file']['name'];
@@ -416,8 +416,8 @@ class Rfq extends CI_Controller
                 'harga_satuan'          => $unit_price,
                 'per_harga_satuan'      => $unit_measure,
                 'konversi'              => $convert,
-                'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : '',
-                'satuan_konversi'       => ($convert == '1') ? $measurement : '',
+                'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : 'NULL',
+                'satuan_konversi'       => ($convert == '1') ? $measurement : 'NULL',
                 'ketersediaan_barang'   => $available,
                 'masa_berlaku_harga'    => $ed_price,
                 'keterangan'            => $notes,
@@ -426,11 +426,11 @@ class Rfq extends CI_Controller
                 'modified_by'           => 'WEB'
             );
 
-            $save   = $this->rfq->saveRFQ($params, $data);
+            $save   = $this->global->update('TB_S_MST_RFQ_BARANG_DTL', $params, $data);
             if ($save > 0) {
 
                 if (count($attach_files) > 0) {
-                    $uploaded_files = $this->rfq->saveFile($attach_files);
+                    $uploaded_files  = $this->global->insert_batch('TB_TR_QUOTATION_LAMPIRAN', $attach_files);
                 } else {
                     $uploaded_files = 0;
                 }
@@ -511,7 +511,7 @@ class Rfq extends CI_Controller
                 }
 
                 foreach ($arr_exists as $x) {
-                    $sequence   = $x + 1;
+                    $sequence   = (int)$x + 1;
 
                     $fileData   = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $eqiv_params)->result();
                     foreach ($fileData as $fData) {
@@ -566,14 +566,14 @@ class Rfq extends CI_Controller
                         'urutan_berkas'     => $sequence
                     );
 
-                    $this->rfq->updateFiles($params_file, $upload_data);
+                    $this->global->update('TB_TR_QUOTATION_LAMPIRAN', $params_file, $upload_data);
                 }
 
                 if (count($arr_not_exists) > 0) {
                     $check_files    = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $eqiv_params);
                     $files_data     = $check_files->result();
                     $sequence       = array_column($files_data, 'urutan_berkas');
-                    $last_sequence  = max($sequence);
+                    $last_sequence  = (int)max($sequence);
 
                     foreach ($arr_not_exists as $x) {
                         if (!empty($files[$x])) {
@@ -584,7 +584,7 @@ class Rfq extends CI_Controller
                             $_FILES['file']['error'] = $_FILES['eqiv_file']['error'][$x];
                             $_FILES['file']['size'] = $_FILES['eqiv_file']['size'][$x];
 
-                            $next = $last_sequence + 1;
+                            $next = (int)$last_sequence + 1;
                             $filename  = date('Ymd') . '_' . $rfq_no . '_' . $id_eqiv . '_' . $next;
 
                             $original_name  = $_FILES['file']['name'];
@@ -634,8 +634,8 @@ class Rfq extends CI_Controller
                     'harga_satuan'          => $unit_price,
                     'per_harga_satuan'      => $unit_measure,
                     'konversi'              => $convert,
-                    'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : '',
-                    'satuan_konversi'       => ($convert == '1') ? $measurement : '',
+                    'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : 'NULL',
+                    'satuan_konversi'       => ($convert == '1') ? $measurement : 'NULL',
                     'ketersediaan_barang'   => $available,
                     'masa_berlaku_harga'    => $ed_price,
                     'keterangan'            => $notes,
@@ -644,11 +644,11 @@ class Rfq extends CI_Controller
                     'modified_by'           => 'WEB'
                 );
 
-                $save   = $this->rfq->updateRFQEqiv($params, $data);
+                $save   = $this->global->update('TB_S_MST_RFQ_BARANG_EQIV', $params, $data);
                 if ($save > 0) {
 
                     if (count($attach_new_files) > 0) {
-                        $updated_files  = $this->rfq->saveFile($attach_new_files);
+                        $updated_files  = $this->global->insert_batch('TB_TR_QUOTATION_LAMPIRAN', $attach_new_files);
                         $uploaded_files = count($attach_files) + $updated_files;
                     } else {
                         $uploaded_files = count($attach_files);
@@ -674,7 +674,7 @@ class Rfq extends CI_Controller
 
                     $files_data     = $check_files->result();
                     $sequence       = array_column($files_data, 'urutan_berkas');
-                    $last_sequence  = max($sequence);
+                    $last_sequence  = (int)max($sequence);
                 } else {
 
                     $last_sequence = 0;
@@ -690,7 +690,7 @@ class Rfq extends CI_Controller
                         $_FILES['file']['error'] = $_FILES['eqiv_file']['error'][$i];
                         $_FILES['file']['size'] = $_FILES['eqiv_file']['size'][$i];
 
-                        $next = $last_sequence + 1;
+                        $next = (int)$last_sequence + 1;
                         $filename  = date('Ymd') . '_' . $rfq_no . '_' . $id_eqiv . '_' . $next;
 
                         $original_name  = $_FILES['file']['name'];
@@ -737,8 +737,8 @@ class Rfq extends CI_Controller
                     'harga_satuan'          => $unit_price,
                     'per_harga_satuan'      => $unit_measure,
                     'konversi'              => $convert,
-                    'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : '',
-                    'satuan_konversi'       => ($convert == '1') ? $measurement : '',
+                    'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : 'NULL',
+                    'satuan_konversi'       => ($convert == '1') ? $measurement : 'NULL',
                     'ketersediaan_barang'   => $available,
                     'masa_berlaku_harga'    => $ed_price,
                     'keterangan'            => $notes,
@@ -747,11 +747,11 @@ class Rfq extends CI_Controller
                     'modified_by'           => 'WEB'
                 );
 
-                $save   = $this->rfq->updateRFQEqiv($params, $data);
+                $save   = $this->global->update('TB_S_MST_RFQ_BARANG_EQIV', $params, $data);
                 if ($save > 0) {
 
                     if (count($attach_files) > 0) {
-                        $uploaded_files = $this->rfq->saveFile($attach_files);
+                        $uploaded_files  = $this->global->insert_batch('TB_TR_QUOTATION_LAMPIRAN', $attach_files);
                     } else {
                         $uploaded_files = 0;
                     }
@@ -782,7 +782,7 @@ class Rfq extends CI_Controller
                     $_FILES['file']['error'] = $_FILES['eqiv_file']['error'][$i];
                     $_FILES['file']['size'] = $_FILES['eqiv_file']['size'][$i];
 
-                    $next = $i + 1;
+                    $next = (int)$i + 1;
                     $filename  = date('Ymd') . '_' . $rfq_no . '_' . $id_eqiv . '_' . $next;
 
                     $original_name  = $_FILES['file']['name'];
@@ -841,11 +841,11 @@ class Rfq extends CI_Controller
                 'modified_by'           => 'WEB'
             );
 
-            $save   = $this->rfq->saveRFQEqiv($data);
+            $save   = $this->global->insert('TB_S_MST_RFQ_BARANG_EQIV', $data);
             if ($save > 0) {
 
                 if (count($attach_files) > 0) {
-                    $uploaded_files = $this->rfq->saveFile($attach_files);
+                    $uploaded_files  = $this->global->insert_batch('TB_TR_QUOTATION_LAMPIRAN', $attach_files);
                 } else {
                     $uploaded_files = 0;
                 }
