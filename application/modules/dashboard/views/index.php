@@ -112,7 +112,7 @@
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
-                        <div class="text-inverse-secondary fw-bolder fs-2 mb-2 mt-5">0 <small>Data belum lengkap</small></div>
+                        <div class="text-inverse-secondary fw-bolder fs-2 mb-2 mt-5">0 <small>Data</small></div>
                         <div class="fw-bold text-inverse-secondary fs-7">Status PO Barang</div>
                     </div>
                     <!--end::Body-->
@@ -302,8 +302,8 @@
                     url: "<?php echo site_url('dashboard/get_dashboard_data'); ?>",
                     success: function(response) {
                         var obj = jQuery.parseJSON(response);
-                        $("#c_request_price").html(obj.permintaan_harga + " <small>Data belum diisi</small>");
-                        $("#c_confirm_price").html(obj.konfirmasi_harga + " <small>Data belum diisi</small>");
+                        $("#c_request_price").html(obj.permintaan_harga + " <small>Data</small>");
+                        $("#c_confirm_price").html(obj.konfirmasi_harga + " <small>Data</small>");
                         $("#c_rfq_goods").html(obj.rfq_barang + " <small>Data</small>");
                     }
                 })
