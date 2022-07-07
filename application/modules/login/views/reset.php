@@ -27,7 +27,7 @@
         <!--begin::Actions-->
         <div class="d-flex flex-wrap justify-content-center pb-lg-0">
             <button type="button" id="kt_password_reset_submit" class="btn btn-lg btn-success fw-bolder me-4">
-                <span class="indicator-label">Reset Password</span>
+                <span class="indicator-label">Setuju</span>
                 <span class="indicator-progress">Please wait...
                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
             </button>
