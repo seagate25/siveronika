@@ -53,7 +53,7 @@ License: For each use you must have a valid license purchased only from above li
 			<!--begin::Content-->
 			<div class="d-flex flex-column flex-column-fluid text-center p-10 py-lg-20">
 				<!--begin::Logo-->
-				<a href="#" class="mb-10 pt-lg-20">
+				<a href="<?php echo site_url('welcome'); ?>" class="mb-10 pt-lg-20">
 					<img alt="Logo" src="<?php echo base_url(); ?>assets/media/logos/Socfindo-Logo.svg" class="h-100px mb-5" />
 				</a>
 				<!--end::Logo-->
