@@ -249,7 +249,8 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control  form-control-solid" name="notes" placeholder="Keterangan" disabled/>
+                                <!-- <input class="form-control  form-control-solid" name="notes" placeholder="Keterangan" disabled/> -->
+                                <textarea class="form-control" name="notes" placeholder="Keterangan" rows="5" disabled></textarea>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -536,7 +537,8 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" name="notes_eqiv" placeholder="Keterangan" id="" disabled/>
+                                <!-- <input class="form-control form-control-solid" name="notes_eqiv" placeholder="Keterangan" id="" disabled/> -->
+                                <textarea class="form-control" name="notes_eqiv" placeholder="Keterangan" rows="5" disabled></textarea>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -699,7 +701,7 @@ var KTDataTables = (function() {
                 }
                 $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
                 $("input[name=ed_price]").val(data.masa_berlaku_harga);
-                $("input[name=notes]").val(data.keterangan);
+                $("textarea[name=notes]").val(data.keterangan);
                 $("input[name=created_by]").val(data.dibuat_oleh);
 
                 if(data.modified_date != null && data.modified_by != null) {
@@ -777,7 +779,7 @@ var KTDataTables = (function() {
                             }
                             $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
                             $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
-                            $("input[name=notes_eqiv]").val(obj.data.keterangan);
+                            $("textarea[name=notes_eqiv]").val(obj.data.keterangan);
                             $("input[name=created_by_eqiv]").val(obj.data.dibuat_oleh);
                             var i_file = '';
                             if(obj.files.length > 0) {

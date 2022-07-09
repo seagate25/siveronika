@@ -249,7 +249,8 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control" name="notes" placeholder="Keterangan"/>
+                                <!-- <input class="form-control" name="notes" placeholder="Keterangan"/> -->
+                                <textarea class="form-control" name="notes" placeholder="Keterangan" rows="5"></textarea>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -537,7 +538,8 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control" name="notes_eqiv" placeholder="Keterangan" id=""/>
+                                <!-- <input class="form-control" name="notes_eqiv" placeholder="Keterangan" id=""/> -->
+                                <textarea class="form-control" name="notes_eqiv" placeholder="Keterangan" rows="5"></textarea>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -699,7 +701,7 @@ var KTDataTables = (function() {
                     }
                     $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
                     $("input[name=ed_price]").val(data.masa_berlaku_harga);
-                    $("input[name=notes]").val(data.keterangan);
+                    $("textarea[name=notes]").val(data.keterangan);
                     $("input[name=created_by]").val(data.dibuat_oleh);
 
                     $.ajax({
@@ -826,7 +828,7 @@ var KTDataTables = (function() {
                             }
                             $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
                             $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
-                            $("input[name=notes_eqiv]").val(obj.data.keterangan);
+                            $("textarea[name=notes_eqiv]").val(obj.data.keterangan);
                             $("input[name=created_by_eqiv]").val(obj.data.dibuat_oleh);
                             $("#input_file_eqiv div").remove();
                             if(obj.files.length > 0) {
