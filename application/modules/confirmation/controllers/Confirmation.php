@@ -46,8 +46,6 @@ class Confirmation extends CI_Controller
 
     public function save_req_price()
     {
-        $this->load->model('Global_model', 'global');
-
         $id             = $this->input->post('id');
         $price          = str_replace('.', '', $this->input->post('confirmation_price'));
         $currency       = $this->input->post('confirmation_currency');
@@ -70,7 +68,7 @@ class Confirmation extends CI_Controller
             'modified_by'       => 'WEB'
         );
 
-        $update = $this->global->update('TB_S_MST_KONFIRMASI', $params, $data);
+        $update = $this->confirmation->update($params, $data);
         if ($update > 0) {
 
             $response    = array(
@@ -93,8 +91,6 @@ class Confirmation extends CI_Controller
 
     public function save_con_price()
     {
-        $this->load->model('Global_model', 'global');
-
         $id             = $this->input->post('id');
         $repeat_order   = $this->input->post('repeat_order');
         $num_available  = $this->input->post('available_total');
@@ -111,7 +107,7 @@ class Confirmation extends CI_Controller
             'modified_date'     => date('Y-m-d H:i:s')
         );
 
-        $update = $this->global->update('TB_S_MST_KONFIRMASI', $params, $data);
+        $update = $this->confirmation->update($params, $data);
         if ($update > 0) {
 
             $response    = array(

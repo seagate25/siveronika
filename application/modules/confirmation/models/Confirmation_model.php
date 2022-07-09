@@ -252,6 +252,14 @@ class Confirmation_model extends CI_Model
             'data' => $rows,
         );
     }
+
+    public function update($params, $data)
+    {
+        $this->load->model('Global_model', 'global');
+        $query  = $this->global->update($this->table, $params, $data);
+
+        return $query;
+    }
 }
 
 /* End of file Master_model.php */
