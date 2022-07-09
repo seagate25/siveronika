@@ -1,9 +1,10 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Master extends CI_Controller {
-    
+class Master extends CI_Controller
+{
+
     public function __construct()
     {
         parent::__construct();
@@ -18,20 +19,15 @@ class Master extends CI_Controller {
      */
     public function index()
     {
-        
     }
 
     public function vendor()
     {
-        if($this->input->is_ajax_request()) {
-            $rows   = $this->master->getAllVendor();
-            echo json_encode($rows);
-            exit;
-        }
-        $data['title']      = "Data Vendor";
+        $data['title']      = "Profile Vendor";
         $data['menu']       = "Master";
         $data['submenu']    = "Vendor";
         $data['content']    = "index";
+        $data['vendor']     = $this->master->getVendorData();
         $this->load->view('default', $data);
     }
 
@@ -52,12 +48,12 @@ class Master extends CI_Controller {
         $vendor_id          = $this->session->userdata('kode_vendor');
         $getUserPassword    = $this->master->getUserDetail($vendor_id)->sandi;
 
-        if($current_password == $getUserPassword) {
+        if ($current_password == $getUserPassword) {
 
-            if($new_password == $confirm_password) {
+            if ($new_password == $confirm_password) {
                 $change         = $this->master->changeUserPassword($vendor_id, $confirm_password);
 
-                if($change > 0) {
+                if ($change > 0) {
                     $response   = array(
                         'code'  => 0,
                         'msg'   => 'Berhasil mengubah password'
@@ -68,14 +64,12 @@ class Master extends CI_Controller {
                         'msg'   => 'Gagal mengubah password'
                     );
                 }
-
             } else {
                 $response   = array(
                     'code'  => 200,
                     'msg'   => 'Password Baru dan Konfirmas Password tidak sama'
                 );
             }
-
         } else {
             $response   = array(
                 'code'  => 300,
@@ -86,7 +80,6 @@ class Master extends CI_Controller {
         echo json_encode($response, JSON_PRETTY_PRINT);
         exit;
     }
-
 }
 
 /* End of file Master.php */
