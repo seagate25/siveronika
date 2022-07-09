@@ -1,3 +1,13 @@
+<style>
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-right: 40px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+</style>
 <div class="w-lg-500px bg-body rounded shadow-sm py-6 px-10 mx-auto">
     <!--begin::Form-->
     <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="<?php echo site_url('login/do_login'); ?>">
@@ -36,27 +46,26 @@
             </div>
             <!--end::Wrapper-->
             <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid" type="password" name="password" id="password" autocomplete="off" />
+            <!-- <input class="form-control form-control-lg form-control-solid" type="password" name="password" id="password" autocomplete="off" /> -->
+            <input class="form-control form-control-lg form-control-solid" type="password" name="password" id="password"/>
+            <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
             <!--end::Input-->
         </div>
         <!--end::Input group-->
         <div class="fv-row mb-10">
-            <!--begin::Input-->
-            <!-- <input type="checkbox" onclick="showPassword()">Tampilkan Password -->
-            <!--end::Input-->
-            <div class="form-check form-check-custom form-check-solid form-check-sm">
+            <!-- <div class="form-check form-check-custom form-check-solid form-check-sm">
                 <input class="form-check-input" type="checkbox" value="" id="flexRadioLg" onclick="showPassword()"/>
                 <label class="form-check-label fw-bold text-gray-700 fs-6" for="flexRadioLg">
                 Tampilkan Password
                 </label>
-            </div>
+            </div> -->
         </div>
         <!--begin::Actions-->
         <div class="text-center">
             <!--begin::Submit button-->
             <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-success w-100 mb-5">
-                <span class="indicator-label">Continue</span>
-                <span class="indicator-progress">Please wait...
+                <span class="indicator-label">Lanjutkan</span>
+                <span class="indicator-progress">Silahkan tunggu...
                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
             </button>
             <!--end::Submit button-->
@@ -149,4 +158,14 @@
             x.type = "password";
         }
     }
+
+    $(".toggle-password").click(function() {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
 </script>

@@ -1,3 +1,13 @@
+<style>
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-right: 40px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+</style>
 <script src="<?php echo base_url(); ?>assets/plugins/custom/jquery-md5/jquery.md5.js"></script>
 <div class="card shadow-sm">
     <div class="card-header bg-success">
@@ -26,58 +36,52 @@
                 <div class="fv-row mb-0">
                     <label class="form-label fw-bolder text-gray-900 fs-6">Password Lama</label>
                     <input class="form-control" type="password" placeholder="Masukkan Password Lama" id="current_password" name="current_password" autocomplete="off" />
+                    <span toggle="#current_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
-                <div class="fv-row mb-10">
-                    <!--begin::Input-->
-                    <!-- <input type="checkbox" onclick="showPassword('current')">Tampilkan Password -->
-                    <!--end::Input-->
+                <!-- <div class="fv-row mb-10">
                     <div class="form-check form-check-custom form-check-solid form-check-sm">
                         <input class="form-check-input" type="checkbox" onclick="showPassword('current')"/>
                         <label class="form-check-label fw-bold text-gray-700 fs-6" for="flexRadioLg">
                         Tampilkan Password
                         </label>
                     </div>
-                </div>
+                </div> -->
                 <!--end::Input group-->
                 <!--begin::Input group-->
                 <div class="fv-row mb-0">
                     <label class="form-label fw-bolder text-gray-900 fs-6">Password Baru</label>
                     <input class="form-control" type="password" placeholder="Masukkan Password Baru" id="new_password" name="new_password" autocomplete="off" />
+                    <span toggle="#new_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
-                <div class="fv-row mb-10">
-                    <!--begin::Input-->
-                    <!-- <input type="checkbox" onclick="showPassword('new')">Tampilkan Password -->
-                    <!--end::Input-->
+                <!-- <div class="fv-row mb-10">
                     <div class="form-check form-check-custom form-check-solid form-check-sm">
                         <input class="form-check-input" type="checkbox" onclick="showPassword('new')"/>
                         <label class="form-check-label fw-bold text-gray-700 fs-6" for="flexRadioLg">
                         Tampilkan Password
                         </label>
                     </div>
-                </div>
+                </div> -->
                 <!--end::Input group-->
                 <!--begin::Input group-->
                 <div class="fv-row mb-0">
                     <label class="form-label fw-bolder text-gray-900 fs-6">Konfirmasi Password Baru</label>
                     <input class="form-control" type="password" placeholder="Konfirmasi Password Baru" id="confirm_password" name="confirm_password" autocomplete="off" />
+                    <span toggle="#confirm_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
                 <!--end::Input group-->
                 <div class="fv-row mb-10">
-                    <!--begin::Input-->
-                    <!-- <input type="checkbox" onclick="showPassword('confirm')">Tampilkan Password -->
-                    <!--end::Input-->
-                    <div class="form-check form-check-custom form-check-solid form-check-sm">
+                    <!-- <div class="form-check form-check-custom form-check-solid form-check-sm">
                         <input class="form-check-input" type="checkbox" value="" id="flexRadioLg" onclick="showPassword('confirm')"/>
                         <label class="form-check-label fw-bold text-gray-700 fs-6" for="flexRadioLg">
                         Tampilkan Password
                         </label>
-                    </div>
+                    </div> -->
                 </div>
                 <!--begin::Actions-->
                 <div class="d-flex flex-wrap justify-content-center pb-lg-0">
                     <button type="button" id="kt_password_reset_submit" class="btn btn-lg btn-success fw-bolder me-4">
                         <span class="indicator-label">Ubah Password</span>
-                        <span class="indicator-progress">Please wait...
+                        <span class="indicator-progress">Silahkan tunggu...
                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                     </button>
                     <!-- <a href="<?php //echo site_url('login');?>" class="btn btn-lg btn-light-danger fw-bolder">Cancel</a> -->
@@ -215,4 +219,14 @@
             x.type = "password";
         }
     }
+
+    $(".toggle-password").click(function() {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
 </script>

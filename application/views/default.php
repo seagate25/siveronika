@@ -598,7 +598,7 @@ License: For each use you must have a valid license purchased only from above li
 											<!--end::Menu item-->
 											<!--begin::Menu item-->
 											<div class="menu-item px-5">
-												<a href="<?php echo site_url('users/do_logout'); ?>" class="menu-link px-5">Sign Out</a>
+												<a href="<?php echo site_url('users/do_logout'); ?>" class="menu-link px-5">Keluar</a>
 											</div>
 											<!--end::Menu item-->
 											<!--begin::Menu separator-->
