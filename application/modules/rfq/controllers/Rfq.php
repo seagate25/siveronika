@@ -10,7 +10,6 @@ class Rfq extends CI_Controller
         parent::__construct();
         logged_in();
         $this->load->model('Rfq_model', 'rfq');
-        $this->load->model('Global_model', 'global');
         $this->load->library('Crypto');
     }
 
@@ -82,13 +81,13 @@ class Rfq extends CI_Controller
         $id     = (int)$this->input->post('val_2');
 
         $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $id);
-        $data   = $this->global->get_by('TB_S_MST_RFQ_BARANG_EQIV', $params);
+        $data   = $this->rfq->getDetailEquivalent($params);
         if ($data->num_rows() > 0) {
 
             unset($params['nomor_rfq']);
             $params['nomor_quotation']  = $rfq_no;
 
-            $files  = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $params);
+            $files  = $this->rfq->getAttachedFiles($params);
             $response = array(
                 'code'  => 0,
                 'msg'   => 'SUCCESS',
@@ -119,7 +118,7 @@ class Rfq extends CI_Controller
         $ekuivalen  = (int)$this->input->post('val_2');
 
         $params = array('nomor_quotation' => $rfq_no, 'ekuivalen' => $ekuivalen);
-        $result = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $params);
+        $result = $this->rfq->getAttachedFiles($params);
         if ($result->num_rows() > 0) {
 
             $response   = array(
@@ -191,7 +190,7 @@ class Rfq extends CI_Controller
 
                 $sequence   = (int)$x + 1;
 
-                $fileData   = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $rfq_params)->result();
+                $fileData   = $this->rfq->getAttachedFiles($rfq_params)->result();
                 foreach ($fileData as $fData) {
                     if ($sequence == $fData->urutan_berkas) {
                         $path_file = $fData->alamat_berkas . $fData->nama_berkas;
@@ -244,11 +243,11 @@ class Rfq extends CI_Controller
                     'urutan_berkas'     => $sequence
                 );
 
-                $this->global->update('TB_TR_QUOTATION_LAMPIRAN', $params_file, $upload_data);
+                $this->rfq->updateAttachedFile($params_file, $upload_data);
             }
 
             if (count($arr_not_exists) > 0) {
-                $check_files    = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $rfq_params);
+                $check_files    = $this->rfq->getAttachedFiles($rfq_params);
                 $files_data     = $check_files->result();
                 $sequence       = array_column($files_data, 'urutan_berkas');
                 $last_sequence  = (int)max($sequence);
@@ -322,11 +321,11 @@ class Rfq extends CI_Controller
                 'modified_by'           => 'WEB'
             );
 
-            $save   = $this->global->update('TB_S_MST_RFQ_BARANG_DTL', $params, $data);
+            $save   = $this->rfq->updateRfq($params, $data);
             if ($save > 0) {
 
                 if (count($attach_new_files) > 0) {
-                    $updated_files  = $this->global->insert_batch('TB_TR_QUOTATION_LAMPIRAN', $attach_new_files);
+                    $updated_files  = $this->rfq->insertBatchFiles($attach_new_files);
                     $uploaded_files = count($attach_files) + $updated_files;
                 } else {
                     $uploaded_files = count($attach_files);
@@ -347,7 +346,7 @@ class Rfq extends CI_Controller
             }
         } else {
 
-            $check_files    = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $rfq_params);
+            $check_files    = $this->rfq->getAttachedFiles($rfq_params);
             if ($check_files->num_rows() > 0) {
 
                 $files_data     = $check_files->result();
@@ -426,11 +425,11 @@ class Rfq extends CI_Controller
                 'modified_by'           => 'WEB'
             );
 
-            $save   = $this->global->update('TB_S_MST_RFQ_BARANG_DTL', $params, $data);
+            $save   = $this->rfq->updateRfq($params, $data);
             if ($save > 0) {
 
                 if (count($attach_files) > 0) {
-                    $uploaded_files  = $this->global->insert_batch('TB_TR_QUOTATION_LAMPIRAN', $attach_files);
+                    $uploaded_files  = $this->rfq->insertBatchFiles($attach_files);
                 } else {
                     $uploaded_files = 0;
                 }
@@ -493,7 +492,7 @@ class Rfq extends CI_Controller
         $arr_not_exists = array();
 
         $eqiv_params    = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $id_eqiv);
-        $eqiv_data      = $this->global->get_by('TB_S_MST_RFQ_BARANG_EQIV', $eqiv_params);
+        $eqiv_data      = $this->rfq->getDetailEquivalent($eqiv_params);
         if ($eqiv_data->num_rows() > 0) {
 
             unset($eqiv_params['nomor_rfq']);
@@ -513,7 +512,7 @@ class Rfq extends CI_Controller
                 foreach ($arr_exists as $x) {
                     $sequence   = (int)$x + 1;
 
-                    $fileData   = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $eqiv_params)->result();
+                    $fileData   = $this->rfq->getAttachedFiles($eqiv_params)->result();
                     foreach ($fileData as $fData) {
                         if ($sequence == $fData->urutan_berkas) {
                             $path_file = $fData->alamat_berkas . $fData->nama_berkas;
@@ -566,11 +565,11 @@ class Rfq extends CI_Controller
                         'urutan_berkas'     => $sequence
                     );
 
-                    $this->global->update('TB_TR_QUOTATION_LAMPIRAN', $params_file, $upload_data);
+                    $this->rfq->updateAttachedFile($params_file, $upload_data);
                 }
 
                 if (count($arr_not_exists) > 0) {
-                    $check_files    = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $eqiv_params);
+                    $check_files    = $this->rfq->getAttachedFiles($eqiv_params);
                     $files_data     = $check_files->result();
                     $sequence       = array_column($files_data, 'urutan_berkas');
                     $last_sequence  = (int)max($sequence);
@@ -644,11 +643,11 @@ class Rfq extends CI_Controller
                     'modified_by'           => 'WEB'
                 );
 
-                $save   = $this->global->update('TB_S_MST_RFQ_BARANG_EQIV', $params, $data);
+                $save   = $this->rfq->updateEquivalent($params, $data);
                 if ($save > 0) {
 
                     if (count($attach_new_files) > 0) {
-                        $updated_files  = $this->global->insert_batch('TB_TR_QUOTATION_LAMPIRAN', $attach_new_files);
+                        $updated_files  = $this->rfq->insertBatchFiles($attach_new_files);
                         $uploaded_files = count($attach_files) + $updated_files;
                     } else {
                         $uploaded_files = count($attach_files);
@@ -669,7 +668,7 @@ class Rfq extends CI_Controller
                 }
             } else {
 
-                $check_files    = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $eqiv_params);
+                $check_files    = $this->rfq->getAttachedFiles($eqiv_params);
                 if ($check_files->num_rows() > 0) {
 
                     $files_data     = $check_files->result();
@@ -747,11 +746,11 @@ class Rfq extends CI_Controller
                     'modified_by'           => 'WEB'
                 );
 
-                $save   = $this->global->update('TB_S_MST_RFQ_BARANG_EQIV', $params, $data);
+                $save   = $this->rfq->updateEquivalent($params, $data);
                 if ($save > 0) {
 
                     if (count($attach_files) > 0) {
-                        $uploaded_files  = $this->global->insert_batch('TB_TR_QUOTATION_LAMPIRAN', $attach_files);
+                        $uploaded_files  = $this->rfq->insertBatchFiles($attach_files);
                     } else {
                         $uploaded_files = 0;
                     }
@@ -841,11 +840,11 @@ class Rfq extends CI_Controller
                 'modified_by'           => 'WEB'
             );
 
-            $save   = $this->global->insert('TB_S_MST_RFQ_BARANG_EQIV', $data);
+            $save   = $this->rfq->insertEquivalent($data);
             if ($save > 0) {
 
                 if (count($attach_files) > 0) {
-                    $uploaded_files  = $this->global->insert_batch('TB_TR_QUOTATION_LAMPIRAN', $attach_files);
+                    $uploaded_files  = $this->rfq->insertBatchFiles($attach_files);
                 } else {
                     $uploaded_files = 0;
                 }

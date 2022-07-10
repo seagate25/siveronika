@@ -8,6 +8,15 @@ class History_model extends CI_Model
     /**
      * Declare variable of table name
      * This variable is array list of table name RFQ
+     * 
+     * [
+     *      0 => 'TB_S_MST_RFQ_BARANG_HEAD',
+     *      1 => 'TB_S_MST_RFQ_BARANG_DTL',
+     *      2 => 'TB_S_MST_RFQ_BARANG_EQIV',
+     *      3 => 'TB_S_MST_RFQ_BIAYA_TAMBAHAN',
+     *      4 => 'TB_S_MST_RFQ_LAMPIRAN_BARANG',
+     *      5 => 'TB_TR_QUOTATION_LAMPIRAN'
+     * ]
      *
      * @var array
      */
@@ -235,12 +244,40 @@ class History_model extends CI_Model
         $this->load->model('Global_model', 'global');
 
         $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen);
-        $isEquivalentExists = $this->global->get_by($this->table[2], $params);
+        $isEquivalentExists = $this->global->get_by($this->table_rfq[2], $params);
         if ($isEquivalentExists->num_rows() > 0) {
             $enable = '';
         }
 
         return $enable;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $params
+     * @return void
+     */
+    public function getHistoryDetailEquivalent($params = array())
+    {
+        $this->load->model('Global_model', 'global');
+        $result = $this->global->get_by($this->table_rfq[2], $params);
+
+        return $result;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $params
+     * @return void
+     */
+    public function getHistoryAttachedFiles($params = array())
+    {
+        $this->load->model('Global_model', 'global');
+        $result = $this->global->get_by($this->table_rfq[5], $params);
+
+        return $result;
     }
 }
 

@@ -8,6 +8,15 @@ class Rfq_model extends CI_Model
     /**
      * Declare variable of table name
      * This variable is array list of table name RFQ
+     * 
+     * [
+     *      0 => 'TB_S_MST_RFQ_BARANG_HEAD',
+     *      1 => 'TB_S_MST_RFQ_BARANG_DTL',
+     *      2 => 'TB_S_MST_RFQ_BARANG_EQIV',
+     *      3 => 'TB_S_MST_RFQ_BIAYA_TAMBAHAN',
+     *      4 => 'TB_S_MST_RFQ_LAMPIRAN_BARANG',
+     *      5 => 'TB_TR_QUOTATION_LAMPIRAN'
+     * ]
      *
      * @var array
      */
@@ -245,6 +254,120 @@ class Rfq_model extends CI_Model
         }
 
         return $enable;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $params
+     * @return void
+     */
+    public function getDetailEquivalent($params = array())
+    {
+        $this->load->model('Global_model', 'global');
+        $result   = $this->global->get_by($this->table[2], $params);
+
+        return $result;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $params
+     * @return void
+     */
+    public function getAttachedFiles($params = array())
+    {
+        $this->load->model('Global_model', 'global');
+        $result   = $this->global->get_by($this->table[5], $params);
+
+        return $result;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $params
+     * @param array $data
+     * @return void
+     */
+    public function updateRfq($params = array(), $data = array())
+    {
+        $this->load->model('Global_model', 'global');
+        $result = $this->global->update($this->table[1], $params, $data);
+
+        return $result;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $data
+     * @return void
+     */
+    public function insertEquivalent($data = array())
+    {
+        $this->load->model('Global_model', 'global');
+
+        $params = array('nomor_rfq' => $data['nomor_rfq']);
+
+        $nextEquivalent = 1;
+        $getEquivalent  = $this->global->get_by($this->table[2], $params);
+        if ($getEquivalent->num_rows() > 0) {
+            $equivalent     = $getEquivalent->result();
+            $lastEquivalent = (int)max(array_column($equivalent, 'ekuivalen'));
+            $nextEquivalent = $lastEquivalent + 1;
+        }
+
+        if ($nextEquivalent == (int)$data['ekuivalen']) {
+            $result = $this->global->insert($this->table[2], $data);
+        } else {
+            $result = 0;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $params
+     * @param array $data
+     * @return void
+     */
+    public function updateEquivalent($params = array(), $data = array())
+    {
+        $this->load->model('Global_model', 'global');
+        $result = $this->global->update($this->table[2], $params, $data);
+
+        return $result;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $data
+     * @return void
+     */
+    public function insertBatchFiles($data = array())
+    {
+        $this->load->model('Global_model', 'global');
+        $result = $this->global->insert_batch($this->table[5], $data);
+
+        return $result;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $params
+     * @param array $data
+     * @return void
+     */
+    public function updateAttachedFile($params = array(), $data = array())
+    {
+        $this->load->model('Global_model', 'global');
+        $this->global->update($this->table[5], $params, $data);
     }
 }
 

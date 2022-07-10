@@ -96,10 +96,8 @@ class History extends CI_Controller
         $rfq_no     = $this->crypto->decode($this->input->post('val_1'));
         $ekuivalen  = (int)$this->input->post('val_2');
 
-        $this->load->model('Global_model', 'global');
-
         $params = array('nomor_quotation' => $rfq_no, 'ekuivalen' => $ekuivalen);
-        $result = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $params);
+        $result = $this->history->getHistoryAttachedFiles($params);
         if ($result->num_rows() > 0) {
 
             $response   = array(
@@ -130,16 +128,14 @@ class History extends CI_Controller
         $rfq_no = $this->crypto->decode($this->input->post('val_1'));
         $id     = (int)$this->input->post('val_2');
 
-        $this->load->model('Global_model', 'global');
-
         $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $id);
-        $data   = $this->global->get_by('TB_S_MST_RFQ_BARANG_EQIV', $params);
+        $data   = $this->history->getHistoryDetailEquivalent($params);
         if ($data->num_rows() > 0) {
 
             unset($params['nomor_rfq']);
             $params['nomor_quotation']  = $rfq_no;
 
-            $files  = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $params);
+            $files  = $this->history->getHistoryAttachedFiles($params);
 
             $response = array(
                 'code'  => 0,

@@ -253,7 +253,7 @@ class Confirmation_model extends CI_Model
         );
     }
 
-    public function update($params, $data)
+    public function update($params = array(), $data = array())
     {
         $this->load->model('Global_model', 'global');
         $query  = $this->global->update($this->table, $params, $data);
