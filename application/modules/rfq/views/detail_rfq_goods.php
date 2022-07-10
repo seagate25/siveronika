@@ -383,8 +383,8 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Satuan</label>
                             <!--end::Label-->
@@ -393,6 +393,84 @@
                                 <input type="text" name="measurement_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Satuan">
                                 <input type="hidden" name="r_measurement_eqiv">
                                 <input type="hidden" name="desc_measure_eqiv">
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Spesifikasi</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <textarea rows="5" name="specification_eqiv" class="form-control" placeholder="Specification"></textarea>
+                                <input type="hidden" name="r_measurement_eqiv">
+                                <input type="hidden" name="desc_measure_eqiv">
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Merek</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <input type="text" name="merk_eqiv" class="form-control" placeholder="Merk">
+                                <input type="hidden" name="r_measurement_eqiv">
+                                <input type="hidden" name="desc_measure_eqiv">
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Tipe</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <input type="text" name="type_eqiv" class="form-control" placeholder="Tipe">
+                                <input type="hidden" name="r_measurement_eqiv">
+                                <input type="hidden" name="desc_measure_eqiv">
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Tersedia</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <input type="number" name="available_total_eqiv" class="form-control" placeholder="Jumlah Tersedia" min="0">
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                         <!--Begin::Input Group-->
+                         <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Indent</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <input type="number" name="indent_total_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" min="0">
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                         <!--Begin::Input Group-->
+                         <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Lama Indent (Hari)</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <input type="number" name="indent_day_eqiv" class="form-control" placeholder="Lama Indent (Hari)" min="0">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -1239,6 +1317,23 @@ KTUtil.onDOMContentLoaded((function() {
         if($("input[name=convert_eqiv]:checked").val() == '1') {
             $("input[name=convertion_measure_eqiv]").val(this.value);
         }
+    });
+
+    $("input[name=available_total_eqiv]").on('keyup change', function() {
+        var request_total_eqiv   = $("input[name=request_total_eqiv]").val();
+        var indent_total_eqiv    = parseInt(request_total_eqiv) - parseInt(this.value);
+        if(indent_total_eqiv < 0) {
+            indent_total_eqiv    = 0;
+        } else {
+            indent_total_eqiv    = indent_total_eqiv;
+        }
+
+        if(indent_total_eqiv == 0) {
+            $("input[name=indent_day_eqiv]").attr('readonly', true).addClass('form-control-solid').val(0);
+        } else {
+            $("input[name=indent_day_eqiv]").attr('readonly', false).removeClass('form-control-solid');
+        }
+        $("input[name=indent_total_eqiv]").val(indent_total);
     });
 }));
 </script>
