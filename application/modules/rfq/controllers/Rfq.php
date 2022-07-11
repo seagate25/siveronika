@@ -482,6 +482,14 @@ class Rfq extends CI_Controller
         $notes          = $this->input->post('notes_eqiv');
         $created_by     = $this->input->post('created_by_eqiv');
 
+        $specification_eqiv     = $this->input->post('specification_eqiv');
+        $merk_eqiv              = $this->input->post('merk_eqiv');
+        $type_eqiv              = $this->input->post('type_eqiv');
+        $made_eqiv              = $this->input->post('made_eqiv');
+        $available_total_eqiv   = $this->input->post('available_total_eqiv');
+        $indent_total_eqiv      = $this->input->post('indent_total_eqiv');
+        $indent_day_eqiv        = $this->input->post('indent_day_eqiv');
+
         $attach_files       = array();
         $attach_new_files   = array();
 
@@ -644,7 +652,14 @@ class Rfq extends CI_Controller
                     'keterangan'            => $notes,
                     'dibuat_oleh'           => $created_by,
                     'modified_date'         => date('Y-m-d'),
-                    'modified_by'           => 'WEB'
+                    'modified_by'           => 'WEB',
+                    'spesifikasi'           => $specification_eqiv,
+                    'merek'                 => $merk_eqiv,
+                    'tipe'                  => $type_eqiv,
+                    'buatan'                => $made_eqiv,
+                    'jumlah_tersedia'       => $available_total_eqiv,
+                    'jumlah_inden'          => $indent_total_eqiv,
+                    'lama_inden'            => $indent_day_eqiv
                 );
 
                 $save   = $this->rfq->updateEquivalent($params, $data);
@@ -747,7 +762,14 @@ class Rfq extends CI_Controller
                     'keterangan'            => $notes,
                     'dibuat_oleh'           => $created_by,
                     'modified_date'         => date('Y-m-d'),
-                    'modified_by'           => 'WEB'
+                    'modified_by'           => 'WEB',
+                    'spesifikasi'           => $specification_eqiv,
+                    'merek'                 => $merk_eqiv,
+                    'tipe'                  => $type_eqiv,
+                    'buatan'                => $made_eqiv,
+                    'jumlah_tersedia'       => $available_total_eqiv,
+                    'jumlah_inden'          => $indent_total_eqiv,
+                    'lama_inden'            => $indent_day_eqiv
                 );
 
                 $save   = $this->rfq->updateEquivalent($params, $data);
@@ -841,7 +863,14 @@ class Rfq extends CI_Controller
                 'keterangan'            => $notes,
                 'dibuat_oleh'           => $created_by,
                 'modified_date'         => date('Y-m-d'),
-                'modified_by'           => 'WEB'
+                'modified_by'           => 'WEB',
+                'spesifikasi'           => $specification_eqiv,
+                'merek'                 => $merk_eqiv,
+                'tipe'                  => $type_eqiv,
+                'buatan'                => $made_eqiv,
+                'jumlah_tersedia'       => $available_total_eqiv,
+                'jumlah_inden'          => $indent_total_eqiv,
+                'lama_inden'            => $indent_day_eqiv
             );
 
             $save   = $this->rfq->insertEquivalent($data);
