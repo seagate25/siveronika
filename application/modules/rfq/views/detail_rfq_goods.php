@@ -68,43 +68,47 @@
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="material_code" class="form-control form-control-solid" readonly="true" placeholder="Kode Material">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Nama Material</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="material_name" class="form-control form-control-solid" readonly="true" placeholder="Nama Material">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Permintaan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="number" name="request_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Satuan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="measurement" class="form-control form-control-solid" readonly="true" placeholder="Satuan">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -116,7 +120,8 @@
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="currency" class="form-control" placeholder="Mata Uang">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -128,7 +133,8 @@
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
                                 <input type="text" name="unit_price" class="form-control" placeholder="Harga Satuan">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                             <!--begin::Label-->
                             <label class="col-lg-1 col-form-label required fw-bold fs-6">Per</label>
@@ -136,7 +142,8 @@
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
                                 <input type="text" name="unit_measure" class="form-control" placeholder="Satuan">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -161,7 +168,8 @@
                                     </label>
                                     <!--end::Option-->
                                 </div>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -197,7 +205,7 @@
                                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                                 </div>
                                             </td>
-                                            <td class="text-center"><input type="text" name="measurement"  class="form-control form-control-solid" readonly="true"></td>
+                                            <td class="text-center"><input type="text" name="measurement" class="form-control form-control-solid" readonly="true"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -226,7 +234,8 @@
                                     </label>
                                     <!--end::Option-->
                                 </div>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -237,8 +246,9 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" name="ed_price" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_3"/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input class="form-control form-control-solid" name="ed_price" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_3" />
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -251,7 +261,8 @@
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <!-- <input class="form-control" name="notes" placeholder="Keterangan"/> -->
                                 <textarea class="form-control" name="notes" placeholder="Keterangan" rows="5"></textarea>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -262,8 +273,9 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control" name="created_by" placeholder="Dibuat oleh"/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input class="form-control" name="created_by" placeholder="Dibuat oleh" />
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -290,7 +302,8 @@
                                 <div class="mb-3">
                                     <input class="form-control rfq_file" type="file" name="rfq_file[]">
                                 </div>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -307,12 +320,13 @@
                     <button type="submit" id="kt_modal_det_rfq_goods_submit" class="btn btn-primary">
                         <span class="indicator-label">Simpan</span>
                         <span class="indicator-progress">Please wait...
-                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                     </button>
                     <!--end::Button-->
                 </div>
                 <!--end::Modal footer-->
-            <div></div></form>
+                <div></div>
+            </form>
         </div>
     </div>
 </div>
@@ -355,31 +369,34 @@
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="material_code_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Kode Material">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Nama Material</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="material_name_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Nama Material">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Permintaan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="number" name="request_total_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -393,7 +410,8 @@
                                 <input type="text" name="measurement_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Satuan">
                                 <input type="hidden" name="r_measurement_eqiv">
                                 <input type="hidden" name="desc_measure_eqiv">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -407,7 +425,8 @@
                                 <textarea rows="5" name="specification_eqiv" class="form-control" placeholder="Specification"></textarea>
                                 <input type="hidden" name="r_measurement_eqiv">
                                 <input type="hidden" name="desc_measure_eqiv">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -421,7 +440,8 @@
                                 <input type="text" name="merk_eqiv" class="form-control" placeholder="Merk">
                                 <input type="hidden" name="r_measurement_eqiv">
                                 <input type="hidden" name="desc_measure_eqiv">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -435,7 +455,8 @@
                                 <input type="text" name="type_eqiv" class="form-control" placeholder="Tipe">
                                 <input type="hidden" name="r_measurement_eqiv">
                                 <input type="hidden" name="desc_measure_eqiv">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -447,31 +468,34 @@
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="number" name="available_total_eqiv" class="form-control" placeholder="Jumlah Tersedia" min="0">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Indent</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="number" name="indent_total_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" min="0">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Lama Indent (Hari)</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="number" name="indent_day_eqiv" class="form-control" placeholder="Lama Indent (Hari)" min="0">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -482,8 +506,9 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control" name="currency_eqiv" placeholder="Mata Uang" id=""/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input class="form-control" name="currency_eqiv" placeholder="Mata Uang" id="" />
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -495,7 +520,8 @@
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
                                 <input type="text" name="unit_price_eqiv" class="form-control" placeholder="Harga Satuan">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                             <!--begin::Label-->
                             <label class="col-lg-1 col-form-label required fw-bold fs-6">Per</label>
@@ -503,7 +529,8 @@
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
                                 <input type="text" name="unit_measure_eqiv" class="form-control" placeholder="Satuan">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -528,7 +555,8 @@
                                     </label>
                                     <!--end::Option-->
                                 </div>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -568,7 +596,8 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -593,7 +622,8 @@
                                     </label>
                                     <!--end::Option-->
                                 </div>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -604,8 +634,9 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control" readonly name="ed_price_eqiv" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_4"/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input class="form-control" readonly name="ed_price_eqiv" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_4" />
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -618,7 +649,8 @@
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <!-- <input class="form-control" name="notes_eqiv" placeholder="Keterangan" id=""/> -->
                                 <textarea class="form-control" name="notes_eqiv" placeholder="Keterangan" rows="5"></textarea>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -629,8 +661,9 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control" name="created_by_eqiv" placeholder="Dibuat Oleh" id=""/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input class="form-control" name="created_by_eqiv" placeholder="Dibuat Oleh" id="" />
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -657,7 +690,8 @@
                                 <div class="mb-3">
                                     <input class="form-control eqiv_file" type="file" name="eqiv_file[]">
                                 </div>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -674,666 +708,889 @@
                     <button type="submit" id="kt_modal_det_rfq_goods_ekuivalen_submit" class="btn btn-primary">
                         <span class="indicator-label">Simpan</span>
                         <span class="indicator-progress">Please wait...
-                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                     </button>
                     <!--end::Button-->
                 </div>
                 <!--end::Modal footer-->
-            <div></div></form>
+                <div></div>
+            </form>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-"use strict";
+    "use strict";
 
-var KTDataTables = (function() {
-    var e;
-    var target = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen .modal-content");
-    var blockUI = new KTBlockUI(target);
-    return {
-        init: function() {
-            e = $("#kt_datatable_detail_rfq_goods").DataTable({
-                processing:!0, 
-                serverSide:!0,
-                destroy: !0,
-                // responsive: !0,
-                // scrollY: "500px",
-                scrollX: !0,
-                // scrollCollapse: !0,
-                dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
-                // fixedHeader:    true,
-                // fixedColumns:   {
-                //     heightMatch: 'none',
-                //     leftColumns: 1,
-                //     rightColumns: 0
-                // },
-                paging: !0,
-                ordering: !0,
-                searching: !0,
-                ajax: {
-                    type: "POST",
-                    url: "<?php echo site_url('rfq/det_rfq_goods/'.$this->uri->segment(3));?>"
-                },
-                columns: [
-                    { data: 'number', className: 'text-center', sortable: false, searchable: false, orderable: false, 
-                        render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+    var KTDataTables = (function() {
+        var e;
+        var target = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen .modal-content");
+        var blockUI = new KTBlockUI(target);
+        return {
+            init: function() {
+                e = $("#kt_datatable_detail_rfq_goods").DataTable({
+                        processing: !0,
+                        serverSide: !0,
+                        destroy: !0,
+                        // responsive: !0,
+                        // scrollY: "500px",
+                        scrollX: !0,
+                        // scrollCollapse: !0,
+                        dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
+                            "<'row'<'col-sm-12'tr>>" +
+                            "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
+                        // fixedHeader:    true,
+                        // fixedColumns:   {
+                        //     heightMatch: 'none',
+                        //     leftColumns: 1,
+                        //     rightColumns: 0
+                        // },
+                        paging: !0,
+                        ordering: !0,
+                        searching: !0,
+                        ajax: {
+                            type: "POST",
+                            url: "<?php echo site_url('rfq/det_rfq_goods/' . $this->uri->segment(3)); ?>"
+                        },
+                        columns: [{
+                                data: 'number',
+                                className: 'text-center',
+                                sortable: false,
+                                searchable: false,
+                                orderable: false,
+                                render: function(data, type, row, meta) {
+                                    return meta.row + meta.settings._iDisplayStart + 1;
+                                }
+                            },
+                            {
+                                data: 'kode_barang',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'deskripsi_barang',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'jumlah_permintaan',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'satuan',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'status',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'actions',
+                                className: 'text-center',
+                                sortable: false,
+                                searchable: false,
+                                orderable: false
+                            },
+                            {
+                                data: 'actions_equivalen',
+                                className: 'text-center',
+                                sortable: false,
+                                searchable: false,
+                                orderable: false
+                            }
+                        ],
+                        lengthMenu: [
+                            [5, 10, 15, 25, -1],
+                            [5, 10, 15, 25, "All"]
+                        ],
+                        pageLength: 10,
+                        order: [1, 'ASC']
+                    }),
+                    $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.rfq_form', function() {
+                        blockUI.release();
+                        $("#input_file div").remove();
+                        var data = e.row($(this).parents('tr')).data();
+                        $("#kt_modal_det_rfq_goods h4 span#txt_rfq_no").text(data.nomor_rfq);
+                        $("#kt_modal_det_rfq_goods h4 span#txt_material_code").text(data.kode_barang);
+                        $("input[name=id_rfq]").val('<?php echo $this->uri->segment(3); ?>');
+                        $("input[name=unit_price]").maskMoney('mask', data.harga_satuan);
+                        $("input[name=material_code]").val(data.kode_barang);
+                        $("input[name=material_name]").val(data.deskripsi_barang);
+                        $("input[name=request_total]").val(data.jumlah_permintaan);
+                        $("input[name=measurement]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
+                        $('input[name="convert"][value="0"]').prop('checked', true);
+                        if ($('input[name="convert"]:checked').val() == 0) {
+                            $("#form_convertion").hide();
+                        } else {
+                            $("#form_convertion").show();
                         }
-                    },
-                    { data: 'kode_barang', className: 'text-center' },
-                    { data: 'deskripsi_barang', className: 'text-center' },
-                    { data: 'jumlah_permintaan', className: 'text-center' },
-                    { data: 'satuan', className: 'text-center' },
-                    { data: 'status', className: 'text-center' },
-                    { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false },
-                    { data: 'actions_equivalen', className: 'text-center', sortable: false, searchable: false, orderable: false }
-                ],
-                lengthMenu: [
-                        [5, 10, 15, 25, -1],
-                        [5, 10, 15, 25, "All"]
-                    ],
-                pageLength: 10,
-                order: [1, 'ASC']
-            }),
-            $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.rfq_form', function () {
-                blockUI.release();
-                $("#input_file div").remove();
-                var data = e.row($(this).parents('tr')).data();
-                $("#kt_modal_det_rfq_goods h4 span#txt_rfq_no").text(data.nomor_rfq);
-                $("#kt_modal_det_rfq_goods h4 span#txt_material_code").text(data.kode_barang);
-                $("input[name=id_rfq]").val('<?php echo $this->uri->segment(3);?>');
-                $("input[name=unit_price]").maskMoney('mask', data.harga_satuan);
-                $("input[name=material_code]").val(data.kode_barang);
-                $("input[name=material_name]").val(data.deskripsi_barang);
-                $("input[name=request_total]").val(data.jumlah_permintaan);
-                $("input[name=measurement]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
-                $('input[name="convert"][value="0"]').prop('checked', true);
-                if($('input[name="convert"]:checked').val() == 0) {
+                        $('input[name="available"][value="0"]').prop('checked', true);
+                        $("input[name=ed_price]").val('');
+
+                        var i_file = '';
+                        for (var i = 0; i < 5; i++) {
+                            i_file += '<div class="row mb-3">';
+                            i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
+                            i_file += '</div>';
+                        }
+                        $("#input_file span").after(i_file);
+
+                        if (data.modified_date != null && data.modified_by != null) {
+                            $("input[name=currency]").val(data.mata_uang);
+                            $("input[name=unit_measure]").val(data.per_harga_satuan);
+                            $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
+                            if ($('input[name="convert"]:checked').val() == 0) {
+                                $("#form_convertion").hide();
+                            } else {
+                                $("#form_convertion").show();
+                                $("input[name=convertion_qty]").val(parseInt(data.jumlah_konversi));
+                                $("input[name=convertion_measure]").val(data.per_harga_satuan);
+                            }
+                            $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
+                            $("input[name=ed_price]").val(data.masa_berlaku_harga);
+                            $("textarea[name=notes]").val(data.keterangan);
+                            $("input[name=created_by]").val(data.dibuat_oleh);
+
+                            $.ajax({
+                                type: "POST",
+                                url: "<?php echo site_url('rfq/get_files'); ?>",
+                                data: {
+                                    val_1: '<?php echo $this->uri->segment(3); ?>',
+                                    val_2: 0
+                                },
+                                beforeSend: function() {
+                                    blockUI.block();
+                                },
+                                success: function(response) {
+                                    blockUI.release();
+                                    var obj = jQuery.parseJSON(response);
+                                    if (obj.code == 0) {
+                                        var uploaded_files = obj.data.length;
+                                        if (uploaded_files > 0) {
+                                            $("#input_file div").remove();
+                                            var i_file = '';
+                                            $.each(obj.data, function(index, value) {
+                                                i_file += '<div class="row mb-3">';
+                                                i_file += '<div class="col-lg-4" id="row_' + index + '"><input class="form-control form-control-solid" type="text" readonly value="' + value.nama_berkas_asli + '"></div>';
+                                                i_file += '<div class="col-lg-4">';
+                                                i_file += '<div class="form-check form-switch form-check-custom form-check-solid me-10">';
+                                                i_file += '<input class="form-check-input h-40px w-60px" type="checkbox" onchange="Elements.switch(event,' + index + ',\'' + value.nama_berkas_asli + '\')" value="1" id="flexSwitch40x60"/>';
+                                                i_file += '<label class="form-check-label" for="flexSwitch40x60">Ganti Berkas</label>';
+                                                i_file += '</div>';
+                                                i_file += '</div>';
+                                                i_file += '<div class="col-lg-4">';
+                                                i_file += '<a href="<?php echo site_url('rfq/download/') ?>' + value.nama_berkas + '" class="btn btn-icon btn-sm btn-success me-2 mb-2"><i class="fas fa-download"></i></a><a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2"><i class="fas fa-eye"></i></a>'
+                                                i_file += '</div>';
+                                                i_file += '</div>';
+                                            });
+
+                                            for (var i = 0; i < (5 - uploaded_files); i++) {
+                                                i_file += '<div class="row mb-3">';
+                                                i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
+                                                i_file += '</div>';
+                                            }
+
+                                            $("#input_file span").after(i_file);
+                                        } else {
+                                            var i_file = '';
+                                            for (var i = 0; i < 5; i++) {
+                                                i_file += '<div class="row mb-3">';
+                                                i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
+                                                i_file += '</div>';
+                                            }
+                                            $("#input_file span").after(i_file);
+                                        }
+                                    } else {
+                                        $("#input_file div").remove();
+                                        var i_file = '';
+                                        for (var i = 0; i < 5; i++) {
+                                            i_file += '<div class="row mb-3">';
+                                            i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
+                                            i_file += '</div>';
+                                        }
+                                        $("#input_file span").after(i_file);
+                                    }
+                                },
+                                error: function() {
+                                    blockUI.release();
+                                }
+                            });
+                        }
+                    }),
+                    $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form_1, button.eqiv_form_2, button.eqiv_form_3, button.eqiv_form_4', function() {
+                        blockUI.release();
+                        $("#input_file_eqiv div").remove();
+                        var data = e.row($(this).parents('tr')).data();
+                        var id = $(this).attr('id');
+                        var eqiv_id = id.replace('btn_eqiv_', '');
+
+                        $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_rfq_no_eqiv").text(data.nomor_rfq);
+                        $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_material_code_eqiv").text(data.kode_barang);
+                        $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_seq_eqiv").text(eqiv_id);
+                        $("input[name=id_rfq_eqiv]").val('<?php echo $this->uri->segment(3); ?>');
+                        $("input[name=id_eqiv]").val(eqiv_id);
+                        $("input[name=seq_eqiv]").val(data.urutan_rfq);
+                        $("input[name=material_code_eqiv]").val(data.kode_barang);
+                        $("input[name=material_name_eqiv]").val(data.deskripsi_barang);
+                        $("input[name=request_total_eqiv]").val(data.jumlah_permintaan);
+                        $("input[name=measurement_eqiv]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
+                        $("input[name=r_measurement_eqiv]").val(data.satuan);
+                        $("input[name=desc_measure_eqiv]").val(data.deskripsi_satuan);
+                        $('input[name="convert_eqiv"][value="0"]').prop('checked', true);
+                        $('input[name="available_eqiv"][value="0"]').prop('checked', true);
+                        $("input[name=ed_price_eqiv]").val('');
+                        $("input[name=notes_eqiv]").val('');
+                        $("input[name=created_by_eqiv]").val('');
+                        if ($('input[name="convert_eqiv"]:checked').val() == 0) {
+                            $("#form_convertion_eqiv").hide();
+                        } else {
+                            $("#form_convertion_eqiv").show();
+                            $("input[name=convertion_qty_eqiv]").val('');
+                            $("input[name=convertion_measure_eqiv]").val('');
+                        }
+
+                        var i_file = '';
+                        for (var i = 0; i < 5; i++) {
+                            i_file += '<div class="row mb-3">';
+                            i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
+                            i_file += '</div>';
+                        }
+                        $("#input_file_eqiv span").after(i_file);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo site_url('rfq/get_det_rfq_eqiv'); ?>",
+                            data: {
+                                val_1: '<?php echo $this->uri->segment(3); ?>',
+                                val_2: eqiv_id
+                            },
+                            beforeSend: function() {
+                                blockUI.block();
+                            },
+                            success: function(response) {
+                                blockUI.release();
+                                var obj = jQuery.parseJSON(response);
+                                if (obj.code == 0) {
+                                    $("input[name=currency_eqiv]").val(obj.data.mata_uang);
+                                    $("input[name=unit_price_eqiv]").maskMoney('mask', parseInt(obj.data.harga_satuan));
+                                    $("input[name=unit_measure_eqiv]").val(obj.data.per_harga_satuan);
+                                    $('input[name="convert_eqiv"][value="' + obj.data.konversi + '"]').prop('checked', true);
+                                    if ($('input[name="convert_eqiv"]:checked').val() == 0) {
+                                        $("#form_convertion_eqiv").hide();
+                                    } else {
+                                        $("#form_convertion_eqiv").show();
+                                        $("input[name=convertion_qty_eqiv]").val(parseInt(obj.data.jumlah_konversi));
+                                        $("input[name=convertion_measure_eqiv]").val(obj.data.per_harga_satuan);
+                                    }
+                                    $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
+                                    $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
+                                    $("textarea[name=notes_eqiv]").val(obj.data.keterangan);
+                                    $("input[name=created_by_eqiv]").val(obj.data.dibuat_oleh);
+                                    $("#input_file_eqiv div").remove();
+                                    if (obj.files.length > 0) {
+                                        $("#input_file_eqiv div").remove();
+                                        var i_file = '';
+                                        $.each(obj.files, function(index, value) {
+                                            i_file += '<div class="row mb-3">';
+                                            i_file += '<div class="col-lg-4" id="row_eqiv_' + index + '"><input class="form-control form-control-solid" type="text" readonly value="' + value.nama_berkas_asli + '"></div>';
+                                            i_file += '<div class="col-lg-4">';
+                                            i_file += '<div class="form-check form-switch form-check-custom form-check-solid me-10">';
+                                            i_file += '<input class="form-check-input h-40px w-60px" type="checkbox" onchange="Elements.switch_eqiv(event,' + index + ',\'' + value.nama_berkas_asli + '\')" value="1" id="flexSwitch40x60"/>';
+                                            i_file += '<label class="form-check-label" for="flexSwitch40x60">Ganti Berkas</label>';
+                                            i_file += '</div>';
+                                            i_file += '</div>';
+                                            i_file += '</div>';
+                                        });
+
+                                        for (var i = 0; i < (5 - obj.files.length); i++) {
+                                            i_file += '<div class="row mb-3">';
+                                            i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
+                                            i_file += '</div>';
+                                        }
+
+                                        $("#input_file_eqiv span").after(i_file);
+                                    } else {
+                                        var i_file = '';
+                                        for (var i = 0; i < 5; i++) {
+                                            i_file += '<div class="row mb-3">';
+                                            i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
+                                            i_file += '</div>';
+                                        }
+                                        $("#input_file_eqiv span").after(i_file);
+                                    }
+                                } else {
+                                    $("#input_file_eqiv div").remove();
+                                    var i_file = '';
+                                    for (var i = 0; i < 5; i++) {
+                                        i_file += '<div class="row mb-3">';
+                                        i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
+                                        i_file += '</div>';
+                                    }
+                                    $("#input_file_eqiv span").after(i_file);
+                                }
+                            },
+                            error: function() {
+                                blockUI.release();
+                            }
+                        });
+                    });
+            }
+        };
+    })();
+
+    var KTModalForm = (function() {
+        var a, b, c, d, e, f, g, t, u, v, w, x, y, z;
+        return {
+            rfq_form: function() {
+                (a = document.querySelector("#kt_modal_det_rfq_goods")) &&
+                ((b = new bootstrap.Modal(a)),
+                    (c = document.querySelector("#kt_modal_det_rfq_goods_form")),
+                    (d = document.getElementById("kt_modal_det_rfq_goods_submit")),
+                    (e = document.getElementById("kt_modal_det_rfq_goods_cancel")),
+                    (f = document.querySelector('[data-kt-det-rfq-goods-modal-action="close"]')),
+                    (g = FormValidation.formValidation(c, {
+                        fields: {
+                            material_code: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Kode Material tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            material_name: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Nama Material tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            request_total: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Jumlah Permintaan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            measurement: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Satuan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            currency: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Mata Uang tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            unit_price: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Harga Satuan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            unit_measure: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Satuan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            convert: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Wajib pilih salah satu"
+                                    }
+                                }
+                            },
+                            convertion_qty: {
+                                validators: {
+                                    numeric: {
+                                        message: 'Konversi Jumlah harus angka',
+                                        // The default separators
+                                        thousandsSeparator: '',
+                                        decimalSeparator: '.',
+                                    },
+                                    callback: {
+                                        message: 'Konversi Jumlah tidak boleh kosong',
+                                        callback: function(input) {
+                                            const selectedCheckbox = c.querySelector('[name="convert"]:checked');
+                                            const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+
+                                            return (convertion !== '1')
+                                                // The field is valid if user picks
+                                                // a given convertion from the list
+                                                ?
+                                                true
+                                                // Otherwise, the field value is required
+                                                :
+                                                (input.value !== '');
+                                        }
+                                    }
+                                }
+                            },
+                            available: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Wajib pilih salah satu"
+                                    }
+                                }
+                            },
+                            ed_price: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Masa Berlaku Harga tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            created_by: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Dibuat Oleh tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            rfq_file: {
+                                // The children's full name are inputs with class .childFullName
+                                selector: '.rfq_file',
+                                // The field is placed inside .col-xs-6 div instead of .form-group
+                                row: '.col-lg-8',
+                                validators: {
+                                    file: {
+                                        extension: 'jpeg,jpg,png,pdf',
+                                        type: 'image/jpeg,image/png,application/pdf',
+                                        message: 'Please choose a JPEG, JPG, PNG, & PDF file',
+                                    },
+                                },
+                            },
+                        },
+                        plugins: {
+                            trigger: new FormValidation.plugins.Trigger(),
+                            bootstrap: new FormValidation.plugins.Bootstrap5({
+                                rowSelector: ".fv-row",
+                                eleInvalidClass: "",
+                                eleValidClass: ""
+                            })
+                        },
+                    })),
+                    d.addEventListener("click", function(e) {
+                        e.preventDefault(),
+                            g &&
+                            g.validate().then(function(e) {
+                                var frmData = new FormData(c);
+                                "Valid" == e
+                                    ?
+                                    (
+                                        Swal.fire({
+                                            text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                                            icon: "warning",
+                                            showCancelButton: !0,
+                                            buttonsStyling: !1,
+                                            confirmButtonText: "Ya, Simpan",
+                                            cancelButtonText: "Kembali",
+                                            customClass: {
+                                                confirmButton: "btn btn-primary",
+                                                cancelButton: "btn btn-active-light"
+                                            },
+                                        }).then(function(r) {
+                                            r.value ?
+                                                (
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: c.getAttribute('action'),
+                                                        data: frmData,
+                                                        processData: false,
+                                                        contentType: false,
+                                                        beforeSend: function() {
+                                                            d.setAttribute("data-kt-indicator", "on"),
+                                                                (d.disabled = !0);
+                                                        },
+                                                        success: function(response) {
+                                                            var obj = jQuery.parseJSON(response);
+                                                            d.removeAttribute("data-kt-indicator"),
+                                                                (d.disabled = !1);
+                                                            Swal.fire({
+                                                                text: obj.msg,
+                                                                icon: obj.status,
+                                                                buttonsStyling: !1,
+                                                                confirmButtonText: "Tutup",
+                                                                customClass: {
+                                                                    confirmButton: "btn btn-primary"
+                                                                }
+                                                            }).then(
+                                                                function(t) {
+                                                                    t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(), g.resetForm(true), b.hide()) : r.dismiss;
+                                                                }
+                                                            );
+                                                        },
+                                                        error: function() {
+                                                            d.removeAttribute("data-kt-indicator"),
+                                                                (d.disabled = !1);
+                                                            Swal.fire({
+                                                                text: "Terjadi masalah koneksi",
+                                                                icon: "error",
+                                                                buttonsStyling: !1,
+                                                                confirmButtonText: "Tutup",
+                                                                customClass: {
+                                                                    confirmButton: "btn btn-primary"
+                                                                }
+                                                            }).then(
+                                                                function(t) {
+                                                                    t.isConfirmed && r.dismiss;
+                                                                }
+                                                            );
+                                                        }
+                                                    })
+                                                ) :
+                                                "cancel" === r.dismiss;
+                                        })
+                                    ) :
+                                    Swal.fire({
+                                        text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                                        icon: "error",
+                                        buttonsStyling: !1,
+                                        confirmButtonText: "Tutup",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        },
+                                    });
+                            });
+                    }),
+                    e.addEventListener("click", function(t) {
+                        g.resetForm(true), b.hide();
+                    })),
+                f.addEventListener("click", function(t) {
+                    g.resetForm(true), b.hide();
+                });
+            },
+            eqiv_form: function() {
+                (t = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen")) &&
+                ((u = new bootstrap.Modal(t)),
+                    (v = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen_form")),
+                    (w = document.getElementById("kt_modal_det_rfq_goods_ekuivalen_submit")),
+                    (x = document.getElementById("kt_modal_det_rfq_goods_ekuivalen_cancel")),
+                    (y = document.querySelector('[data-kt-det-rfq-goods-ekuivalen-modal-action="close"]')),
+                    (z = FormValidation.formValidation(v, {
+                        fields: {
+                            material_code_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Kode Material tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            material_name_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Nama Material tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            request_total_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Jumlah Permintaan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            measurement_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Satuan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            currency_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Mata Uang tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            unit_price_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Harga Satuan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            unit_measure_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Satuan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            convert_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Wajib pilih salah satu"
+                                    }
+                                }
+                            },
+                            convertion_qty_eqiv: {
+                                validators: {
+                                    numeric: {
+                                        message: 'Konversi Jumlah harus angka',
+                                        // The default separators
+                                        thousandsSeparator: '',
+                                        decimalSeparator: '.',
+                                    },
+                                    callback: {
+                                        message: 'Konversi Jumlah tidak boleh kosong',
+                                        callback: function(input) {
+                                            const selectedCheckbox = c.querySelector('[name="convert_eqiv"]:checked');
+                                            const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+
+                                            return (convertion !== '1')
+                                                // The field is valid if user picks
+                                                // a given convertion from the list
+                                                ?
+                                                true
+                                                // Otherwise, the field value is required
+                                                :
+                                                (input.value !== '');
+                                        }
+                                    }
+                                }
+                            },
+                            available_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Wajib pilih salah satu"
+                                    }
+                                }
+                            },
+                            ed_price_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Masa Berlaku Harga tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            created_by_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Dibuat Oleh tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            eqiv_file: {
+                                // The children's full name are inputs with class .childFullName
+                                selector: '.eqiv_file',
+                                // The field is placed inside .col-xs-6 div instead of .form-group
+                                row: '.col-lg-6',
+                                validators: {
+                                    file: {
+                                        extension: 'jpeg jpg,png,pdf',
+                                        type: 'image/jpeg,image/png,application/pdf',
+                                        message: 'Please choose a JPEG, JPG, PNG, & PDF file',
+                                    },
+                                },
+                            },
+                        },
+                        plugins: {
+                            trigger: new FormValidation.plugins.Trigger(),
+                            bootstrap: new FormValidation.plugins.Bootstrap5({
+                                rowSelector: ".fv-row",
+                                eleInvalidClass: "",
+                                eleValidClass: ""
+                            })
+                        },
+                    })),
+                    w.addEventListener("click", function(e) {
+                        e.preventDefault(),
+                            z &&
+                            z.validate().then(function(e) {
+                                var frmData_eqiv = new FormData(v);
+                                "Valid" == e
+                                    ?
+                                    (
+                                        Swal.fire({
+                                            text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                                            icon: "warning",
+                                            showCancelButton: !0,
+                                            buttonsStyling: !1,
+                                            confirmButtonText: "Ya, Simpan",
+                                            cancelButtonText: "Kembali",
+                                            customClass: {
+                                                confirmButton: "btn btn-primary",
+                                                cancelButton: "btn btn-active-light"
+                                            },
+                                        }).then(function(r) {
+                                            r.value ?
+                                                (
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: v.getAttribute('action'),
+                                                        data: frmData_eqiv,
+                                                        processData: false,
+                                                        contentType: false,
+                                                        beforeSend: function() {
+                                                            w.setAttribute("data-kt-indicator", "on"),
+                                                                (w.disabled = !0);
+                                                        },
+                                                        success: function(response) {
+                                                            var obj = jQuery.parseJSON(response);
+                                                            w.removeAttribute("data-kt-indicator"),
+                                                                (w.disabled = !1);
+                                                            Swal.fire({
+                                                                text: obj.msg,
+                                                                icon: obj.status,
+                                                                buttonsStyling: !1,
+                                                                confirmButtonText: "Tutup",
+                                                                customClass: {
+                                                                    confirmButton: "btn btn-primary"
+                                                                }
+                                                            }).then(
+                                                                function(t) {
+                                                                    t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(), z.resetForm(true), u.hide()) : r.dismiss;
+                                                                }
+                                                            );
+                                                        },
+                                                        error: function() {
+                                                            w.removeAttribute("data-kt-indicator"),
+                                                                (w.disabled = !1);
+                                                            Swal.fire({
+                                                                text: "Terjadi masalah koneksi",
+                                                                icon: "error",
+                                                                buttonsStyling: !1,
+                                                                confirmButtonText: "Tutup",
+                                                                customClass: {
+                                                                    confirmButton: "btn btn-primary"
+                                                                }
+                                                            }).then(
+                                                                function(t) {
+                                                                    t.isConfirmed && r.dismiss;
+                                                                }
+                                                            );
+                                                        }
+                                                    })
+                                                ) :
+                                                "cancel" === r.dismiss;
+                                        })
+                                    ) :
+                                    Swal.fire({
+                                        text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                                        icon: "error",
+                                        buttonsStyling: !1,
+                                        confirmButtonText: "Tutup",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        },
+                                    });
+                            });
+                    }),
+                    x.addEventListener("click", function(t) {
+                        z.resetForm(true), u.hide()
+                    })),
+                y.addEventListener("click", function(t) {
+                    z.resetForm(true), u.hide()
+                });
+            }
+        }
+    })();
+
+    var Elements = (function() {
+        return {
+            switch: function(e, index, name) {
+                var checked = e.target.checked;
+                if (checked) {
+                    $("#row_" + index + " > input").remove();
+                    $("#row_" + index).append('<input class="form-control rfq_file" type="file" name="rfq_file[' + index + ']"><input type="hidden" name="old_name[' + index + ']" value="' + name + '">');
+                } else {
+                    $("#row_" + index + " > input").remove();
+                    $("#row_" + index).append('<input class="form-control form-control-solid" type="text" readonly value="' + name + '">');
+                }
+            },
+            switch_eqiv: function(e, index, name) {
+                var checked = e.target.checked;
+                if (checked) {
+                    $("#row_eqiv_" + index + " > input").remove();
+                    $("#row_eqiv_" + index).append('<input class="form-control eqiv_file" type="file" name="eqiv_file[' + index + ']"><input type="hidden" name="old_name_eqiv[' + index + ']" value="' + name + '">');
+                } else {
+                    $("#row_eqiv_" + index + " > input").remove();
+                    $("#row_eqiv_" + index).append('<input class="form-control form-control-solid" type="text" readonly value="' + name + '">');
+                }
+            }
+        }
+    })();
+
+    KTUtil.onDOMContentLoaded((function() {
+        KTDataTables.init();
+        KTModalForm.rfq_form();
+        KTModalForm.eqiv_form();
+        $("input[name=unit_price]").maskMoney({
+            thousands: '.',
+            decimal: ',',
+            affixesStay: false,
+            precision: 0
+        });
+        $("input[name=unit_price_eqiv]").maskMoney({
+            thousands: '.',
+            decimal: ',',
+            affixesStay: false,
+            precision: 0
+        });
+        $("#kt_daterangepicker_3, #kt_daterangepicker_4").daterangepicker({
+            autoApply: true,
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 1901,
+            maxYear: parseInt(moment().format("YYYY"), 10),
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+        });
+        $("input[name=convert]").on("change", function() {
+            if ($(this).is(':checked')) {
+                if ($(this).val() == 0) {
                     $("#form_convertion").hide();
                 } else {
                     $("#form_convertion").show();
+                    $("input[name=convertion_measure]").val($("input[name=unit_measure]").val());
                 }
-                $('input[name="available"][value="0"]').prop('checked', true);
-                $("input[name=ed_price]").val('');
+            }
+        });
 
-                var i_file = '';
-                for(var i=0; i < 5; i++) {
-                    i_file += '<div class="row mb-3">';
-                    i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
-                    i_file += '</div>';
-                }
-                $("#input_file span").after(i_file);
+        $("input[name=unit_measure]").on("keyup", function() {
+            if ($("input[name=convert]:checked").val() == '1') {
+                $("input[name=convertion_measure]").val(this.value);
+            }
+        });
 
-                if(data.modified_date != null && data.modified_by != null) {
-                    $("input[name=currency]").val(data.mata_uang);
-                    $("input[name=unit_measure]").val(data.per_harga_satuan);
-                    $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
-                    if($('input[name="convert"]:checked').val() == 0) {
-                        $("#form_convertion").hide();
-                    } else {
-                        $("#form_convertion").show();
-                        $("input[name=convertion_qty]").val(parseInt(data.jumlah_konversi));
-                        $("input[name=convertion_measure]").val(data.per_harga_satuan);
-                    }
-                    $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
-                    $("input[name=ed_price]").val(data.masa_berlaku_harga);
-                    $("textarea[name=notes]").val(data.keterangan);
-                    $("input[name=created_by]").val(data.dibuat_oleh);
-
-                    $.ajax({
-                        type: "POST",
-                        url: "<?php echo site_url('rfq/get_files');?>",
-                        data: { val_1: '<?php echo $this->uri->segment(3);?>', val_2: 0 },
-                        beforeSend: function() {
-                            blockUI.block();
-                        },
-                        success: function(response) {
-                            blockUI.release();
-                            var obj = jQuery.parseJSON(response);
-                            if(obj.code == 0) {
-                                var uploaded_files = obj.data.length;
-                                if(uploaded_files > 0) {
-                                    $("#input_file div").remove();
-                                    var i_file = '';
-                                    $.each(obj.data, function(index, value) {
-                                        i_file += '<div class="row mb-3">';
-                                        i_file += '<div class="col-lg-8" id="row_'+index+'"><input class="form-control form-control-solid" type="text" readonly value="'+value.nama_berkas_asli+'"></div>';
-                                        i_file += '<div class="col-lg-4">';
-                                        i_file += '<div class="form-check form-switch form-check-custom form-check-solid me-10">';
-                                        i_file += '<input class="form-check-input h-40px w-60px" type="checkbox" onchange="Elements.switch(event,'+index+',\''+value.nama_berkas_asli+'\')" value="1" id="flexSwitch40x60"/>';
-                                        i_file += '<label class="form-check-label" for="flexSwitch40x60">Ganti Berkas</label>';
-                                        i_file += '</div>';
-                                        i_file += '</div>';
-                                        i_file += '</div>';
-                                    });
-
-                                    for(var i = 0; i < (5-uploaded_files); i++) {
-                                        i_file += '<div class="row mb-3">';
-                                        i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
-                                        i_file += '</div>';
-                                    }
-
-                                    $("#input_file span").after(i_file);
-                                } else {
-                                    var i_file = '';
-                                    for(var i=0; i < 5; i++) {
-                                        i_file += '<div class="row mb-3">';
-                                        i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
-                                        i_file += '</div>';
-                                    }
-                                    $("#input_file span").after(i_file);
-                                }
-                            } else {
-                                $("#input_file div").remove();
-                                var i_file = '';
-                                for(var i=0; i < 5; i++) {
-                                    i_file += '<div class="row mb-3">';
-                                    i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
-                                    i_file += '</div>';
-                                }
-                                $("#input_file span").after(i_file);
-                            }
-                        },
-                        error: function () {
-                            blockUI.release();
-                        } 
-                    });
-                }
-            }),
-            $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form_1, button.eqiv_form_2, button.eqiv_form_3, button.eqiv_form_4', function () {
-                blockUI.release();
-                $("#input_file_eqiv div").remove();
-                var data = e.row($(this).parents('tr')).data();
-                var id = $(this).attr('id');
-                var eqiv_id = id.replace('btn_eqiv_', '');
-
-                $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_rfq_no_eqiv").text(data.nomor_rfq);
-                $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_material_code_eqiv").text(data.kode_barang);
-                $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_seq_eqiv").text(eqiv_id);
-                $("input[name=id_rfq_eqiv]").val('<?php echo $this->uri->segment(3);?>');
-                $("input[name=id_eqiv]").val(eqiv_id);
-                $("input[name=seq_eqiv]").val(data.urutan_rfq);
-                $("input[name=material_code_eqiv]").val(data.kode_barang);
-                $("input[name=material_name_eqiv]").val(data.deskripsi_barang);
-                $("input[name=request_total_eqiv]").val(data.jumlah_permintaan);
-                $("input[name=measurement_eqiv]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
-                $("input[name=r_measurement_eqiv]").val(data.satuan);
-                $("input[name=desc_measure_eqiv]").val(data.deskripsi_satuan);
-                $('input[name="convert_eqiv"][value="0"]').prop('checked', true);
-                $('input[name="available_eqiv"][value="0"]').prop('checked', true);
-                $("input[name=ed_price_eqiv]").val('');
-                $("input[name=notes_eqiv]").val('');
-                $("input[name=created_by_eqiv]").val('');
-                if($('input[name="convert_eqiv"]:checked').val() == 0) {
+        $("input[name=convert_eqiv]").on("change", function() {
+            if ($(this).is(':checked')) {
+                if ($(this).val() == 0) {
                     $("#form_convertion_eqiv").hide();
                 } else {
                     $("#form_convertion_eqiv").show();
-                    $("input[name=convertion_qty_eqiv]").val('');
-                    $("input[name=convertion_measure_eqiv]").val('');
+                    $("input[name=convertion_measure_eqiv]").val($("input[name=unit_measure_eqiv]").val());
                 }
-
-                var i_file = '';
-                for(var i=0; i < 5; i++) {
-                    i_file += '<div class="row mb-3">';
-                    i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
-                    i_file += '</div>';
-                }
-                $("#input_file_eqiv span").after(i_file);
-
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo site_url('rfq/get_det_rfq_eqiv');?>",
-                    data: { val_1: '<?php echo $this->uri->segment(3);?>', val_2: eqiv_id },
-                    beforeSend: function() {
-                        blockUI.block();
-                    },
-                    success: function(response) {
-                        blockUI.release();
-                        var obj = jQuery.parseJSON(response);
-                        if(obj.code == 0) {
-                            $("input[name=currency_eqiv]").val(obj.data.mata_uang);
-                            $("input[name=unit_price_eqiv]").maskMoney('mask', parseInt(obj.data.harga_satuan));
-                            $("input[name=unit_measure_eqiv]").val(obj.data.per_harga_satuan);
-                            $('input[name="convert_eqiv"][value="' + obj.data.konversi + '"]').prop('checked', true);
-                            if($('input[name="convert_eqiv"]:checked').val() == 0) {
-                                $("#form_convertion_eqiv").hide();
-                            } else {
-                                $("#form_convertion_eqiv").show();
-                                $("input[name=convertion_qty_eqiv]").val(parseInt(obj.data.jumlah_konversi));
-                                $("input[name=convertion_measure_eqiv]").val(obj.data.per_harga_satuan);
-                            }
-                            $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
-                            $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
-                            $("textarea[name=notes_eqiv]").val(obj.data.keterangan);
-                            $("input[name=created_by_eqiv]").val(obj.data.dibuat_oleh);
-                            $("#input_file_eqiv div").remove();
-                            if(obj.files.length > 0) {
-                                $("#input_file_eqiv div").remove();
-                                var i_file = '';
-                                $.each(obj.files, function(index, value) {
-                                    i_file += '<div class="row mb-3">';
-                                    i_file += '<div class="col-lg-8" id="row_eqiv_'+index+'"><input class="form-control form-control-solid" type="text" readonly value="'+value.nama_berkas_asli+'"></div>';
-                                    i_file += '<div class="col-lg-4">';
-                                    i_file += '<div class="form-check form-switch form-check-custom form-check-solid me-10">';
-                                    i_file += '<input class="form-check-input h-40px w-60px" type="checkbox" onchange="Elements.switch_eqiv(event,'+index+',\''+value.nama_berkas_asli+'\')" value="1" id="flexSwitch40x60"/>';
-                                    i_file += '<label class="form-check-label" for="flexSwitch40x60">Ganti Berkas</label>';
-                                    i_file += '</div>';
-                                    i_file += '</div>';
-                                    i_file += '</div>';
-                                });
-
-                                for(var i = 0; i < (5-obj.files.length); i++) {
-                                    i_file += '<div class="row mb-3">';
-                                    i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
-                                    i_file += '</div>';
-                                }
-
-                                $("#input_file_eqiv span").after(i_file);
-                            } else {
-                                var i_file = '';
-                                for(var i=0; i < 5; i++) {
-                                    i_file += '<div class="row mb-3">';
-                                    i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
-                                    i_file += '</div>';
-                                }
-                                $("#input_file_eqiv span").after(i_file);
-                            }
-                        } else {
-                            $("#input_file_eqiv div").remove();
-                            var i_file = '';
-                            for(var i=0; i < 5; i++) {
-                                i_file += '<div class="row mb-3">';
-                                i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
-                                i_file += '</div>';
-                            }
-                            $("#input_file_eqiv span").after(i_file);
-                        }
-                    },
-                    error: function () {
-                        blockUI.release();
-                    } 
-                });
-            });
-        }
-    };
-})();
-
-var KTModalForm = (function() {
-    var a, b, c, d, e, f, g, t, u, v, w, x, y, z;
-    return {
-        rfq_form: function() {
-            (a = document.querySelector("#kt_modal_det_rfq_goods")) &&
-                ((b = new bootstrap.Modal(a)),
-                (c = document.querySelector("#kt_modal_det_rfq_goods_form")),
-                (d = document.getElementById("kt_modal_det_rfq_goods_submit")),
-                (e = document.getElementById("kt_modal_det_rfq_goods_cancel")),
-                (f = document.querySelector('[data-kt-det-rfq-goods-modal-action="close"]')),
-                (g = FormValidation.formValidation(c, {
-                    fields: {
-                        material_code: { validators: { notEmpty: { message: "Kode Material tidak boleh kosong" } } },
-                        material_name: { validators: { notEmpty: { message: "Nama Material tidak boleh kosong" } } },
-                        request_total: { validators: { notEmpty: { message: "Jumlah Permintaan tidak boleh kosong" } } },
-                        measurement: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
-                        currency: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
-                        unit_price: { validators: { notEmpty: { message: "Harga Satuan tidak boleh kosong" } } },
-                        unit_measure: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
-                        convert: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
-                        convertion_qty: {
-                            validators: {
-                                numeric: {
-                                    message: 'Konversi Jumlah harus angka',
-                                    // The default separators
-                                    thousandsSeparator: '',
-                                    decimalSeparator: '.',
-                                },
-                                callback: {
-                                    message: 'Konversi Jumlah tidak boleh kosong',
-                                    callback: function(input) {
-                                        const selectedCheckbox = c.querySelector('[name="convert"]:checked');
-                                        const convertion = selectedCheckbox ? selectedCheckbox.value : '';
-
-                                        return (convertion !== '1')
-                                                // The field is valid if user picks
-                                                // a given convertion from the list
-                                                ? true
-                                                // Otherwise, the field value is required
-                                                : (input.value !== '');
-                                    }
-                                }
-                            }
-                        },
-                        available: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
-                        ed_price: { validators: { notEmpty: { message: "Masa Berlaku Harga tidak boleh kosong" } } },
-                        created_by: { validators: { notEmpty: { message: "Dibuat Oleh tidak boleh kosong" } } },
-                        rfq_file: {
-                            // The children's full name are inputs with class .childFullName
-                            selector: '.rfq_file',
-                            // The field is placed inside .col-xs-6 div instead of .form-group
-                            row: '.col-lg-8',
-                            validators: {
-                                file: {
-                                    extension: 'jpeg,jpg,png,pdf',
-                                    type: 'image/jpeg,image/png,application/pdf',
-                                    message: 'Please choose a JPEG, JPG, PNG, & PDF file',
-                                },
-                            },
-                        },
-                    },
-                    plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
-                })),
-                d.addEventListener("click", function (e) {
-                    e.preventDefault(),
-                        g &&
-                            g.validate().then(function (e) {
-                                    var frmData = new FormData(c);
-                                    "Valid" == e
-                                        ? (
-                                            Swal.fire({
-                                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
-                                                icon: "warning",
-                                                showCancelButton: !0,
-                                                buttonsStyling: !1,
-                                                confirmButtonText: "Ya, Simpan",
-                                                cancelButtonText: "Kembali",
-                                                customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
-                                            }).then(function (r) {
-                                                r.value
-                                                    ? 
-                                                    (
-                                                        $.ajax({
-                                                            type: 'POST',
-                                                            url: c.getAttribute('action'),
-                                                            data: frmData,
-                                                            processData: false,
-                                                            contentType: false,
-                                                            beforeSend: function() {
-                                                                d.setAttribute("data-kt-indicator", "on"),
-                                                                (d.disabled = !0);
-                                                            },
-                                                            success: function(response) {
-                                                                var obj = jQuery.parseJSON(response);
-                                                                d.removeAttribute("data-kt-indicator"),
-                                                                (d.disabled = !1);
-                                                                Swal.fire({ 
-                                                                    text: obj.msg, 
-                                                                    icon: obj.status, 
-                                                                    buttonsStyling: !1, 
-                                                                    confirmButtonText: "Tutup", 
-                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
-                                                                    function (t) {
-                                                                        t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),g.resetForm(true),b.hide()) : r.dismiss;
-                                                                    }
-                                                                );
-                                                            },
-                                                            error: function() {
-                                                                d.removeAttribute("data-kt-indicator"),
-                                                                (d.disabled = !1);
-                                                                Swal.fire({ 
-                                                                    text: "Terjadi masalah koneksi", 
-                                                                    icon: "error", 
-                                                                    buttonsStyling: !1, 
-                                                                    confirmButtonText: "Tutup", 
-                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
-                                                                    function (t) {
-                                                                        t.isConfirmed && r.dismiss;
-                                                                    }
-                                                                );
-                                                            }
-                                                        })
-                                                    )
-                                                    : "cancel" === r.dismiss;
-                                            })
-                                          )
-                                        : Swal.fire({
-                                              text: "Maaf, masih ada field yang kosong, silahkan diisi.",
-                                              icon: "error",
-                                              buttonsStyling: !1,
-                                              confirmButtonText: "Tutup",
-                                              customClass: { confirmButton: "btn btn-primary" },
-                                          });
-                            });
-                }),
-                e.addEventListener("click", function (t) {
-                    g.resetForm(true), b.hide();
-                })),
-                f.addEventListener("click", function (t) {
-                    g.resetForm(true), b.hide();
-                });
-        },
-        eqiv_form: function() {
-            (t = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen")) &&
-                ((u = new bootstrap.Modal(t)),
-                (v = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen_form")),
-                (w = document.getElementById("kt_modal_det_rfq_goods_ekuivalen_submit")),
-                (x = document.getElementById("kt_modal_det_rfq_goods_ekuivalen_cancel")),
-                (y = document.querySelector('[data-kt-det-rfq-goods-ekuivalen-modal-action="close"]')),
-                (z = FormValidation.formValidation(v, {
-                    fields: {
-                        material_code_eqiv: { validators: { notEmpty: { message: "Kode Material tidak boleh kosong" } } },
-                        material_name_eqiv: { validators: { notEmpty: { message: "Nama Material tidak boleh kosong" } } },
-                        request_total_eqiv: { validators: { notEmpty: { message: "Jumlah Permintaan tidak boleh kosong" } } },
-                        measurement_eqiv: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
-                        currency_eqiv: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
-                        unit_price_eqiv: { validators: { notEmpty: { message: "Harga Satuan tidak boleh kosong" } } },
-                        unit_measure_eqiv: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
-                        convert_eqiv: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
-                        convertion_qty_eqiv: {
-                            validators: {
-                                numeric: {
-                                    message: 'Konversi Jumlah harus angka',
-                                    // The default separators
-                                    thousandsSeparator: '',
-                                    decimalSeparator: '.',
-                                },
-                                callback: {
-                                    message: 'Konversi Jumlah tidak boleh kosong',
-                                    callback: function(input) {
-                                        const selectedCheckbox = c.querySelector('[name="convert_eqiv"]:checked');
-                                        const convertion = selectedCheckbox ? selectedCheckbox.value : '';
-
-                                        return (convertion !== '1')
-                                                // The field is valid if user picks
-                                                // a given convertion from the list
-                                                ? true
-                                                // Otherwise, the field value is required
-                                                : (input.value !== '');
-                                    }
-                                }
-                            }
-                        },
-                        available_eqiv: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
-                        ed_price_eqiv: { validators: { notEmpty: { message: "Masa Berlaku Harga tidak boleh kosong" } } },
-                        created_by_eqiv: { validators: { notEmpty: { message: "Dibuat Oleh tidak boleh kosong" } } },
-                        eqiv_file: {
-                            // The children's full name are inputs with class .childFullName
-                            selector: '.eqiv_file',
-                            // The field is placed inside .col-xs-6 div instead of .form-group
-                            row: '.col-lg-6',
-                            validators: {
-                                file: {
-                                    extension: 'jpeg jpg,png,pdf',
-                                    type: 'image/jpeg,image/png,application/pdf',
-                                    message: 'Please choose a JPEG, JPG, PNG, & PDF file',
-                                },
-                            },
-                        },
-                    },
-                    plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
-                })),
-                w.addEventListener("click", function (e) {
-                    e.preventDefault(),
-                        z &&
-                            z.validate().then(function (e) {
-                                    var frmData_eqiv = new FormData(v);
-                                    "Valid" == e
-                                        ? (
-                                            Swal.fire({
-                                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
-                                                icon: "warning",
-                                                showCancelButton: !0,
-                                                buttonsStyling: !1,
-                                                confirmButtonText: "Ya, Simpan",
-                                                cancelButtonText: "Kembali",
-                                                customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
-                                            }).then(function (r) {
-                                                r.value
-                                                    ? 
-                                                    (
-                                                        $.ajax({
-                                                            type: 'POST',
-                                                            url: v.getAttribute('action'),
-                                                            data: frmData_eqiv,
-                                                            processData: false,
-                                                            contentType: false,
-                                                            beforeSend: function() {
-                                                                w.setAttribute("data-kt-indicator", "on"),
-                                                                (w.disabled = !0);
-                                                            },
-                                                            success: function(response) {
-                                                                var obj = jQuery.parseJSON(response);
-                                                                w.removeAttribute("data-kt-indicator"),
-                                                                (w.disabled = !1);
-                                                                Swal.fire({ 
-                                                                    text: obj.msg, 
-                                                                    icon: obj.status, 
-                                                                    buttonsStyling: !1, 
-                                                                    confirmButtonText: "Tutup", 
-                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
-                                                                    function (t) {
-                                                                        t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),z.resetForm(true),u.hide()) : r.dismiss;
-                                                                    }
-                                                                );
-                                                            },
-                                                            error: function() {
-                                                                w.removeAttribute("data-kt-indicator"),
-                                                                (w.disabled = !1);
-                                                                Swal.fire({ 
-                                                                    text: "Terjadi masalah koneksi", 
-                                                                    icon: "error", 
-                                                                    buttonsStyling: !1, 
-                                                                    confirmButtonText: "Tutup", 
-                                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
-                                                                    function (t) {
-                                                                        t.isConfirmed && r.dismiss;
-                                                                    }
-                                                                );
-                                                            }
-                                                        })
-                                                    )
-                                                    : "cancel" === r.dismiss;
-                                            })
-                                          )
-                                        : Swal.fire({
-                                              text: "Maaf, masih ada field yang kosong, silahkan diisi.",
-                                              icon: "error",
-                                              buttonsStyling: !1,
-                                              confirmButtonText: "Tutup",
-                                              customClass: { confirmButton: "btn btn-primary" },
-                                          });
-                            });
-                }),
-                x.addEventListener("click", function (t) {
-                    z.resetForm(true), u.hide()
-                })),
-                y.addEventListener("click", function (t) {
-                    z.resetForm(true), u.hide()
-                });
-        }
-    }
-})();
-
-var Elements = (function() {
-    return {
-        switch: function(e, index, name) {
-            var checked = e.target.checked;
-            if(checked) {
-                $("#row_"+index+" > input").remove();
-                $("#row_"+index).append('<input class="form-control rfq_file" type="file" name="rfq_file['+index+']"><input type="hidden" name="old_name['+index+']" value="'+name+'">');
-            } else {
-                $("#row_"+index+" > input").remove();
-                $("#row_"+index).append('<input class="form-control form-control-solid" type="text" readonly value="'+name+'">');
             }
-        },
-        switch_eqiv: function(e, index, name) {
-            var checked = e.target.checked;
-            if(checked) {
-                $("#row_eqiv_"+index+" > input").remove();
-                $("#row_eqiv_"+index).append('<input class="form-control eqiv_file" type="file" name="eqiv_file['+index+']"><input type="hidden" name="old_name_eqiv['+index+']" value="'+name+'">');
-            } else {
-                $("#row_eqiv_"+index+" > input").remove();
-                $("#row_eqiv_"+index).append('<input class="form-control form-control-solid" type="text" readonly value="'+name+'">');
+        });
+
+        $("input[name=unit_measure_eqiv]").on("keyup", function() {
+            if ($("input[name=convert_eqiv]:checked").val() == '1') {
+                $("input[name=convertion_measure_eqiv]").val(this.value);
             }
-        }
-    }
-})();
+        });
 
-KTUtil.onDOMContentLoaded((function() {
-    KTDataTables.init();
-    KTModalForm.rfq_form();
-    KTModalForm.eqiv_form();
-    $("input[name=unit_price]").maskMoney({ thousands:'.', decimal:',', affixesStay: false, precision: 0});
-    $("input[name=unit_price_eqiv]").maskMoney({ thousands:'.', decimal:',', affixesStay: false, precision: 0});
-    $("#kt_daterangepicker_3, #kt_daterangepicker_4").daterangepicker({
-        autoApply: true,
-        singleDatePicker: true,
-        showDropdowns: true,
-        minYear: 1901,
-        maxYear: parseInt(moment().format("YYYY"),10),
-        locale: {
-            format: 'YYYY-MM-DD'
-        }
-    });
-    $("input[name=convert]").on("change", function() {
-        if($(this).is(':checked')) {
-            if($(this).val() == 0) {
-                $("#form_convertion").hide();
+        $("input[name=available_total_eqiv]").on('keyup change', function() {
+            var request_total_eqiv = $("input[name=request_total_eqiv]").val();
+            var indent_total_eqiv = parseInt(request_total_eqiv) - parseInt(this.value);
+            if (indent_total_eqiv < 0) {
+                indent_total_eqiv = 0;
             } else {
-                $("#form_convertion").show();
-                $("input[name=convertion_measure]").val($("input[name=unit_measure]").val());
+                indent_total_eqiv = indent_total_eqiv;
             }
-        }
-    });
 
-    $("input[name=unit_measure]").on("keyup", function() {
-        if($("input[name=convert]:checked").val() == '1') {
-            $("input[name=convertion_measure]").val(this.value);
-        }
-    });
-
-    $("input[name=convert_eqiv]").on("change", function() {
-        if($(this).is(':checked')) {
-            if($(this).val() == 0) {
-                $("#form_convertion_eqiv").hide();
+            if (indent_total_eqiv == 0) {
+                $("input[name=indent_day_eqiv]").attr('readonly', true).addClass('form-control-solid').val(0);
             } else {
-                $("#form_convertion_eqiv").show();
-                $("input[name=convertion_measure_eqiv]").val($("input[name=unit_measure_eqiv]").val());
+                $("input[name=indent_day_eqiv]").attr('readonly', false).removeClass('form-control-solid');
             }
-        }
-    });
-
-    $("input[name=unit_measure_eqiv]").on("keyup", function() {
-        if($("input[name=convert_eqiv]:checked").val() == '1') {
-            $("input[name=convertion_measure_eqiv]").val(this.value);
-        }
-    });
-
-    $("input[name=available_total_eqiv]").on('keyup change', function() {
-        var request_total_eqiv   = $("input[name=request_total_eqiv]").val();
-        var indent_total_eqiv    = parseInt(request_total_eqiv) - parseInt(this.value);
-        if(indent_total_eqiv < 0) {
-            indent_total_eqiv    = 0;
-        } else {
-            indent_total_eqiv    = indent_total_eqiv;
-        }
-
-        if(indent_total_eqiv == 0) {
-            $("input[name=indent_day_eqiv]").attr('readonly', true).addClass('form-control-solid').val(0);
-        } else {
-            $("input[name=indent_day_eqiv]").attr('readonly', false).removeClass('form-control-solid');
-        }
-        $("input[name=indent_total_eqiv]").val(indent_total);
-    });
-}));
+            $("input[name=indent_total_eqiv]").val(indent_total);
+        });
+    }));
 </script>

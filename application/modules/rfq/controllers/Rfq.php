@@ -120,11 +120,15 @@ class Rfq extends CI_Controller
         $params = array('nomor_quotation' => $rfq_no, 'ekuivalen' => $ekuivalen);
         $result = $this->rfq->getAttachedFiles($params);
         if ($result->num_rows() > 0) {
+            $files  = $result->result();
+            foreach ($files as $res) {
+                $res->nama_berkas = $this->crypto->encode($res->nama_berkas);
+            }
 
             $response   = array(
                 'code'  => 0,
                 'msg'   => 'SUCCESS',
-                'data'  => $result->result()
+                'data'  => $files
             );
         } else {
 
@@ -866,6 +870,19 @@ class Rfq extends CI_Controller
 
         echo json_encode($response, JSON_PRETTY_PRINT);
         exit;
+    }
+
+    public function download()
+    {
+        $filename   = $this->crypto->decode($this->uri->segment(3));
+        $explode    = explode("_", $filename);
+        $rfq_no     = $explode[1];
+        $equivalent = $explode[2];
+        $sequence   = $explode[3];
+
+        $params     = array('nomor_quotation' => $rfq_no, 'ekuivalen' => $equivalent, 'urutan_berkas' => $sequence);
+        $get_file   = $this->rfq->getAttachedFiles($params);
+        $file_data  = $get_file->row();
     }
 }
 
