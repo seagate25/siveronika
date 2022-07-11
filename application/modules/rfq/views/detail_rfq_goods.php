@@ -404,9 +404,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <textarea rows="5" name="specification_eqiv" class="form-control" placeholder="Specification"></textarea>
-                                <input type="hidden" name="r_measurement_eqiv">
-                                <input type="hidden" name="desc_measure_eqiv">
+                                <textarea rows="5" name="specification_eqiv" class="form-control" placeholder="Spesifikasi"></textarea>
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -418,9 +416,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="merk_eqiv" class="form-control" placeholder="Merk">
-                                <input type="hidden" name="r_measurement_eqiv">
-                                <input type="hidden" name="desc_measure_eqiv">
+                                <input type="text" name="merk_eqiv" class="form-control" placeholder="Merek">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -433,8 +429,18 @@
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="type_eqiv" class="form-control" placeholder="Tipe">
-                                <input type="hidden" name="r_measurement_eqiv">
-                                <input type="hidden" name="desc_measure_eqiv">
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Buatan</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <input type="text" name="made_eqiv" class="form-control" placeholder="Buatan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -864,8 +870,17 @@ var KTDataTables = (function() {
                 $('input[name="convert_eqiv"][value="0"]').prop('checked', true);
                 $('input[name="available_eqiv"][value="0"]').prop('checked', true);
                 $("input[name=ed_price_eqiv]").val('');
-                $("input[name=notes_eqiv]").val('');
+                $("textarea[name=notes_eqiv]").val('');
                 $("input[name=created_by_eqiv]").val('');
+
+                $("textarea[name=specification_eqiv]").val('');
+                $("input[name=merk_eqiv]").val('');
+                $("input[name=type_eqiv]").val('');
+                $("input[name=made_eqiv]").val('');
+                $("input[name=available_total_eqiv]").val('');
+                $("input[name=indent_total_eqiv]").val('');
+                $("input[name=indent_day_eqiv]").val('');
+
                 if($('input[name="convert_eqiv"]:checked').val() == 0) {
                     $("#form_convertion_eqiv").hide();
                 } else {
@@ -908,6 +923,15 @@ var KTDataTables = (function() {
                             $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
                             $("textarea[name=notes_eqiv]").val(obj.data.keterangan);
                             $("input[name=created_by_eqiv]").val(obj.data.dibuat_oleh);
+
+                            $("textarea[name=specification_eqiv]").val(obj.data.spesifikasi);
+                            $("input[name=merk_eqiv]").val(obj.data.merek);
+                            $("input[name=type_eqiv]").val(obj.data.tipe);
+                            $("input[name=made_eqiv]").val(obj.data.buatan);
+                            $("input[name=available_total_eqiv]").val(obj.data.jumlah_tersedia);
+                            $("input[name=indent_total_eqiv]").val(obj.data.jumlah_inden);
+                            $("input[name=indent_day_eqiv]").val(obj.data.lama_inden);
+
                             $("#input_file_eqiv div").remove();
                             if(obj.files.length > 0) {
                                 $("#input_file_eqiv div").remove();
@@ -1143,6 +1167,14 @@ var KTModalForm = (function() {
                                 }
                             }
                         },
+                        specification_eqiv: { validators: { notEmpty: { message: "Spesifikasi tidak boleh kosong" } } },
+                        merk_eqiv: { validators: { notEmpty: { message: "Merek tidak boleh kosong" } } },
+                        type_eqiv: { validators: { notEmpty: { message: "Tipe tidak boleh kosong" } } },
+                        made_eqiv: { validators: { notEmpty: { message: "Buatan tidak boleh kosong" } } },
+                        available_total_eqiv: { validators: { notEmpty: { message: "Jumlah tersedia tidak boleh kosong" } } },
+                        indent_total_eqiv: { validators: { notEmpty: { message: "Jumlah inden tidak boleh kosong" } } },
+                        indent_day_eqiv: { validators: { notEmpty: { message: "Lama Indent tidak boleh kosong" } } },
+
                         available_eqiv: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
                         ed_price_eqiv: { validators: { notEmpty: { message: "Masa Berlaku Harga tidak boleh kosong" } } },
                         created_by_eqiv: { validators: { notEmpty: { message: "Dibuat Oleh tidak boleh kosong" } } },
@@ -1333,7 +1365,7 @@ KTUtil.onDOMContentLoaded((function() {
         } else {
             $("input[name=indent_day_eqiv]").attr('readonly', false).removeClass('form-control-solid');
         }
-        $("input[name=indent_total_eqiv]").val(indent_total);
+        $("input[name=indent_total_eqiv]").val(indent_total_eqiv);
     });
 }));
 </script>

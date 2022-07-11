@@ -396,7 +396,7 @@ License: For each use you must have a valid license purchased only from above li
 						<!--begin::Mobile logo-->
 						<div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
 							<a href="<?php echo site_url('dashboard'); ?>" class="d-lg-none">
-								<img alt="Logo" src="<?php echo base_url(); ?>assets/media/logos/logo-3.svg" class="h-30px" />
+								<!-- <img alt="Logo" src="<?php echo base_url(); ?>assets/media/logos/logo-3.svg" class="h-30px" /> -->
 							</a>
 						</div>
 						<!--end::Mobile logo-->
