@@ -875,12 +875,15 @@
                                             var i_file = '';
                                             $.each(obj.data, function(index, value) {
                                                 i_file += '<div class="row mb-3">';
-                                                i_file += '<div class="col-lg-8" id="row_' + index + '"><input class="form-control form-control-solid" type="text" readonly value="' + value.nama_berkas_asli + '"></div>';
+                                                i_file += '<div class="col-lg-4" id="row_' + index + '"><input class="form-control form-control-solid" type="text" readonly value="' + value.nama_berkas_asli + '"></div>';
                                                 i_file += '<div class="col-lg-4">';
                                                 i_file += '<div class="form-check form-switch form-check-custom form-check-solid me-10">';
                                                 i_file += '<input class="form-check-input h-40px w-60px" type="checkbox" onchange="Elements.switch(event,' + index + ',\'' + value.nama_berkas_asli + '\')" value="1" id="flexSwitch40x60"/>';
                                                 i_file += '<label class="form-check-label" for="flexSwitch40x60">Ganti Berkas</label>';
                                                 i_file += '</div>';
+                                                i_file += '</div>';
+                                                i_file += '<div class="col-lg-4">';
+                                                i_file += '<a href="<?php echo site_url('rfq/download/'); ?>' + value.nama_berkas + '" class="btn btn-icon btn-sm btn-success me-2"><i class = "fas fa-download"></i></a><a href="" class="btn btn-icon btn-sm btn-success"><i class = "fas fa-eye"></i></a>';
                                                 i_file += '</div>';
                                                 i_file += '</div>';
                                             });

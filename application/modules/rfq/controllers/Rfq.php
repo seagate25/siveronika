@@ -905,15 +905,21 @@ class Rfq extends CI_Controller
 
     public function download()
     {
-        $filename   = $this->crypto->decode($this->uri->segment(3));
-        $explode    = explode("_", $filename);
-        $rfq_no     = $explode[1];
-        $equivalent = $explode[2];
-        $sequence   = $explode[3];
+        $this->load->helper('download');
+
+        $filename       = $this->crypto->decode($this->uri->segment(3));
+        $explode_ext    = explode(".", $filename);
+        $file_name      = $explode_ext[0];
+        $explode_fName  = explode("_", $file_name);
+        $rfq_no         = $explode_fName[1];
+        $equivalent     = $explode_fName[2];
+        $sequence       = $explode_fName[3];
 
         $params     = array('nomor_quotation' => $rfq_no, 'ekuivalen' => $equivalent, 'urutan_berkas' => $sequence);
         $get_file   = $this->rfq->getAttachedFiles($params);
         $file_data  = $get_file->row();
+
+        force_download($file_data->nama_berkas_asli, file_get_contents($file_data->alamat_berkas . $file_data->nama_berkas));
     }
 }
 
