@@ -80,10 +80,12 @@ class Rfq extends CI_Controller
         $rfq_no = $this->crypto->decode($this->input->post('val_1'));
         $id     = (int)$this->input->post('val_2');
 
-        $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $id);
-        $data   = $this->rfq->getDetailEquivalent($params);
+        $params     = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $id);
+        $data       = $this->rfq->getDetailEquivalent($params);
         if ($data->num_rows() > 0) {
 
+            $eqiv_data  = $data->row();
+            $eqiv_data->jumlah_inden = (int)$eqiv_data->jumlah_inden;
             unset($params['nomor_rfq']);
             $params['nomor_quotation']  = $rfq_no;
 
@@ -91,7 +93,7 @@ class Rfq extends CI_Controller
             $response = array(
                 'code'  => 0,
                 'msg'   => 'SUCCESS',
-                'data'  => $data->row(),
+                'data'  => $eqiv_data,
                 'files' => $files->result()
             );
         } else {

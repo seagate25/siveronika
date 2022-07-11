@@ -1001,8 +1001,8 @@
                                     $("input[name=merk_eqiv]").val(obj.data.merek);
                                     $("input[name=type_eqiv]").val(obj.data.tipe);
                                     $("input[name=made_eqiv]").val(obj.data.buatan);
-                                    $("input[name=available_total_eqiv]").val(obj.data.jumlah_tersedia);
-                                    $("input[name=indent_total_eqiv]").val(obj.data.jumlah_inden);
+                                    $("input[name=available_total_eqiv]").val(parseInt(obj.data.jumlah_tersedia));
+                                    $("input[name=indent_total_eqiv]").val(parseInt(obj.data.jumlah_inden));
                                     $("input[name=indent_day_eqiv]").val(obj.data.lama_inden);
 
                                     $("#input_file_eqiv div").remove();
