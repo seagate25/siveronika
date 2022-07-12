@@ -875,15 +875,15 @@
                                             var i_file = '';
                                             $.each(obj.data, function(index, value) {
                                                 i_file += '<div class="row mb-3">';
-                                                i_file += '<div class="col-lg-4" id="row_' + index + '"><input class="form-control form-control-solid" type="text" readonly value="' + value.nama_berkas_asli + '"></div>';
-                                                i_file += '<div class="col-lg-4">';
+                                                i_file += '<div class="col-lg-8" id="row_' + index + '"><input class="form-control form-control-solid" type="text" readonly value="' + value.nama_berkas_asli + '"></div>';
+                                                i_file += '<div class="col-lg-2">';
                                                 i_file += '<div class="form-check form-switch form-check-custom form-check-solid me-10">';
-                                                i_file += '<input class="form-check-input h-40px w-60px" type="checkbox" onchange="Elements.switch(event,' + index + ',\'' + value.nama_berkas_asli + '\')" value="1" id="flexSwitch40x60"/>';
+                                                i_file += '<input class="form-check-input h-40px w-60px" type="checkbox" onchange="Elements.switch(event,' + index + ',\'' + value.nama_berkas_asli + '\',\'' + value.nama_berkas + '\')" value="1" id="flexSwitch40x60"/>';
                                                 i_file += '<label class="form-check-label" for="flexSwitch40x60">Ganti Berkas</label>';
                                                 i_file += '</div>';
                                                 i_file += '</div>';
-                                                i_file += '<div class="col-lg-4">';
-                                                i_file += '<a href="<?php echo site_url('rfq/download/'); ?>' + value.nama_berkas + '" class="btn btn-icon btn-sm btn-success me-2"><i class = "fas fa-download"></i></a><a href="" class="btn btn-icon btn-sm btn-success"><i class = "fas fa-eye"></i></a>';
+                                                i_file += '<div class="col-lg-2" id="link_' + index + '">';
+                                                i_file += '<a href="<?php echo site_url('rfq/download/'); ?>' + value.nama_berkas + '" class="btn btn-icon btn-sm btn-success me-2"><i class = "fas fa-download"></i></a>';
                                                 i_file += '</div>';
                                                 i_file += '</div>';
                                             });
@@ -1015,11 +1015,14 @@
                                         $.each(obj.files, function(index, value) {
                                             i_file += '<div class="row mb-3">';
                                             i_file += '<div class="col-lg-8" id="row_eqiv_' + index + '"><input class="form-control form-control-solid" type="text" readonly value="' + value.nama_berkas_asli + '"></div>';
-                                            i_file += '<div class="col-lg-4">';
+                                            i_file += '<div class="col-lg-2">';
                                             i_file += '<div class="form-check form-switch form-check-custom form-check-solid me-10">';
-                                            i_file += '<input class="form-check-input h-40px w-60px" type="checkbox" onchange="Elements.switch_eqiv(event,' + index + ',\'' + value.nama_berkas_asli + '\')" value="1" id="flexSwitch40x60"/>';
+                                            i_file += '<input class="form-check-input h-40px w-60px" type="checkbox" onchange="Elements.switch_eqiv(event,' + index + ',\'' + value.nama_berkas_asli + '\',\'' + value.nama_berkas + '\')" value="1" id="flexSwitch40x60"/>';
                                             i_file += '<label class="form-check-label" for="flexSwitch40x60">Ganti Berkas</label>';
                                             i_file += '</div>';
+                                            i_file += '</div>';
+                                            i_file += '<div class="col-lg-2" id="link_eqiv_' + index + '">';
+                                            i_file += '<a href="<?php echo site_url('rfq/download/'); ?>' + value.nama_berkas + '" class="btn btn-icon btn-sm btn-success me-2"><i class = "fas fa-download"></i></a>';
                                             i_file += '</div>';
                                             i_file += '</div>';
                                         });
@@ -1568,24 +1571,26 @@
 
     var Elements = (function() {
         return {
-            switch: function(e, index, name) {
+            switch: function(e, index, name, file) {
                 var checked = e.target.checked;
                 if (checked) {
-                    $("#row_" + index + " > input").remove();
+                    $("#row_" + index + " > input, #link_" + index + " > a").remove();
                     $("#row_" + index).append('<input class="form-control rfq_file" type="file" name="rfq_file[' + index + ']"><input type="hidden" name="old_name[' + index + ']" value="' + name + '">');
                 } else {
                     $("#row_" + index + " > input").remove();
                     $("#row_" + index).append('<input class="form-control form-control-solid" type="text" readonly value="' + name + '">');
+                    $("#link_" + index).append('<a href="<?php echo site_url('rfq/download/'); ?>' + file + '" class="btn btn-icon btn-sm btn-success me-2"><i class = "fas fa-download"></i></a>');
                 }
             },
-            switch_eqiv: function(e, index, name) {
+            switch_eqiv: function(e, index, name, file) {
                 var checked = e.target.checked;
                 if (checked) {
-                    $("#row_eqiv_" + index + " > input").remove();
+                    $("#row_eqiv_" + index + " > input, #link_eqiv_" + index + " > a").remove();
                     $("#row_eqiv_" + index).append('<input class="form-control eqiv_file" type="file" name="eqiv_file[' + index + ']"><input type="hidden" name="old_name_eqiv[' + index + ']" value="' + name + '">');
                 } else {
                     $("#row_eqiv_" + index + " > input").remove();
                     $("#row_eqiv_" + index).append('<input class="form-control form-control-solid" type="text" readonly value="' + name + '">');
+                    $("#link_eqiv_" + index).append('<a href="<?php echo site_url('rfq/download/'); ?>' + file + '" class="btn btn-icon btn-sm btn-success me-2"><i class = "fas fa-download"></i></a>');
                 }
             }
         }
@@ -1627,13 +1632,11 @@
                 }
             }
         });
-
         $("input[name=unit_measure]").on("keyup", function() {
             if ($("input[name=convert]:checked").val() == '1') {
                 $("input[name=convertion_measure]").val(this.value);
             }
         });
-
         $("input[name=convert_eqiv]").on("change", function() {
             if ($(this).is(':checked')) {
                 if ($(this).val() == 0) {
@@ -1644,13 +1647,11 @@
                 }
             }
         });
-
         $("input[name=unit_measure_eqiv]").on("keyup", function() {
             if ($("input[name=convert_eqiv]:checked").val() == '1') {
                 $("input[name=convertion_measure_eqiv]").val(this.value);
             }
         });
-
         $("input[name=available_total_eqiv]").on('keyup change', function() {
             var request_total_eqiv = $("input[name=request_total_eqiv]").val();
             var indent_total_eqiv = parseInt(request_total_eqiv) - parseInt(this.value);

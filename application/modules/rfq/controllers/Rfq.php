@@ -90,11 +90,17 @@ class Rfq extends CI_Controller
             $params['nomor_quotation']  = $rfq_no;
 
             $files  = $this->rfq->getAttachedFiles($params);
+            if ($files->num_rows() > 0) {
+                $files_data = $files->result();
+                foreach ($files_data as $res) {
+                    $res->nama_berkas = $this->crypto->encode($res->nama_berkas);
+                }
+            }
             $response = array(
                 'code'  => 0,
                 'msg'   => 'SUCCESS',
                 'data'  => $eqiv_data,
-                'files' => $files->result()
+                'files' => $files_data
             );
         } else {
 
