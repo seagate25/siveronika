@@ -180,6 +180,18 @@
                 <!--begin::Input group-->
                 <div class="row mb-7">
                     <!--begin::Label-->
+                    <label class="col-lg-4 fw-bold text-muted">Alamat NPWP</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8">
+                        <span class="fs-6 text-gray-800"><?php echo $vendor->alamat_npwp; ?></span>
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="row mb-7">
+                    <!--begin::Label-->
                     <label class="col-lg-4 fw-bold text-muted">Nama Marketing</label>
                     <!--end::Label-->
                     <!--begin::Col-->
