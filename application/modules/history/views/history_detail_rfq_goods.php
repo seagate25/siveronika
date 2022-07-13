@@ -68,43 +68,47 @@
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="material_code" class="form-control form-control-solid" readonly="true" placeholder="Kode Material">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Nama Material</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="material_name" class="form-control form-control-solid" readonly="true" placeholder="Nama Material">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Permintaan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="number" name="request_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Satuan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="measurement" class="form-control form-control-solid" disabled placeholder="Satuan">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -116,7 +120,8 @@
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="currency" class="form-control form-control-solid" placeholder="Mata Uang" disabled>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -128,7 +133,8 @@
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
                                 <input type="text" name="unit_price" class="form-control form-control-solid" placeholder="Harga Satuan" disabled>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                             <!--begin::Label-->
                             <label class="col-lg-1 col-form-label required fw-bold fs-6">Per</label>
@@ -136,7 +142,8 @@
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
                                 <input type="text" name="unit_measure" class="form-control" placeholder="Satuan" disabled>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -161,7 +168,8 @@
                                     </label>
                                     <!--end::Option-->
                                 </div>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -197,11 +205,12 @@
                                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                                 </div>
                                             </td>
-                                            <td class="text-center"><input type="text" name="measurement"  class="form-control form-control-solid" disabled></td>
+                                            <td class="text-center"><input type="text" name="measurement" class="form-control form-control-solid" disabled></td>
                                         </tr>
                                     </tbody>
                                 </table>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -226,7 +235,8 @@
                                     </label>
                                     <!--end::Option-->
                                 </div>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -237,8 +247,9 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" name="ed_price" placeholder="Pick date rage" id="kt_daterangepicker_3" disabled/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input class="form-control form-control-solid" name="ed_price" placeholder="Pick date rage" id="kt_daterangepicker_3" disabled />
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -251,7 +262,8 @@
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <!-- <input class="form-control  form-control-solid" name="notes" placeholder="Keterangan" disabled/> -->
                                 <textarea class="form-control" name="notes" placeholder="Keterangan" rows="5" disabled></textarea>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -262,8 +274,9 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control  form-control-solid" name="created_by" placeholder="Dibuat oleh" disabled/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input class="form-control  form-control-solid" name="created_by" placeholder="Dibuat oleh" disabled />
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -289,7 +302,8 @@
                                 <div class="mb-3">
                                     <input class="form-control" type="file" name="rfq_file[]">
                                 </div> -->
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -311,7 +325,8 @@
                     <!--end::Button-->
                 </div>
                 <!--end::Modal footer-->
-            <div></div></form>
+                <div></div>
+            </form>
         </div>
     </div>
 </div>
@@ -354,36 +369,39 @@
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="material_code_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Kode Material">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Nama Material</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="material_name_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Nama Material">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Permintaan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="number" name="request_total_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Satuan</label>
                             <!--end::Label-->
@@ -392,7 +410,8 @@
                                 <input type="text" name="measurement_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Satuan">
                                 <input type="hidden" name="r_measurement_eqiv">
                                 <input type="hidden" name="desc_measure_eqiv">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -403,8 +422,9 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" name="currency_eqiv" placeholder="Mata Uang" id="" disabled/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input class="form-control form-control-solid" name="currency_eqiv" placeholder="Mata Uang" id="" disabled />
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -416,7 +436,8 @@
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
                                 <input type="text" name="unit_price_eqiv" class="form-control form-control-solid" placeholder="Harga Satuan" disabled>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                             <!--begin::Label-->
                             <label class="col-lg-1 col-form-label required fw-bold fs-6">Per</label>
@@ -424,8 +445,9 @@
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
                                 <input type="text" name="unit_measure_eqiv" class="form-control form-control-solid" placeholder="Satuan" disabled>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                            <!--end::Col--> 
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
                         <!--Begin::Input Group-->
@@ -449,7 +471,8 @@
                                     </label>
                                     <!--end::Option-->
                                 </div>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -485,11 +508,12 @@
                                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                                 </div>
                                             </td>
-                                            <td class="text-center"><input type="text" name="measurement_eqiv"  class="form-control form-control-solid" disabled></td>
+                                            <td class="text-center"><input type="text" name="measurement_eqiv" class="form-control form-control-solid" disabled></td>
                                         </tr>
                                     </tbody>
                                 </table>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -514,7 +538,8 @@
                                     </label>
                                     <!--end::Option-->
                                 </div>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -525,8 +550,9 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" name="ed_price_eqiv" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_4" disabled/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input class="form-control form-control-solid" name="ed_price_eqiv" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_4" disabled />
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -539,7 +565,8 @@
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <!-- <input class="form-control form-control-solid" name="notes_eqiv" placeholder="Keterangan" id="" disabled/> -->
                                 <textarea class="form-control" name="notes_eqiv" placeholder="Keterangan" rows="5" disabled></textarea>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -550,8 +577,9 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control  form-control-solid" name="created_by_eqiv" placeholder="Dibuat Oleh" id="" disabled/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input class="form-control  form-control-solid" name="created_by_eqiv" placeholder="Dibuat Oleh" id="" disabled />
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -577,7 +605,8 @@
                                 <div class="mb-3">
                                     <input class="form-control" type="file" name="eqiv_file[]">
                                 </div> -->
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -599,445 +628,645 @@
                     <!--end::Button-->
                 </div>
                 <!--end::Modal footer-->
-            <div></div></form>
+                <div></div>
+            </form>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-"use strict";
+    "use strict";
 
-var KTDataTables = (function() {
-    var e;
-    var target = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen .modal-content");
-    var blockUI = new KTBlockUI(target);
-    return {
-        init: function() {
-            e = $("#kt_datatable_detail_rfq_goods").DataTable({
-                processing:!0, 
-                serverSide:!0,
-                destroy: !0,
-                // responsive: !0,
-                // scrollY: "500px",
-                scrollX: !0,
-                // scrollCollapse: !0,
-                dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
-                // fixedHeader:    true,
-                // fixedColumns:   {
-                //     heightMatch: 'none',
-                //     leftColumns: 1,
-                //     rightColumns: 0
-                // },
-                paging: !0,
-                ordering: !0,
-                searching: !0,
-                ajax: {
-                    type: "POST",
-                    url: "<?php echo site_url('rfq/det_rfq_goods/'.$this->uri->segment(3));?>"
-                },
-                columns: [
-                    { data: 'number', className: 'text-center', sortable: false, searchable: false, orderable: false, 
-                        render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+    var KTDataTables = (function() {
+        var e;
+        var target = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen .modal-content");
+        var blockUI = new KTBlockUI(target);
+        return {
+            init: function() {
+                e = $("#kt_datatable_detail_rfq_goods").DataTable({
+                        processing: !0,
+                        serverSide: !0,
+                        destroy: !0,
+                        // responsive: !0,
+                        // scrollY: "500px",
+                        scrollX: !0,
+                        // scrollCollapse: !0,
+                        dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
+                            "<'row'<'col-sm-12'tr>>" +
+                            "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
+                        // fixedHeader:    true,
+                        // fixedColumns:   {
+                        //     heightMatch: 'none',
+                        //     leftColumns: 1,
+                        //     rightColumns: 0
+                        // },
+                        paging: !0,
+                        ordering: !0,
+                        searching: !0,
+                        ajax: {
+                            type: "POST",
+                            url: "<?php echo site_url('history/det_rfq_goods/' . $this->uri->segment(3)); ?>"
+                        },
+                        columns: [{
+                                data: 'number',
+                                className: 'text-center',
+                                sortable: false,
+                                searchable: false,
+                                orderable: false,
+                                render: function(data, type, row, meta) {
+                                    return meta.row + meta.settings._iDisplayStart + 1;
+                                }
+                            },
+                            {
+                                data: 'kode_barang',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'deskripsi_barang',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'jumlah_permintaan',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'satuan',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'status',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'actions',
+                                className: 'text-center',
+                                sortable: false,
+                                searchable: false,
+                                orderable: false
+                            },
+                            {
+                                data: 'actions_equivalen',
+                                className: 'text-center',
+                                sortable: false,
+                                searchable: false,
+                                orderable: false
+                            }
+                        ],
+                        lengthMenu: [
+                            [5, 10, 15, 25, -1],
+                            [5, 10, 15, 25, "All"]
+                        ],
+                        pageLength: 10,
+                        order: [1, 'ASC']
+                    }),
+                    $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.rfq_form', function() {
+                        var data = e.row($(this).parents('tr')).data();
+                        $("#kt_modal_det_rfq_goods h4 span#txt_rfq_no").text(data.nomor_rfq);
+                        $("#kt_modal_det_rfq_goods h4 span#txt_material_code").text(data.kode_barang);
+                        $("input[name=id_rfq]").val('<?php echo $this->uri->segment(3); ?>');
+                        $("input[name=unit_price]").maskMoney('mask', data.harga_satuan);
+                        $("input[name=material_code]").val(data.kode_barang);
+                        $("input[name=material_name]").val(data.deskripsi_barang);
+                        $("input[name=request_total]").val(data.jumlah_permintaan);
+                        $("input[name=measurement]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
+                        // if($('input[name="convert"]:checked').val() == 0) {
+                        //     $("#form_convertion").hide();
+                        // } else {
+                        //     $("#form_convertion").show();
+                        // }
+
+                        // if(data.modified_date != null && data.modified_by != null) {
+                        //     $("input[name=currency]").val(data.mata_uang);
+                        //     $("input[name=unit_measure]").val(data.per_harga_satuan);
+                        //     $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
+                        //     if($('input[name="convert"]:checked').val() == 0) {
+                        //         $("#form_convertion").hide();
+                        //     } else {
+                        //         $("#form_convertion").show();
+                        //     }
+                        //     $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
+                        //     $("input[name=ed_price]").val(data.masa_berlaku_harga);
+                        //     $("input[name=notes]").val(data.keterangan);
+                        //     $("input[name=created_by]").val(data.dibuat_oleh);
+                        // }
+
+                        // Last Modify (2022-07-04)
+                        $("input[name=currency]").val(data.mata_uang);
+                        $("input[name=unit_measure]").val(data.per_harga_satuan);
+                        $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
+                        if ($('input[name="convert"]:checked').val() == 0) {
+                            $("#form_convertion").hide();
+                        } else {
+                            $("#form_convertion").show();
+                            $("input[name=convertion_qty]").val(parseInt(data.jumlah_konversi));
+                            $("input[name=convertion_measure]").val(data.per_harga_satuan);
                         }
-                    },
-                    { data: 'kode_barang', className: 'text-center' },
-                    { data: 'deskripsi_barang', className: 'text-center' },
-                    { data: 'jumlah_permintaan', className: 'text-center' },
-                    { data: 'satuan', className: 'text-center' },
-                    { data: 'status', className: 'text-center' },
-                    { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false },
-                    { data: 'actions_equivalen', className: 'text-center', sortable: false, searchable: false, orderable: false }
-                ],
-                lengthMenu: [
-                        [5, 10, 15, 25, -1],
-                        [5, 10, 15, 25, "All"]
-                    ],
-                pageLength: 10,
-                order: [1, 'ASC']
-            }),
-            $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.rfq_form', function () {
-                var data = e.row($(this).parents('tr')).data();
-                $("#kt_modal_det_rfq_goods h4 span#txt_rfq_no").text(data.nomor_rfq);
-                $("#kt_modal_det_rfq_goods h4 span#txt_material_code").text(data.kode_barang);
-                $("input[name=id_rfq]").val('<?php echo $this->uri->segment(3);?>');
-                $("input[name=unit_price]").maskMoney('mask', data.harga_satuan);
-                $("input[name=material_code]").val(data.kode_barang);
-                $("input[name=material_name]").val(data.deskripsi_barang);
-                $("input[name=request_total]").val(data.jumlah_permintaan);
-                $("input[name=measurement]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
-                // if($('input[name="convert"]:checked').val() == 0) {
-                //     $("#form_convertion").hide();
-                // } else {
-                //     $("#form_convertion").show();
-                // }
+                        $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
+                        $("input[name=ed_price]").val(data.masa_berlaku_harga);
+                        $("textarea[name=notes]").val(data.keterangan);
+                        $("input[name=created_by]").val(data.dibuat_oleh);
 
-                // if(data.modified_date != null && data.modified_by != null) {
-                //     $("input[name=currency]").val(data.mata_uang);
-                //     $("input[name=unit_measure]").val(data.per_harga_satuan);
-                //     $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
-                //     if($('input[name="convert"]:checked').val() == 0) {
-                //         $("#form_convertion").hide();
-                //     } else {
-                //         $("#form_convertion").show();
-                //     }
-                //     $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
-                //     $("input[name=ed_price]").val(data.masa_berlaku_harga);
-                //     $("input[name=notes]").val(data.keterangan);
-                //     $("input[name=created_by]").val(data.dibuat_oleh);
-                // }
+                        if (data.modified_date != null && data.modified_by != null) {
+                            $.ajax({
+                                type: "POST",
+                                url: "<?php echo site_url('history/get_files'); ?>",
+                                data: {
+                                    val_1: '<?php echo $this->uri->segment(3); ?>',
+                                    val_2: 0
+                                },
+                                success: function(response) {
+                                    var obj = jQuery.parseJSON(response);
+                                    var i_file = '';
+                                    if (obj.code == 0) {
+                                        var uploaded_files = obj.data.length;
+                                        if (uploaded_files > 0) {
+                                            $.each(obj.data, function(index, value) {
+                                                i_file += '<div class="row mb-3">';
+                                                i_file += '<div class="col-lg-8" id="row_' + index + '"><input class="form-control form-control-solid" type="text" disabled value="' + value.nama_berkas_asli + '"></div>';
+                                                i_file += '<div class="col-lg-2" id="link_' + index + '">';
+                                                i_file += '<a href="<?php echo site_url('history/download/'); ?>' + value.nama_berkas + '" class="btn btn-icon btn-sm btn-success me-2"><i class = "fas fa-download"></i></a>';
+                                                i_file += '</div>';
+                                                i_file += '</div>';
+                                            });
+                                        } else {
+                                            i_file += '<div class="row mb-3">';
+                                            i_file += '<div class="col-lg-8" id="row"><input class="form-control form-control-solid" type="text" disabled value="Tidak ada berkas yang diupload"></div>';
+                                            i_file += '</div>';
+                                        }
+                                    } else {
+                                        i_file += '<div class="row mb-3">';
+                                        i_file += '<div class="col-lg-8" id="row"><input class="form-control form-control-solid" type="text" disabled value="Tidak ada berkas yang diupload"></div>';
+                                        i_file += '</div>';
+                                    }
+                                    $("#input_file").html(i_file);
+                                }
+                            });
+                        }
+                    }),
+                    $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form_1, button.eqiv_form_2, button.eqiv_form_3, button.eqiv_form_4', function() {
+                        blockUI.release();
 
-                // Last Modify (2022-07-04)
-                $("input[name=currency]").val(data.mata_uang);
-                $("input[name=unit_measure]").val(data.per_harga_satuan);
-                $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
-                if($('input[name="convert"]:checked').val() == 0) {
+                        var data = e.row($(this).parents('tr')).data();
+                        var id = $(this).attr('id');
+                        var eqiv_id = id.replace('btn_eqiv_', '');
+
+                        $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_rfq_no_eqiv").text(data.nomor_rfq);
+                        $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_material_code_eqiv").text(data.kode_barang);
+                        $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_seq_eqiv").text(eqiv_id);
+                        $("input[name=id_rfq_eqiv]").val('<?php echo $this->uri->segment(3); ?>');
+                        $("input[name=id_eqiv]").val(eqiv_id);
+                        $("input[name=seq_eqiv]").val(data.urutan_rfq);
+                        $("input[name=material_code_eqiv]").val(data.kode_barang);
+                        $("input[name=material_name_eqiv]").val(data.deskripsi_barang);
+                        $("input[name=request_total_eqiv]").val(data.jumlah_permintaan);
+                        $("input[name=measurement_eqiv]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
+                        $("input[name=r_measurement_eqiv]").val(data.satuan);
+                        $("input[name=desc_measure_eqiv]").val(data.deskripsi_satuan);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo site_url('history/get_det_rfq_eqiv'); ?>",
+                            data: {
+                                val_1: '<?php echo $this->uri->segment(3); ?>',
+                                val_2: eqiv_id
+                            },
+                            beforeSend: function() {
+                                blockUI.block();
+                            },
+                            success: function(response) {
+                                blockUI.release();
+                                var obj = jQuery.parseJSON(response);
+                                if (obj.code == 0) {
+                                    $("input[name=currency_eqiv]").val(obj.data.mata_uang);
+                                    $("input[name=unit_price_eqiv]").maskMoney('mask', parseInt(obj.data.harga_satuan));
+                                    $("input[name=unit_measure_eqiv]").val(obj.data.per_harga_satuan);
+                                    $('input[name="convert_eqiv"][value="' + obj.data.konversi + '"]').prop('checked', true);
+                                    if ($('input[name="convert_eqiv"]:checked').val() == 0) {
+                                        $("#form_convertion_eqiv").hide();
+                                    } else {
+                                        $("#form_convertion_eqiv").show();
+                                        $("input[name=convertion_qty_eqiv]").val(parseInt(obj.data.jumlah_konversi));
+                                        $("input[name=convertion_measure_eqiv]").val(obj.data.satuan_konversi);
+                                    }
+                                    $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
+                                    $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
+                                    $("textarea[name=notes_eqiv]").val(obj.data.keterangan);
+                                    $("input[name=created_by_eqiv]").val(obj.data.dibuat_oleh);
+                                    var i_file = '';
+                                    if (obj.files.length > 0) {
+                                        $.each(obj.files, function(index, value) {
+                                            i_file += '<div class="row mb-3">';
+                                            i_file += '<div class="col-lg-8" id="row_eqiv_' + index + '"><input class="form-control form-control-solid" type="text" disabled value="' + value.nama_berkas_asli + '"></div>';
+                                            i_file += '<div class="col-lg-2" id="link_eqiv_' + index + '">';
+                                            i_file += '<a href="<?php echo site_url('history/download/'); ?>' + value.nama_berkas + '" class="btn btn-icon btn-sm btn-success me-2"><i class = "fas fa-download"></i></a>';
+                                            i_file += '</div>';
+                                            i_file += '</div>';
+                                        });
+                                    } else {
+                                        i_file += '<div class="row mb-3">';
+                                        i_file += '<div class="col-lg-8" id="row_eqiv"><input class="form-control form-control-solid" type="text" disabled value="Tidak ada berkas yang diupload"></div>';
+                                        i_file += '</div>';
+                                    }
+                                    $("#input_file_eqiv").html(i_file);
+                                }
+                            },
+                            error: function() {
+                                blockUI.release();
+                            }
+                        });
+                    });
+            }
+        };
+    })();
+
+    var KTModalForm = (function() {
+        var a, b, c, d, e, f, g, t, u, v, w, x, y, z;
+        return {
+            rfq_form: function() {
+                (a = document.querySelector("#kt_modal_det_rfq_goods")) &&
+                ((b = new bootstrap.Modal(a)),
+                    (c = document.querySelector("#kt_modal_det_rfq_goods_form")),
+                    (d = document.getElementById("kt_modal_det_rfq_goods_submit")),
+                    (e = document.getElementById("kt_modal_det_rfq_goods_cancel")),
+                    (f = document.querySelector('[data-kt-det-rfq-goods-modal-action="close"]')),
+                    (g = FormValidation.formValidation(c, {
+                        fields: {
+                            material_code: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Kode Material tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            material_name: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Nama Material tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            request_total: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Jumlah Permintaan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            measurement: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Satuan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            currency: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Mata Uang tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            unit_price: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Harga Satuan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            unit_measure: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Satuan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            convert: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Wajib pilih salah satu"
+                                    }
+                                }
+                            },
+                            available: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Wajib pilih salah satu"
+                                    }
+                                }
+                            },
+                            ed_price: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Masa Berlaku Harga tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            created_by: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Dibuat Oleh tidak boleh kosong"
+                                    }
+                                }
+                            },
+                        },
+                        plugins: {
+                            trigger: new FormValidation.plugins.Trigger(),
+                            bootstrap: new FormValidation.plugins.Bootstrap5({
+                                rowSelector: ".fv-row",
+                                eleInvalidClass: "",
+                                eleValidClass: ""
+                            })
+                        },
+                    })),
+                    // d.addEventListener("click", function (e) {
+                    //     e.preventDefault(),
+                    //         g &&
+                    //             g.validate().then(function (e) {
+                    //                     var frmData = new FormData(c);
+                    //                     "Valid" == e
+                    //                         ? (
+                    //                             Swal.fire({
+                    //                                 text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                    //                                 icon: "warning",
+                    //                                 showCancelButton: !0,
+                    //                                 buttonsStyling: !1,
+                    //                                 confirmButtonText: "Ya, Simpan",
+                    //                                 cancelButtonText: "Kembali",
+                    //                                 customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
+                    //                             }).then(function (r) {
+                    //                                 r.value
+                    //                                     ? 
+                    //                                     (
+                    //                                         $.ajax({
+                    //                                             type: 'POST',
+                    //                                             url: c.getAttribute('action'),
+                    //                                             data: frmData,
+                    //                                             processData: false,
+                    //                                             contentType: false,
+                    //                                             beforeSend: function() {
+                    //                                                 d.setAttribute("data-kt-indicator", "on"),
+                    //                                                 (d.disabled = !0);
+                    //                                             },
+                    //                                             success: function(response) {
+                    //                                                 var obj = jQuery.parseJSON(response);
+                    //                                                 d.removeAttribute("data-kt-indicator"),
+                    //                                                 (d.disabled = !1);
+                    //                                                 Swal.fire({ 
+                    //                                                     text: obj.msg, 
+                    //                                                     icon: obj.status, 
+                    //                                                     buttonsStyling: !1, 
+                    //                                                     confirmButtonText: "Tutup", 
+                    //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
+                    //                                                     function (t) {
+                    //                                                         t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),g.resetForm(true),b.hide()) : r.dismiss;
+                    //                                                     }
+                    //                                                 );
+                    //                                             },
+                    //                                             error: function() {
+                    //                                                 d.removeAttribute("data-kt-indicator"),
+                    //                                                 (d.disabled = !1);
+                    //                                                 Swal.fire({ 
+                    //                                                     text: "Terjadi masalah koneksi", 
+                    //                                                     icon: "error", 
+                    //                                                     buttonsStyling: !1, 
+                    //                                                     confirmButtonText: "Tutup", 
+                    //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
+                    //                                                     function (t) {
+                    //                                                         t.isConfirmed && r.dismiss;
+                    //                                                     }
+                    //                                                 );
+                    //                                             }
+                    //                                         })
+                    //                                     )
+                    //                                     : "cancel" === r.dismiss;
+                    //                             })
+                    //                           )
+                    //                         : Swal.fire({
+                    //                               text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                    //                               icon: "error",
+                    //                               buttonsStyling: !1,
+                    //                               confirmButtonText: "Tutup",
+                    //                               customClass: { confirmButton: "btn btn-primary" },
+                    //                           });
+                    //             });
+                    // }),
+                    e.addEventListener("click", function(t) {
+                        $("#input_file div").remove(), g.resetForm(true), b.hide()
+                    })),
+                f.addEventListener("click", function(t) {
+                    $("#input_file div").remove(), g.resetForm(true), b.hide()
+                });
+            },
+            eqiv_form: function() {
+                (t = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen")) &&
+                ((u = new bootstrap.Modal(t)),
+                    (v = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen_form")),
+                    (w = document.getElementById("kt_modal_det_rfq_goods_ekuivalen_submit")),
+                    (x = document.getElementById("kt_modal_det_rfq_goods_ekuivalen_cancel")),
+                    (y = document.querySelector('[data-kt-det-rfq-goods-ekuivalen-modal-action="close"]')),
+                    (z = FormValidation.formValidation(v, {
+                        fields: {
+                            material_code_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Kode Material tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            material_name_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Nama Material tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            request_total_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Jumlah Permintaan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            measurement_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Satuan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            currency_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Mata Uang tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            unit_price_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Harga Satuan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            unit_measure_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Satuan tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            convert_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Wajib pilih salah satu"
+                                    }
+                                }
+                            },
+                            available_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Wajib pilih salah satu"
+                                    }
+                                }
+                            },
+                            ed_price_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Masa Berlaku Harga tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            created_by_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Dibuat Oleh tidak boleh kosong"
+                                    }
+                                }
+                            },
+                        },
+                        plugins: {
+                            trigger: new FormValidation.plugins.Trigger(),
+                            bootstrap: new FormValidation.plugins.Bootstrap5({
+                                rowSelector: ".fv-row",
+                                eleInvalidClass: "",
+                                eleValidClass: ""
+                            })
+                        },
+                    })),
+                    // w.addEventListener("click", function (e) {
+                    //     e.preventDefault(),
+                    //         z &&
+                    //             z.validate().then(function (e) {
+                    //                     var frmData_eqiv = new FormData(v);
+                    //                     "Valid" == e
+                    //                         ? (
+                    //                             Swal.fire({
+                    //                                 text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                    //                                 icon: "warning",
+                    //                                 showCancelButton: !0,
+                    //                                 buttonsStyling: !1,
+                    //                                 confirmButtonText: "Ya, Simpan",
+                    //                                 cancelButtonText: "Kembali",
+                    //                                 customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
+                    //                             }).then(function (r) {
+                    //                                 r.value
+                    //                                     ? 
+                    //                                     (
+                    //                                         $.ajax({
+                    //                                             type: 'POST',
+                    //                                             url: v.getAttribute('action'),
+                    //                                             data: frmData_eqiv,
+                    //                                             processData: false,
+                    //                                             contentType: false,
+                    //                                             beforeSend: function() {
+                    //                                                 w.setAttribute("data-kt-indicator", "on"),
+                    //                                                 (w.disabled = !0);
+                    //                                             },
+                    //                                             success: function(response) {
+                    //                                                 var obj = jQuery.parseJSON(response);
+                    //                                                 w.removeAttribute("data-kt-indicator"),
+                    //                                                 (w.disabled = !1);
+                    //                                                 Swal.fire({ 
+                    //                                                     text: obj.msg, 
+                    //                                                     icon: obj.status, 
+                    //                                                     buttonsStyling: !1, 
+                    //                                                     confirmButtonText: "Tutup", 
+                    //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
+                    //                                                     function (t) {
+                    //                                                         t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),z.resetForm(true),u.hide()) : r.dismiss;
+                    //                                                     }
+                    //                                                 );
+                    //                                             },
+                    //                                             error: function() {
+                    //                                                 w.removeAttribute("data-kt-indicator"),
+                    //                                                 (w.disabled = !1);
+                    //                                                 Swal.fire({ 
+                    //                                                     text: "Terjadi masalah koneksi", 
+                    //                                                     icon: "error", 
+                    //                                                     buttonsStyling: !1, 
+                    //                                                     confirmButtonText: "Tutup", 
+                    //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
+                    //                                                     function (t) {
+                    //                                                         t.isConfirmed && r.dismiss;
+                    //                                                     }
+                    //                                                 );
+                    //                                             }
+                    //                                         })
+                    //                                     )
+                    //                                     : "cancel" === r.dismiss;
+                    //                             })
+                    //                           )
+                    //                         : Swal.fire({
+                    //                               text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                    //                               icon: "error",
+                    //                               buttonsStyling: !1,
+                    //                               confirmButtonText: "Tutup",
+                    //                               customClass: { confirmButton: "btn btn-primary" },
+                    //                           });
+                    //             });
+                    // }),
+                    x.addEventListener("click", function(t) {
+                        $("#input_file_eqiv div").remove(), z.resetForm(true), u.hide()
+                    })),
+                y.addEventListener("click", function(t) {
+                    $("#input_file_eqiv div").remove(), z.resetForm(true), u.hide()
+                });
+            }
+        }
+    })();
+
+    KTUtil.onDOMContentLoaded((function() {
+        KTDataTables.init();
+        KTModalForm.rfq_form();
+        KTModalForm.eqiv_form();
+        $("input[name=unit_price]").maskMoney({
+            thousands: '.',
+            decimal: ',',
+            affixesStay: false,
+            precision: 0
+        });
+        $("input[name=unit_price_eqiv]").maskMoney({
+            thousands: '.',
+            decimal: ',',
+            affixesStay: false,
+            precision: 0
+        });
+        $("#kt_daterangepicker_3, #kt_daterangepicker_4").daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 1901,
+            maxYear: parseInt(moment().format("YYYY"), 10),
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+        });
+        $("input[name=convert]").on("change", function() {
+            if ($(this).is(':checked')) {
+                if ($(this).val() == 0) {
                     $("#form_convertion").hide();
                 } else {
                     $("#form_convertion").show();
-                    $("input[name=convertion_qty]").val(parseInt(data.jumlah_konversi));
-                    $("input[name=convertion_measure]").val(data.per_harga_satuan);
                 }
-                $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
-                $("input[name=ed_price]").val(data.masa_berlaku_harga);
-                $("textarea[name=notes]").val(data.keterangan);
-                $("input[name=created_by]").val(data.dibuat_oleh);
-
-                if(data.modified_date != null && data.modified_by != null) {
-                    $.ajax({
-                        type: "POST",
-                        url: "<?php echo site_url('history/get_files');?>",
-                        data: { val_1: '<?php echo $this->uri->segment(3);?>', val_2: 0 },
-                        success: function(response) {
-                            var obj = jQuery.parseJSON(response);
-                            var i_file = '';
-                            if(obj.code == 0) {
-                                var uploaded_files = obj.data.length;
-                                if(uploaded_files > 0) {
-                                    $.each(obj.data, function(index, value) {
-                                        i_file += '<div class="mb-3">';
-                                        i_file += '<div class="col-lg-8" id="row_'+index+'"><input class="form-control form-control-solid" type="text" disabled value="'+value.nama_berkas_asli+'"></div>';
-                                        i_file += '</div>';
-                                    });
-                                } else {
-                                    i_file += '<div class="mb-3">';
-                                    i_file += '<div class="col-lg-8" id="row"><input class="form-control form-control-solid" type="text" disabled value="Tidak ada berkas yang diupload"></div>';
-                                    i_file += '</div>';
-                                }
-                            } else {
-                                i_file += '<div class="mb-3">';
-                                i_file += '<div class="col-lg-8" id="row"><input class="form-control form-control-solid" type="text" disabled value="Tidak ada berkas yang diupload"></div>';
-                                i_file += '</div>';
-                            }
-                            $("#input_file").html(i_file);
-                        }
-                    });
-                }
-            }),
-            $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form_1, button.eqiv_form_2, button.eqiv_form_3, button.eqiv_form_4', function () {
-                blockUI.release();
-                
-                var data = e.row($(this).parents('tr')).data();
-                var id = $(this).attr('id');
-                var eqiv_id = id.replace('btn_eqiv_', '');
-
-                $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_rfq_no_eqiv").text(data.nomor_rfq);
-                $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_material_code_eqiv").text(data.kode_barang);
-                $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_seq_eqiv").text(eqiv_id);
-                $("input[name=id_rfq_eqiv]").val('<?php echo $this->uri->segment(3);?>');
-                $("input[name=id_eqiv]").val(eqiv_id);
-                $("input[name=seq_eqiv]").val(data.urutan_rfq);
-                $("input[name=material_code_eqiv]").val(data.kode_barang);
-                $("input[name=material_name_eqiv]").val(data.deskripsi_barang);
-                $("input[name=request_total_eqiv]").val(data.jumlah_permintaan);
-                $("input[name=measurement_eqiv]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
-                $("input[name=r_measurement_eqiv]").val(data.satuan);
-                $("input[name=desc_measure_eqiv]").val(data.deskripsi_satuan);
-
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo site_url('history/get_det_rfq_eqiv');?>",
-                    data: { val_1: '<?php echo $this->uri->segment(3);?>', val_2: eqiv_id },
-                    beforeSend: function() {
-                        blockUI.block();
-                    },
-                    success: function(response) {
-                        blockUI.release();
-                        var obj = jQuery.parseJSON(response);
-                        if(obj.code == 0) {
-                            $("input[name=currency_eqiv]").val(obj.data.mata_uang);
-                            $("input[name=unit_price_eqiv]").maskMoney('mask', parseInt(obj.data.harga_satuan));
-                            $("input[name=unit_measure_eqiv]").val(obj.data.per_harga_satuan);
-                            $('input[name="convert_eqiv"][value="' + obj.data.konversi + '"]').prop('checked', true);
-                            if($('input[name="convert_eqiv"]:checked').val() == 0) {
-                                $("#form_convertion_eqiv").hide();
-                            } else {
-                                $("#form_convertion_eqiv").show();
-                                $("input[name=convertion_qty_eqiv]").val(parseInt(obj.data.jumlah_konversi));
-                                $("input[name=convertion_measure_eqiv]").val(obj.data.satuan_konversi);
-                            }
-                            $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
-                            $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
-                            $("textarea[name=notes_eqiv]").val(obj.data.keterangan);
-                            $("input[name=created_by_eqiv]").val(obj.data.dibuat_oleh);
-                            var i_file = '';
-                            if(obj.files.length > 0) {
-                                $.each(obj.files, function(index, value) {
-                                    i_file += '<div class="mb-3">';
-                                    i_file += '<div class="col-lg-8" id="row_eqiv_'+index+'"><input class="form-control form-control-solid" type="text" disabled value="'+value.nama_berkas_asli+'"></div>';
-                                    i_file += '</div>';
-                                });
-                            } else {
-                                i_file += '<div class="mb-3">';
-                                i_file += '<div class="col-lg-8" id="row_eqiv"><input class="form-control form-control-solid" type="text" disabled value="Tidak ada berkas yang diupload"></div>';
-                                i_file += '</div>';
-                            }
-                            $("#input_file_eqiv").html(i_file);
-                        }
-                    },
-                    error: function () {
-                        blockUI.release();
-                    } 
-                });
-            });
-        }
-    };
-})();
-
-var KTModalForm = (function() {
-    var a, b, c, d, e, f, g, t, u, v, w, x, y, z;
-    return {
-        rfq_form: function() {
-            (a = document.querySelector("#kt_modal_det_rfq_goods")) &&
-                ((b = new bootstrap.Modal(a)),
-                (c = document.querySelector("#kt_modal_det_rfq_goods_form")),
-                (d = document.getElementById("kt_modal_det_rfq_goods_submit")),
-                (e = document.getElementById("kt_modal_det_rfq_goods_cancel")),
-                (f = document.querySelector('[data-kt-det-rfq-goods-modal-action="close"]')),
-                (g = FormValidation.formValidation(c, {
-                    fields: {
-                        material_code: { validators: { notEmpty: { message: "Kode Material tidak boleh kosong" } } },
-                        material_name: { validators: { notEmpty: { message: "Nama Material tidak boleh kosong" } } },
-                        request_total: { validators: { notEmpty: { message: "Jumlah Permintaan tidak boleh kosong" } } },
-                        measurement: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
-                        currency: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
-                        unit_price: { validators: { notEmpty: { message: "Harga Satuan tidak boleh kosong" } } },
-                        unit_measure: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
-                        convert: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
-                        available: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
-                        ed_price: { validators: { notEmpty: { message: "Masa Berlaku Harga tidak boleh kosong" } } },
-                        created_by: { validators: { notEmpty: { message: "Dibuat Oleh tidak boleh kosong" } } },
-                    },
-                    plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
-                })),
-                // d.addEventListener("click", function (e) {
-                //     e.preventDefault(),
-                //         g &&
-                //             g.validate().then(function (e) {
-                //                     var frmData = new FormData(c);
-                //                     "Valid" == e
-                //                         ? (
-                //                             Swal.fire({
-                //                                 text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
-                //                                 icon: "warning",
-                //                                 showCancelButton: !0,
-                //                                 buttonsStyling: !1,
-                //                                 confirmButtonText: "Ya, Simpan",
-                //                                 cancelButtonText: "Kembali",
-                //                                 customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
-                //                             }).then(function (r) {
-                //                                 r.value
-                //                                     ? 
-                //                                     (
-                //                                         $.ajax({
-                //                                             type: 'POST',
-                //                                             url: c.getAttribute('action'),
-                //                                             data: frmData,
-                //                                             processData: false,
-                //                                             contentType: false,
-                //                                             beforeSend: function() {
-                //                                                 d.setAttribute("data-kt-indicator", "on"),
-                //                                                 (d.disabled = !0);
-                //                                             },
-                //                                             success: function(response) {
-                //                                                 var obj = jQuery.parseJSON(response);
-                //                                                 d.removeAttribute("data-kt-indicator"),
-                //                                                 (d.disabled = !1);
-                //                                                 Swal.fire({ 
-                //                                                     text: obj.msg, 
-                //                                                     icon: obj.status, 
-                //                                                     buttonsStyling: !1, 
-                //                                                     confirmButtonText: "Tutup", 
-                //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
-                //                                                     function (t) {
-                //                                                         t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),g.resetForm(true),b.hide()) : r.dismiss;
-                //                                                     }
-                //                                                 );
-                //                                             },
-                //                                             error: function() {
-                //                                                 d.removeAttribute("data-kt-indicator"),
-                //                                                 (d.disabled = !1);
-                //                                                 Swal.fire({ 
-                //                                                     text: "Terjadi masalah koneksi", 
-                //                                                     icon: "error", 
-                //                                                     buttonsStyling: !1, 
-                //                                                     confirmButtonText: "Tutup", 
-                //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
-                //                                                     function (t) {
-                //                                                         t.isConfirmed && r.dismiss;
-                //                                                     }
-                //                                                 );
-                //                                             }
-                //                                         })
-                //                                     )
-                //                                     : "cancel" === r.dismiss;
-                //                             })
-                //                           )
-                //                         : Swal.fire({
-                //                               text: "Maaf, masih ada field yang kosong, silahkan diisi.",
-                //                               icon: "error",
-                //                               buttonsStyling: !1,
-                //                               confirmButtonText: "Tutup",
-                //                               customClass: { confirmButton: "btn btn-primary" },
-                //                           });
-                //             });
-                // }),
-                e.addEventListener("click", function (t) {
-                    $("#input_file div").remove(), g.resetForm(true), b.hide()
-                })),
-                f.addEventListener("click", function (t) {
-                    $("#input_file div").remove(), g.resetForm(true), b.hide()
-                });
-        },
-        eqiv_form: function() {
-            (t = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen")) &&
-                ((u = new bootstrap.Modal(t)),
-                (v = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen_form")),
-                (w = document.getElementById("kt_modal_det_rfq_goods_ekuivalen_submit")),
-                (x = document.getElementById("kt_modal_det_rfq_goods_ekuivalen_cancel")),
-                (y = document.querySelector('[data-kt-det-rfq-goods-ekuivalen-modal-action="close"]')),
-                (z = FormValidation.formValidation(v, {
-                    fields: {
-                        material_code_eqiv: { validators: { notEmpty: { message: "Kode Material tidak boleh kosong" } } },
-                        material_name_eqiv: { validators: { notEmpty: { message: "Nama Material tidak boleh kosong" } } },
-                        request_total_eqiv: { validators: { notEmpty: { message: "Jumlah Permintaan tidak boleh kosong" } } },
-                        measurement_eqiv: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
-                        currency_eqiv: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
-                        unit_price_eqiv: { validators: { notEmpty: { message: "Harga Satuan tidak boleh kosong" } } },
-                        unit_measure_eqiv: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
-                        convert_eqiv: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
-                        available_eqiv: { validators: { notEmpty: { message: "Wajib pilih salah satu" } } },
-                        ed_price_eqiv: { validators: { notEmpty: { message: "Masa Berlaku Harga tidak boleh kosong" } } },
-                        created_by_eqiv: { validators: { notEmpty: { message: "Dibuat Oleh tidak boleh kosong" } } },
-                    },
-                    plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" }) },
-                })),
-                // w.addEventListener("click", function (e) {
-                //     e.preventDefault(),
-                //         z &&
-                //             z.validate().then(function (e) {
-                //                     var frmData_eqiv = new FormData(v);
-                //                     "Valid" == e
-                //                         ? (
-                //                             Swal.fire({
-                //                                 text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
-                //                                 icon: "warning",
-                //                                 showCancelButton: !0,
-                //                                 buttonsStyling: !1,
-                //                                 confirmButtonText: "Ya, Simpan",
-                //                                 cancelButtonText: "Kembali",
-                //                                 customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
-                //                             }).then(function (r) {
-                //                                 r.value
-                //                                     ? 
-                //                                     (
-                //                                         $.ajax({
-                //                                             type: 'POST',
-                //                                             url: v.getAttribute('action'),
-                //                                             data: frmData_eqiv,
-                //                                             processData: false,
-                //                                             contentType: false,
-                //                                             beforeSend: function() {
-                //                                                 w.setAttribute("data-kt-indicator", "on"),
-                //                                                 (w.disabled = !0);
-                //                                             },
-                //                                             success: function(response) {
-                //                                                 var obj = jQuery.parseJSON(response);
-                //                                                 w.removeAttribute("data-kt-indicator"),
-                //                                                 (w.disabled = !1);
-                //                                                 Swal.fire({ 
-                //                                                     text: obj.msg, 
-                //                                                     icon: obj.status, 
-                //                                                     buttonsStyling: !1, 
-                //                                                     confirmButtonText: "Tutup", 
-                //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
-                //                                                     function (t) {
-                //                                                         t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),z.resetForm(true),u.hide()) : r.dismiss;
-                //                                                     }
-                //                                                 );
-                //                                             },
-                //                                             error: function() {
-                //                                                 w.removeAttribute("data-kt-indicator"),
-                //                                                 (w.disabled = !1);
-                //                                                 Swal.fire({ 
-                //                                                     text: "Terjadi masalah koneksi", 
-                //                                                     icon: "error", 
-                //                                                     buttonsStyling: !1, 
-                //                                                     confirmButtonText: "Tutup", 
-                //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
-                //                                                     function (t) {
-                //                                                         t.isConfirmed && r.dismiss;
-                //                                                     }
-                //                                                 );
-                //                                             }
-                //                                         })
-                //                                     )
-                //                                     : "cancel" === r.dismiss;
-                //                             })
-                //                           )
-                //                         : Swal.fire({
-                //                               text: "Maaf, masih ada field yang kosong, silahkan diisi.",
-                //                               icon: "error",
-                //                               buttonsStyling: !1,
-                //                               confirmButtonText: "Tutup",
-                //                               customClass: { confirmButton: "btn btn-primary" },
-                //                           });
-                //             });
-                // }),
-                x.addEventListener("click", function (t) {
-                    $("#input_file_eqiv div").remove(), z.resetForm(true), u.hide()
-                })),
-                y.addEventListener("click", function (t) {
-                    $("#input_file_eqiv div").remove(), z.resetForm(true), u.hide()
-                });
-        }
-    }
-})();
-
-KTUtil.onDOMContentLoaded((function() {
-    KTDataTables.init();
-    KTModalForm.rfq_form();
-    KTModalForm.eqiv_form();
-    $("input[name=unit_price]").maskMoney({ thousands:'.', decimal:',', affixesStay: false, precision: 0});
-    $("input[name=unit_price_eqiv]").maskMoney({ thousands:'.', decimal:',', affixesStay: false, precision: 0});
-    $("#kt_daterangepicker_3, #kt_daterangepicker_4").daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true,
-        minYear: 1901,
-        maxYear: parseInt(moment().format("YYYY"),10),
-        locale: {
-            format: 'YYYY-MM-DD'
-        }
-    });
-    $("input[name=convert]").on("change", function() {
-        if($(this).is(':checked')) {
-            if($(this).val() == 0) {
-                $("#form_convertion").hide();
-            } else {
-                $("#form_convertion").show();
             }
-        }
-    });
-}));
+        });
+    }));
 </script>
