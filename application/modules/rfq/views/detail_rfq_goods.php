@@ -546,7 +546,16 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <input type="text" name="unit_measure_eqiv" class="form-control" placeholder="Satuan">
+                                <!-- <input type="text" name="unit_measure_eqiv" class="form-control" placeholder="Satuan"> -->
+                                <select class="form-select form-select-solid" name="unit_measure_eqiv" id="unit_measure_eqiv" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods_ekuivalen" data-placeholder="Pilih Satuan">
+                                    <?php
+                                    foreach ($UoMs as $UoM) {
+                                    ?>
+                                        <option value="<?php echo $UoM->satuan; ?>"><?php echo $UoM->satuan; ?> (<?php echo $UoM->deskripsi_satuan; ?>)</option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -601,7 +610,7 @@
                                             <td>Satuan Konversi</td>
                                             <td class="text-center">1</td>
                                             <td class="text-center">
-                                                <input type="text" name="convertion_measure_eqiv" class="form-control form-control-solid" readonly="true">
+                                                <input type="text" name="convertion_measure_eqiv" class="form-control form-control-solid text-center" readonly="true">
                                             </td>
                                             <td class="text-center">=</td>
                                             <td class="text-center">
@@ -952,8 +961,9 @@
                         $("input[name=material_name_eqiv]").val(data.deskripsi_barang);
                         $("input[name=request_total_eqiv]").val(data.jumlah_permintaan);
                         $("input[name=measurement_eqiv]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
-                        $("input[name=r_measurement_eqiv]").val(data.satuan);
-                        $("input[name=desc_measure_eqiv]").val(data.deskripsi_satuan);
+                        $("input[name=r_measurement_eqiv]").val($.trim(data.satuan));
+                        $("input[name=desc_measure_eqiv]").val($.trim(data.deskripsi_satuan));
+                        $("#unit_measure_eqiv").val(null).trigger('change');
                         $('input[name="convert_eqiv"][value="0"]').prop('checked', true);
                         $('input[name="available_eqiv"][value="0"]').prop('checked', true);
                         $("input[name=ed_price_eqiv]").val('');
@@ -1000,14 +1010,14 @@
                                 if (obj.code == 0) {
                                     $("input[name=currency_eqiv]").val(obj.data.mata_uang);
                                     $("input[name=unit_price_eqiv]").maskMoney('mask', parseInt(obj.data.harga_satuan));
-                                    $("input[name=unit_measure_eqiv]").val(obj.data.per_harga_satuan);
+                                    $("#unit_measure_eqiv").val(obj.data.per_harga_satuan).trigger('change');
                                     $('input[name="convert_eqiv"][value="' + obj.data.konversi + '"]').prop('checked', true);
                                     if ($('input[name="convert_eqiv"]:checked').val() == 0) {
                                         $("#form_convertion_eqiv").hide();
                                     } else {
                                         $("#form_convertion_eqiv").show();
                                         $("input[name=convertion_qty_eqiv]").val(parseInt(obj.data.jumlah_konversi));
-                                        $("input[name=convertion_measure_eqiv]").val(obj.data.per_harga_satuan);
+                                        $("input[name=convertion_measure_eqiv]").val($("#unit_measure_eqiv").select2('data')[0].text);
                                     }
                                     $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
                                     $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
@@ -1648,7 +1658,7 @@
                     $("#unit_measure").on('select2:select', function(e) {
                         var data = e.params.data;
                         $("input[name=convertion_measure]").val(data.text);
-                    })
+                    });
                 }
             }
         });
@@ -1664,15 +1674,21 @@
                     $("#form_convertion_eqiv").hide();
                 } else {
                     $("#form_convertion_eqiv").show();
-                    $("input[name=convertion_measure_eqiv]").val($("input[name=unit_measure_eqiv]").val());
+                    if ($("#unit_measure_eqiv").val() !== '') {
+                        $("input[name=convertion_measure_eqiv]").val($("#unit_measure_eqiv").select2('data')[0].text);
+                    }
+                    $("#unit_measure_eqiv").on('select2:select', function(e) {
+                        var data = e.params.data;
+                        $("input[name=convertion_measure_eqiv]").val(data.text);
+                    })
                 }
             }
         });
-        $("input[name=unit_measure_eqiv]").on("keyup", function() {
-            if ($("input[name=convert_eqiv]:checked").val() == '1') {
-                $("input[name=convertion_measure_eqiv]").val(this.value);
-            }
-        });
+        // $("input[name=unit_measure_eqiv]").on("keyup", function() {
+        //     if ($("input[name=convert_eqiv]:checked").val() == '1') {
+        //         $("input[name=convertion_measure_eqiv]").val(this.value);
+        //     }
+        // });
         $("input[name=available_total_eqiv]").on('keyup change', function() {
             var request_total_eqiv = $("input[name=request_total_eqiv]").val();
             var indent_total_eqiv = parseInt(request_total_eqiv) - parseInt(this.value);
