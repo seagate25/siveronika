@@ -67,6 +67,7 @@ class Rfq extends CI_Controller
         $data['menu']       = "RFQ";
         $data['submenu']    = "Detail RFQ Barang";
         $data['content']    = "detail_rfq_goods";
+        $data['UoMs']       = $this->rfq->getUoM();
         $this->load->view('default', $data);
     }
 
@@ -163,6 +164,7 @@ class Rfq extends CI_Controller
         $material_name  = $this->input->post('material_name');
         $request_total  = $this->input->post('request_total');
         $measurement    = $this->input->post('measurement');
+        $real_measure   = $this->input->post('r_measurement');
         $currency       = $this->input->post('currency');
         $unit_price     = str_replace('.', '', $this->input->post('unit_price'));
         $unit_measure   = $this->input->post('unit_measure');
@@ -324,7 +326,7 @@ class Rfq extends CI_Controller
                 'per_harga_satuan'      => $unit_measure,
                 'konversi'              => $convert,
                 'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : 'NULL',
-                'satuan_konversi'       => ($convert == '1') ? $measurement : 'NULL',
+                'satuan_konversi'       => ($convert == '1') ? $real_measure : 'NULL',
                 'ketersediaan_barang'   => $available,
                 'masa_berlaku_harga'    => $ed_price,
                 'keterangan'            => $notes,
@@ -428,7 +430,7 @@ class Rfq extends CI_Controller
                 'per_harga_satuan'      => $unit_measure,
                 'konversi'              => $convert,
                 'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : 'NULL',
-                'satuan_konversi'       => ($convert == '1') ? $measurement : 'NULL',
+                'satuan_konversi'       => ($convert == '1') ? $real_measure : 'NULL',
                 'ketersediaan_barang'   => $available,
                 'masa_berlaku_harga'    => $ed_price,
                 'keterangan'            => $notes,

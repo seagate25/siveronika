@@ -107,6 +107,8 @@
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="measurement" class="form-control form-control-solid" readonly="true" placeholder="Satuan">
+                                <input type="hidden" name="r_measurement">
+                                <input type="hidden" name="desc_measure">
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -141,7 +143,16 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <input type="text" name="unit_measure" class="form-control" placeholder="Satuan">
+                                <!-- <input type="text" name="unit_measure" class="form-control" placeholder="Satuan"> -->
+                                <select class="form-select form-select-solid" name="unit_measure" id="unit_measure" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods" data-placeholder="Pilih Satuan">
+                                    <?php
+                                    foreach ($UoMs as $UoM) {
+                                    ?>
+                                        <option value="<?php echo $UoM->satuan; ?>"><?php echo $UoM->satuan; ?> (<?php echo $UoM->deskripsi_satuan; ?>)</option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -196,7 +207,7 @@
                                             <td>Satuan Konversi</td>
                                             <td class="text-center">1</td>
                                             <td class="text-center">
-                                                <input type="text" name="convertion_measure" class="form-control form-control-solid" readonly="true">
+                                                <input type="text" name="convertion_measure" class="form-control form-control-solid text-center" readonly="true">
                                             </td>
                                             <td class="text-center">=</td>
                                             <td class="text-center">
@@ -818,10 +829,13 @@
                         $("#kt_modal_det_rfq_goods h4 span#txt_material_code").text(data.kode_barang);
                         $("input[name=id_rfq]").val('<?php echo $this->uri->segment(3); ?>');
                         $("input[name=unit_price]").maskMoney('mask', data.harga_satuan);
+                        $('#unit_measure').val(null).trigger('change');
                         $("input[name=material_code]").val(data.kode_barang);
                         $("input[name=material_name]").val(data.deskripsi_barang);
                         $("input[name=request_total]").val(data.jumlah_permintaan);
                         $("input[name=measurement]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
+                        $("input[name=r_measurement]").val($.trim(data.satuan));
+                        $("input[name=desc_measure]").val($.trim(data.deskripsi_satuan));
                         $('input[name="convert"][value="0"]').prop('checked', true);
                         if ($('input[name="convert"]:checked').val() == 0) {
                             $("#form_convertion").hide();
@@ -841,14 +855,14 @@
 
                         if (data.modified_date != null && data.modified_by != null) {
                             $("input[name=currency]").val(data.mata_uang);
-                            $("input[name=unit_measure]").val(data.per_harga_satuan);
+                            $("#unit_measure").val(data.per_harga_satuan).trigger('change');
                             $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
                             if ($('input[name="convert"]:checked').val() == 0) {
                                 $("#form_convertion").hide();
                             } else {
                                 $("#form_convertion").show();
                                 $("input[name=convertion_qty]").val(parseInt(data.jumlah_konversi));
-                                $("input[name=convertion_measure]").val(data.per_harga_satuan);
+                                $("input[name=convertion_measure]").val($("#unit_measure").select2('data')[0].text);
                             }
                             $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
                             $("input[name=ed_price]").val(data.masa_berlaku_harga);
@@ -1628,15 +1642,22 @@
                     $("#form_convertion").hide();
                 } else {
                     $("#form_convertion").show();
-                    $("input[name=convertion_measure]").val($("input[name=unit_measure]").val());
+                    if ($("#unit_measure").val() !== '') {
+                        $("input[name=convertion_measure]").val($("#unit_measure").select2('data')[0].text);
+                    }
+                    $("#unit_measure").on('select2:select', function(e) {
+                        var data = e.params.data;
+                        $("input[name=convertion_measure]").val(data.text);
+                    })
                 }
             }
         });
-        $("input[name=unit_measure]").on("keyup", function() {
-            if ($("input[name=convert]:checked").val() == '1') {
-                $("input[name=convertion_measure]").val(this.value);
-            }
-        });
+        // $("input[name=unit_measure]").on("keyup", function() {
+        //     if ($("input[name=convert]:checked").val() == '1') {
+        //         $("input[name=convertion_measure]").val(this.value);
+        //     }
+        // });
+        // $("#unit_measure").select2({});
         $("input[name=convert_eqiv]").on("change", function() {
             if ($(this).is(':checked')) {
                 if ($(this).val() == 0) {

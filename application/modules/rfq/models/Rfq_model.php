@@ -369,6 +369,19 @@ class Rfq_model extends CI_Model
         $this->load->model('Global_model', 'global');
         $this->global->update($this->table[5], $params, $data);
     }
+
+    public function getUoM()
+    {
+        $this->load->model('Global_model', 'global');
+        $query  = $this->global->get_all('TB_S_MST_SATUAN');
+        $result = $query->result();
+        foreach ($result as $res) {
+            $res->satuan            = trim($res->satuan);
+            $res->deskripsi_satuan  = utf8_encode(trim($res->deskripsi_satuan));
+        }
+
+        return $result;
+    }
 }
 
 /* End of file Rfq_model.php */
