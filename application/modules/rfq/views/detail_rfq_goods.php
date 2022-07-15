@@ -148,7 +148,7 @@
                                     <?php
                                     foreach ($UoMs as $UoM) {
                                     ?>
-                                        <option value="<?php echo $UoM->satuan; ?>"><?php echo $UoM->satuan; ?> (<?php echo $UoM->deskripsi_satuan; ?>)</option>
+                                        <option value="<?php echo $UoM->satuan; ?>"><?php echo $UoM->deskripsi_satuan; ?> (<?php echo $UoM->satuan; ?>)</option>
                                     <?php
                                     }
                                     ?>
@@ -551,7 +551,7 @@
                                     <?php
                                     foreach ($UoMs as $UoM) {
                                     ?>
-                                        <option value="<?php echo $UoM->satuan; ?>"><?php echo $UoM->satuan; ?> (<?php echo $UoM->deskripsi_satuan; ?>)</option>
+                                        <option value="<?php echo $UoM->satuan; ?>"><?php echo $UoM->deskripsi_satuan; ?> (<?php echo $UoM->satuan; ?>)</option>
                                     <?php
                                     }
                                     ?>

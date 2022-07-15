@@ -380,7 +380,11 @@ class Rfq_model extends CI_Model
             $res->deskripsi_satuan  = utf8_encode(trim($res->deskripsi_satuan));
         }
 
-        return $result;
+        $array = array_filter($result, function ($value) {
+            return strstr($value->satuan, '%') === false;
+        });
+
+        return $array;
     }
 }
 
