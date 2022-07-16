@@ -94,6 +94,12 @@ class Master_model extends CI_Model
         );
     }
 
+    /**
+     * Get Detail Vendor Data
+     * sent to Vendor Profile Page
+     *
+     * @return void
+     */
     public function getVendorData()
     {
         $sql    = " SELECT
@@ -117,6 +123,13 @@ class Master_model extends CI_Model
         return $row;
     }
 
+    /**
+     * Get Vendor Detail Password
+     * For Validation before change password
+     *
+     * @param String $id
+     * @return void
+     */
     public function getUserDetail($id)
     {
         $sql    = "SELECT * FROM TB_S_MST_PENGGUNA WHERE kode_vendor = '{$id}'";
@@ -125,12 +138,19 @@ class Master_model extends CI_Model
         return $query->row();
     }
 
-    public function changeUserPassword($vendor_id, $password)
+    /**
+     * Change User Password Method
+     *
+     * @param array $params
+     * @param array $data
+     * @return void
+     */
+    public function changeUserPassword($params = array(), $data = array())
     {
-        $sql    = "UPDATE TB_S_MST_PENGGUNA SET sandi = '{$password}' WHERE kode_vendor = '{$vendor_id}'";
-        $this->db->query($sql);
+        $this->load->model('Global_model', 'global');
+        $result  = $this->global->update('TB_S_MST_PENGGUNA', $params, $data);
 
-        return $this->db->affected_rows();
+        return $result;
     }
 }
 

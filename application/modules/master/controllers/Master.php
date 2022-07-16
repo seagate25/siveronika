@@ -21,6 +21,11 @@ class Master extends CI_Controller
     {
     }
 
+    /**
+     * Vendor Profile Page
+     *
+     * @return void
+     */
     public function vendor()
     {
         $data['title']      = "Profile Vendor";
@@ -31,6 +36,11 @@ class Master extends CI_Controller
         $this->load->view('default', $data);
     }
 
+    /**
+     * Change Password Vendor Page
+     *
+     * @return void
+     */
     public function change_password()
     {
         $data['title']      = "Ubah Password";
@@ -40,6 +50,11 @@ class Master extends CI_Controller
         $this->load->view('default', $data);
     }
 
+    /**
+     * Action for Vendor Change Password
+     *
+     * @return void
+     */
     public function do_change()
     {
         $current_password   = $this->input->post('current_password');
@@ -51,7 +66,9 @@ class Master extends CI_Controller
         if ($current_password == $getUserPassword) {
 
             if ($new_password == $confirm_password) {
-                $change         = $this->master->changeUserPassword($vendor_id, $confirm_password);
+                $params = array('kode_vendor' => $vendor_id);
+                $data   = array('sandi' => $confirm_password);
+                $change = $this->master->changeUserPassword($params, $data);
 
                 if ($change > 0) {
                     $response   = array(
