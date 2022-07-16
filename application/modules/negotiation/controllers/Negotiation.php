@@ -33,7 +33,7 @@ class Negotiation extends CI_Controller {
         $this->load->view('default', $data);
     }
 
-    public function det_nego_rfq_goods()
+    public function det_rfq_goods()
     {
         $rfq_no             = $this->uri->segment(3);
         $data['title']      = "RFQ No : " . $rfq_no;

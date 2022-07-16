@@ -29,7 +29,7 @@
                     <td class="text-center">26.01.2022</td>
                     <td class="text-center">7 Hari</td>
                     <td class="text-center">
-                        <a href="<?php echo site_url('negotiation/det_nego_rfq_goods/6200272804');?>" class="btn btn-icon btn-sm btn-success me-2 mb-2">
+                        <a href="<?php echo site_url('negotiation/det_rfq_goods/6200272804');?>" class="btn btn-icon btn-sm btn-success me-2 mb-2">
                             <i class="fas fa-envelope-open-text"></i>
                         </a>
                     </td>

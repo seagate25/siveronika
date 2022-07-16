@@ -41,7 +41,7 @@ class History extends CI_Controller
         $this->load->view('default', $data);
     }
 
-    public function negotiation_rfq_goods()
+    public function nego_rfq_goods()
     {
         $data['title']      = "Nego RFQ Barang";
         $data['menu']       = "Riwayat";
@@ -50,7 +50,7 @@ class History extends CI_Controller
         $this->load->view('default', $data);
     }
 
-    public function negotiation_rfq_service()
+    public function nego_rfq_service()
     {
         $data['title']      = "Negosiasi RFQ Jasa";
         $data['menu']       = "Riwayat";
