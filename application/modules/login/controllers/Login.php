@@ -98,6 +98,13 @@ class Login extends CI_Controller
         exit;
     }
 
+    /**
+     * Forgot Function
+     * 
+     * Action for vendor if forgot password
+     *
+     * @return void
+     */
     public function do_forgot()
     {
         $vendor_id      = $this->input->post('vendor_code');

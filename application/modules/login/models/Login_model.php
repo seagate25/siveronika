@@ -138,6 +138,13 @@ class Login_model extends CI_Model {
         return $response;
     }
 
+    /**
+     * Getting Vendor Email
+     *
+     * @param String $vendor_code
+     * @param String $vendor_mail
+     * @return void
+     */
     public function getUserMail($vendor_code, $vendor_mail)
     {
         $sql    = "SELECT
