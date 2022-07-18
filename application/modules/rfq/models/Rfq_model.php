@@ -198,7 +198,7 @@ class Rfq_model extends CI_Model
             $row->kode_barang           = $row->kode_barang;
             $row->deskripsi_barang      = $row->deskripsi_barang;
             $row->jumlah_permintaan     = (int)$row->jumlah_permintaan;
-            $row->satuan                = $row->satuan;
+            $row->satuan                = trim($row->satuan);
             $row->harga_satuan          = (int)$row->harga_satuan;
             $row->konversi              = (int)$row->konversi;
             $row->ketersediaan_barang   = (int)$row->ketersediaan_barang;

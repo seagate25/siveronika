@@ -90,6 +90,7 @@ class Rfq extends CI_Controller
             unset($params['nomor_rfq']);
             $params['nomor_quotation']  = $rfq_no;
 
+            $files_data = array();
             $files  = $this->rfq->getAttachedFiles($params);
             if ($files->num_rows() > 0) {
                 $files_data = $files->result();
@@ -323,7 +324,7 @@ class Rfq extends CI_Controller
             $data   = array(
                 'mata_uang'             => $currency,
                 'harga_satuan'          => $unit_price,
-                'per_harga_satuan'      => $unit_measure,
+                'per_harga_satuan'      => ($unit_measure == NULL) ? $real_measure : $unit_measure,
                 'konversi'              => $convert,
                 'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : 'NULL',
                 'satuan_konversi'       => ($convert == '1') ? $real_measure : 'NULL',
@@ -427,7 +428,7 @@ class Rfq extends CI_Controller
             $data   = array(
                 'mata_uang'             => $currency,
                 'harga_satuan'          => $unit_price,
-                'per_harga_satuan'      => $unit_measure,
+                'per_harga_satuan'      => ($unit_measure == NULL) ? $real_measure : $unit_measure,
                 'konversi'              => $convert,
                 'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : 'NULL',
                 'satuan_konversi'       => ($convert == '1') ? $real_measure : 'NULL',
@@ -653,7 +654,7 @@ class Rfq extends CI_Controller
                 $data   = array(
                     'mata_uang'             => $currency,
                     'harga_satuan'          => $unit_price,
-                    'per_harga_satuan'      => $unit_measure,
+                    'per_harga_satuan'      => ($unit_measure == NULL) ? $measurement : $unit_measure,
                     'konversi'              => $convert,
                     'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : 'NULL',
                     'satuan_konversi'       => ($convert == '1') ? $measurement : 'NULL',
@@ -763,7 +764,7 @@ class Rfq extends CI_Controller
                 $data   = array(
                     'mata_uang'             => $currency,
                     'harga_satuan'          => $unit_price,
-                    'per_harga_satuan'      => $unit_measure,
+                    'per_harga_satuan'      => ($unit_measure == NULL) ? $measurement : $unit_measure,
                     'konversi'              => $convert,
                     'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : 'NULL',
                     'satuan_konversi'       => ($convert == '1') ? $measurement : 'NULL',
@@ -864,7 +865,7 @@ class Rfq extends CI_Controller
                 'deskripsi_satuan'      => $desc_measure,
                 'mata_uang'             => $currency,
                 'harga_satuan'          => $unit_price,
-                'per_harga_satuan'      => $unit_measure,
+                'per_harga_satuan'      => ($unit_measure == NULL) ? $measurement : $unit_measure,
                 'konversi'              => $convert,
                 'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : '',
                 'satuan_konversi'       => ($convert == '1') ? $measurement : '',
