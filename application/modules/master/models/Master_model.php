@@ -108,9 +108,9 @@ class Master_model extends CI_Model
                         country.nama negara
                     FROM
                         TB_S_MST_VENDOR vendor
-                    JOIN
+                    LEFT JOIN
                         TB_S_MST_PROVINSI province ON (vendor.kode_provinsi = province.kode_provinsi)
-                    JOIN
+                    LEFT JOIN
                         TB_S_MST_NEGARA country ON (vendor.kode_negara = country.kode_negara)
                     WHERE
                         vendor.kode_vendor = '{$this->vendor_id}'";
