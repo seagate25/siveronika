@@ -20,6 +20,7 @@
                     <th class="min-w-50px text-center">No.</th>
                     <th class="min-w-100px text-center">Kode Material</th>
                     <th class="min-w-125px text-center">Nama Material</th>
+                    <th class="min-w-125px text-center">Berkas</th>
                     <th class="min-w-50px text-center">Jumlah Permintaan</th>
                     <th class="min-w-50px text-center">Satuan Permintaan</th>
                     <th class="min-w-50px text-center">Status</th>
@@ -187,7 +188,7 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6" id="form_convertion">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Masukkan Satuan</label>
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Masukkan Satuan X</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row">
@@ -199,7 +200,7 @@
                                             <th class="text-center min-w-50px">Satuan</th>
                                             <th class="text-center min-w-20px"></th>
                                             <th class="text-center min-w-80px">Konversi Jumlah</th>
-                                            <th class="text-center min-w-50px">Satuan</th>
+                                            <th class="text-center min-w-50px">Satuan X</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -216,7 +217,20 @@
                                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                                 </div>
                                             </td>
-                                            <td class="text-center"><input type="text" name="measurement" class="form-control form-control-solid" readonly="true"></td>
+                                            <!-- <td class="text-center"><input type="text" name="measurement" class="form-control form-control-solid" readonly="true"></td> -->
+                                            <td class="text-center">
+                                                <select  name="convertion_measurement" id="convertion_measurement data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods" data-placeholder="Pilih Satuan">
+                                                    <?php
+                                                    foreach ($UoMs as $UoM) {
+                                                    ?>
+                                                        <option value="<?php echo $UoM->satuan; ?>"><?php echo $UoM->satuan; ?> (<?php echo $UoM->deskripsi_satuan; ?>)</option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                                            
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -787,6 +801,10 @@
                             },
                             {
                                 data: 'deskripsi_barang',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'berkas',
                                 className: 'text-center'
                             },
                             {
@@ -1660,10 +1678,30 @@
                     $("#form_convertion").show();
                     if ($("#unit_measure").val() !== '') {
                         $("input[name=convertion_measure]").val($("#unit_measure").select2('data')[0].text);
+                        // add validation of convertion
+                        if($("input[name=measurement]").val() !== $("input[name=convertion_measure]").val() ) {
+                            $("select[name=convertion_measurement]").attr('disabled', 'disabled').addClass('form-select form-select-solid');
+                            $("select[name=convertion_measurement]").val($("input[name=r_measurement]").val());
+                        }else {
+                            $("select[name=convertion_measurement]").removeAttr('disabled').removeClass('form-select form-select-solid');
+                            $("select[name=convertion_measurement]").addClass('form-select');
+                            
+                            $("select[name=convertion_measurement]").val($("input[name=r_measurement]").val());
+                        }
                     }
                     $("#unit_measure").on('select2:select', function(e) {
                         var data = e.params.data;
                         $("input[name=convertion_measure]").val(data.text);
+                        // add validation of convertion
+                        if($("input[name=measurement]").val() !== data.text) {
+                            $("select[name=convertion_measurement]").attr('disabled', 'disabled').addClass('form-select form-select-solid');
+                            $("select[name=convertion_measurement]").val($("input[name=r_measurement]").val());
+                        }else {
+                            $("select[name=convertion_measurement]").removeAttr('disabled').removeClass('form-select form-select-solid');
+                            $("select[name=convertion_measurement]").addClass('form-select');
+                            $("select[name=convertion_measurement]").val($("input[name=r_measurement]").val());
+                        }
+                        
                     });
                 }
             }

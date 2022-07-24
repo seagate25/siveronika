@@ -30,11 +30,10 @@ class Dashboard_model extends CI_Model {
                         COUNT(table_a.nomor_rfq) AS rfq_barang
                     FROM 
                         TB_S_MST_RFQ_BARANG_HEAD table_a
-                    JOIN
-                        TB_S_MST_RFQ_BARANG_DTL table_b ON (table_a.nomor_rfq = table_b.nomor_rfq AND table_b.modified_date IS NULL AND table_b.modified_by IS NULL)
                     WHERE
                         table_a.kode_vendor = '{$vendor_code}' AND
                         table_a.tanggal_jatuh_tempo >= '".date('Y-m-d')."'";
+        
         $query  = $this->db->query($sql);
         $result = $query->row();
         $graph_data['rfq_barang'] = (int)$result->rfq_barang;

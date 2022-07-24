@@ -114,7 +114,8 @@ class Confirmation_model extends CI_Model
             $row->modified_date     = ($row->modified_date == NULL) ? $row->modified_date : date('d M y', strtotime($row->modified_date));
             $row->modified_by       = $row->modified_by;
             // $row->actions           = '<a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2"><i class="fas fa-envelope-open-text"></i></a>';
-            $row->actions           = '<button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation"><i class="fas fa-envelope-open-text"></i></button>';
+            $btn_disabled           = ($row->modified_by == NULL && $row->modified_date == NULL) ? '' : 'disabled';
+            $row->actions           = '<button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation" '. $btn_disabled .'><i class="fas fa-envelope-open-text"></i></button>';
             // $row->actions           = '<a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation"><i class="fas fa-envelope-open-text"></i></a>';
             $row->status            = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Konfirmasi" : "Sudah Konfirmasi";
             if ($row->modified_by == NULL && $row->modified_date == NULL) {
@@ -230,7 +231,8 @@ class Confirmation_model extends CI_Model
             $row->modified_by           = $row->modified_by;
             // $row->actions           = '<a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2"><i class="fas fa-envelope-open-text"></i></a>';
             // $row->actions           = '<a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation"><i class="fas fa-envelope-open-text"></i></a>';
-            $row->actions               = '<button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation"><i class="fas fa-envelope-open-text"></i></button>';
+            $btn_disabled               = ($row->modified_by == NULL && $row->modified_date == NULL) ? '' : 'disabled';
+            $row->actions               = '<button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation" '. $btn_disabled .'><i class="fas fa-envelope-open-text"></i></button>';
             $row->status                = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Konfirmasi" : "Sudah Konfirmasi";
             if ($row->harga == 0 || ($row->modified_by == NULL && $row->modified_date == NULL)) {
                 $row->status_harga      = "";

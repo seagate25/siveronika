@@ -13,7 +13,7 @@
                 <tr class="fw-bold fs-6 text-muted">
                     <th class="min-w-50px text-center">No.</th>
                     <th class="min-w-125px text-center">No. RFQ</th>
-                    <th class="min-w-125px text-center">Berkas</th>
+                    <!-- <th class="min-w-125px text-center">Berkas</th> -->
                     <th class="min-w-80px text-center">Tgl. RFQ</th>
                     <th class="min-w-80px text-center">Tgl. Jatuh Tempo</th>
                     <th class="min-w-80px text-center">Sisa Hari Pengisian</th>
@@ -66,7 +66,7 @@ var KTDataTables = (function() {
                     //         return '';
                     //     }    
                     // },
-                    { data: 'berkas', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                    // { data: 'berkas', className: 'text-center', sortable: false, searchable: false, orderable: false },
                     { data: 'tanggal_rfq', className: 'text-center' },
                     { data: 'tanggal_jatuh_tempo', className: 'text-center' },
                     { data: 'sisa_hari', className: 'text-center' },

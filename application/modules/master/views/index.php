@@ -50,7 +50,7 @@
                 <!--begin::Row-->
                 <div class="row mb-7">
                     <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">No. Surat Rekanan</label>
+                    <label class="col-lg-4 fw-bold text-muted">No. Surat Permohonan Rekanan</label>
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8">
@@ -85,10 +85,26 @@
                 <!--end::Input group-->
                 <!--begin::Input group-->
                 <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Kode Pos</label>
+                    <!--begin::Label-->
+                    <label class="col-lg-4 fw-bold text-muted">Kabupaten/ Kota</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
                     <div class="col-lg-8">
-                        <span class="fs-6 text-gray-800"><?php echo $vendor->kode_pos; ?></span>
+                        <span class="fs-6 text-gray-800"><?php echo $vendor->kabkot; ?></span>
                     </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="row mb-7">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 fw-bold text-muted">Provinsi</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8">
+                        <span class="fs-6 text-gray-800"><?php echo $vendor->provinsi; ?></span>
+                    </div>
+                    <!--end::Col-->
                 </div>
                 <!--end::Input group-->
                 <!--begin::Input group-->
@@ -103,20 +119,16 @@
                     <!--end::Col-->
                 </div>
                 <!--end::Input group-->
-            </div>
-            <div class="col-lg-6">
                 <!--begin::Input group-->
                 <div class="row mb-7">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">Provinsi</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
+                    <label class="col-lg-4 fw-bold text-muted">Kode Pos</label>
                     <div class="col-lg-8">
-                        <span class="fs-6 text-gray-800"><?php echo $vendor->provinsi; ?></span>
+                        <span class="fs-6 text-gray-800"><?php echo $vendor->kode_pos; ?></span>
                     </div>
-                    <!--end::Col-->
                 </div>
                 <!--end::Input group-->
+            </div>
+            <div class="col-lg-6">
                 <!--begin::Input group-->
                 <div class="row mb-7">
                     <!--begin::Label-->
