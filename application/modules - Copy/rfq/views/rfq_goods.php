@@ -1,4 +1,3 @@
-
 <div class="card shadow-sm">
     <div class="card-header bg-success">
         <h3 class="card-title text-white"><?php echo $title; ?></h3>
