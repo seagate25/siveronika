@@ -93,16 +93,16 @@ class Rfq_model extends CI_Model
         //             WHERE   RowNum > {$start}
         //                 AND RowNum < (({$start} + 1) + {$length})
         //             ORDER BY RowNum";
-        $sql_   = "SELECT  *
-                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum,
-                                        trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
-                            FROM      {$this->table[0]} trfq
-                            LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq)
-                            {$where}
-                            ) AS RowConstrainedResult
-                    WHERE   RowNum > {$start}
-                        AND RowNum < (({$start} + 1) + {$length})
-                    ORDER BY RowNum";
+        // $sql_   = "SELECT  *
+        //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum,
+        //                                 trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
+        //                     FROM      {$this->table[0]} trfq
+        //                     LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq)
+        //                     {$where}
+        //                     ) AS RowConstrainedResult
+        //             WHERE   RowNum > {$start}
+        //                 AND RowNum < (({$start} + 1) + {$length})
+        //             ORDER BY RowNum";
         $sql_   = "SELECT  *
         FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum,
                             trfq.*
