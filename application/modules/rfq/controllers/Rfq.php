@@ -68,6 +68,7 @@ class Rfq extends CI_Controller
         $data['submenu']    = "Detail RFQ Barang";
         $data['content']    = "detail_rfq_goods";
         $data['UoMs']       = $this->rfq->getUoM();
+        $data['currencies'] = $this->rfq->getCurrency();
         $this->load->view('default', $data);
     }
 

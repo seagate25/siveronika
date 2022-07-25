@@ -122,8 +122,17 @@
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Mata Uang</label>
                             <!--end::Label-->
                             <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="currency" class="form-control" placeholder="Mata Uang">
+                            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                                <!-- <input type="text" name="currency" class="form-control" placeholder="Mata Uang"> -->
+                                <select class="form-select form-select-solid" name="currency" id="currency" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods" data-placeholder="Pilih Mata Uang">
+                                    <?php
+                                    foreach ($currencies as $currency) {
+                                    ?>
+                                        <option value="<?php echo $currency->kode_uang; ?>"><?php echo $currency->kode_uang; ?> (<?php echo $currency->deskripsi; ?>)</option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -526,7 +535,16 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control" name="currency_eqiv" placeholder="Mata Uang" id="" />
+                                <!-- <input class="form-control" name="currency_eqiv" placeholder="Mata Uang" id="" /> -->
+                                <select class="form-select form-select-solid" name="currency_eqiv" id="currency_eqiv" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods_ekuivalen" data-placeholder="Pilih Mata Uang">
+                                    <?php
+                                    foreach ($currencies as $currency) {
+                                    ?>
+                                        <option value="<?php echo $currency->kode_uang; ?>"><?php echo $currency->kode_uang; ?> (<?php echo $currency->deskripsi; ?>)</option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -838,6 +856,7 @@
                         $("input[name=id_rfq]").val('<?php echo $this->uri->segment(3); ?>');
                         $("input[name=unit_price]").maskMoney('mask', data.harga_satuan);
                         $('#unit_measure').val(data.satuan).trigger('change');
+                        $("#currency").val('IDR').trigger('change');
                         $("input[name=material_code]").val(data.kode_barang);
                         $("input[name=material_name]").val(data.deskripsi_barang);
                         $("input[name=request_total]").val(data.jumlah_permintaan);
@@ -864,7 +883,7 @@
                         $("#input_file span").after(i_file);
 
                         if (data.modified_date != null && data.modified_by != null) {
-                            $("input[name=currency]").val(data.mata_uang);
+                            $("#currency").val(data.mata_uang).trigger('change');
                             $("#unit_measure").val(data.per_harga_satuan).trigger('change');
                             $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
                             if ($('input[name="convert"]:checked').val() == 0) {
@@ -967,6 +986,7 @@
                         $("input[name=r_measurement_eqiv]").val($.trim(data.satuan));
                         $("input[name=desc_measure_eqiv]").val($.trim(data.deskripsi_satuan));
                         $("#unit_measure_eqiv").val(data.per_harga_satuan).trigger('change');
+                        $("#currency_eqiv").val('IDR').trigger('change');
                         $("input[name=temp_unit_measure_eqiv]").val(data.per_harga_satuan);
                         $('input[name="convert_eqiv"][value="0"]').prop('checked', true);
                         $('input[name="available_eqiv"][value="0"]').prop('checked', true);
@@ -1014,7 +1034,8 @@
                                 blockUI.release();
                                 var obj = jQuery.parseJSON(response);
                                 if (obj.code == 0) {
-                                    $("input[name=currency_eqiv]").val(obj.data.mata_uang);
+                                    // $("input[name=currency_eqiv]").val(obj.data.mata_uang);
+                                    $("#currency_eqiv").val(obj.data.mata_uang).trigger('change');
                                     $("input[name=unit_price_eqiv]").maskMoney('mask', parseInt(obj.data.harga_satuan));
                                     $("#unit_measure_eqiv").val(obj.data.per_harga_satuan).trigger('change');
                                     $("input[name=temp_unit_measure_eqiv]").val(obj.data.per_harga_satuan);
