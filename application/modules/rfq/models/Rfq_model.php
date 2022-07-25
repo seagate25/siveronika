@@ -237,7 +237,8 @@ class Rfq_model extends CI_Model
             $row->deskripsi_satuan      = trim($row->deskripsi_satuan);
             $row->urutan_rfq            = trim($row->urutan_rfq);
             $row->status                = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
-            $btn_eqiv_1                 = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'disabled' : '';
+            // $btn_eqiv_1                 = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'disabled' : '';
+            $btn_eqiv_1                 = '';
             $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods">
                                             <i class="fas fa-envelope-open-text"></i>
                                         </button>';
@@ -417,6 +418,19 @@ class Rfq_model extends CI_Model
         });
 
         return $array;
+    }
+
+    public function getCurrency()
+    {
+        $this->load->model('Global_model', 'global');
+        $query = $this->global->get_all('TB_S_MST_MATA_UANG');
+        $result = $query->result();
+        foreach ($result as $row) {
+            $row->kode_uang = trim($row->kode_uang);
+            $row->deskripsi = utf8_encode(trim($row->deskripsi));
+        }
+
+        return $result;
     }
 }
 
