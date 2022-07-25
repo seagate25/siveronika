@@ -189,7 +189,7 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6" id="form_convertion">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Masukkan Satuan X</label>
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Masukkan Satuan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row">
@@ -201,7 +201,7 @@
                                             <th class="text-center min-w-50px">Satuan</th>
                                             <th class="text-center min-w-20px"></th>
                                             <th class="text-center min-w-80px">Konversi Jumlah</th>
-                                            <th class="text-center min-w-50px">Satuan X</th>
+                                            <th class="text-center min-w-50px">Satuan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -218,20 +218,7 @@
                                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                                 </div>
                                             </td>
-                                            <!-- <td class="text-center"><input type="text" name="measurement" class="form-control form-control-solid" readonly="true"></td> -->
-                                            <td class="text-center">
-                                                <select  name="convertion_measurement" id="convertion_measurement data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods" data-placeholder="Pilih Satuan">
-                                                    <?php
-                                                    foreach ($UoMs as $UoM) {
-                                                    ?>
-                                                        <option value="<?php echo $UoM->satuan; ?>"><?php echo $UoM->satuan; ?> (<?php echo $UoM->deskripsi_satuan; ?>)</option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </select>
-                                                <div class="fv-plugins-message-container invalid-feedback"></div>
-                                            
-                                            </td>
+                                            <td class="text-center"><input type="text" name="measurement" class="form-control form-control-solid" readonly="true"></td>
                                         </tr>
                                     </tbody>
                                 </table>
