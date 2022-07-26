@@ -14,9 +14,9 @@ class History extends CI_Controller
     }
 
     /**
-     * Index Function
+     * History RFQ Goods View
      *
-     * @return void
+     * @return view
      */
     public function rfq_goods()
     {
@@ -32,6 +32,11 @@ class History extends CI_Controller
         $this->load->view('default', $data);
     }
 
+    /**
+     * History RFQ Service View
+     *
+     * @return view
+     */
     public function rfq_service()
     {
         $data['title']      = "RFQ Jasa";
@@ -41,6 +46,11 @@ class History extends CI_Controller
         $this->load->view('default', $data);
     }
 
+    /**
+     * History Negotiation RFQ Goods View
+     *
+     * @return view
+     */
     public function nego_rfq_goods()
     {
         $data['title']      = "Nego RFQ Barang";
@@ -50,6 +60,11 @@ class History extends CI_Controller
         $this->load->view('default', $data);
     }
 
+    /**
+     * History Negotiation RFQ Service View
+     *
+     * @return view
+     */
     public function nego_rfq_service()
     {
         $data['title']      = "Negosiasi RFQ Jasa";
@@ -59,6 +74,49 @@ class History extends CI_Controller
         $this->load->view('default', $data);
     }
 
+    /**
+     * History Request Price View
+     *
+     * @return view
+     */
+    public function req_price()
+    {
+        if($this->input->is_ajax_request()) {
+            $rows = $this->history->getReqPriceList();
+            echo json_encode($rows, JSON_PRETTY_PRINT);
+            exit;
+        }
+        $data['title']      = "Riwayat Permintaan Harga";
+        $data['menu']       = "Riwayat";
+        $data['submenu']    = "Riwayat Permintaan Harga";
+        $data['content']    = "history_req_price";
+        $this->load->view('default', $data);
+    }
+
+    /**
+     * History Confirmation Price View
+     *
+     * @return view
+     */
+    public function con_price()
+    {
+        if($this->input->is_ajax_request()) {
+            $rows = $this->history->getConPriceList();
+            echo json_encode($rows, JSON_PRETTY_PRINT);
+            exit;
+        }
+        $data['title']      = "Riwayat Konfirmasi Harga";
+        $data['menu']       = "Riwayat";
+        $data['submenu']    = "Riwayat Konfirmasi Harga";
+        $data['content']    = "history_con_price";
+        $this->load->view('default', $data);
+    }
+
+    /**
+     * History Detail RFQ Goods View
+     *
+     * @return view
+     */
     public function det_rfq_goods()
     {
         $rfq_no             = $this->crypto->decode($this->uri->segment(3));
@@ -74,6 +132,11 @@ class History extends CI_Controller
         $this->load->view('default', $data);
     }
 
+    /**
+     * History Detail Negotiation RFQ Goods View
+     *
+     * @return view
+     */
     public function det_nego_rfq_goods()
     {
         $material_code      = $this->uri->segment(3);
