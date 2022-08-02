@@ -227,7 +227,18 @@
                                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                                 </div>
                                             </td>
-                                            <td class="text-center"><input type="text" name="measurement" class="form-control form-control-solid" readonly="true"></td>
+                                            <td class="text-center">
+                                                <!-- <input type="text" name="measurement" class="form-control form-control-solid" readonly="true"> -->
+                                                <select class="form-select form-select-solid" disabled name="convertion_measurement" id="convertion_measurement" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods" data-placeholder="Pilih Satuan">
+                                                    <?php
+                                                    foreach ($UoMs as $UoM) {
+                                                    ?>
+                                                        <option value="<?php echo $UoM->satuan; ?>"><?php echo $UoM->satuan; ?> (<?php echo $UoM->deskripsi_satuan; ?>)</option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -640,7 +651,18 @@
                                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                                 </div>
                                             </td>
-                                            <td class="text-center"><input type="text" name="measurement_eqiv" class="form-control form-control-solid" readonly="true"></td>
+                                            <td class="text-center">
+                                                <!-- <input type="text" name="measurement_eqiv" class="form-control form-control-solid" readonly="true"> -->
+                                                <select class="form-select form-select-solid" disabled name="convert_measurement_eqiv" id="convert_measurement_eqiv" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods_ekuivalen" data-placeholder="Pilih Satuan">
+                                                    <?php
+                                                    foreach ($UoMs as $UoM) {
+                                                    ?>
+                                                        <option value="<?php echo $UoM->satuan; ?>"><?php echo $UoM->satuan; ?> (<?php echo $UoM->deskripsi_satuan; ?>)</option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -894,6 +916,7 @@
                                 $("#form_convertion").show();
                                 $("input[name=convertion_qty]").val(parseInt(data.jumlah_konversi));
                                 $("input[name=convertion_measure]").val($("#unit_measure").select2('data')[0].text);
+                                $("select[name=convertion_measurement]").val(data.satuan_konversi).trigger('change');
                             }
                             $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
                             $("input[name=ed_price]").val(data.masa_berlaku_harga);
@@ -972,6 +995,7 @@
                         var data = e.row($(this).parents('tr')).data();
                         var id = $(this).attr('id');
                         var eqiv_id = id.replace('btn_eqiv_', '');
+                        var material_code = data.kode_barang;
 
                         $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_rfq_no_eqiv").text(data.nomor_rfq);
                         $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_material_code_eqiv").text(data.kode_barang);
@@ -1025,7 +1049,8 @@
                             url: "<?php echo site_url('rfq/get_det_rfq_eqiv'); ?>",
                             data: {
                                 val_1: '<?php echo $this->uri->segment(3); ?>',
-                                val_2: eqiv_id
+                                val_2: eqiv_id,
+                                val_3: material_code
                             },
                             beforeSend: function() {
                                 blockUI.block();
@@ -1046,6 +1071,20 @@
                                     } else {
                                         $('#unit_measure_eqiv').removeAttr('disabled');
                                         $("#form_convertion_eqiv").show();
+
+                                        $("#convert_measurement_eqiv").val(obj.data.satuan_konversi).trigger('change');
+                                        $("#unit_measure_eqiv").on('select2:select', function(e) {
+                                            var data = e.params.data;
+                                            $("input[name=convertion_measure_eqiv]").val(data.text);
+
+                                            if($("input[name=r_measurement_eqiv]").val() == data.id) {
+                                                $("#convert_measurement_eqiv").removeAttr('disabled');
+                                            } else {
+                                                $("#convert_measurement_eqiv").attr('disabled', 'disabled');
+                                                $("#convert_measurement_eqiv").val($("input[name=r_measurement_eqiv]").val()).trigger('change');
+                                            }
+                                        })
+
                                         $("input[name=convertion_qty_eqiv]").val(parseInt(obj.data.jumlah_konversi));
                                         $("input[name=convertion_measure_eqiv]").val($("#unit_measure_eqiv").select2('data')[0].text);
                                     }
@@ -1685,6 +1724,9 @@
                 } else {
                     $('#unit_measure').removeAttr('disabled');
                     $("#form_convertion").show();
+
+                    // $("select[name=convertion_measurement]").val($("input[name=r_measurement]").val()).trigger('change');
+
                     if ($("#unit_measure").val() !== '') {
                         $("input[name=convertion_measure]").val($("#unit_measure").select2('data')[0].text);
                         // add validation of convertion
@@ -1695,9 +1737,11 @@
                             $("select[name=convertion_measurement]").removeAttr('disabled').removeClass('form-select form-select-solid');
                             $("select[name=convertion_measurement]").addClass('form-select');
                             
-                            $("select[name=convertion_measurement]").val($("input[name=r_measurement]").val());
+                            // $("select[name=convertion_measurement]").val($("input[name=r_measurement]").val());
+                            $("select[name=convertion_measurement]").val($("input[name=r_measurement]").val()).trigger('change');
                         }
                     }
+                    
                     $("#unit_measure").on('select2:select', function(e) {
                         var data = e.params.data;
                         $("input[name=convertion_measure]").val(data.text);
@@ -1734,12 +1778,24 @@
                 } else {
                     $('#unit_measure_eqiv').removeAttr('disabled');
                     $("#form_convertion_eqiv").show();
+                    
+                    $("#convert_measurement_eqiv").val($("input[name=r_measurement_eqiv]").val()).trigger('change');
+                    $("#convert_measurement_eqiv").removeAttr('disabled');
+
                     if ($("#unit_measure_eqiv").val() !== '') {
                         $("input[name=convertion_measure_eqiv]").val($("#unit_measure_eqiv").select2('data')[0].text);
                     }
+
                     $("#unit_measure_eqiv").on('select2:select', function(e) {
                         var data = e.params.data;
                         $("input[name=convertion_measure_eqiv]").val(data.text);
+
+                        if($("input[name=r_measurement_eqiv]").val() == data.id) {
+                            $("#convert_measurement_eqiv").removeAttr('disabled');
+                        } else {
+                            $("#convert_measurement_eqiv").attr('disabled', 'disabled');
+                            $("#convert_measurement_eqiv").val($("input[name=r_measurement_eqiv]").val()).trigger('change');
+                        }
                     })
                 }
             }

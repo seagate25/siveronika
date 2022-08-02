@@ -79,10 +79,11 @@ class Rfq extends CI_Controller
      */
     public function get_det_rfq_eqiv()
     {
-        $rfq_no = $this->crypto->decode($this->input->post('val_1'));
-        $id     = (int)$this->input->post('val_2');
+        $rfq_no     = $this->crypto->decode($this->input->post('val_1'));
+        $id         = (int)$this->input->post('val_2');
+        $material   = $this->input->post('val_3');
 
-        $params     = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $id);
+        $params     = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $id, 'kode_barang' => $material);
         $data       = $this->rfq->getDetailEquivalent($params);
         if ($data->num_rows() > 0) {
 
@@ -172,6 +173,7 @@ class Rfq extends CI_Controller
         $unit_measure   = $this->input->post('unit_measure');
         $convert        = $this->input->post('convert');
         $convertion_qty = $this->input->post('convertion_qty');
+        $conv_measure   = $this->input->post('convertion_measurement');
         $available      = $this->input->post('available');
         $ed_price       = $this->input->post('ed_price');
         $notes          = $this->input->post('notes');
@@ -328,7 +330,7 @@ class Rfq extends CI_Controller
                 'per_harga_satuan'      => ($unit_measure == NULL) ? $real_measure : $unit_measure,
                 'konversi'              => $convert,
                 'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : 'NULL',
-                'satuan_konversi'       => ($convert == '1') ? $real_measure : 'NULL',
+                'satuan_konversi'       => ($convert == '1') ? (($conv_measure == NULL) ? $real_measure : $conv_measure) : 'NULL',
                 'ketersediaan_barang'   => $available,
                 'masa_berlaku_harga'    => $ed_price,
                 'keterangan'            => $notes,
@@ -432,7 +434,7 @@ class Rfq extends CI_Controller
                 'per_harga_satuan'      => ($unit_measure == NULL) ? $real_measure : $unit_measure,
                 'konversi'              => $convert,
                 'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : 'NULL',
-                'satuan_konversi'       => ($convert == '1') ? $real_measure : 'NULL',
+                'satuan_konversi'       => ($convert == '1') ? (($conv_measure == NULL) ? $real_measure : $conv_measure) : 'NULL',
                 'ketersediaan_barang'   => $available,
                 'masa_berlaku_harga'    => $ed_price,
                 'keterangan'            => $notes,
@@ -489,6 +491,7 @@ class Rfq extends CI_Controller
         $unit_measure   = $this->input->post('unit_measure_eqiv');
         $convert        = $this->input->post('convert_eqiv');
         $convertion_qty = $this->input->post('convertion_qty_eqiv');
+        $conv_measure   = $this->input->post('convert_measurement_eqiv');
         $available      = $this->input->post('available_eqiv');
         $ed_price       = $this->input->post('ed_price_eqiv');
         $notes          = $this->input->post('notes_eqiv');
@@ -658,7 +661,7 @@ class Rfq extends CI_Controller
                     'per_harga_satuan'      => ($unit_measure == NULL) ? $measurement : $unit_measure,
                     'konversi'              => $convert,
                     'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : 'NULL',
-                    'satuan_konversi'       => ($convert == '1') ? $measurement : 'NULL',
+                    'satuan_konversi'       => ($convert == '1') ? (($conv_measure == NULL) ? $measurement : $conv_measure) : 'NULL',
                     'ketersediaan_barang'   => $available,
                     'masa_berlaku_harga'    => $ed_price,
                     'keterangan'            => $notes,
@@ -768,7 +771,7 @@ class Rfq extends CI_Controller
                     'per_harga_satuan'      => ($unit_measure == NULL) ? $measurement : $unit_measure,
                     'konversi'              => $convert,
                     'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : 'NULL',
-                    'satuan_konversi'       => ($convert == '1') ? $measurement : 'NULL',
+                    'satuan_konversi'       => ($convert == '1') ? (($conv_measure == NULL) ? $measurement : $conv_measure) : 'NULL',
                     'ketersediaan_barang'   => $available,
                     'masa_berlaku_harga'    => $ed_price,
                     'keterangan'            => $notes,
@@ -869,7 +872,7 @@ class Rfq extends CI_Controller
                 'per_harga_satuan'      => ($unit_measure == NULL) ? $measurement : $unit_measure,
                 'konversi'              => $convert,
                 'jumlah_konversi'       => ($convert == '1') ? $convertion_qty : '',
-                'satuan_konversi'       => ($convert == '1') ? $measurement : '',
+                'satuan_konversi'       => ($convert == '1') ? (($conv_measure == NULL) ? $measurement : $conv_measure) : '',
                 'ketersediaan_barang'   => $available,
                 'masa_berlaku_harga'    => $ed_price,
                 'keterangan'            => $notes,
