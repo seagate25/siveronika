@@ -788,6 +788,100 @@
         </div>
     </div>
 </div>
+<div class="modal fade" tabindex="-1" id="kt_modal_additional_price" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" style="min-width:990px;">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title text-white">Biaya Lainnya</h5>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-danger ms-2" data-kt-additional-price-modal-action="close" aria-label="Close">
+                    <span class="svg-icon svg-icon-2x">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                                <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1"></rect>
+                                <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <form id="kt_modal_additional_price_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url('rfq/save_eqiv'); ?>">
+                <!--begin::Modal body-->
+                <div class="modal-body py-4 px-lg-17">
+                    <!--begin::Scroll-->
+                    <div class="scroll-y me-n7 pe-7 mt-5" id="kt_modal_additional_price_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_additional_price_header" data-kt-scroll-wrappers="#kt_modal_additional_price_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
+                        <!-- <div class="fw-bold">
+                            <h4 class="text-gray-900 fw-bolder">Biaya Lainnya</h4>
+                        </div> -->
+                        <input type="hidden" name="id_rfq">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6" id="el_add_1">
+                            <!--begin::Label-->
+                            <div class="col-lg-3 fv-row fv-plugins-icon-container">
+                                <select class="form-select form-select-solid" name="add_price_type[]" id="add_price_type[]" data-control="select2" data-dropdown-parent="#kt_modal_additional_price" data-placeholder="Pilih Biaya Lainnya">
+                                    <option value="ZFR1">Freight Cost - Taxable</option>
+                                    <option value="ZFR2">Freight Cost - Non Taxable</option>
+                                    <option value="ZFIN">Freight & Insurance</option>
+                                    <option value="ZINS">Insurance</option>
+                                </select>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-3 fv-row fv-plugins-icon-container">
+                                <input type="text" name="add_price[]" id="add_price[]" class="form-control" placeholder="">
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                                <select class="form-select form-select-solid" name="add_currency[]" id="add_currency[]" data-control="select2" data-dropdown-parent="#kt_modal_additional_price" data-placeholder="Pilih Mata Uang">
+                                    <?php
+                                    foreach ($currencies as $currency) {
+                                    ?>
+                                        <option value="<?php echo $currency->kode_uang; ?>"><?php echo $currency->kode_uang; ?> (<?php echo $currency->deskripsi; ?>)</option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-lg-2 fv-row fv-plugins-icon-container">
+                            <button type="button" class="btn btn-sm btn-bg-success btn-icon me-2 mb-2" onclick="return Elements.add_row();">
+                                <i class="las la-plus fs-1 text-white"></i>
+                            </button>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                    </div>
+                    <!--end::Scroll-->
+                </div>
+                <!--end::Modal body-->
+                <!--begin::Modal footer-->
+                <div class="modal-footer flex-center">
+                    <!--begin::Button-->
+                    <button type="reset" id="kt_modal_additional_price_cancel" class="btn btn-light me-3">Tutup</button>
+                    <!--end::Button-->
+                    <!--begin::Button-->
+                    <button type="submit" id="kt_modal_additional_price_submit" class="btn btn-primary">
+                        <span class="indicator-label">Simpan</span>
+                        <span class="indicator-progress">Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button>
+                    <!--end::Button-->
+                </div>
+                <!--end::Modal footer-->
+                <div></div>
+            </form>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     "use strict";
 
@@ -803,9 +897,18 @@
                         destroy: !0,
                         // responsive: !0,
                         scrollX: !0,
-                        dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
+                        dom: "<'row'<'col-sm-6 col-md-6 col-lg-6'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
                             "<'row'<'col-sm-12'tr>>" +
                             "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
+                        buttons: [
+                            {
+                                text: 'Biaya Tambahan',
+                                className: 'btn btn-sm btn-success',
+                                action: function ( e, dt, node, config ) {
+                                    $('#kt_modal_additional_price').modal('show'); 
+                                }
+                            }
+                        ],
                         paging: !0,
                         ordering: !0,
                         searching: !0,
@@ -1685,6 +1788,24 @@
                     $("#row_eqiv_" + index).append('<input class="form-control form-control-solid" type="text" readonly value="' + name + '">');
                     $("#link_eqiv_" + index).append('<a href="<?php echo site_url('rfq/download/'); ?>' + file + '" class="btn btn-icon btn-sm btn-success me-2"><i class = "fas fa-download"></i></a>');
                 }
+            },
+            add_row: function(index) {
+                // get the last DIV which ID starts with ^= "klon"
+                var $div = $('div[id^="el_add_"]:last');
+
+                // Read the Number from that DIV's ID (i.e: 3 from "klon3")
+                // And increment that number by 1
+                var num = parseInt( $div.prop("id").match(/\d+/g), 10 ) +1;
+
+                // Clone it and assign the new ID (i.e: from num 4 to ID "klon4")
+                var $klon = $div.clone().prop('id', 'el_add_'+num );
+                
+                // $klon.closest('div').find('select[id^="add_price_type_"]').prop('id', 'add_price_type_'+num);
+                // $klon.closest('div').find('select[id^="add_price_"]').prop('id', 'add_price_'+num);
+                // $klon.closest('div').find('select[id^="add_currency_"]').prop('id', 'add_currency_'+num);
+
+                // Finally insert $klon wherever you want
+                $div.after( $klon );
             }
         }
     })();
