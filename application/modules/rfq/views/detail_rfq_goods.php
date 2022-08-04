@@ -852,9 +852,9 @@
                             <!--end::Col-->
                             <!--begin::Col-->
                             <div class="col-lg-2 fv-row fv-plugins-icon-container">
-                            <button type="button" class="btn btn-sm btn-bg-success btn-icon me-2 mb-2" onclick="return Elements.add_row();">
-                                <i class="las la-plus fs-1 text-white"></i>
-                            </button>
+                                <button type="button" id="btn_add" class="btn btn-sm btn-bg-success btn-icon me-2 mb-2" onclick="return Elements.add_row();">
+                                    <i class="las la-plus fs-1 text-white"></i>
+                                </button>
                             </div>
                             <!--end::Col-->
                         </div>
@@ -1789,23 +1789,35 @@
                     $("#link_eqiv_" + index).append('<a href="<?php echo site_url('rfq/download/'); ?>' + file + '" class="btn btn-icon btn-sm btn-success me-2"><i class = "fas fa-download"></i></a>');
                 }
             },
-            add_row: function(index) {
+            add_row: function() {
                 // get the last DIV which ID starts with ^= "klon"
                 var $div = $('div[id^="el_add_"]:last');
+                if($('div[id^="el_add_"]').length < 4) {
+                    // Read the Number from that DIV's ID (i.e: 3 from "klon3")
+                    // And increment that number by 1
+                    var num = parseInt( $div.prop("id").match(/\d+/g), 10 ) +1;
 
-                // Read the Number from that DIV's ID (i.e: 3 from "klon3")
-                // And increment that number by 1
-                var num = parseInt( $div.prop("id").match(/\d+/g), 10 ) +1;
+                    // Clone it and assign the new ID (i.e: from num 4 to ID "klon4")
+                    var $klon = $div.clone().prop('id', 'el_add_'+num );
+                    var $btn_add = $klon.closest('div').find('button[id="btn_add"]');
+                    var $btn_rm = $btn_add.clone().prop('id', 'btn_rm').attr('onclick', 'return Elements.remove_row();');
 
-                // Clone it and assign the new ID (i.e: from num 4 to ID "klon4")
-                var $klon = $div.clone().prop('id', 'el_add_'+num );
-                
-                // $klon.closest('div').find('select[id^="add_price_type_"]').prop('id', 'add_price_type_'+num);
-                // $klon.closest('div').find('select[id^="add_price_"]').prop('id', 'add_price_'+num);
-                // $klon.closest('div').find('select[id^="add_currency_"]').prop('id', 'add_currency_'+num);
+                    $btn_add.after($btn_rm);
+                    
+                    // $klon.closest('div').find('select[id^="add_price_type_"]').prop('id', 'add_price_type_'+num);
+                    // $klon.closest('div').find('select[id^="add_price_"]').prop('id', 'add_price_'+num);
+                    // $klon.closest('div').find('select[id^="add_currency_"]').prop('id', 'add_currency_'+num);
 
-                // Finally insert $klon wherever you want
-                $div.after( $klon );
+                    // Finally insert $klon wherever you want
+                    $div.after( $klon );
+                }
+
+                if($('div[id^="el_add_"]').length > 1) {
+                    // $('div[id^="el_add_"]:first')
+                }
+            },
+            remove_row: function() {
+
             }
         }
     })();
