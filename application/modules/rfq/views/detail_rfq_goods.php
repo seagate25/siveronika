@@ -808,7 +808,7 @@
                 <!--end::Close-->
             </div>
 
-            <form id="kt_modal_additional_price_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url('rfq/save_eqiv'); ?>">
+            <form id="kt_modal_additional_price_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" action="<?php echo site_url('rfq/save_other'); ?>">
                 <!--begin::Modal body-->
                 <div class="modal-body py-4 px-lg-17">
                     <!--begin::Scroll-->
@@ -821,7 +821,7 @@
                         <div class="row mb-6" id="el_add_1">
                             <!--begin::Label-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <select class="form-select form-select-solid" name="add_price_type[]" id="add_price_type[]" data-control="select2" data-dropdown-parent="#kt_modal_additional_price" data-placeholder="Pilih Biaya Lainnya">
+                                <select class="form-select form-select-solid" name="add_price_type[]" id="add_price_type_1" data-control="select2" data-dropdown-parent="#kt_modal_additional_price" data-placeholder="Pilih Biaya Lainnya">
                                     <option value="ZFR1">Freight Cost - Taxable</option>
                                     <option value="ZFR2">Freight Cost - Non Taxable</option>
                                     <option value="ZFIN">Freight & Insurance</option>
@@ -832,13 +832,13 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <input type="text" name="add_price[]" id="add_price[]" class="form-control" placeholder="">
+                                <input type="text" name="add_price[]" id="add_price_1" class="form-control add_price_val" placeholder="">
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                                <select class="form-select form-select-solid" name="add_currency[]" id="add_currency[]" data-control="select2" data-dropdown-parent="#kt_modal_additional_price" data-placeholder="Pilih Mata Uang">
+                                <select class="form-select form-select-solid" name="add_currency[]" id="add_currency_1" data-control="select2" data-dropdown-parent="#kt_modal_additional_price" data-placeholder="Pilih Mata Uang">
                                     <?php
                                     foreach ($currencies as $currency) {
                                     ?>
@@ -852,7 +852,7 @@
                             <!--end::Col-->
                             <!--begin::Col-->
                             <div class="col-lg-2 fv-row fv-plugins-icon-container">
-                                <button type="button" id="btn_add" class="btn btn-sm btn-bg-success btn-icon me-2 mb-2" onclick="return Elements.add_row();">
+                                <button type="button" id="btn_add_1" class="btn btn-sm btn-bg-success btn-icon me-2 mb-2" onclick="return Elements.add_row();">
                                     <i class="las la-plus fs-1 text-white"></i>
                                 </button>
                             </div>
@@ -1260,7 +1260,7 @@
     })();
 
     var KTModalForm = (function() {
-        var a, b, c, d, e, f, g, t, u, v, w, x, y, z;
+        var a, b, c, d, e, f, g, t, u, v, w, x, y, z, aa, bb, cc, dd, ee, ff, gg;
         return {
             rfq_form: function() {
                 (a = document.querySelector("#kt_modal_det_rfq_goods")) &&
@@ -1761,6 +1761,126 @@
                 y.addEventListener("click", function(t) {
                     z.resetForm(true), u.hide()
                 });
+            },
+            additional_form: function() {
+                (aa = document.querySelector("#kt_modal_additional_price")) &&
+                ((bb = new bootstrap.Modal(a)),
+                    (cc = document.querySelector("#kt_modal_additional_price_form")),
+                    (dd = document.getElementById("kt_modal_additional_price_submit")),
+                    (ee = document.getElementById("kt_modal_additional_price_cancel")),
+                    (ff = document.querySelector('[data-kt-additional-price-modal-action="close"]')),
+                    (gg = FormValidation.formValidation(cc, {
+                        fields: {
+                            add_price: {
+                                // The children's full name are inputs with class .childFullName
+                                selector: '.add_price_val',
+                                // The field is placed inside .col-xs-6 div instead of .form-group
+                                row: '.col-lg-3',
+                                validators: {
+                                    notEmpty: {
+                                        message: "Tidak boleh kosong"
+                                    }
+                                },
+                            },
+                        },
+                        plugins: {
+                            trigger: new FormValidation.plugins.Trigger(),
+                            bootstrap: new FormValidation.plugins.Bootstrap5({
+                                rowSelector: ".fv-row",
+                                eleInvalidClass: "",
+                                eleValidClass: ""
+                            })
+                        },
+                    })),
+                    dd.addEventListener("click", function(e) {
+                        e.preventDefault(),
+                            gg &&
+                            gg.validate().then(function(e) {
+                                var frmData = new FormData(cc);
+                                "Valid" == e
+                                    ?
+                                    (
+                                        Swal.fire({
+                                            text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                                            icon: "warning",
+                                            showCancelButton: !0,
+                                            buttonsStyling: !1,
+                                            confirmButtonText: "Ya, Simpan",
+                                            cancelButtonText: "Kembali",
+                                            customClass: {
+                                                confirmButton: "btn btn-primary",
+                                                cancelButton: "btn btn-active-light"
+                                            },
+                                        }).then(function(r) {
+                                            r.value ?
+                                                (
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: c.getAttribute('action'),
+                                                        data: frmData,
+                                                        processData: false,
+                                                        contentType: false,
+                                                        beforeSend: function() {
+                                                            d.setAttribute("data-kt-indicator", "on"),
+                                                                (d.disabled = !0);
+                                                        },
+                                                        success: function(response) {
+                                                            var obj = jQuery.parseJSON(response);
+                                                            d.removeAttribute("data-kt-indicator"),
+                                                                (d.disabled = !1);
+                                                            Swal.fire({
+                                                                text: obj.msg,
+                                                                icon: obj.status,
+                                                                buttonsStyling: !1,
+                                                                confirmButtonText: "Tutup",
+                                                                customClass: {
+                                                                    confirmButton: "btn btn-primary"
+                                                                }
+                                                            }).then(
+                                                                function(t) {
+                                                                    t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(), g.resetForm(true), b.hide()) : r.dismiss;
+                                                                }
+                                                            );
+                                                        },
+                                                        error: function() {
+                                                            d.removeAttribute("data-kt-indicator"),
+                                                                (d.disabled = !1);
+                                                            Swal.fire({
+                                                                text: "Terjadi masalah koneksi",
+                                                                icon: "error",
+                                                                buttonsStyling: !1,
+                                                                confirmButtonText: "Tutup",
+                                                                customClass: {
+                                                                    confirmButton: "btn btn-primary"
+                                                                }
+                                                            }).then(
+                                                                function(t) {
+                                                                    t.isConfirmed && r.dismiss;
+                                                                }
+                                                            );
+                                                        }
+                                                    })
+                                                ) :
+                                                "cancel" === r.dismiss;
+                                        })
+                                    ) :
+                                    Swal.fire({
+                                        text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                                        icon: "error",
+                                        buttonsStyling: !1,
+                                        confirmButtonText: "Tutup",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        },
+                                    });
+                            });
+                    }),
+                    ee.addEventListener("click", function(t) {
+                        gg.resetForm(true), bb.hide();
+                    })),
+                ff.addEventListener("click", function(t) {
+                    gg.resetForm(true), bb.hide();
+                });
             }
         }
     })();
@@ -1792,32 +1912,64 @@
             add_row: function() {
                 // get the last DIV which ID starts with ^= "klon"
                 var $div = $('div[id^="el_add_"]:last');
+                var num = parseInt( $div.prop("id").match(/\d+/g), 10 );
+                if($('div[id^="el_add_"]').length == 1) {
+                    var $btn_add = $div.closest('div').find('button[id^="btn_add_"]');
+                    var $btn_rm = $btn_add.clone().prop('id', 'btn_rm_'+num).attr('onclick', 'return Elements.remove_row(this)');
+                    $btn_rm.removeClass('btn-bg-success').addClass('btn-bg-danger');
+                    $btn_rm.find('i').removeClass('la-plus').addClass('la-minus');
+                    $btn_add.after($btn_rm);
+                }
+
                 if($('div[id^="el_add_"]').length < 4) {
+
+                    // $('div[id^="el_add_"]').find('select[id^="add_price_type_').each(function(key, value) {
+                    //     $("#"+value.id).select2('destroy');
+                    // });
+
+                    $('div[id^="el_add_"]').each(function(key, value) {
+                        $("#"+value.id).find('select[id^="add_price_type_').select2('destroy');
+                        $("#"+value.id).find('select[id^="add_currency_').select2('destroy');
+                    });
+                    
                     // Read the Number from that DIV's ID (i.e: 3 from "klon3")
                     // And increment that number by 1
-                    var num = parseInt( $div.prop("id").match(/\d+/g), 10 ) +1;
+                    var next = num+1;
 
                     // Clone it and assign the new ID (i.e: from num 4 to ID "klon4")
-                    var $klon = $div.clone().prop('id', 'el_add_'+num );
-                    var $btn_add = $klon.closest('div').find('button[id="btn_add"]');
-                    var $btn_rm = $btn_add.clone().prop('id', 'btn_rm').attr('onclick', 'return Elements.remove_row();');
-
-                    $btn_add.after($btn_rm);
+                    var $klon = $div.clone().prop('id', 'el_add_'+next );
                     
-                    // $klon.closest('div').find('select[id^="add_price_type_"]').prop('id', 'add_price_type_'+num);
-                    // $klon.closest('div').find('select[id^="add_price_"]').prop('id', 'add_price_'+num);
-                    // $klon.closest('div').find('select[id^="add_currency_"]').prop('id', 'add_currency_'+num);
+                    $klon.closest('div').find('select[id^="add_price_type_"]').prop('id', 'add_price_type_'+next);
+                    // $klon.closest('div').find('input[id^="add_price_"]').prop('id', 'add_price_'+next);
+                    $klon.closest('div').find('select[id^="add_currency_"]').prop('id', 'add_currency_'+next);
+                    $klon.closest('div').find('button[id^="btn_add_"]').prop('id', 'btn_add_'+next);
+                    $klon.closest('div').find('button[id^="btn_rm_"]').prop('id', 'btn_rm_'+next);
 
                     // Finally insert $klon wherever you want
                     $div.after( $klon );
+
+                    // $('div[id^="el_add_"]').find('select[id^="add_price_type_').each(function(key, value) {
+                    //     $("#"+value.id).select2();
+                    // });
+
+                    $('div[id^="el_add_"]').each(function(key, value) {
+                        $("#"+value.id).find('select[id^="add_price_type_').select2();
+                        $("#"+value.id).find('select[id^="add_currency_').select2();
+                    });
                 }
 
-                if($('div[id^="el_add_"]').length > 1) {
-                    // $('div[id^="el_add_"]:first')
-                }
+                KTModalForm.additional_form();
             },
-            remove_row: function() {
-
+            remove_row: function(e) {
+                var $this = $("#"+e.id).parent().parent().attr('id');
+                if($('div[id^="el_add_"]').length > 1) {
+                    $("#"+$this).remove();
+                }
+                console.log($('div[id^="el_add_"]').length);
+                if($('div[id^="el_add_"]').length == 1) {
+                    var $btn_rm = $('div[id^="el_add_"]').closest('div').find('button[id^="btn_rm_"]');
+                    $btn_rm.remove();
+                }
             }
         }
     })();
@@ -1826,6 +1978,7 @@
         KTDataTables.init();
         KTModalForm.rfq_form();
         KTModalForm.eqiv_form();
+        KTModalForm.additional_form();
         $("input[name=unit_price]").maskMoney({
             thousands: '.',
             decimal: ',',
