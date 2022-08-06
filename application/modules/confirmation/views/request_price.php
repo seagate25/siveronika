@@ -217,15 +217,27 @@ var KTDataTables = (function() {
                 // scrollY: "500px",
                 scrollX: !0,
                 // scrollCollapse: !0,
-                dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
+                // dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
+                // "<'row'<'col-sm-12'tr>>" +
+                // "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
                 // fixedHeader:    true,
                 // fixedColumns:   {
                 //     heightMatch: 'none',
                 //     leftColumns: 1,
                 //     rightColumns: 0
                 // },
+                dom: "<'row'<'col-sm-6 col-md-6 col-lg-6'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
+                buttons: [
+                    {
+                        text: 'Kirim',
+                        className: 'btn btn-sm btn-success',
+                        action: function ( e, dt, node, config ) {
+                            modal_additional.show();
+                        }
+                    }
+                ],
                 paging: !0,
                 ordering: !0,
                 searching: !0,
