@@ -21,7 +21,7 @@
                     <th class="min-w-50px text-center">No.</th>
                     <th class="min-w-100px text-center">Kode Material</th>
                     <th class="min-w-125px text-center">Nama Material</th>
-                    <th class="min-w-125px text-center">Berkas</th>
+                    <!-- <th class="min-w-125px text-center">Berkas</th> -->
                     <th class="min-w-50px text-center">Jumlah Permintaan</th>
                     <th class="min-w-50px text-center">Satuan Permintaan</th>
                     <th class="min-w-50px text-center">Status</th>
@@ -934,10 +934,10 @@
                                 data: 'deskripsi_barang',
                                 className: 'text-center'
                             },
-                            {
-                                data: 'berkas',
-                                className: 'text-center'
-                            },
+                            // {
+                            //     data: 'berkas',
+                            //     className: 'text-center'
+                            // },
                             {
                                 data: 'jumlah_permintaan',
                                 className: 'text-center'

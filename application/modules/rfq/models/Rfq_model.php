@@ -93,25 +93,25 @@ class Rfq_model extends CI_Model
         //             WHERE   RowNum > {$start}
         //                 AND RowNum < (({$start} + 1) + {$length})
         //             ORDER BY RowNum";
-        // $sql_   = "SELECT  *
-        //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum,
-        //                                 trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
-        //                     FROM      {$this->table[0]} trfq
-        //                     LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq)
-        //                     {$where}
-        //                     ) AS RowConstrainedResult
-        //             WHERE   RowNum > {$start}
-        //                 AND RowNum < (({$start} + 1) + {$length})
-        //             ORDER BY RowNum";
         $sql_   = "SELECT  *
-        FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum,
-                            trfq.*
-                FROM      {$this->table[0]} trfq
-                {$where}
-                ) AS RowConstrainedResult
-        WHERE   RowNum > {$start}
-            AND RowNum < (({$start} + 1) + {$length})
-        ORDER BY RowNum";
+                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum,
+                                        trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
+                            FROM      {$this->table[0]} trfq
+                            LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq)
+                            {$where}
+                            ) AS RowConstrainedResult
+                    WHERE   RowNum > {$start}
+                        AND RowNum < (({$start} + 1) + {$length})
+                    ORDER BY RowNum";
+        // $sql_   = "SELECT  *
+        // FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum,
+        //                     trfq.*
+        //         FROM      {$this->table[0]} trfq
+        //         {$where}
+        //         ) AS RowConstrainedResult
+        // WHERE   RowNum > {$start}
+        //     AND RowNum < (({$start} + 1) + {$length})
+        // ORDER BY RowNum";
 
         $query = $this->db->query($sql_);
         $rows_data = $query->result();
@@ -121,14 +121,14 @@ class Rfq_model extends CI_Model
         foreach ($rows_data as $row) {
             $berkas = '';
 
-            // if ($row->nama_berkas !== NULL) {
-            //     $berkas =
-            //         '<a href="' . base_url('upload_files/Dokumen_RFQ/' . $row->nama_berkas) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
-            //                     <i class="las la-arrow-down fs-1 text-white"></i>
-            //                 </a>';
-            // } else {
-            //     $berkas = '';
-            // }
+            if ($row->nama_berkas !== NULL) {
+                $berkas =
+                    '<a href="' . base_url('upload_files/Dokumen_RFQ/' . $row->nama_berkas) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
+                                <i class="las la-arrow-down fs-1 text-white"></i>
+                            </a>';
+            } else {
+                $berkas = '';
+            }
             $row->number                = $i;
             $row->berkas                = $berkas;
             $row->nomor_rfq             = $row->nomor_rfq;
@@ -188,25 +188,25 @@ class Rfq_model extends CI_Model
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
-        // $sql_   = "SELECT  *
-        //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, trfqd.*
-        //                     FROM      {$this->table[1]} trfqd
-        //                     {$where}
-        //                     ) AS RowConstrainedResult
-        //             WHERE   RowNum > {$start}
-        //                 AND RowNum < (({$start} + 1) + {$length})
-        //             ORDER BY RowNum";
-
         $sql_   = "SELECT  *
-        FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfqd.kode_barang) AS RowNum,
-                            trfqd.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
-                FROM      {$this->table[1]} trfqd
-                LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq=trfqd.nomor_rfq and tl.kode_barang = trfqd.kode_barang)
-                {$where}
-                ) AS RowConstrainedResult
-        WHERE   RowNum > {$start}
-            AND RowNum < (({$start} + 1) + {$length})
-        ORDER BY RowNum";
+                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, trfqd.*
+                            FROM      {$this->table[1]} trfqd
+                            {$where}
+                            ) AS RowConstrainedResult
+                    WHERE   RowNum > {$start}
+                        AND RowNum < (({$start} + 1) + {$length})
+                    ORDER BY RowNum";
+
+        // $sql_   = "SELECT  *
+        // FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfqd.kode_barang) AS RowNum,
+        //                     trfqd.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
+        //         FROM      {$this->table[1]} trfqd
+        //         LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq=trfqd.nomor_rfq and tl.kode_barang = trfqd.kode_barang)
+        //         {$where}
+        //         ) AS RowConstrainedResult
+        // WHERE   RowNum > {$start}
+        //     AND RowNum < (({$start} + 1) + {$length})
+        // ORDER BY RowNum";
 
         $query = $this->db->query($sql_);
         $rows_data = $query->result();
@@ -215,17 +215,17 @@ class Rfq_model extends CI_Model
         $i = (0 + 1);
 
         foreach ($rows_data as $row) {
-            $berkas = '';
+            // $berkas = '';
 
-            if ($row->nama_berkas !== NULL) {
-                $berkas =
-                    '<a href="' . base_url('upload_files/Dokumen_RFQ/' . $row->nama_berkas) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
-                                <i class="las la-arrow-down fs-1 text-white"></i>
-                            </a>';
-            } else {
-                $berkas = '';
-            }
-            $row->berkas                = $berkas;
+            // if ($row->nama_berkas !== NULL) {
+            //     $berkas =
+            //         '<a href="' . base_url('upload_files/Dokumen_RFQ/' . $row->nama_berkas) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
+            //                     <i class="las la-arrow-down fs-1 text-white"></i>
+            //                 </a>';
+            // } else {
+            //     $berkas = '';
+            // }
+            // $row->berkas                = $berkas;
             $row->number                = $i;
             $row->kode_barang           = $row->kode_barang;
             $row->deskripsi_barang      = $row->deskripsi_barang;
