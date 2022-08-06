@@ -319,7 +319,8 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container" id="input_file">
-                                <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span>
+                                <!-- <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span> -->
+                                <span class="form-text text-muted">File yang diperbolehkan .PDF</span>
                                 <div class="mb-3">
                                     <input class="form-control rfq_file" type="file" name="rfq_file[]">
                                 </div>
@@ -744,7 +745,8 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container" id="input_file_eqiv">
-                                <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span>
+                                <!-- <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span> -->
+                                <span class="form-text text-muted">File yang diperbolehkan .PDF</span>
                                 <div class="mb-3">
                                     <input class="form-control eqiv_file" type="file" name="eqiv_file[]">
                                 </div>
@@ -1381,9 +1383,9 @@
                                 row: '.col-lg-8',
                                 validators: {
                                     file: {
-                                        extension: 'jpeg,jpg,png,pdf',
-                                        type: 'image/jpeg,image/png,application/pdf',
-                                        message: 'Please choose a JPEG, JPG, PNG, & PDF file',
+                                        extension: 'pdf', //'jpeg,jpg,png,pdf',
+                                        type: 'application/pdf',//'image/jpeg,image/png,application/pdf',
+                                        message: 'Please choose a PDF file',//'Please choose a JPEG, JPG, PNG, & PDF file',
                                     },
                                 },
                             },
@@ -1656,9 +1658,9 @@
                                 row: '.col-lg-6',
                                 validators: {
                                     file: {
-                                        extension: 'jpeg jpg,png,pdf',
-                                        type: 'image/jpeg,image/png,application/pdf',
-                                        message: 'Please choose a JPEG, JPG, PNG, & PDF file',
+                                        extension: 'pdf', //'jpeg,jpg,png,pdf',
+                                        type: 'application/pdf',//'image/jpeg,image/png,application/pdf',
+                                        message: 'Please choose a PDF file',//'Please choose a JPEG, JPG, PNG, & PDF file',
                                     },
                                 },
                             },
