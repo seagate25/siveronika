@@ -29,7 +29,7 @@
                         </span>
                         <!--end::Svg Icon-->
                         <div class="text-inverse-primary fw-bolder fs-2 mb-2 mt-5" id="c_rfq_goods"></div>
-                        <div class="fw-bold text-inverse-primary fs-7">RFQ Barang</div>
+                        <div class="text-inverse-primary fs-2 mb-2 mt-5"><medium>RFQ Barang</medium></div>
                     </div>
                     <!--end::Body-->
                 </a>
@@ -73,7 +73,7 @@
                         </span>
                         <!--end::Svg Icon-->
                         <div class="text-inverse-warning fw-bolder fs-2 mb-2 mt-5" id="c_request_price"></div>
-                        <div class="fw-bold text-inverse-warning fs-7">Permintaan Harga</div>
+                        <div class="text-inverse-primary fs-2 mb-2 mt-5"><medium>Permintaan Harga</medium></div>
                     </div>
                     <!--end::Body-->
                 </a>
@@ -93,7 +93,7 @@
                         </span>
                         <!--end::Svg Icon-->
                         <div class="text-inverse-success fw-bolder fs-2 mb-2 mt-5" id="c_confirm_price"></div>
-                        <div class="fw-bold text-inverse-success fs-7">Konfirmasi harga</div>
+                        <div class="text-inverse-primary fs-2 mb-2 mt-5"><medium>Konfirmasi harga</medium></div>
                     </div>
                     <!--end::Body-->
                 </a>
@@ -113,7 +113,7 @@
                         </span>
                         <!--end::Svg Icon-->
                         <div class="text-inverse-secondary fw-bolder fs-2 mb-2 mt-5">0 <small>Data</small></div>
-                        <div class="fw-bold text-inverse-secondary fs-7">Status PO Barang</div>
+                        <div class="text-inverse-primary fs-2 mb-2 mt-5"><medium>Status PO Barang</medium></div>
                     </div>
                     <!--end::Body-->
                 </a>
@@ -151,7 +151,7 @@
                         </span>
                         <!--end::Svg Icon-->
                         <div class="text-inverse-success fw-bolder fs-2 mb-2 mt-5">0 <small>Data</small></div>
-                        <div class="fw-bold text-inverse-success fs-7">Negosiasi Barang</div>
+                        <div class="text-inverse-primary fs-2 mb-2 mt-5"><medium>Negosiasi Barang</medium></div>
                     </div>
                     <!--end::Body-->
                 </a>
@@ -177,7 +177,7 @@
                         </span>
                         <!--end::Svg Icon-->
                         <div class="text-inverse-warning fw-bolder fs-2 mb-2 mt-5">0 <small>Data</small></div>
-                        <div class="fw-bold text-inverse-warning fs-7">Riwayat RFQ Barang</div>
+                        <div class="text-inverse-primary fs-2 mb-2 mt-5"><medium>Riwayat RFQ Barang</medium></div>
                     </div>
                     <!--end::Body-->
                 </a>
@@ -203,7 +203,7 @@
                         </span>
                         <!--end::Svg Icon-->
                         <div class="text-inverse-primary fw-bolder fs-2 mb-2 mt-5">0 <small>Data</small></div>
-                        <div class="fw-bold text-inverse-primary fs-7">Riwayat Nego Barang</div>
+                        <div class="text-inverse-primary fs-2 mb-2 mt-5"><medium>Riwayat Nego Barang</medium></div>
                     </div>
                     <!--end::Body-->
                 </a>
