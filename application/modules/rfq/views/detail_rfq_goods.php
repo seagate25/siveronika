@@ -533,7 +533,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="available_total_eqiv" class="form-control" placeholder="Jumlah Tersedia" min="0">
+                                <input type="number" name="available_total_eqiv" id="available_total_eqiv" class="form-control" placeholder="Jumlah Tersedia" min="0">
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -2106,6 +2106,15 @@
                 $("input[name=indent_day_eqiv]").attr('readonly', false).removeClass('form-control-solid');
             }
             $("input[name=indent_total_eqiv]").val(indent_total_eqiv);
+        });
+
+         $("input[name=available_eqiv]").on('keyup change', function() {
+            if ($('input[name="available_eqiv"]:checked').val() == 1) {
+                $('#available_total_eqiv').attr('disabled', 'disabled');
+                $('#available_total_eqiv').val(0);
+            } else {
+                $('#available_total_eqiv').removeAttr('disabled');
+            }
         });
     }));
 </script>
