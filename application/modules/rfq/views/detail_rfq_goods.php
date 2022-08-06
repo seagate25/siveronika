@@ -503,6 +503,32 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Ketersediaan Barang</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <div class="align-items-center mt-3">
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-inline form-check-solid me-5">
+                                        <input class="form-check-input" name="available_eqiv" type="radio" value="0" checked="true">
+                                        <span class="fw-bold ps-2 fs-6">Tersedia</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-inline form-check-solid">
+                                        <input class="form-check-input" name="available_eqiv" type="radio" value="1">
+                                        <span class="fw-bold ps-2 fs-6">Indent</span>
+                                    </label>
+                                    <!--end::Option-->
+                                </div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Tersedia</label>
                             <!--end::Label-->
                             <!--begin::Col-->
@@ -666,32 +692,6 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div class="fv-plugins-message-container invalid-feedback"></div>
-                            </div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Ketersediaan Barang</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <div class="align-items-center mt-3">
-                                    <!--begin::Option-->
-                                    <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="available_eqiv" type="radio" value="0" checked="true">
-                                        <span class="fw-bold ps-2 fs-6">Tersedia</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="available_eqiv" type="radio" value="1">
-                                        <span class="fw-bold ps-2 fs-6">Indent</span>
-                                    </label>
-                                    <!--end::Option-->
-                                </div>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
