@@ -199,6 +199,27 @@ class Global_model extends CI_Model
 
         return $this->db->query($this->query);
     }
+
+    public function delete($table, $params = array())
+    {
+        $this->query    = "";
+        $this->query   .= "DELETE FROM {$table} WHERE ";
+
+        $j  = 0;
+        foreach ($params as $key => $value) {
+            $this->query .= "{$key} = '{$value}'";
+            if ($j === (count($params) - 1)) {
+                $this->query .= "";
+            } else {
+                $this->query .= " AND ";
+            }
+
+            $j++;
+        }
+
+        $this->db->query($this->query);
+        return $this->db->affected_rows();
+    }
 }
 
 /* End of file Global_model.php */
