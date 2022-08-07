@@ -9,7 +9,7 @@
             </button>
         </div>
     </div>
-    <div class="card-body py-1">
+    <div class="card-body">
         <table id="kt_datatable_request_price" class="align-middle table table-row-bordered gy-5">
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
@@ -167,19 +167,6 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!-- <div class="row mb-6">
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Harga</label>
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <select class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih Status" data-hide-search="true">
-                                    <option></option>
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
-                                    <option value="3">Option 3</option>
-                                    <option value="4">Option 4</option>
-                                    <option value="5">Option 5</option>
-                                </select>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                        </div> -->
                     </div>
                     <!--end::Scroll-->
                 </div>
@@ -214,19 +201,8 @@ var KTDataTables = (function() {
                 serverSide:!0,
                 destroy: !0,
                 // responsive: !0,
-                // scrollY: "500px",
                 scrollX: !0,
-                // scrollCollapse: !0,
-                // dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
-                // "<'row'<'col-sm-12'tr>>" +
-                // "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
-                // fixedHeader:    true,
-                // fixedColumns:   {
-                //     heightMatch: 'none',
-                //     leftColumns: 1,
-                //     rightColumns: 0
-                // },
-                dom: "<'row'<'col-sm-6 col-md-6 col-lg-6'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
+                dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
                     "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
                 buttons: [

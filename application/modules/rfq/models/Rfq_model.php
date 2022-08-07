@@ -188,6 +188,22 @@ class Rfq_model extends CI_Model
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
+        // $sql_   = "SELECT  *
+        // FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
+        //         trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
+        // trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+        // trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+        // trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by
+        //         FROM {$this->table[1]} trfqd
+        //         {$where}
+        //         GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+        // trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+        // trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by
+        //         ) AS RowConstrainedResult
+        // WHERE   RowNum > {$start}
+        //     AND RowNum < (({$start} + 1) + {$length})
+        // ORDER BY RowNum";
+
         $sql_   = "SELECT  *
                     FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, trfqd.*
                             FROM      {$this->table[1]} trfqd
@@ -196,17 +212,6 @@ class Rfq_model extends CI_Model
                     WHERE   RowNum > {$start}
                         AND RowNum < (({$start} + 1) + {$length})
                     ORDER BY RowNum";
-
-        // $sql_   = "SELECT  *
-        // FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfqd.kode_barang) AS RowNum,
-        //                     trfqd.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
-        //         FROM      {$this->table[1]} trfqd
-        //         LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq=trfqd.nomor_rfq and tl.kode_barang = trfqd.kode_barang)
-        //         {$where}
-        //         ) AS RowConstrainedResult
-        // WHERE   RowNum > {$start}
-        //     AND RowNum < (({$start} + 1) + {$length})
-        // ORDER BY RowNum";
 
         $query = $this->db->query($sql_);
         $rows_data = $query->result();

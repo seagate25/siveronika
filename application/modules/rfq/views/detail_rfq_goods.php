@@ -904,7 +904,7 @@
                         destroy: !0,
                         // responsive: !0,
                         scrollX: !0,
-                        dom: "<'row'<'col-sm-6 col-md-6 col-lg-6'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
+                        dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
                             "<'row'<'col-sm-12'tr>>" +
                             "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
                         buttons: [

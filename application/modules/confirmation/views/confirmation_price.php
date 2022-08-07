@@ -8,7 +8,7 @@
             </button>
         </div>
     </div>
-    <div class="card-body py-1">
+    <div class="card-body">
         <table id="kt_datatable_confirmation_price" class="align-middle table table-row-bordered gy-5">
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
@@ -24,23 +24,6 @@
                     <th class="min-w-50px text-center">Aksi</th>
                 </tr>
             </thead>
-            <!-- <tbody class="text-gray-600 fw-bold">
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">7063463</td>
-                    <td class="text-center">STOP KONTAK 6 LUBANG KUNINGAN "UTICON"</td>
-                    <td class="text-center">4</td>
-                    <td class="text-center">BH</td>
-                    <td class="text-center">12 Dec 21</td>
-                    <td class="text-center">Belum Konfirmasi</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody> -->
         </table>
     </div>
 </div>
@@ -217,25 +200,6 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <!-- <div class="row mb-6"> -->
-                        <!--begin::Label-->
-                        <!-- <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Harga</label> -->
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <!-- <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <select class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih Status" data-hide-search="true">
-                                    <option></option>
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
-                                    <option value="3">Option 3</option>
-                                    <option value="4">Option 4</option>
-                                    <option value="5">Option 5</option>
-                                </select>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div> -->
-                        <!--end::Col-->
-                        <!-- </div> -->
-                        <!--end::Input Group-->
                     </div>
                     <!--end::Scroll-->
                 </div>
@@ -271,19 +235,8 @@
                         serverSide: !0,
                         destroy: !0,
                         // responsive: !0,
-                        // scrollY: "500px",
                         scrollX: !0,
-                        // scrollCollapse: !0,
-                        // dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
-                        //     "<'row'<'col-sm-12'tr>>" +
-                        //     "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
-                        // fixedHeader:    true,
-                        // fixedColumns:   {
-                        //     heightMatch: 'none',
-                        //     leftColumns: 1,
-                        //     rightColumns: 0
-                        // },
-                        dom: "<'row'<'col-sm-6 col-md-6 col-lg-6'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
+                        dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
                             "<'row'<'col-sm-12'tr>>" +
                             "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
                         buttons: [
