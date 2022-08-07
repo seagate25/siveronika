@@ -403,6 +403,11 @@ class Rfq_model extends CI_Model
         $this->global->update($this->table[5], $params, $data);
     }
 
+    /**
+     * Get Unit of Measure
+     *
+     * @return void
+     */
     public function getUoM()
     {
         $this->load->model('Global_model', 'global');
@@ -420,6 +425,11 @@ class Rfq_model extends CI_Model
         return $array;
     }
 
+    /**
+     * Get Currency
+     *
+     * @return void
+     */
     public function getCurrency()
     {
         $this->load->model('Global_model', 'global');
@@ -429,6 +439,40 @@ class Rfq_model extends CI_Model
             $row->kode_uang = trim($row->kode_uang);
             $row->deskripsi = utf8_encode(trim($row->deskripsi));
         }
+
+        return $result;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $data
+     * @return void
+     */
+    public function insertBatchOtherPrice($data = array())
+    {
+        $this->load->model('Global_model', 'global');
+        $result = $this->global->insert_batch($this->table[3], $data);
+
+        return $result;
+    }
+
+    public function deleteOtherPrice($params = array())
+    {
+        $this->load->model('Global_model', 'global');
+        $this->global->delete($this->table[3], $params);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $params
+     * @return void
+     */
+    public function getOtherPrice($params = array())
+    {
+        $this->load->model('Global_model', 'global');
+        $result   = $this->global->get_by($this->table[3], $params);
 
         return $result;
     }

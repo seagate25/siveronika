@@ -916,6 +916,11 @@ class Rfq extends CI_Controller
         exit;
     }
 
+    /**
+     * Download
+     *
+     * @return void
+     */
     public function download()
     {
         $this->load->helper('download');
@@ -933,6 +938,67 @@ class Rfq extends CI_Controller
         $file_data  = $get_file->row();
 
         force_download($file_data->nama_berkas_asli, file_get_contents($file_data->alamat_berkas . $file_data->nama_berkas));
+    }
+    
+    /**
+     * Save other price
+     *
+     * @return void
+     */
+    public function save_other()
+    {
+        $rfq_no     = $this->crypto->decode($this->input->post('id_rfq_other'));
+        $price_type = $this->input->post('add_price_type');
+        $price      = $this->input->post('add_price');
+        $price_curr = $this->input->post('add_currency');
+        $data       = array();
+        for($i = 0; $i < count($price_type); $i++) {
+            $explode = explode("_", $price_type[$i]);
+            $row = array(
+                'nomor_rfq' => $rfq_no,
+                'kode_biaya' => $explode[0],
+                'deskripsi_biaya' => $explode[1],
+                'jumlah_biaya' => str_replace('.', '', $price[$i]),
+                'mata_uang' => $price_curr[$i],
+                'keterangan' => 'NULL'
+            );
+            $data[] = $row;
+        }
+
+        $this->rfq->deleteOtherPrice(array('nomor_rfq' => $rfq_no));
+        $save_other_price = $this->rfq->insertBatchOtherPrice($data);
+
+        $response = array(
+            'code' => 0,
+            'msg' => 'Berhasil menyimpan data',
+            'status' => 'success',
+            'data' => $save_other_price
+        );
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
+    /**
+     * Get other price data
+     *
+     * @return void
+     */
+    public function get_other_data()
+    {
+        $rfq_no     = $this->crypto->decode($this->input->post('id'));
+        $get_data   = $this->rfq->getOtherPrice(array('nomor_rfq' => $rfq_no));
+        $data       = $get_data->result();
+
+        $response = array(
+            'code' => 0,
+            'msg' => 'Success',
+            'status' => 'success',
+            'data' => $data
+        );
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
     }
 }
 

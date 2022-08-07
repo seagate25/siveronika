@@ -818,24 +818,24 @@
                         <!-- <div class="fw-bold">
                             <h4 class="text-gray-900 fw-bolder">Biaya Lainnya</h4>
                         </div> -->
-                        <input type="hidden" name="id_rfq">
+                        <input type="hidden" name="id_rfq_other" value="<?php echo $this->uri->segment(3); ?>">
                         <!--Begin::Input Group-->
                         <div class="row mb-6" id="el_add_1">
                             <!--begin::Label-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
                                 <select class="form-select form-select-solid" name="add_price_type[]" id="add_price_type_1" data-control="select2" data-dropdown-parent="#kt_modal_additional_price" data-placeholder="Pilih Biaya Lainnya">
-                                    <option value="ZFR1">Freight Cost - Taxable</option>
-                                    <option value="ZFR2">Freight Cost - Non Taxable</option>
-                                    <option value="ZFIN">Freight & Insurance</option>
-                                    <option value="ZINS">Insurance</option>
+                                    <option value="ZFR1_Freight Cost - Taxable">Freight Cost - Taxable</option>
+                                    <option value="ZFR2_Freight Cost - Non Taxable">Freight Cost - Non Taxable</option>
+                                    <option value="ZFIN_Freight & Insurance">Freight & Insurance</option>
+                                    <option value="ZINS_Insurance">Insurance</option>
                                 </select>
-                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                                <!-- <div class="fv-plugins-message-container invalid-feedback"></div> -->
                             </div>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
                                 <input type="text" name="add_price[]" id="add_price_1" class="form-control add_price_val" placeholder="">
-                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                                <!-- <div class="fv-plugins-message-container invalid-feedback"></div> -->
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
@@ -849,7 +849,7 @@
                                     }
                                     ?>
                                 </select>
-                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                                <!-- <div class="fv-plugins-message-container invalid-feedback"></div> -->
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
@@ -886,14 +886,16 @@
 </div>
 <script type="text/javascript">
     "use strict";
-    var form_additional, fvAdditional;
     const modal_additional_container = document.querySelector("#kt_modal_additional_price");
     const modal_additional = new bootstrap.Modal(modal_additional_container);
 
     var KTDataTables = (function() {
         var e;
-        var target = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen .modal-content");
-        var blockUI = new KTBlockUI(target);
+        const target = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen .modal-content");
+        const blockUI = new KTBlockUI(target);
+        const loading = new KTBlockUI(document.querySelector("#kt_content"), {
+            overlayClass: "bg-dark bg-opacity-10",
+        });
         return {
             init: function() {
                 e = $("#kt_datatable_detail_rfq_goods").DataTable({
@@ -910,7 +912,38 @@
                                 text: 'Biaya Tambahan',
                                 className: 'btn btn-sm btn-success',
                                 action: function ( e, dt, node, config ) {
-                                    modal_additional.show();
+                                    // loading.release();
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "<?php echo site_url('rfq/get_other_data') ?>",
+                                        data: { id: $('input[name=id_rfq_other]').val() },
+                                        beforeSend: function() {
+                                            loading.block();
+                                        },
+                                        success: function(response) {
+                                            var obj = jQuery.parseJSON(response);
+                                            if(obj.data.length > 0) {
+                                                if(obj.data.length > 1) {
+                                                    // console.log($("div[id^=el_add_]").length);
+                                                    for(var i = 0; i < obj.data.length - 1; i++) {
+                                                        Elements.add_row();
+                                                    }
+                                                }
+
+                                                $("div[id^=el_add_]").each( function(key, value) {
+                                                    $("#add_price_type_"+(key+1)).val(obj.data[key].kode_biaya+'_'+obj.data[key].deskripsi_biaya).trigger('change');
+                                                    $("#add_price_"+(key+1)).maskMoney('mask', parseInt(obj.data[key].jumlah_biaya));
+                                                    $("#add_currency_"+(key+1)).val($.trim(obj.data[key].mata_uang)).trigger('change');
+                                                }),
+                                                loading.release(), modal_additional.show();
+                                            } else {
+                                                modal_additional.show();
+                                            }
+                                        },
+                                        error: function() {
+                                            loading.release();
+                                        }
+                                    });
                                 }
                             }
                         ],
@@ -1265,7 +1298,8 @@
     })();
 
     var KTModalForm = (function() {
-        var a, b, c, d, e, f, g, t, u, v, w, x, y, z, btn_a, btn_b, btn_c;
+        var a, b, c, d, e, f, g, t, u, v, w, x, y, z;
+        var btn_submit, btn_cancel, btn_close, form_additional;
         return {
             rfq_form: function() {
                 (a = document.querySelector("#kt_modal_det_rfq_goods")) &&
@@ -1767,82 +1801,20 @@
                     z.resetForm(true), u.hide()
                 });
             },
-            ext_form: function() {
-                (btn_a = document.getElementById("kt_modal_additional_price_submit")),
-                (btn_b = document.getElementById("kt_modal_additional_price_cancel")),
-                (btn_c = document.querySelector('[data-kt-additional-price-modal-action="close"]')),
-                btn_a.addEventListener("click", function(e) {
-                    e.preventDefault(),
-                    fvAdditional &&
-                    fvAdditional.validate().then(function(e) {
-                        var formData = new FormData(form_additional);
-                        "Valid" == e
-                        ?
-                        (
-                            Swal.fire({
-                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
-                                icon: "warning",
-                                showCancelButton: !0,
-                                buttonsStyling: !1,
-                                confirmButtonText: "Ya, Simpan",
-                                cancelButtonText: "Kembali",
-                                customClass: {
-                                    confirmButton: "btn btn-primary",
-                                    cancelButton: "btn btn-active-light"
-                                },
-                            }).then(function(r) {
-                                r.value ?
-                                    (
-                                        $.ajax({
-                                            type: 'POST',
-                                            url: c.getAttribute('action'),
-                                            data: frmData,
-                                            processData: false,
-                                            contentType: false,
-                                            beforeSend: function() {
-                                                d.setAttribute("data-kt-indicator", "on"),
-                                                    (d.disabled = !0);
-                                            },
-                                            success: function(response) {
-                                                var obj = jQuery.parseJSON(response);
-                                                d.removeAttribute("data-kt-indicator"),
-                                                    (d.disabled = !1);
-                                                Swal.fire({
-                                                    text: obj.msg,
-                                                    icon: obj.status,
-                                                    buttonsStyling: !1,
-                                                    confirmButtonText: "Tutup",
-                                                    customClass: {
-                                                        confirmButton: "btn btn-primary"
-                                                    }
-                                                }).then(
-                                                    function(t) {
-                                                        t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(), g.resetForm(true), b.hide()) : r.dismiss;
-                                                    }
-                                                );
-                                            },
-                                            error: function() {
-                                                d.removeAttribute("data-kt-indicator"),
-                                                    (d.disabled = !1);
-                                                Swal.fire({
-                                                    text: "Terjadi masalah koneksi",
-                                                    icon: "error",
-                                                    buttonsStyling: !1,
-                                                    confirmButtonText: "Tutup",
-                                                    customClass: {
-                                                        confirmButton: "btn btn-primary"
-                                                    }
-                                                }).then(
-                                                    function(t) {
-                                                        t.isConfirmed && r.dismiss;
-                                                    }
-                                                );
-                                            }
-                                        })
-                                    ) :
-                                    "cancel" === r.dismiss;
-                            })
-                        ) :
+            additional_form: function() {
+                (form_additional = document.querySelector("#kt_modal_additional_price_form")),
+                (btn_submit = document.getElementById("kt_modal_additional_price_submit")),
+                (btn_cancel = document.getElementById("kt_modal_additional_price_cancel")),
+                (btn_close = document.querySelector('[data-kt-additional-price-modal-action="close"]')),
+                btn_submit.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    var count_invalid = 0;
+                    $('input[name="add_price[]"]').each(function(key, value) {
+                        if($(this).val() == '') {
+                            count_invalid = count_invalid + 1;
+                        }
+                    });
+                    if(count_invalid > 0) {
                         Swal.fire({
                             text: "Maaf, masih ada field yang kosong, silahkan diisi.",
                             icon: "error",
@@ -1852,14 +1824,59 @@
                                 confirmButton: "btn btn-primary"
                             },
                         });
-                    });
+                    } else {
+                        var formData = new FormData(form_additional);
+                        $.ajax({
+                            type: 'POST',
+                            url: form_additional.getAttribute('action'),
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            beforeSend: function() {
+                                btn_submit.setAttribute("data-kt-indicator", "on"),(btn_submit.disabled = !0);
+                            },
+                            success: function(response) {
+                                var obj = jQuery.parseJSON(response);
+                                btn_submit.removeAttribute("data-kt-indicator"),(btn_submit.disabled = !1);
+                                Swal.fire({
+                                    text: obj.msg,
+                                    icon: obj.status,
+                                    buttonsStyling: !1,
+                                    confirmButtonText: "Tutup",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                }).then(
+                                    function(t) {
+                                        t.isConfirmed && (obj.code == 0) ? (modal_additional.hide()) : r.dismiss;
+                                    }
+                                );
+                            },
+                            error: function() {
+                                btn_submit.removeAttribute("data-kt-indicator"),(btn_submit.disabled = !1);
+                                Swal.fire({
+                                    text: "Terjadi masalah koneksi",
+                                    icon: "error",
+                                    buttonsStyling: !1,
+                                    confirmButtonText: "Tutup",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                }).then(
+                                    function(t) {
+                                        t.isConfirmed && r.dismiss;
+                                    }
+                                );
+                            }
+                        })
+                    }
                 }),
-                btn_b.addEventListener("click", function(e) {
-                    modal_additional.hide();
+                btn_cancel.addEventListener("click", function(e) {
+                    modal_additional.hide(), Elements.on_close_modal();
                 }),
-                btn_c.addEventListener("click", function(e) {
-                    modal_additional.hide();
-                });
+                btn_close.addEventListener("click", function(e) {
+                    modal_additional.hide(), Elements.on_close_modal();
+                })
             }
         }
     })();
@@ -1902,10 +1919,6 @@
 
                 if($('div[id^="el_add_"]').length < 4) {
 
-                    // $('div[id^="el_add_"]').find('select[id^="add_price_type_').each(function(key, value) {
-                    //     $("#"+value.id).select2('destroy');
-                    // });
-
                     $('div[id^="el_add_"]').each(function(key, value) {
                         $("#"+value.id).find('select[id^="add_price_type_').select2('destroy');
                         $("#"+value.id).find('select[id^="add_currency_').select2('destroy');
@@ -1919,7 +1932,7 @@
                     var $klon = $div.clone().prop('id', 'el_add_'+next );
                     
                     $klon.closest('div').find('select[id^="add_price_type_"]').prop('id', 'add_price_type_'+next);
-                    $klon.closest('div').find('input').val('');
+                    $klon.closest('div').find('input[id^="add_price_"]').prop('id', 'add_price_'+next).val('');
                     $klon.closest('div').find('select[id^="add_currency_"]').prop('id', 'add_currency_'+next);
                     $klon.closest('div').find('button[id^="btn_add_"]').prop('id', 'btn_add_'+next);
                     $klon.closest('div').find('button[id^="btn_rm_"]').prop('id', 'btn_rm_'+next);
@@ -1927,17 +1940,12 @@
                     // Finally insert $klon wherever you want
                     $div.after( $klon );
 
-                    // $('div[id^="el_add_"]').find('select[id^="add_price_type_').each(function(key, value) {
-                    //     $("#"+value.id).select2();
-                    // });
-
                     $('div[id^="el_add_"]').each(function(key, value) {
                         $("#"+value.id).find('select[id^="add_price_type_').select2();
                         $("#"+value.id).find('select[id^="add_currency_').select2();
                     });
                 }
 
-                fvAdditional.addField('add_price');
                 Elements.inputMask();
             },
             remove_row: function(e) {
@@ -1965,8 +1973,14 @@
                     precision: 0
                 });
             },
-            close_modal: function() {
-                
+            on_close_modal: function() {
+                modal_additional_container.addEventListener('hidden.bs.modal', function () {
+                    $('div[id^="el_add_"]').not(':first').remove();
+                    if($('div[id^="el_add_"]').length == 1) {
+                        var $btn_rm = $('div[id^="el_add_"]').closest('div').find('button[id^="btn_rm_"]');
+                        $btn_rm.remove();
+                    }
+                });
             }
         }
     })();
@@ -2093,7 +2107,6 @@
             }
             $("input[name=indent_total_eqiv]").val(indent_total_eqiv);
         });
-
          $("input[name=available_eqiv]").on('keyup change', function() {
             if ($('input[name="available_eqiv"]:checked').val() == 1) {
                 $('#available_total_eqiv').attr('disabled', 'disabled');
@@ -2102,30 +2115,6 @@
                 $('#available_total_eqiv').removeAttr('disabled');
             }
         });
-        form_additional = document.querySelector("#kt_modal_additional_price_form");
-        fvAdditional = FormValidation.formValidation(form_additional, {
-            fields: {
-                add_price: {
-                    // The children's full name are inputs with class .childFullName
-                    selector: '.add_price_val',
-                    // The field is placed inside .col-xs-6 div instead of .form-group
-                    row: '.col-lg-3',
-                    validators: {
-                        notEmpty: {
-                            message: "Tidak boleh kosong"
-                        }
-                    },
-                },
-            },
-            plugins: {
-                trigger: new FormValidation.plugins.Trigger(),
-                bootstrap: new FormValidation.plugins.Bootstrap5({
-                    rowSelector: ".fv-row",
-                    eleInvalidClass: "",
-                    eleValidClass: ""
-                })
-            },
-        });
-        KTModalForm.ext_form();
+        KTModalForm.additional_form();
     }));
 </script>
