@@ -937,7 +937,7 @@
                                                 }),
                                                 loading.release(), modal_additional.show();
                                             } else {
-                                                modal_additional.show();
+                                                loading.release(), modal_additional.show();
                                             }
                                         },
                                         error: function() {
