@@ -909,7 +909,7 @@
                             "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
                         buttons: [
                             {
-                                text: 'Biaya Tambahan',
+                                text: 'Biaya Lainnya',
                                 className: 'btn btn-sm btn-success',
                                 action: function ( e, dt, node, config ) {
                                     // loading.release();
