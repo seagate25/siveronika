@@ -183,35 +183,43 @@ class Rfq_model extends CI_Model
             $where .= " OR trfqd.satuan LIKE '%" . $search['value'] . "%')";
         }
 
-        $sql        = "SELECT * FROM {$this->table[1]} trfqd {$where}";
+        // $sql        = "SELECT * FROM {$this->table[1]} trfqd {$where}";
+        $sql        = "SELECT trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
+                            trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+                            trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+                            trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by
+                        FROM {$this->table[1]} trfqd {$where}
+                        GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+                        trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+                        trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by";
 
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
-        // $sql_   = "SELECT  *
-        // FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
-        //         trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
-        // trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
-        // trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
-        // trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by
-        //         FROM {$this->table[1]} trfqd
-        //         {$where}
-        //         GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
-        // trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
-        // trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by
-        //         ) AS RowConstrainedResult
-        // WHERE   RowNum > {$start}
-        //     AND RowNum < (({$start} + 1) + {$length})
-        // ORDER BY RowNum";
-
         $sql_   = "SELECT  *
-                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, trfqd.*
-                            FROM      {$this->table[1]} trfqd
-                            {$where}
-                            ) AS RowConstrainedResult
-                    WHERE   RowNum > {$start}
-                        AND RowNum < (({$start} + 1) + {$length})
-                    ORDER BY RowNum";
+        FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
+                trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
+        trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+        trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+        trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by
+                FROM {$this->table[1]} trfqd
+                {$where}
+                GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+        trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+        trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by
+                ) AS RowConstrainedResult
+        WHERE   RowNum > {$start}
+            AND RowNum < (({$start} + 1) + {$length})
+        ORDER BY RowNum";
+
+        // $sql_   = "SELECT  *
+        //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, trfqd.*
+        //                     FROM      {$this->table[1]} trfqd
+        //                     {$where}
+        //                     ) AS RowConstrainedResult
+        //             WHERE   RowNum > {$start}
+        //                 AND RowNum < (({$start} + 1) + {$length})
+        //             ORDER BY RowNum";
 
         $query = $this->db->query($sql_);
         $rows_data = $query->result();
@@ -220,17 +228,6 @@ class Rfq_model extends CI_Model
         $i = (0 + 1);
 
         foreach ($rows_data as $row) {
-            // $berkas = '';
-
-            // if ($row->nama_berkas !== NULL) {
-            //     $berkas =
-            //         '<a href="' . base_url('upload_files/Dokumen_RFQ/' . $row->nama_berkas) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
-            //                     <i class="las la-arrow-down fs-1 text-white"></i>
-            //                 </a>';
-            // } else {
-            //     $berkas = '';
-            // }
-            // $row->berkas                = $berkas;
             $row->number                = $i;
             $row->kode_barang           = $row->kode_barang;
             $row->deskripsi_barang      = $row->deskripsi_barang;
@@ -240,7 +237,7 @@ class Rfq_model extends CI_Model
             $row->konversi              = (int)$row->konversi;
             $row->ketersediaan_barang   = (int)$row->ketersediaan_barang;
             $row->deskripsi_satuan      = trim($row->deskripsi_satuan);
-            $row->urutan_rfq            = trim($row->urutan_rfq);
+            // $row->urutan_rfq            = trim($row->urutan_rfq);
             $row->status                = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
             // $btn_eqiv_1                 = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'disabled' : '';
             $btn_eqiv_1                 = '';
