@@ -261,6 +261,29 @@ class Confirmation_model extends CI_Model
 
         return $query;
     }
+
+    public function sendConfirmation($status = 0)
+    {
+        $sql = "SELECT * FROM TB_S_MST_KONFIRMASI WHERE
+                kode_vendor = '{$this->vendor_code}' AND konfirmasi_status = {$status} AND 
+                modified_by IS NOT NULL AND modified_date IS NOT NULL AND flag_kirim IS NULL";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0) {
+
+            $sql_ = "UPDATE TB_S_MST_KONFIRMASI SET flag_kirim = 1 WHERE
+                    kode_vendor = '{$this->vendor_code}' AND konfirmasi_status = {$status} AND 
+                    modified_by IS NOT NULL AND modified_date IS NOT NULL AND flag_kirim IS NULL";
+            $query_ = $this->db->query($sql_);
+
+            return $this->db->affected_rows();
+
+        } else {
+
+            return 0;
+            
+        }
+    }
 }
 
 /* End of file Master_model.php */

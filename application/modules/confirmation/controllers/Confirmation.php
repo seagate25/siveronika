@@ -16,6 +16,11 @@ class Confirmation extends CI_Controller
     {
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function req_price()
     {
         if ($this->input->is_ajax_request()) {
@@ -30,6 +35,11 @@ class Confirmation extends CI_Controller
         $this->load->view('default', $data);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function con_price()
     {
         if ($this->input->is_ajax_request()) {
@@ -44,6 +54,11 @@ class Confirmation extends CI_Controller
         $this->load->view('default', $data);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function save_req_price()
     {
         $id             = $this->input->post('id');
@@ -89,6 +104,11 @@ class Confirmation extends CI_Controller
         exit;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function save_con_price()
     {
         $id             = $this->input->post('id');
@@ -121,6 +141,33 @@ class Confirmation extends CI_Controller
                 'code'      => 100,
                 'msg'       => 'Gagal menyimpan data',
                 'status'    => 'error'
+            );
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function send_confirmation()
+    {
+        $confirmation_code = (int)$this->input->post('code');
+        $update = $this->confirmation->sendConfirmation($confirmation_code);
+        if($update > 0) {
+            $response = array(
+                'code' => 0,
+                'msg' => 'Berhasil mengirim '.$update.' data',
+                'status' => 'success'
+            );
+        } else {
+            $response = array(
+                'code' => 100,
+                'msg' => 'Belum ada data yang siap untuk dikirim',
+                'status' => 'error'
             );
         }
 

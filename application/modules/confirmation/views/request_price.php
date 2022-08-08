@@ -194,6 +194,9 @@
 
 var KTDataTables = (function() {
     var e;
+    const loading = new KTBlockUI(document.querySelector(".card.shadow-sm"), {
+        overlayClass: "bg-dark bg-opacity-10",
+    });
     return {
         init: function() {
             e = $("#kt_datatable_request_price").DataTable({
@@ -202,7 +205,7 @@ var KTDataTables = (function() {
                 destroy: !0,
                 // responsive: !0,
                 scrollX: !0,
-                dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
+                dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'B ><'col-sm-6 col-md-6 col-lg-6'f>>" +
                     "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
                 buttons: [
@@ -210,7 +213,61 @@ var KTDataTables = (function() {
                         text: 'Kirim',
                         className: 'btn btn-sm btn-success',
                         action: function ( e, dt, node, config ) {
-                            modal_additional.show();
+                            node.attr('id', 'btn_send');
+                            var btn_send = document.getElementById("btn_send");
+                            Swal.fire({
+                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                                icon: "warning",
+                                showCancelButton: !0,
+                                buttonsStyling: !1,
+                                confirmButtonText: "Ya, Kirim",
+                                cancelButtonText: "Kembali",
+                                customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
+                            }).then(function (r) {
+                                r.value
+                                    ? 
+                                    (
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: '<?php echo site_url("confirmation/send_confirmation"); ?>',
+                                            data: { code: 2 },
+                                            beforeSend: function() {
+                                                btn_send.setAttribute("data-kt-indicator", "on"),
+                                                (btn_send.disabled = !0);
+                                            },
+                                            success: function(response) {
+                                                var obj = jQuery.parseJSON(response);
+                                                btn_send.removeAttribute("data-kt-indicator"),
+                                                (btn_send.disabled = !1);
+                                                Swal.fire({ 
+                                                    text: obj.msg, 
+                                                    icon: obj.status, 
+                                                    buttonsStyling: !1, 
+                                                    confirmButtonText: "Tutup", 
+                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
+                                                    function (t) {
+                                                        t.isConfirmed && (obj.code == 0) ? (KTDataTables.init()) : r.dismiss;
+                                                    }
+                                                );
+                                            },
+                                            error: function() {
+                                                btn_send.removeAttribute("data-kt-indicator"),
+                                                (btn_send.disabled = !1);
+                                                Swal.fire({ 
+                                                    text: "Terjadi masalah koneksi", 
+                                                    icon: "error", 
+                                                    buttonsStyling: !1, 
+                                                    confirmButtonText: "Tutup", 
+                                                    customClass: { confirmButton: "btn btn-primary" } }).then(
+                                                    function (t) {
+                                                        t.isConfirmed && r.dismiss;
+                                                    }
+                                                );
+                                            }
+                                        })
+                                    )
+                                    : "cancel" === r.dismiss;
+                            })
                         }
                     }
                 ],
