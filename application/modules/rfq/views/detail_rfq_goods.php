@@ -394,7 +394,7 @@
                         </div>
                         <input type="hidden" name="id_rfq_eqiv">
                         <input type="hidden" name="id_eqiv">
-                        <input type="hidden" name="seq_eqiv">
+                        <!-- <input type="hidden" name="seq_eqiv"> -->
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
@@ -1143,7 +1143,7 @@
                         $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_seq_eqiv").text(eqiv_id);
                         $("input[name=id_rfq_eqiv]").val('<?php echo $this->uri->segment(3); ?>');
                         $("input[name=id_eqiv]").val(eqiv_id);
-                        $("input[name=seq_eqiv]").val(data.urutan_rfq);
+                        // $("input[name=seq_eqiv]").val(data.urutan_rfq);
                         $("input[name=material_code_eqiv]").val(data.kode_barang);
                         $("input[name=material_name_eqiv]").val(data.deskripsi_barang);
                         $("input[name=request_total_eqiv]").val(data.jumlah_permintaan);
