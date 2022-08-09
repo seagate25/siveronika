@@ -59,6 +59,7 @@ class Confirmation_model extends CI_Model
 
         $order_column = $field[$order_column];
         $where = " WHERE (konfirmasi_status = '1' AND kode_vendor = '{$this->vendor_code}' AND tanggal_kirim = '" . date('Y-m-d') . "') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+        $where = " WHERE (konfirmasi_status = '1' AND kode_vendor = '{$this->vendor_code}' AND tanggal_kirim = '" . date('Y-m-d') . "') AND flag_kirim <> 1";  // Get Konfirmasi harga with konfirmasi_status = 1; add validation flag_kirim = 1 not display
         if (!empty($search['value'])) {
             $where .= " AND ";
             $where .= " (kode_konfirmasi LIKE '%" . $search['value'] . "%'";
@@ -175,6 +176,7 @@ class Confirmation_model extends CI_Model
 
         $order_column = $field[$order_column];
         $where = " WHERE (konfirmasi_status = '2' AND kode_vendor = '{$this->vendor_code}' AND tanggal_kirim = '" . date('Y-m-d') . "') ";  // Get Konfirmasi harga with konfirmasi_status = 2
+        $where = " WHERE (konfirmasi_status = '2' AND kode_vendor = '{$this->vendor_code}' AND tanggal_kirim = '" . date('Y-m-d') . "') AND flag_kirim <> 1";  // Get Konfirmasi harga with konfirmasi_status = 2; add validation flag_kirim = 1 not display
         if (!empty($search['value'])) {
             $where .= " AND ";
             $where .= " kode_konfirmasi LIKE '%" . $search['value'] . "%'";
@@ -266,14 +268,23 @@ class Confirmation_model extends CI_Model
     {
         $sql = "SELECT * FROM TB_S_MST_KONFIRMASI WHERE
                 kode_vendor = '{$this->vendor_code}' AND konfirmasi_status = {$status} AND 
-                modified_by IS NOT NULL AND modified_date IS NOT NULL AND flag_kirim IS NULL";
+                modified_by IS NOT NULL AND modified_date IS NOT NULL AND flag_kirim IS NULL"; 
+        // All Data have filled or not filled update flag_kirim = 1; 2022-08-09; as request Mr. Lukman
+        $sql = "SELECT * FROM TB_S_MST_KONFIRMASI WHERE
+                kode_vendor = '{$this->vendor_code}' AND konfirmasi_status = {$status} AND tanggal_kirim = '" . date('Y-m-d') . "' AND flag_kirim <> 1";
+        var_dump($sql);
         $query = $this->db->query($sql);
-
+        
         if($query->num_rows() > 0) {
 
             $sql_ = "UPDATE TB_S_MST_KONFIRMASI SET flag_kirim = 1 WHERE
                     kode_vendor = '{$this->vendor_code}' AND konfirmasi_status = {$status} AND 
                     modified_by IS NOT NULL AND modified_date IS NOT NULL AND flag_kirim IS NULL";
+            // All Data have filled or not filled update flag_kirim = 1; 2022-08-09; as request Mr. Lukman
+            $sql_ = "UPDATE TB_S_MST_KONFIRMASI SET flag_kirim = 1 WHERE
+                    kode_vendor = '{$this->vendor_code}' AND konfirmasi_status = {$status} AND 
+                    tanggal_kirim = '" . date('Y-m-d') . "' AND flag_kirim  <> 1";
+            
             $query_ = $this->db->query($sql_);
 
             return $this->db->affected_rows();
