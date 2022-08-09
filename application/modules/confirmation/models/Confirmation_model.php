@@ -272,7 +272,7 @@ class Confirmation_model extends CI_Model
         // All Data have filled or not filled update flag_kirim = 1; 2022-08-09; as request Mr. Lukman
         $sql = "SELECT * FROM TB_S_MST_KONFIRMASI WHERE
                 kode_vendor = '{$this->vendor_code}' AND konfirmasi_status = {$status} AND tanggal_kirim = '" . date('Y-m-d') . "' AND flag_kirim <> 1";
-        var_dump($sql);
+        
         $query = $this->db->query($sql);
         
         if($query->num_rows() > 0) {
