@@ -49,6 +49,7 @@ class Rfq_model extends CI_Model
         $this->table        = ['TB_S_MST_RFQ_BARANG_HEAD', 'TB_S_MST_RFQ_BARANG_DTL', 'TB_S_MST_RFQ_BARANG_EQIV', 'TB_S_MST_RFQ_BIAYA_TAMBAHAN', 'TB_S_MST_RFQ_LAMPIRAN_BARANG', 'TB_TR_QUOTATION_LAMPIRAN'];
         $this->vendor_code  = $this->session->userdata('kode_vendor');
         $this->today        = date('Y-m-d');
+        $this->load->model('Global_model', 'global');
     }
 
     /**
@@ -280,7 +281,6 @@ class Rfq_model extends CI_Model
     {
         $enable = 'disabled';
 
-        $this->load->model('Global_model', 'global');
 
         $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen, 'kode_barang' => $item_code);
         $isEquivalentExists = $this->global->get_by($this->table[2], $params);
@@ -299,7 +299,6 @@ class Rfq_model extends CI_Model
      */
     public function getDetailEquivalent($params = array())
     {
-        $this->load->model('Global_model', 'global');
         $result   = $this->global->get_by($this->table[2], $params);
 
         return $result;
@@ -313,7 +312,6 @@ class Rfq_model extends CI_Model
      */
     public function getAttachedFiles($params = array())
     {
-        $this->load->model('Global_model', 'global');
         $result   = $this->global->get_by($this->table[5], $params);
 
         return $result;
@@ -328,7 +326,6 @@ class Rfq_model extends CI_Model
      */
     public function updateRfq($params = array(), $data = array())
     {
-        $this->load->model('Global_model', 'global');
         $result = $this->global->update($this->table[1], $params, $data);
 
         return $result;
@@ -342,9 +339,11 @@ class Rfq_model extends CI_Model
      */
     public function insertEquivalent($data = array())
     {
-        $this->load->model('Global_model', 'global');
 
-        $params = array('nomor_rfq' => $data['nomor_rfq']);
+        $params = array(
+            'nomor_rfq' => $data['nomor_rfq'],
+            'urutan_rfq' => $data['urutan_rfq']
+        );
 
         $nextEquivalent = 1;
         $getEquivalent  = $this->global->get_by($this->table[2], $params);
@@ -372,7 +371,6 @@ class Rfq_model extends CI_Model
      */
     public function updateEquivalent($params = array(), $data = array())
     {
-        $this->load->model('Global_model', 'global');
         $result = $this->global->update($this->table[2], $params, $data);
 
         return $result;
@@ -386,7 +384,6 @@ class Rfq_model extends CI_Model
      */
     public function insertBatchFiles($data = array())
     {
-        $this->load->model('Global_model', 'global');
         $result = $this->global->insert_batch($this->table[5], $data);
 
         return $result;
@@ -401,7 +398,6 @@ class Rfq_model extends CI_Model
      */
     public function updateAttachedFile($params = array(), $data = array())
     {
-        $this->load->model('Global_model', 'global');
         $this->global->update($this->table[5], $params, $data);
     }
 
@@ -412,7 +408,6 @@ class Rfq_model extends CI_Model
      */
     public function getUoM()
     {
-        $this->load->model('Global_model', 'global');
         $query  = $this->global->get_all('TB_S_MST_SATUAN');
         $result = $query->result();
         foreach ($result as $res) {
@@ -434,7 +429,6 @@ class Rfq_model extends CI_Model
      */
     public function getCurrency()
     {
-        $this->load->model('Global_model', 'global');
         $query = $this->global->get_all('TB_S_MST_MATA_UANG');
         $result = $query->result();
         foreach ($result as $row) {
@@ -453,15 +447,19 @@ class Rfq_model extends CI_Model
      */
     public function insertBatchOtherPrice($data = array())
     {
-        $this->load->model('Global_model', 'global');
         $result = $this->global->insert_batch($this->table[3], $data);
 
         return $result;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param array $params
+     * @return void
+     */
     public function deleteOtherPrice($params = array())
     {
-        $this->load->model('Global_model', 'global');
         $this->global->delete($this->table[3], $params);
     }
 
@@ -473,9 +471,34 @@ class Rfq_model extends CI_Model
      */
     public function getOtherPrice($params = array())
     {
-        $this->load->model('Global_model', 'global');
         $result   = $this->global->get_by($this->table[3], $params);
 
+        return $result;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $params
+     * @return void
+     */
+    public function getDetailRfq($params = array())
+    {
+        $query = $this->global->get_by($this->table[1], $params);
+
+        return $query;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $data
+     * @return void
+     */
+    public function insertBatchEqiv($data = array())
+    {
+        $result = $this->global->insert_batch($this->table[2], $data);
+        
         return $result;
     }
 }

@@ -1912,7 +1912,7 @@
                 if($('div[id^="el_add_"]').length == 1) {
                     var $btn_add = $div.closest('div').find('button[id^="btn_add_"]');
                     var $btn_rm = $btn_add.clone().prop('id', 'btn_rm_'+num).attr('onclick', 'return Elements.remove_row(this)');
-                    $btn_rm.removeClass('btn-bg-success').addClass('btn-bg-danger');
+                    $btn_rm.removeClass('btn-bg-success').addClass('btn-bg-light');
                     $btn_rm.find('i').removeClass('la-plus').addClass('la-minus');
                     $btn_add.after($btn_rm);
                 }

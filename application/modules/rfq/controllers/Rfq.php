@@ -479,7 +479,7 @@ class Rfq extends CI_Controller
     public function save_eqiv()
     {
         $id_eqiv        = (int)$this->input->post('id_eqiv');
-        $seq_eqiv       = (int)$this->input->post('seq_eqiv');
+        // $seq_eqiv       = (int)$this->input->post('seq_eqiv');
         $rfq_no         = $this->crypto->decode($this->input->post('id_rfq_eqiv'));
         $material_code  = $this->input->post('material_code_eqiv');
         $material_name  = $this->input->post('material_name_eqiv');
@@ -860,13 +860,16 @@ class Rfq extends CI_Controller
 
             $data   = array(
                 'nomor_rfq'             => $rfq_no,
-                'urutan_rfq'            => $seq_eqiv,
+                'urutan_rfq'            => NULL,
                 'ekuivalen'             => $id_eqiv,
                 'kode_barang'           => $material_code,
                 'deskripsi_barang'      => $material_name,
+                'deskripsi'             => '',
                 'jumlah_permintaan'     => $request_total,
                 'satuan'                => $measurement,
                 'deskripsi_satuan'      => $desc_measure,
+                'nomor_sr'              => NULL,
+                'kode_kebun'            => NULL,
                 'mata_uang'             => $currency,
                 'harga_satuan'          => $unit_price,
                 'per_harga_satuan'      => ($unit_measure == NULL) ? $measurement : $unit_measure,
@@ -888,7 +891,31 @@ class Rfq extends CI_Controller
                 'lama_inden'            => $indent_day_eqiv
             );
 
-            $save   = $this->rfq->insertEquivalent($data);
+            $params_det_rfq = array(
+                'nomor_rfq' => $rfq_no,
+                'kode_barang' => $material_code
+            );
+            $check_rfq = $this->rfq->getDetailRfq($params_det_rfq);
+
+            if($check_rfq->num_rows() > 1) {
+
+                $result_rfq = $check_rfq->result();
+                $count = 0;
+                foreach($result_rfq as $row) {
+                    $data['urutan_rfq']         = $row->urutan_rfq;
+                    $data['jumlah_permintaan']  = $row->jumlah_permintaan;
+                    $data['nomor_sr']           = $row->nomor_sr;
+                    $data['kode_kebun']         = $row->kode_kebun;
+                    $save = $this->rfq->insertEquivalent($data);
+                    $count = $count + $save;
+                }
+
+                $save = $count;
+
+            } else {
+                $save   = $this->rfq->insertEquivalent($data);
+            }
+
             if ($save > 0) {
 
                 if (count($attach_files) > 0) {
