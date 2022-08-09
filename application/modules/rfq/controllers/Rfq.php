@@ -518,7 +518,7 @@ class Rfq extends CI_Controller
         $arr_exists     = array();
         $arr_not_exists = array();
 
-        $eqiv_params    = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $id_eqiv);
+        $eqiv_params    = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $id_eqiv, 'kode_barang' => $material_code);
         $eqiv_data      = $this->rfq->getDetailEquivalent($eqiv_params);
         if ($eqiv_data->num_rows() > 0) {
 
@@ -672,7 +672,7 @@ class Rfq extends CI_Controller
                     'merek'                 => $merk_eqiv,
                     'tipe'                  => $type_eqiv,
                     'buatan'                => $made_eqiv,
-                    'jumlah_tersedia'       => $available_total_eqiv,
+                    'jumlah_tersedia'       => ($available == '1') ? 0 : $available_total_eqiv,
                     'jumlah_inden'          => $indent_total_eqiv,
                     'lama_inden'            => $indent_day_eqiv
                 );
@@ -782,7 +782,7 @@ class Rfq extends CI_Controller
                     'merek'                 => $merk_eqiv,
                     'tipe'                  => $type_eqiv,
                     'buatan'                => $made_eqiv,
-                    'jumlah_tersedia'       => $available_total_eqiv,
+                    'jumlah_tersedia'       => ($available == '1') ? 0 : $available_total_eqiv,
                     'jumlah_inden'          => $indent_total_eqiv,
                     'lama_inden'            => $indent_day_eqiv
                 );
@@ -886,7 +886,7 @@ class Rfq extends CI_Controller
                 'merek'                 => $merk_eqiv,
                 'tipe'                  => $type_eqiv,
                 'buatan'                => $made_eqiv,
-                'jumlah_tersedia'       => $available_total_eqiv,
+                'jumlah_tersedia'       => ($available == '1') ? 0 : $available_total_eqiv,
                 'jumlah_inden'          => $indent_total_eqiv,
                 'lama_inden'            => $indent_day_eqiv
             );
@@ -913,7 +913,13 @@ class Rfq extends CI_Controller
                 $save = $count;
 
             } else {
+                
+                $row    = $check_rfq->row();
+                $data['urutan_rfq']         = $row->urutan_rfq;
+                $data['nomor_sr']           = $row->nomor_sr;
+                $data['kode_kebun']         = $row->kode_kebun;
                 $save   = $this->rfq->insertEquivalent($data);
+                
             }
 
             if ($save > 0) {

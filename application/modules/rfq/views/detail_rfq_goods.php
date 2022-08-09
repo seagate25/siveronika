@@ -1150,7 +1150,7 @@
                         $("input[name=measurement_eqiv]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
                         $("input[name=r_measurement_eqiv]").val($.trim(data.satuan));
                         $("input[name=desc_measure_eqiv]").val($.trim(data.deskripsi_satuan));
-                        $("#unit_measure_eqiv").val(data.per_harga_satuan).trigger('change');
+                        $("#unit_measure_eqiv").val(data.satuan).trigger('change');
                         $("#currency_eqiv").val('IDR').trigger('change');
                         $("input[name=temp_unit_measure_eqiv]").val(data.per_harga_satuan);
                         $('input[name="convert_eqiv"][value="0"]').prop('checked', true);
@@ -1230,6 +1230,14 @@
                                         $("input[name=convertion_measure_eqiv]").val($("#unit_measure_eqiv").select2('data')[0].text);
                                     }
                                     $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
+                                    if ($('input[name="available_eqiv"]:checked').val() == 1) {
+                                            $('#available_total_eqiv').attr('disabled', 'disabled');
+                                             $('#available_total_eqiv').val(parseFloat(obj.data.jumlah_tersedia));
+                                            $("input[name=indent_total_eqiv]").prop('readonly', false).removeClass('form-control-solid').val(parseInt(obj.data.jumlah_inden));
+                                    } else {
+                                        $('#available_total_eqiv').removeAttr('disabled');
+                                        $("input[name=indent_total_eqiv]").prop('readonly', true).addClass('form-control-solid').val(0);
+                                    }
                                     $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
                                     $("textarea[name=notes_eqiv]").val(obj.data.keterangan);
                                     $("input[name=created_by_eqiv]").val(obj.data.dibuat_oleh);
@@ -1238,8 +1246,8 @@
                                     $("input[name=merk_eqiv]").val(obj.data.merek);
                                     $("input[name=type_eqiv]").val(obj.data.tipe);
                                     $("input[name=made_eqiv]").val(obj.data.buatan);
-                                    $("input[name=available_total_eqiv]").val(parseInt(obj.data.jumlah_tersedia));
-                                    $("input[name=indent_total_eqiv]").val(parseInt(obj.data.jumlah_inden));
+                                    // $("input[name=available_total_eqiv]").val(parseInt(obj.data.jumlah_tersedia));
+                                    // $("input[name=indent_total_eqiv]").val(parseInt(obj.data.jumlah_inden));
                                     $("input[name=indent_day_eqiv]").val(obj.data.lama_inden);
 
                                     $("#input_file_eqiv div").remove();
@@ -2107,12 +2115,16 @@
             }
             $("input[name=indent_total_eqiv]").val(indent_total_eqiv);
         });
-         $("input[name=available_eqiv]").on('keyup change', function() {
-            if ($('input[name="available_eqiv"]:checked').val() == 1) {
-                $('#available_total_eqiv').attr('disabled', 'disabled');
-                $('#available_total_eqiv').val(0);
-            } else {
-                $('#available_total_eqiv').removeAttr('disabled');
+         $("input[name=available_eqiv]").on('change', function() {
+            if ($(this).is(':checked')) {
+                if ($(this).val() == 1) {
+                    $('#available_total_eqiv').attr('disabled', 'disabled');
+                    $('#available_total_eqiv').val(0);
+                    $("input[name=indent_total_eqiv]").prop('readonly', false).removeClass('form-control-solid').val($("input[name=request_total_eqiv]").val());
+                } else {
+                    $('#available_total_eqiv').removeAttr('disabled');
+                    $("input[name=indent_total_eqiv]").prop('readonly', true).addClass('form-control-solid').val(0);
+                }
             }
         });
         KTModalForm.additional_form();
