@@ -213,7 +213,7 @@ License: For each use you must have a valid license purchased only from above li
 				</ol>
 				<div class="carousel-inner" role="listbox">
 					<div class="carousel-item d-flex align-items-center active"
-						style="background: url('https://www.socfindo.co.id/assets/home/01-Report.jpg') bottom center no-repeat; background-size: cover">
+						style="background: url('<?php echo base_url(); ?>/assets/media/slideshow/01-Report.jpg') bottom center no-repeat; background-size: cover">
 						<!-- <div class="container">
 							<div class="row">
 								<h1 class="col-12">Socfindo<br>Sustainability Report 2020</h1>
@@ -229,7 +229,7 @@ License: For each use you must have a valid license purchased only from above li
 						</div> -->
 					</div>
 					<div class="carousel-item d-flex align-items-center"
-						style="background: url('https://www.socfindo.co.id/assets/home/02-Products.jpg') bottom center no-repeat; background-size: cover">
+						style="background: url('<?php echo base_url(); ?>/assets/media/slideshow/02-Products.jpg') bottom center no-repeat; background-size: cover">
 						<!-- <div class="container">
 							<h1>Products</h1>
 							<p class="my-4">
@@ -239,7 +239,7 @@ License: For each use you must have a valid license purchased only from above li
 						</div> -->
 					</div>
 					<div class="carousel-item d-flex align-items-center"
-						style="background: url('https://www.socfindo.co.id/assets/home/03-Services.jpg') bottom center no-repeat; background-size: cover">
+						style="background: url('<?php echo base_url(); ?>/assets/media/slideshow/03-Services.jpg') bottom center no-repeat; background-size: cover">
 						<!-- <div class="container">
 							<h1>Services</h1>
 							<p class="my-4">
@@ -249,7 +249,7 @@ License: For each use you must have a valid license purchased only from above li
 						</div> -->
 					</div>
 					<div class="carousel-item d-flex align-items-center"
-						style="background: url(https://www.socfindo.co.id/assets/home/04-Sustainability.jpg) bottom center no-repeat; background-size: cover">
+						style="background: url(<?php echo base_url(); ?>/assets/media/slideshow/04-Sustainability.jpg) bottom center no-repeat; background-size: cover">
 						<!-- <div class="container" style="color: #fff !important; text-shadow: 0px 0px 10px #333">
 							<h1>Sustainability</h1>
 							<p class="my-4 font-weight-normal">
