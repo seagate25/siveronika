@@ -8,6 +8,8 @@ class Negotiation extends CI_Controller {
     {
         parent::__construct();
         logged_in();
+        $this->load->model('Negotiation_model', 'nego');
+        $this->load->library('Crypto');
     }
 
     /**
@@ -17,6 +19,11 @@ class Negotiation extends CI_Controller {
      */
     public function rfq_goods()
     {
+        if ($this->input->is_ajax_request()) {
+            $rows   = $this->nego->getNegoRfqGoodsList();
+            echo json_encode($rows);
+            exit;
+        }
         $data['title']      = "Nego RFQ Barang";
         $data['menu']       = "Negosiasi";
         $data['submenu']    = "Nego RFQ Barang";
