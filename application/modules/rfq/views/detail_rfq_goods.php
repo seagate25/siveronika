@@ -797,7 +797,7 @@
                 <h5 class="modal-title text-white">Biaya Lainnya</h5>
 
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-danger ms-2" data-kt-additional-price-modal-action="close" aria-label="Close">
+                <div class="btn btn-icon btn-sm btn-light ms-2" data-kt-additional-price-modal-action="close" aria-label="Close">
                     <span class="svg-icon svg-icon-2x">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
@@ -1920,8 +1920,8 @@
                 if($('div[id^="el_add_"]').length == 1) {
                     var $btn_add = $div.closest('div').find('button[id^="btn_add_"]');
                     var $btn_rm = $btn_add.clone().prop('id', 'btn_rm_'+num).attr('onclick', 'return Elements.remove_row(this)');
-                    $btn_rm.removeClass('btn-bg-success').addClass('btn-bg-light');
-                    $btn_rm.find('i').removeClass('la-plus').addClass('la-minus');
+                    $btn_rm.removeClass('btn-bg-success').addClass('btn-light');
+                    $btn_rm.find('i').removeClass('la-plus text-white').addClass('la-minus text-dark');
                     $btn_add.after($btn_rm);
                 }
 
