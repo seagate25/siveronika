@@ -284,6 +284,7 @@ class History_model extends CI_Model
 
         $order_column = $field[$order_column];
         $where = " WHERE (konfirmasi_status = '1' AND kode_vendor = '{$this->vendor_code}' AND tanggal_kirim < '" . date('Y-m-d') . "') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+        $where = " WHERE (konfirmasi_status = '1' AND kode_vendor = '{$this->vendor_code}' AND (tanggal_kirim < '" . date('Y-m-d') . "') OR flag_kirim = 1) ";  // Get Konfirmasi harga with konfirmasi_status = 1 and add filter flag_kirim =1
         if (!empty($search['value'])) {
             $where .= " AND ";
             $where .= " (kode_konfirmasi LIKE '%" . $search['value'] . "%'";
@@ -340,7 +341,7 @@ class History_model extends CI_Model
             $row->modified_date     = ($row->modified_date == NULL) ? $row->modified_date : date('d M y', strtotime($row->modified_date));
             $row->modified_by       = $row->modified_by;
             $row->actions           = '<button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation"><i class="fas fa-envelope-open-text"></i></button>';
-            $row->status            = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Konfirmasi" : "Sudah Konfirmasi";
+            $row->status            = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Tidak Konfirmasi" : "Sudah Konfirmasi";
             if ($row->modified_by == NULL && $row->modified_date == NULL) {
                 $row->status_harga      = "";
             } else if ($row->pesan_ulang == 1) {
@@ -402,6 +403,7 @@ class History_model extends CI_Model
 
         $order_column = $field[$order_column];
         $where = " WHERE (konfirmasi_status = '2' AND kode_vendor = '{$this->vendor_code}' AND tanggal_kirim < '" . date('Y-m-d') . "') ";  // Get Konfirmasi harga with konfirmasi_status = 2
+        $where = " WHERE (konfirmasi_status = '2' AND kode_vendor = '{$this->vendor_code}' AND (tanggal_kirim < '" . date('Y-m-d') . "') OR flag_kirim = 1) ";  // Get Konfirmasi harga with konfirmasi_status = 2 and add filter flag_kirim =1
         if (!empty($search['value'])) {
             $where .= " AND ";
             $where .= " kode_konfirmasi LIKE '%" . $search['value'] . "%'";
@@ -456,7 +458,7 @@ class History_model extends CI_Model
             $row->modified_date         = ($row->modified_date == NULL) ? $row->modified_date : date('d M y', strtotime($row->modified_date));
             $row->modified_by           = $row->modified_by;
             $row->actions               = '<button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation"><i class="fas fa-envelope-open-text"></i></button>';
-            $row->status                = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Konfirmasi" : "Sudah Konfirmasi";
+            $row->status                = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Tidak Konfirmasi" : "Sudah Konfirmasi";
             if ($row->harga == 0 || ($row->modified_by == NULL && $row->modified_date == NULL)) {
                 $row->status_harga      = "";
             } else if ($row->harga_po_terakhir == $row->harga) {
