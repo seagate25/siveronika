@@ -19,7 +19,7 @@
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
                     <th class="min-w-50px text-center">No.</th>
-                    <th class="min-w-100px text-center">Kode Material</th>
+                    <th class="min-w-50px text-center">Kode Material</th>
                     <th class="min-w-125px text-center">Nama Material</th>
                     <!-- <th class="min-w-125px text-center">Berkas</th> -->
                     <th class="min-w-50px text-center">Jumlah Permintaan</th>
@@ -27,7 +27,7 @@
                     <th class="min-w-50px text-center">Status</th>
                     <th class="min-w-50px text-center">Harga Sesuai Permintaan</th>
                     <!-- <th class="min-w-50px text-center">Status Harga Ekuivalen</th> -->
-                    <th class="min-w-150px text-center">Harga Permintaan Ekuivalen</th>
+                    <th class="min-w-200px text-center">Harga Permintaan Ekuivalen</th>
                 </tr>
             </thead>
         </table>

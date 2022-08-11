@@ -119,7 +119,7 @@ class Negotiation_model extends CI_Model {
             $row->nomor_rfq             = $row->nomor_rfq;
             $row->tanggal_rfq           = date('d.M.y', strtotime($row->tanggal_rfq));
             $row->tanggal_jatuh_tempo   = date('d.M.y', strtotime($row->tanggal_jatuh_tempo));
-            $row->actions               = '<a href="' . site_url('negotitation/det_rfq_goods/' . $this->crypto->encode($row->nomor_rfq)) . '" class="btn btn-icon btn-sm btn-success me-2 mb-2">
+            $row->actions               = '<a href="' . site_url('negotiation/det_rfq_goods/' . $this->crypto->encode($row->nomor_rfq)) . '" class="btn btn-icon btn-sm btn-success me-2 mb-2">
                                                 <i class="fas fa-envelope-open-text"></i>
                                             </a>';
             $row->sisa_hari             = diff_date($row->tanggal_jatuh_tempo)['days'] . ' Hari';
@@ -139,11 +139,127 @@ class Negotiation_model extends CI_Model {
     /**
      * Undocumented function
      *
+     * @param string $rfq_no
      * @return void
      */
-    public function getDetNegoRfqGoodsList()
+    public function getDetNegoRfqGoodsList($rfq_no = '')
     {
-        
+        $start = $this->input->post('start');
+        $length = $this->input->post('length') != -1 ? $this->input->post('length') : 10;
+        $draw = $this->input->post('draw');
+        $search = $this->input->post('search');
+        $order = $this->input->post('order');
+        $order_column = $order[0]['column'];
+        $order_dir = strtoupper($order[0]['dir']);
+        $field  = array(
+            1 => 'kode_barang',
+            2 => 'deskripsi_barang',
+            3 => 'jumlah_permintaan',
+            4 => 'satuan'
+        );
+
+        $order_column = $field[$order_column];
+        $where = " WHERE (tnego_det.nomor_rfq = '{$rfq_no}') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+        if (!empty($search['value'])) {
+            $where .= " AND ";
+            $where .= " (tnego_det.kode_barang LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tnego_det.deskripsi_barang LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tnego_det.jumlah_permintaan LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tnego_det.satuan LIKE '%" . $search['value'] . "%')";
+        }
+
+        $sql        = "SELECT tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+                            tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+                            tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+                            tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by
+                        FROM {$this->table['detail']} tnego_det {$where}
+                        GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+                        tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+                        tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by";
+
+        $query = $this->db->query($sql);
+        $records_total = $query->num_rows();
+
+        $sql_   = "SELECT  *
+        FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
+                tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+        tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by
+                FROM {$this->table['detail']} tnego_det
+                {$where}
+                GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by
+                ) AS RowConstrainedResult
+        WHERE   RowNum > {$start}
+            AND RowNum < (({$start} + 1) + {$length})
+        ORDER BY RowNum";
+
+        $query = $this->db->query($sql_);
+        $rows_data = $query->result();
+
+        $rows = array();
+        $i = (0 + 1);
+
+        foreach ($rows_data as $row) {
+            $row->number                = $i;
+            $row->kode_barang           = $row->kode_barang;
+            $row->deskripsi_barang      = $row->deskripsi_barang;
+            $row->jumlah_permintaan     = (int)$row->jumlah_permintaan;
+            $row->satuan                = trim($row->satuan);
+            $row->harga_satuan          = (int)$row->harga_satuan;
+            $row->konversi              = (int)$row->konversi;
+            $row->ketersediaan_barang   = (int)$row->ketersediaan_barang;
+            $row->deskripsi_satuan      = trim($row->deskripsi_satuan);
+            $row->status                = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
+            $btn_eqiv_1                 = '';
+            $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods">
+                                            <i class="fas fa-envelope-open-text"></i>
+                                        </button>';
+            $row->actions_equivalen     = '<button type="button" class="eqiv_form_1 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_1" ' . $btn_eqiv_1 . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+                                            1
+                                        </button>
+                                        <button type="button" class="eqiv_form_2 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_2" ' . $this->enableEqivBtn($row->nomor_rfq, 1, $row->kode_barang) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+                                            2
+                                        </button>
+                                        <button type="button" class="eqiv_form_3 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_3" ' . $this->enableEqivBtn($row->nomor_rfq, 2, $row->kode_barang) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+                                            3
+                                        </button>
+                                        <button type="button" class="eqiv_form_4 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_4" ' . $this->enableEqivBtn($row->nomor_rfq, 3, $row->kode_barang) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+                                            4
+                                        </button>';
+
+            $rows[] = $row;
+            $i++;
+        }
+
+        return array(
+            'draw' => $draw,
+            'recordsTotal' => $records_total,
+            'recordsFiltered' => $records_total,
+            'data' => $rows,
+        );
+    }
+
+    /**
+     * Enabling Equivalent Button (1-4)
+     *
+     * @param string $rfq_no
+     * @param integer $equivalen
+     * @return String
+     */
+    public function enableEqivBtn(string $rfq_no, int $equivalen, string $item_code)
+    {
+        $enable = 'disabled';
+
+        $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen, 'kode_barang' => $item_code);
+        $isEquivalentExists = $this->global->get_by($this->table['eqiv'], $params);
+        if ($isEquivalentExists->num_rows() > 0) {
+            $enable = '';
+        }
+
+        return $enable;
     }
         
 }
