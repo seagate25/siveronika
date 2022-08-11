@@ -42,7 +42,12 @@ class Negotiation extends CI_Controller {
 
     public function det_rfq_goods()
     {
-        $rfq_no             = $this->uri->segment(3);
+        $rfq_no = $this->crypto->decode($this->uri->segment(3));
+        if ($this->input->is_ajax_request()) {
+            $rows   = $this->nego->getDetNegoRfqGoodsList($rfq_no);
+            echo json_encode($rows);
+            exit;
+        }
         $data['title']      = "RFQ No : " . $rfq_no;
         $data['menu']       = "Negosiasi";
         $data['submenu']    = "Detail Negosiasi RFQ Barang";

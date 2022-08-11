@@ -1,109 +1,32 @@
+<script src="<?php echo base_url(); ?>assets/plugins/custom/jquery-maskMoney/jquery.maskMoney.js"></script>
 <div class="card shadow-sm">
     <div class="card-header bg-success">
+        <div class="card-toolbar">
+            <a href="<?php echo site_url('negotiation/rfq_goods'); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
+                <i class="las la-arrow-left fs-1 text-success"></i>
+            </a>
+        </div>
         <h3 class="card-title text-white"><?php echo $title; ?></h3>
         <div class="card-toolbar">
-            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
-            <i class="las la-sync fs-1"></i>
+            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2" onclick="return KTDataTables.init();">
+                <i class="las la-sync fs-1 text-success"></i>
             </button>
         </div>
     </div>
     <div class="card-body">
-        <table id="kt_datatable_example_1" class="align-middle table table-row-bordered gy-5">
+        <table id="kt_datatable_detail_nego_rfq_goods" class="align-middle table table-row-bordered gy-5">
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
                     <th class="min-w-50px text-center">No.</th>
-                    <th class="min-w-100px text-center">Kode Material</th>
+                    <th class="min-w-50px text-center">Kode Material</th>
                     <th class="min-w-125px text-center">Nama Material</th>
                     <th class="min-w-50px text-center">Jumlah Permintaan</th>
                     <th class="min-w-50px text-center">Satuan Permintaan</th>
                     <th class="min-w-50px text-center">Status</th>
                     <th class="min-w-50px text-center">Harga Sesuai Permintaan</th>
-                    <th class="min-w-150px text-center">Harga Permintaan Ekuivalen</th>
+                    <th class="min-w-200px text-center">Harga Permintaan Ekuivalen</th>
                 </tr>
             </thead>
-            <tbody class="text-gray-600 fw-bold">
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">7013165</td>
-                    <td class="text-center">BAYGON CAIR @1L/KG</td>
-                    <td class="text-center">30</td>
-                    <td class="text-center">KG</td>
-                    <td class="text-center">Sudah Diisi</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
-                            1
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            2
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            3
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            4
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">2</td>
-                    <td class="text-center">7013165</td>
-                    <td class="text-center">BAYGON CAIR @1L/KG</td>
-                    <td class="text-center">30</td>
-                    <td class="text-center">KG</td>
-                    <td class="text-center">Sudah Diisi</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            1
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            2
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            3
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            4
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">3</td>
-                    <td class="text-center">7013165</td>
-                    <td class="text-center">BAYGON CAIR @1L/KG</td>
-                    <td class="text-center">30</td>
-                    <td class="text-center">KG</td>
-                    <td class="text-center">Sudah Diisi</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            1
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            2
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            3
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            4
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
         </table>
     </div>
 </div>
@@ -452,7 +375,119 @@ var KTDataTables = (function() {
     var e;
     return {
         init: function() {
-            e = $("#kt_datatable_example_1").DataTable();
+            e = $("#kt_datatable_detail_nego_rfq_goods").DataTable({
+                processing: !0,
+                serverSide: !0,
+                destroy: !0,
+                scrollX: !0,
+                dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
+                // buttons: [
+                //     {
+                //         text: 'Biaya Lainnya',
+                //         className: 'btn btn-sm btn-success',
+                //         action: function ( e, dt, node, config ) {
+                //             $.ajax({
+                //                 type: "POST",
+                //                 url: "<?php //echo site_url('rfq/get_other_data') ?>",
+                //                 data: { id: $('input[name=id_rfq_other]').val() },
+                //                 beforeSend: function() {
+                //                     loading.block();
+                //                 },
+                //                 success: function(response) {
+                //                     var obj = jQuery.parseJSON(response);
+                //                     if(obj.data.length > 0) {
+                //                         if(obj.data.length > 1) {
+                //                             // console.log($("div[id^=el_add_]").length);
+                //                             for(var i = 0; i < obj.data.length - 1; i++) {
+                //                                 Elements.add_row();
+                //                             }
+                //                         }
+
+                //                         $("div[id^=el_add_]").each( function(key, value) {
+                //                             $("#add_price_type_"+(key+1)).val(obj.data[key].kode_biaya+'_'+obj.data[key].deskripsi_biaya).trigger('change');
+                //                             $("#add_price_"+(key+1)).maskMoney('mask', parseInt(obj.data[key].jumlah_biaya));
+                //                             $("#add_currency_"+(key+1)).val($.trim(obj.data[key].mata_uang)).trigger('change');
+                //                         }),
+                //                         loading.release(), modal_additional.show();
+                //                     } else {
+                //                         loading.release(), modal_additional.show();
+                //                     }
+                //                 },
+                //                 error: function() {
+                //                     loading.release();
+                //                 }
+                //             });
+                //         }
+                //     }
+                // ],
+                paging: !0,
+                ordering: !0,
+                searching: !0,
+                ajax: {
+                    type: "POST",
+                    url: "<?php echo site_url('negotiation/det_rfq_goods/' . $this->uri->segment(3)); ?>"
+                },
+                columns: [
+                    {
+                        data: 'number',
+                        className: 'text-center',
+                        sortable: false,
+                        searchable: false,
+                        orderable: false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        data: 'kode_barang',
+                        className: 'text-center'
+                    },
+                    {
+                        data: 'deskripsi_barang',
+                        className: 'text-center'
+                    },
+                    {
+                        data: 'jumlah_permintaan',
+                        className: 'text-center'
+                    },
+                    {
+                        data: 'satuan',
+                        className: 'text-center'
+                    },
+                    {
+                        data: 'status',
+                        className: 'text-center'
+                    },
+                    {
+                        data: 'actions',
+                        className: 'text-center',
+                        sortable: false,
+                        searchable: false,
+                        orderable: false
+                    },
+                    {
+                        data: 'actions_equivalen',
+                        className: 'text-center',
+                        sortable: false,
+                        searchable: false,
+                        orderable: false
+                    }
+                ],
+                lengthMenu: [
+                    [5, 10, 15, 25, -1],
+                    [5, 10, 15, 25, "All"]
+                ],
+                pageLength: 10,
+                order: [1, 'ASC']
+            }),
+            $("#kt_datatable_detail_nego_rfq_goods tbody").on('click', 'button.rfq_form', function() {
+                var data = e.row($(this).parents('tr')).data();
+            }),
+            $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form_1, button.eqiv_form_2, button.eqiv_form_3, button.eqiv_form_4', function() {
+                var data = e.row($(this).parents('tr')).data();
+            });
         }
     };
 })();
