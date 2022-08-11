@@ -119,6 +119,73 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Ketersediaan Barang</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <div class="align-items-center mt-3">
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-inline form-check-solid me-5">
+                                        <input class="form-check-input" name="available" type="radio" value="0">
+                                        <span class="fw-bold ps-2 fs-6">Tersedia</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-inline form-check-solid">
+                                        <input class="form-check-input" name="available" type="radio" value="1" checked="true">
+                                        <span class="fw-bold ps-2 fs-6">Indent</span>
+                                    </label>
+                                    <!--end::Option-->
+                                </div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <div id="form_status_ketersediaan_barang">
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Tersedia</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="available_total" id="available_total" class="form-control" placeholder="Jumlah Tersedia" min="0">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Indent</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="indent_total" id="indent_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" min="0">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Lama Indent (Hari)</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="indent_day" id="indent_day" class="form-control" placeholder="Lama Indent (Hari)" min="0">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                        </div>
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Mata Uang</label>
                             <!--end::Label-->
                             <!--begin::Col-->
@@ -242,32 +309,6 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Ketersediaan Barang</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <div class="align-items-center mt-3">
-                                    <!--begin::Option-->
-                                    <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="available" type="radio" value="0">
-                                        <span class="fw-bold ps-2 fs-6">Tersedia</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="available" type="radio" value="1" checked="true">
-                                        <span class="fw-bold ps-2 fs-6">Indent</span>
-                                    </label>
-                                    <!--end::Option-->
-                                </div>
-                                <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
                         </div>
@@ -504,7 +545,7 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Ketersediaan Barang</label>
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Ketersediaan BarangXXXX</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
@@ -527,45 +568,47 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Tersedia</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="available_total_eqiv" id="available_total_eqiv" class="form-control" placeholder="Jumlah Tersedia" min="0">
-                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                        <div id="form_status_ketersediaan_barang_eqiv">
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Tersedia</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="available_total_eqiv" id="available_total_eqiv" class="form-control" placeholder="Jumlah Tersedia" min="0">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
                             </div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Indent</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="indent_total_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" min="0">
-                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            <!--end::Input Group-->
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Indent</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="indent_total_eqiv" id="indent_total_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" min="0">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
                             </div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Lama Indent (Hari)</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="indent_day_eqiv" class="form-control" placeholder="Lama Indent (Hari)" min="0">
-                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            <!--end::Input Group-->
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Lama Indent (Hari)</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="indent_day_eqiv" id="indent_day_eqiv" class="form-control" placeholder="Lama Indent (Hari)" min="0">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
                             </div>
-                            <!--end::Col-->
+                            <!--end::Input Group-->
                         </div>
-                        <!--end::Input Group-->
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
@@ -1037,6 +1080,17 @@
                         $('input[name="available"][value="0"]').prop('checked', true);
                         $("input[name=ed_price]").val('');
 
+                        $("input[name=available_total]").val('');
+                        $("input[name=indent_total]").val('');
+                        $("input[name=indent_day]").val('');
+
+                        // Status Ketersediaan Barang
+                        if ($('input[name="available"]:checked').val() == 0) { // Checked Tersedia
+                            $("#form_status_ketersediaan_barang").hide();
+                        } else {    // Checked Indent
+                            $("#form_status_ketersediaan_barang").show();
+                        }
+
                         var i_file = '';
                         for (var i = 0; i < 5; i++) {
                             i_file += '<div class="row mb-3">';
@@ -1060,6 +1114,19 @@
                                 $("select[name=convertion_measurement]").val(data.satuan_konversi).trigger('change');
                             }
                             $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
+                            if ($('input[name="available"]:checked').val() == 0) { // Status Ketersediaan Barang = Tersedia
+                                    $("form_status_ketersediaan_barang").hide();
+                                    $('#available_total').val(0);
+                                    $('#indent_total').val(0);
+                                    $('#indent_day').val(0);
+
+                            } else { // Status Ketersediaan Barang = Tersedia
+                                $("form_status_ketersediaan_barang").show();
+                                $('#available_total').val(0);
+                                $('#indent_total').val(0);
+                                $('#indent_day').val(0);
+                            }
+
                             $("input[name=ed_price]").val(data.masa_berlaku_harga);
                             $("textarea[name=notes]").val(data.keterangan);
                             $("input[name=created_by]").val(data.dibuat_oleh);
@@ -1167,6 +1234,13 @@
                         $("input[name=indent_total_eqiv]").val('');
                         $("input[name=indent_day_eqiv]").val('');
 
+                        // Status Ketersediaan Barang Equivalent
+                        if ($('input[name="available_eqiv"]:checked').val() == 0) { // Checked Tersedia
+                            $("#form_status_ketersediaan_barang_eqiv").hide();
+                        } else {    // Checked Indent
+                            $("#form_status_ketersediaan_barang_eqiv").show();
+                        }
+
                         if ($('input[name="convert_eqiv"]:checked').val() == 0) {
                             $('#unit_measure_eqiv').attr('disabled', 'disabled');
                             $("#form_convertion_eqiv").hide();
@@ -1230,13 +1304,24 @@
                                         $("input[name=convertion_measure_eqiv]").val($("#unit_measure_eqiv").select2('data')[0].text);
                                     }
                                     $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
-                                    if ($('input[name="available_eqiv"]:checked').val() == 1) {
-                                            $('#available_total_eqiv').attr('disabled', 'disabled');
-                                             $('#available_total_eqiv').val(parseFloat(obj.data.jumlah_tersedia));
-                                            $("input[name=indent_total_eqiv]").prop('readonly', false).removeClass('form-control-solid').val(parseInt(obj.data.jumlah_inden));
-                                    } else {
-                                        $('#available_total_eqiv').removeAttr('disabled');
-                                        $("input[name=indent_total_eqiv]").prop('readonly', true).addClass('form-control-solid').val(0);
+                                    if ($('input[name="available_eqiv"]:checked').val() == 0) { // Status Ketersediaan Barang = Tersedia
+                                            // $('#available_total_eqiv').attr('disabled', 'disabled');
+                                            // $('#available_total_eqiv').val(parseFloat(obj.data.jumlah_tersedia));
+                                            // $("input[name=indent_total_eqiv]").prop('readonly', false).removeClass('form-control-solid').val(parseInt(obj.data.jumlah_inden));
+
+                                            $("form_status_ketersediaan_barang_eqiv").hide();
+                                            $('#available_total_eqiv').val(0);
+                                            $('#indent_total_eqiv').val(0);
+                                            $('#indent_day_eqiv').val(0);
+
+                                    } else { // Status Ketersediaan Barang = Tersedia
+                                        // $('#available_total_eqiv').removeAttr('disabled');
+                                        // $("input[name=indent_total_eqiv]").prop('readonly', true).addClass('form-control-solid').val(0);
+
+                                        $("form_status_ketersediaan_barang_eqiv").show();
+                                        $('#available_total_eqiv').val(0);
+                                        $('#indent_total_eqiv').val(0);
+                                        $('#indent_day_eqiv').val(0);
                                     }
                                     $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
                                     $("textarea[name=notes_eqiv]").val(obj.data.keterangan);
@@ -2099,6 +2184,43 @@
                 }
             }
         });
+        
+        // OnChange Status Ketersedian Barang (Tersedia/ Indent)
+        $("input[name=available_total]").on('keyup change', function() {
+            var request_total = $("input[name=request_total]").val();
+            var indent_total = parseInt(request_total) - parseInt(this.value);
+            if (indent_total < 0) {
+                indent_total = 0;
+            } else {
+                indent_total = indent_total;
+            }
+
+            if (indent_total == 0) {
+                $("input[name=indent_day]").attr('readonly', true).addClass('form-control-solid').val(0);
+            } else {
+                $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
+            }
+            $("input[name=indent_total]").val(indent_total);
+        });
+        $("input[name=available]").on('change', function() {
+            if ($(this).is(':checked')) {
+                if ($(this).val() == 0) {   // Checked Tersedia
+                    // Hide object Jumlah Tersedia, Jumlah Indent, Lama Indent
+                    $('#form_status_ketersediaan_barang').hide();
+                    $('#available_total').val(0);
+                    $('#indent_total').val(0);
+                    $('#indent_day').val(0);
+                    
+                } else {    // Checked Indent
+                    // Show object Jumlah Tersedia, Jumlah Indent, Lama Indent
+                    $('#form_status_ketersediaan_barang').show();
+                    $('#available_total').val(0);
+                    $('#indent_total').val(0);
+                    $('#indent_day').val(0);
+                }
+            }
+        });
+        // OnChange Status Ketersedian Barang Equivalent (Tersedia/ Indent)
         $("input[name=available_total_eqiv]").on('keyup change', function() {
             var request_total_eqiv = $("input[name=request_total_eqiv]").val();
             var indent_total_eqiv = parseInt(request_total_eqiv) - parseInt(this.value);
@@ -2115,15 +2237,28 @@
             }
             $("input[name=indent_total_eqiv]").val(indent_total_eqiv);
         });
-         $("input[name=available_eqiv]").on('change', function() {
+        $("input[name=available_eqiv]").on('change', function() {
             if ($(this).is(':checked')) {
-                if ($(this).val() == 1) {
-                    $('#available_total_eqiv').attr('disabled', 'disabled');
+                if ($(this).val() == 0) {   // Status Ketersediaan barang eqiv = Checked Tersedia
+                    // $('#available_total_eqiv').attr('disabled', 'disabled');
+                    // $('#available_total_eqiv').val(0);
+                    // $("input[name=indent_total_eqiv]").prop('readonly', false).removeClass('form-control-solid').val($("input[name=request_total_eqiv]").val());
+
+                    // Hide object Jumlah Tersedia, Jumlah Indent, Lama Indent
+                    $('#form_status_ketersediaan_barang_eqiv').hide();
                     $('#available_total_eqiv').val(0);
-                    $("input[name=indent_total_eqiv]").prop('readonly', false).removeClass('form-control-solid').val($("input[name=request_total_eqiv]").val());
-                } else {
-                    $('#available_total_eqiv').removeAttr('disabled');
-                    $("input[name=indent_total_eqiv]").prop('readonly', true).addClass('form-control-solid').val(0);
+                    $('#indent_total_eqiv').val(0);
+                    $('#indent_day_eqiv').val(0);
+                    
+                } else {    // Status Ketersediaan barang eqiv = Checked Indent
+                    // $('#available_total_eqiv').removeAttr('disabled');
+                    // $("input[name=indent_total_eqiv]").prop('readonly', true).addClass('form-control-solid').val(0);
+
+                    // Show object Jumlah Tersedia, Jumlah Indent, Lama Indent
+                    $('#form_status_ketersediaan_barang_eqiv').show();
+                    $('#available_total_eqiv').val(0);
+                    $('#indent_total_eqiv').val(0);
+                    $('#indent_day_eqiv').val(0);
                 }
             }
         });

@@ -179,6 +179,10 @@ class Rfq extends CI_Controller
         $notes          = $this->input->post('notes');
         $created_by     = $this->input->post('created_by');
 
+        $available_total   = $this->input->post('available_total');
+        $indent_total      = $this->input->post('indent_total');
+        $indent_day        = $this->input->post('indent_day');
+
         $attach_files       = array();
         $attach_new_files   = array();
 
