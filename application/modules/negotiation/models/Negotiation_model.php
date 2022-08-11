@@ -80,20 +80,20 @@ class Negotiation_model extends CI_Model {
         }
 
         $sql        = "SELECT 
-                            tnego.*, 
+                            tnego.nomor_rfq, tnego.tanggal_rfq, tnego.tanggal_jatuh_tempo, tnego.modified_date, tnego.modified_by,
                             tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung 
                         FROM {$this->table['head']} tnego 
-                        LEFT JOIN {$this->table['attachment']} AS tl ON(tl.nomor_rfq = tnego.nomor_rfq) {$where}";
+                        LEFT JOIN {$this->table['attachment']} AS tl ON ( tl.nomor_rfq = tnego.nomor_rfq ) {$where}";
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
         $sql_   = "SELECT  *
-                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY tnego.nomor_rfq {$order_dir} ) AS RowNum,
-                                        tnego.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
+                    FROM    ( SELECT ROW_NUMBER() OVER ( ORDER BY tnego.nomor_rfq {$order_dir} ) AS RowNum,
+                                tnego.nomor_rfq, tnego.tanggal_rfq, tnego.tanggal_jatuh_tempo, tnego.modified_date, tnego.modified_by, 
+                                tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
                             FROM      {$this->table['head']} tnego
-                            LEFT JOIN {$this->table['attachment']} AS tl ON(tl.nomor_rfq = tnego.nomor_rfq)
-                            {$where}
-                            ) AS RowConstrainedResult
+                            LEFT JOIN {$this->table['attachment']} AS tl ON ( tl.nomor_rfq = tnego.nomor_rfq )
+                            {$where} ) AS RowConstrainedResult
                     WHERE   RowNum > {$start}
                         AND RowNum < (({$start} + 1) + {$length})
                     ORDER BY RowNum";

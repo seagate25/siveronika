@@ -39,6 +39,19 @@ class Dashboard_model extends CI_Model {
         $result = $query->row();
         $graph_data['rfq_barang'] = (int)$result->rfq_barang;
 
+        // Total Nego RFQ Barang
+        $sql    = "SELECT
+                        COUNT(table_a.nomor_rfq) AS nego_barang
+                    FROM 
+                        TB_S_MST_NEGO_BARANG_HEAD table_a
+                    WHERE
+                        table_a.kode_vendor = '{$vendor_code}' AND
+                        table_a.tanggal_jatuh_tempo >= '".date('Y-m-d')."'";
+        
+        $query  = $this->db->query($sql);
+        $result = $query->row();
+        $graph_data['nego_barang'] = (int)$result->nego_barang;
+
         return $graph_data;
     }
 
