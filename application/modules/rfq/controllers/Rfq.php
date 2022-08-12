@@ -340,7 +340,10 @@ class Rfq extends CI_Controller
                 'keterangan'            => $notes,
                 'dibuat_oleh'           => $created_by,
                 'modified_date'         => date('Y-m-d'),
-                'modified_by'           => 'WEB'
+                'modified_by'           => 'WEB',
+                'jumlah_tersedia'       => ($available == '0') ? 0 : $available_total,
+                'jumlah_inden'          => $indent_total,
+                'lama_inden'            => $indent_day
             );
 
             $save   = $this->rfq->updateRfq($params, $data);
@@ -444,7 +447,10 @@ class Rfq extends CI_Controller
                 'keterangan'            => $notes,
                 'dibuat_oleh'           => $created_by,
                 'modified_date'         => date('Y-m-d'),
-                'modified_by'           => 'WEB'
+                'modified_by'           => 'WEB',
+                'jumlah_tersedia'       => ($available == '0') ? 0 : $available_total,
+                'jumlah_inden'          => $indent_total,
+                'lama_inden'            => $indent_day
             );
 
             $save   = $this->rfq->updateRfq($params, $data);
@@ -676,7 +682,7 @@ class Rfq extends CI_Controller
                     'merek'                 => $merk_eqiv,
                     'tipe'                  => $type_eqiv,
                     'buatan'                => $made_eqiv,
-                    'jumlah_tersedia'       => ($available == '1') ? 0 : $available_total_eqiv,
+                    'jumlah_tersedia'       => ($available == '0') ? 0 : $available_total_eqiv,
                     'jumlah_inden'          => $indent_total_eqiv,
                     'lama_inden'            => $indent_day_eqiv
                 );
@@ -786,7 +792,7 @@ class Rfq extends CI_Controller
                     'merek'                 => $merk_eqiv,
                     'tipe'                  => $type_eqiv,
                     'buatan'                => $made_eqiv,
-                    'jumlah_tersedia'       => ($available == '1') ? 0 : $available_total_eqiv,
+                    'jumlah_tersedia'       => ($available == '0') ? 0 : $available_total_eqiv,
                     'jumlah_inden'          => $indent_total_eqiv,
                     'lama_inden'            => $indent_day_eqiv
                 );
@@ -890,7 +896,7 @@ class Rfq extends CI_Controller
                 'merek'                 => $merk_eqiv,
                 'tipe'                  => $type_eqiv,
                 'buatan'                => $made_eqiv,
-                'jumlah_tersedia'       => ($available == '1') ? 0 : $available_total_eqiv,
+                'jumlah_tersedia'       => ($available == '0') ? 0 : $available_total_eqiv,
                 'jumlah_inden'          => $indent_total_eqiv,
                 'lama_inden'            => $indent_day_eqiv
             );
