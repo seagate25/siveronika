@@ -1115,16 +1115,15 @@
                             }
                             $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
                             if ($('input[name="available"]:checked').val() == 0) { // Status Ketersediaan Barang = Tersedia
-                                    $("form_status_ketersediaan_barang").hide();
+                                    $("#form_status_ketersediaan_barang").hide();
                                     $('#available_total').val(0);
                                     $('#indent_total').val(0);
                                     $('#indent_day').val(0);
-
                             } else { // Status Ketersediaan Barang = Tersedia
-                                $("form_status_ketersediaan_barang").show();
-                                $('#available_total').val(0);
-                                $('#indent_total').val(0);
-                                $('#indent_day').val(0);
+                                $("#form_status_ketersediaan_barang").show();
+                                $('#available_total').val(parseFloat(data.jumlah_tersedia));
+                                $('#indent_total').val(parseFloat(data.jumlah_inden));
+                                $('#indent_day').val(parseFloat(data.lama_inden));
                             }
 
                             $("input[name=ed_price]").val(data.masa_berlaku_harga);
@@ -1309,7 +1308,7 @@
                                             // $('#available_total_eqiv').val(parseFloat(obj.data.jumlah_tersedia));
                                             // $("input[name=indent_total_eqiv]").prop('readonly', false).removeClass('form-control-solid').val(parseInt(obj.data.jumlah_inden));
 
-                                            $("form_status_ketersediaan_barang_eqiv").hide();
+                                            $("#form_status_ketersediaan_barang_eqiv").hide();
                                             $('#available_total_eqiv').val(0);
                                             $('#indent_total_eqiv').val(0);
                                             $('#indent_day_eqiv').val(0);
@@ -1318,10 +1317,10 @@
                                         // $('#available_total_eqiv').removeAttr('disabled');
                                         // $("input[name=indent_total_eqiv]").prop('readonly', true).addClass('form-control-solid').val(0);
 
-                                        $("form_status_ketersediaan_barang_eqiv").show();
-                                        $('#available_total_eqiv').val(0);
-                                        $('#indent_total_eqiv').val(0);
-                                        $('#indent_day_eqiv').val(0);
+                                        $("#form_status_ketersediaan_barang_eqiv").show();
+                                        $('#available_total_eqiv').val(parseFloat(obj.data.jumlah_tersedia));
+                                        $('#indent_total_eqiv').val(parseFloat(obj.data.jumlah_inden));
+                                        $('#indent_day_eqiv').val(parseFloat(obj.data.lama_inden));
                                     }
                                     $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
                                     $("textarea[name=notes_eqiv]").val(obj.data.keterangan);
