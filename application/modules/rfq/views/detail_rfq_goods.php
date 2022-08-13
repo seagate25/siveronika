@@ -1080,9 +1080,9 @@
                         $('input[name="available"][value="0"]').prop('checked', true);
                         $("input[name=ed_price]").val('');
 
-                        $("input[name=available_total]").val('');
-                        $("input[name=indent_total]").val('');
-                        $("input[name=indent_day]").val('');
+                        $("input[name=available_total]").val(0);
+                        $("input[name=indent_total]").val(0);
+                        $("input[name=indent_day]").val(0);
 
                         // Status Ketersediaan Barang
                         if ($('input[name="available"]:checked').val() == 0) { // Checked Tersedia
@@ -1229,9 +1229,9 @@
                         $("input[name=merk_eqiv]").val('');
                         $("input[name=type_eqiv]").val('');
                         $("input[name=made_eqiv]").val('');
-                        $("input[name=available_total_eqiv]").val('');
-                        $("input[name=indent_total_eqiv]").val('');
-                        $("input[name=indent_day_eqiv]").val('');
+                        $("input[name=available_total_eqiv]").val(0);
+                        $("input[name=indent_total_eqiv]").val(0);
+                        $("input[name=indent_day_eqiv]").val(0);
 
                         // Status Ketersediaan Barang Equivalent
                         if ($('input[name="available_eqiv"]:checked').val() == 0) { // Checked Tersedia
