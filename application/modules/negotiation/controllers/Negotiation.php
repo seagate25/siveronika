@@ -40,6 +40,11 @@ class Negotiation extends CI_Controller {
         $this->load->view('default', $data);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function det_rfq_goods()
     {
         $rfq_no = $this->crypto->decode($this->uri->segment(3));
@@ -52,7 +57,97 @@ class Negotiation extends CI_Controller {
         $data['menu']       = "Negosiasi";
         $data['submenu']    = "Detail Negosiasi RFQ Barang";
         $data['content']    = "detail_nego_rfq_goods";
+        $data['UoMs']       = $this->nego->getUoM();
+        $data['currencies'] = $this->nego->getCurrency();
         $this->load->view('default', $data);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function save_negotiation()
+    {
+        $nomor_rfq          = $this->input->post('nomor_rfq');
+        $kode_barang        = $this->input->post('kode_barang');
+        $harga_satuan_nego  = str_replace('.', '', $this->input->post('harga_satuan_nego'));
+        $keterangan_nego    = $this->input->post('keterangan_nego');
+        
+        $params = array(
+            'nomor_rfq' => $nomor_rfq,
+            'kode_barang' => $kode_barang
+        );
+
+        $data = array(
+            'harga_satuan_nego' => $harga_satuan_nego,
+            'keterangan_nego' => $keterangan_nego
+        );
+
+        $update = $this->nego->updateNegoRfq($params, $data);
+        if($update > 0) {
+
+            $response = array(
+                'code'      => 0,
+                'msg'       => 'Berhasil menyimpan data.',
+                'status'    => 'success'
+            );
+
+        } else {
+
+            $response = array(
+                'code'      => 100,
+                'msg'       => 'Gagal menyimpan data',
+                'status'    => 'error'
+            );
+
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function get_det_nego_goods_eqiv()
+    {
+        $nomor_rfq      = $this->input->post('nomor_rfq');
+        $kode_barang    = $this->input->post('kode_barang');
+        $ekuivalen      = $this->input->post('ekuivalen');
+        
+        $params = array(
+            'nomor_rfq' => $nomor_rfq,
+            'kode_barang' => $kode_barang,
+            'ekuivalen' => $ekuivalen
+        );
+
+        $result = $this->nego->getDetNegoRfqGoodsEqiv($params);
+        if($result->num_rows() > 0) {
+
+            $data       = $result->row();
+            $response   = array(
+                'code' => 0,
+                'msg' => 'SUCCESS',
+                'status' => 'success',
+                'data' => $data
+            );
+
+        } else {
+
+            $response   = array(
+                'code' => 100,
+                'msg' => 'FAILED',
+                'status' => 'error',
+                'data' => NULL
+            );
+
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
     }
 
 }

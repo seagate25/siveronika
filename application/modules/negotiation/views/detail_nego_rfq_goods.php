@@ -37,7 +37,7 @@
                 <h5 class="modal-title text-white">Pengisian RFQ</h5>
 
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-danger ms-2" data-bs-dismiss="modal" aria-label="Close">
+                <div class="btn btn-icon btn-sm btn-danger ms-2" data-kt-det-nego-rfq-goods-modal-action="close" aria-label="Close">
                     <span class="svg-icon svg-icon-2x">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
@@ -50,15 +50,15 @@
                 <!--end::Close-->
             </div>
 
-            <form id="kt_modal_det_nego_rfq_goods_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url('rfq/save_rfq'); ?>">
+            <form id="kt_modal_det_nego_rfq_goods_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url('negotiation/save_negotiation'); ?>">
                 <!--begin::Modal body-->
                 <div class="modal-body py-4 px-lg-17">
                     <!--begin::Scroll-->
-                    <div class="scroll-y me-n7 pe-7" id="kt_modal_det_rfq_goods_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_det_rfq_goods_header" data-kt-scroll-wrappers="#kt_modal_det_rfq_goods_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
+                    <div class="scroll-y me-n7 pe-7" id="kt_modal_det_nego_rfq_goods_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_det_nego_rfq_goods_header" data-kt-scroll-wrappers="#kt_modal_det_nego_rfq_goods_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
                         <div class="fw-bold">
                             <h4 class="text-gray-900 fw-bolder">RFQ No : <span id="txt_rfq_no"></span> | <span id="txt_material_code"></span></h4>
                         </div>
-                        <input type="hidden" name="id_rfq">
+                        <input type="hidden" name="nomor_rfq" id="nomor_rfq">
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
@@ -66,7 +66,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="material_code" class="form-control form-control-solid" readonly="true" placeholder="Kode Material">
+                                <input type="text" name="kode_barang" id="kode_barang" class="form-control form-control-solid" readonly="true" placeholder="Kode Material">
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -79,7 +79,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="material_name" class="form-control form-control-solid" readonly="true" placeholder="Nama Material">
+                                <input type="text" name="deskripsi_barang" id="deskripsi_barang" class="form-control form-control-solid" readonly="true" placeholder="Nama Material">
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -92,7 +92,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="request_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan">
+                                <input type="number" name="jumlah_permintaan" id="jumlah_permintaan" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan">
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -105,9 +105,9 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="measurement" class="form-control form-control-solid" readonly="true" placeholder="Satuan">
-                                <input type="hidden" name="r_measurement">
-                                <input type="hidden" name="desc_measure">
+                                <input type="text" name="satuan" id="satuan" class="form-control form-control-solid" readonly="true" placeholder="Satuan">
+                                <!-- <input type="hidden" name="satuan" id="satuan">
+                                <input type="hidden" name="deskripsi_satuan" id="deskripsi_satuan"> -->
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -116,12 +116,79 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Ketersediaan Barang</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <div class="align-items-center mt-3">
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-inline form-check-solid me-5">
+                                        <input class="form-check-input" name="ketersediaan_barang" id="ketersediaan_barang" disabled type="radio" value="0">
+                                        <span class="fw-bold ps-2 fs-6">Tersedia</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-inline form-check-solid">
+                                        <input class="form-check-input" name="ketersediaan_barang" id="ketersediaan_barang" disabled type="radio" value="1" checked="true">
+                                        <span class="fw-bold ps-2 fs-6">Indent</span>
+                                    </label>
+                                    <!--end::Option-->
+                                </div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <div id="form_status_ketersediaan_barang">
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Tersedia</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="jumlah_tersedia" id="jumlah_tersedia" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Tersedia" min="0">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Indent</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="jumlah_inden" id="jumlah_inden" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" min="0">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Lama Indent (Hari)</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="lama_inden" id="lama_inden" class="form-control form-control-solid" readonly="true" placeholder="Lama Indent (Hari)" min="0">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                        </div>
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Mata Uang</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
                                 <!-- <input type="text" name="currency" class="form-control" placeholder="Mata Uang"> -->
-                                <select class="form-select form-select-solid" name="currency" id="currency" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods" data-placeholder="Pilih Mata Uang">
+                                <select class="form-select form-select-solid" disabled name="mata_uang" id="mata_uang" data-control="select2" data-dropdown-parent="#kt_modal_det_nego_rfq_goods" data-placeholder="Pilih Mata Uang">
                                     <?php
                                     foreach ($currencies as $currency) {
                                     ?>
@@ -142,7 +209,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                                <input type="text" name="unit_price" class="form-control" placeholder="Harga Satuan">
+                                <input type="text" name="harga_satuan" id="harga_satuan" class="form-control form-control-solid mask-money" readonly="true" placeholder="Harga Satuan">
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -152,7 +219,7 @@
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
                                 <!-- <input type="text" name="unit_measure" class="form-control" placeholder="Satuan"> -->
-                                <select class="form-select form-select-solid" disabled name="unit_measure" id="unit_measure" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods" data-placeholder="Pilih Satuan">
+                                <select class="form-select form-select-solid" disabled name="per_harga_satuan" id="per_harga_satuan" data-control="select2" data-dropdown-parent="#kt_modal_det_nego_rfq_goods" data-placeholder="Pilih Satuan">
                                     <?php
                                     foreach ($UoMs as $UoM) {
                                     ?>
@@ -169,6 +236,33 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Harga Satuan Nego</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                                <input type="text" name="harga_satuan_nego" id="harga_satuan_nego" class="form-control mask-money" placeholder="Harga Satuan Nego">
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">Keterangan Nego</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <!-- <input class="form-control" name="notes" placeholder="Keterangan"/> -->
+                                <textarea class="form-control" name="keterangan_nego" id="keterangan_nego" placeholder="Keterangan Nego" rows="5"></textarea>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Apakah ada konversi?</label>
                             <!--end::Label-->
                             <!--begin::Col-->
@@ -176,13 +270,13 @@
                                 <div class="align-items-center mt-3">
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="convert" type="radio" value="1">
+                                        <input class="form-check-input" name="konversi" id="konversi" disabled type="radio" value="1">
                                         <span class="fw-bold ps-2 fs-6">Ya</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="convert" type="radio" value="0" checked="true">
+                                        <input class="form-check-input" name="konversi" id="konversi" disabled type="radio" value="0" checked="true">
                                         <span class="fw-bold ps-2 fs-6">Tidak</span>
                                     </label>
                                     <!--end::Option-->
@@ -215,18 +309,18 @@
                                             <td>Satuan Konversi</td>
                                             <td class="text-center">1</td>
                                             <td class="text-center">
-                                                <input type="text" name="convertion_measure" class="form-control form-control-solid text-center" readonly="true">
+                                                <input type="text" name="per_harga_satuan_text" id="per_harga_satuan_text" class="form-control form-control-solid text-center" readonly="true">
                                             </td>
                                             <td class="text-center">=</td>
                                             <td class="text-center">
                                                 <div class="fv-row fv-plugins-icon-container">
-                                                    <input type="text" class="form-control" name="convertion_qty" placeholder="Konversi Jumlah">
+                                                    <input type="text" class="form-control form-control-solid" name="jumlah_konversi" id="jumlah_konversi" placeholder="Konversi Jumlah" readonly="true">
                                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                                 </div>
                                             </td>
                                             <td class="text-center">
                                                 <!-- <input type="text" name="measurement" class="form-control form-control-solid" readonly="true"> -->
-                                                <select class="form-select form-select-solid" disabled name="convertion_measurement" id="convertion_measurement" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods" data-placeholder="Pilih Satuan">
+                                                <select class="form-select form-select-solid" disabled name="satuan_konversi" id="satuan_konversi" data-control="select2" data-dropdown-parent="#kt_modal_det_nego_rfq_goods" data-placeholder="Pilih Satuan">
                                                     <?php
                                                     foreach ($UoMs as $UoM) {
                                                     ?>
@@ -246,37 +340,11 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Ketersediaan Barang</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <div class="align-items-center mt-3">
-                                    <!--begin::Option-->
-                                    <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="available" type="radio" value="0">
-                                        <span class="fw-bold ps-2 fs-6">Tersedia</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="available" type="radio" value="1" checked="true">
-                                        <span class="fw-bold ps-2 fs-6">Indent</span>
-                                    </label>
-                                    <!--end::Option-->
-                                </div>
-                                <div class="fv-plugins-message-container invalid-feedback"></div>
-                            </div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input Group-->
-                        <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Masa Berlaku Harga</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" name="ed_price" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_3" />
+                                <input class="form-control form-control-solid" name="masa_berlaku_harga" id="masa_berlaku_harga" readonly="true" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_3" />
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -290,7 +358,7 @@
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <!-- <input class="form-control" name="notes" placeholder="Keterangan"/> -->
-                                <textarea class="form-control" name="notes" placeholder="Keterangan" rows="5"></textarea>
+                                <textarea class="form-control form-control-solid" name="keterangan" id="keterangan" placeholder="Keterangan" rows="5" readonly="true"></textarea>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -303,20 +371,16 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control" name="created_by" placeholder="Dibuat oleh" />
+                                <input class="form-control form-control-solid" name="dibuat_oleh" id="dibuat_oleh" placeholder="Dibuat oleh" readonly="true"/>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
                         <!--Begin::Input Group-->
-                        <div class="row mb-6">
-                            <!--begin::Label-->
+                        <!-- <div class="row mb-6">
                             <label class="col-lg-4 col-form-label fw-bold fs-6">File Brosur</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container" id="input_file">
-                                <!-- <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span> -->
                                 <span class="form-text text-muted">File yang diperbolehkan .PDF</span>
                                 <div class="mb-3">
                                     <input class="form-control rfq_file" type="file" name="rfq_file[]">
@@ -335,8 +399,7 @@
                                 </div>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
-                            <!--end::Col-->
-                        </div>
+                        </div> -->
                         <!--end::Input Group-->
                     </div>
                     <!--end::Scroll-->
@@ -345,10 +408,10 @@
                 <!--begin::Modal footer-->
                 <div class="modal-footer flex-center">
                     <!--begin::Button-->
-                    <button type="reset" id="kt_modal_det_rfq_goods_cancel" class="btn btn-light me-3">Tutup</button>
+                    <button type="reset" id="kt_modal_det_nego_rfq_goods_cancel" class="btn btn-light me-3">Tutup</button>
                     <!--end::Button-->
                     <!--begin::Button-->
-                    <button type="submit" id="kt_modal_det_rfq_goods_submit" class="btn btn-primary">
+                    <button type="submit" id="kt_modal_det_nego_rfq_goods_submit" class="btn btn-primary">
                         <span class="indicator-label">Simpan</span>
                         <span class="indicator-progress">Please wait...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -361,14 +424,14 @@
         </div>
     </div>
 </div>
-<div class="modal fade" tabindex="-1" id="kt_modal_det_nego_rfq_goods_ekuivalen" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" tabindex="-1" id="kt_modal_det_nego_rfq_goods_ekuivalen" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">kt_modal_det_nego_rfq_goods
     <div class="modal-dialog modal-lg modal-dialog-centered" style="min-width:1280px;">
         <div class="modal-content">
             <div class="modal-header bg-success">
                 <h5 class="modal-title text-white">Pengisian Ekuivalen</h5>
 
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-danger ms-2" data-bs-dismiss="modal" aria-label="Close">
+                <div class="btn btn-icon btn-sm btn-light ms-2" data-kt-det-rfq-goods-ekuivalen-modal-action="close" aria-label="Close">
                     <span class="svg-icon svg-icon-2x">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
@@ -381,15 +444,16 @@
                 <!--end::Close-->
             </div>
 
-            <form id="kt_modal_det_nego_rfq_goods_ekuivalen_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" action="#">
+            <form id="kt_modal_det_nego_rfq_goods_ekuivalen_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url('rfq/save_eqiv'); ?>">
                 <!--begin::Modal body-->
                 <div class="modal-body py-4 px-lg-17">
                     <!--begin::Scroll-->
                     <div class="scroll-y me-n7 pe-7" id="kt_modal_det_nego_rfq_goods_ekuivalen_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_det_nego_rfq_goods_ekuivalen_header" data-kt-scroll-wrappers="#kt_modal_det_nego_rfq_goods_ekuivalen_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
                         <div class="fw-bold">
-                            <h4 class="text-gray-900 fw-bolder">Nego RFQ No : 6200272804 | 7013165 | 1</h4>
+                            <h4 class="text-gray-900 fw-bolder">RFQ No : <span id="txt_rfq_no_eqiv"></span> | <span id="txt_material_code_eqiv"></span> | <span id="txt_seq_eqiv"></span></h4>
                         </div>
-                       
+                        <input type="hidden" name="nomor_rfq_eqiv" id="nomor_rfq_eqiv">
+                        <input type="hidden" name="ekuivalen" id="ekuivalen">
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
@@ -397,44 +461,48 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="request_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan" value="7013165">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input type="text" name="kode_barang_eqiv" id="kode_barang_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Kode Material">
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Nama Material</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="measurement" class="form-control form-control-solid" readonly="true" placeholder="Satuan" value="BAYGON CAIR @1L/KLG">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input type="text" name="deskripsi_barang_eqiv" id="deskripsi_barang_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Nama Material">
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Permintaan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="available_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Tersedia" value="30">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input type="number" name="jumlah_permintaan_eqiv" id="jumlah_permintaan_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan">
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Satuan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" value="KLG (KALENG)">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input type="text" name="satuan_eqiv" id="satuan_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Satuan">
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -445,20 +513,22 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <textarea name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)">BAYGON CAIR</textarea>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <textarea rows="5" name="spesifikasi_eqiv" id="spesifikasi_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Spesifikasi"></textarea>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Merk</label>
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Merek</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="BAYGON">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input type="text" name="merek_eqiv" id="merek_eqiv" class="form-control form-control-solid" placeholder="Merek" readonly="true">
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -469,8 +539,9 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="Type 1">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input type="text" name="tipe_eqiv" id="tipe_eqiv" class="form-control form-control-solid" placeholder="Tipe" readonly="true">
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -481,23 +552,79 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="Baygon">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <input type="text" name="buatan_eqiv" id="buatan_eqiv" class="form-control form-control-solid" placeholder="Buatan" readonly="true">
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
-                         <!--Begin::Input Group-->
-                         <div class="row mb-6">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Satuan yang ditawarkan</label>
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Status Ketersediaan Barang</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" value="KLG (KALENG)">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="align-items-center mt-3">
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-inline form-check-solid me-5">
+                                        <input class="form-check-input" name="ketersediaan_barang_eqiv" id="ketersediaan_barang_eqiv" disabled type="radio" value="0" checked="true">
+                                        <span class="fw-bold ps-2 fs-6">Tersedia</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-inline form-check-solid">
+                                        <input class="form-check-input" name="ketersediaan_barang_eqiv" id="ketersediaan_barang_eqiv" disabled type="radio" value="1">
+                                        <span class="fw-bold ps-2 fs-6">Indent</span>
+                                    </label>
+                                    <!--end::Option-->
+                                </div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
+                        <div id="form_status_ketersediaan_barang_eqiv">
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Tersedia</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="jumlah_tersedia_eqiv" id="jumlah_tersedia_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Tersedia" min="0">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Indent</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="jumlah_inden_eqiv" id="jumlah_inden_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Indent" min="0">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Lama Indent (Hari)</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="lama_inden_eqiv" id="lama_inden_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Lama Indent (Hari)" min="0">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                        </div>
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
@@ -505,8 +632,17 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input class="form-control form-control-solid" placeholder="" id="" value="IDR"/>
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <select class="form-select form-select-solid" name="mata_uang_eqiv" id="mata_uang_eqiv" disabled data-control="select2" data-dropdown-parent="#kt_modal_det_nego_rfq_goods_ekuivalen" data-placeholder="Pilih Mata Uang">
+                                    <?php
+                                    foreach ($currencies as $currency) {
+                                    ?>
+                                        <option value="<?php echo $currency->kode_uang; ?>"><?php echo $currency->kode_uang; ?> (<?php echo $currency->deskripsi; ?>)</option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -516,9 +652,27 @@
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Harga Satuan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="25.000">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                                <input type="text" name="harga_satuan_eqiv" id="harga_satuan_eqiv" readonly="true" class="form-control form-control-solid mask-money" placeholder="Harga Satuan">
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Label-->
+                            <label class="col-lg-1 col-form-label required fw-bold fs-6">Per</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-3 fv-row fv-plugins-icon-container">
+                                <select class="form-select form-select-solid" disabled name="per_harga_satuan_eqiv" id="per_harga_satuan_eqiv" data-control="select2" data-dropdown-parent="#kt_modal_det_nego_rfq_goods_ekuivalen" data-placeholder="Pilih Satuan">
+                                    <?php
+                                    foreach ($UoMs as $UoM) {
+                                    ?>
+                                        <option value="<?php echo $UoM->satuan; ?>"><?php echo $UoM->satuan; ?> (<?php echo $UoM->deskripsi_satuan; ?>)</option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
@@ -528,12 +682,165 @@
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Harga Satuan Nego</label>
                             <!--end::Label-->
                             <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="indent_day" class="form-control form-control-solid" placeholder="Lama Indent (Hari)" value="25.000">
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                                <input type="text" name="harga_satuan_nego_eqiv" id="harga_satuan_nego_eqiv" class="form-control mask-money" placeholder="Harga Satuan Nego">
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">Keterangan Nego</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <textarea class="form-control" name="keterangan_nego_eqiv" id="keterangan_nego_eqiv" placeholder="Keterangan Nego" rows="5"></textarea>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Apakah ada konversi?</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <div class="align-items-center mt-3">
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-inline form-check-solid me-5">
+                                        <input class="form-check-input" name="konversi_eqiv" id="konversi_eqiv" disabled type="radio" value="1">
+                                        <span class="fw-bold ps-2 fs-6">Ya</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-inline form-check-solid">
+                                        <input class="form-check-input" name="konversi_eqiv" id="konversi_eqiv" disabled type="radio" value="0" checked="true">
+                                        <span class="fw-bold ps-2 fs-6">Tidak</span>
+                                    </label>
+                                    <!--end::Option-->
+                                </div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6" id="form_convertion_eqiv">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Masukkan Satuan</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <table class="table table-row-dashed table-row-gray-300 gy-7 align-middle">
+                                    <thead>
+                                        <tr class="fw-bolder fs-6 text-gray-800">
+                                            <th class="text-center min-w-80px">Keterangan</th>
+                                            <th class="text-center min-w-50px">Jumlah</th>
+                                            <th class="text-center min-w-50px">Satuan</th>
+                                            <th class="text-center min-w-20px"></th>
+                                            <th class="text-center min-w-80px">Konversi Jumlah</th>
+                                            <th class="text-center min-w-50px">Satuan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Satuan Konversi</td>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">
+                                                <input type="text" name="per_harga_satuan_text_eqiv" id="per_harga_satuan_text_eqiv" class="form-control form-control-solid text-center" readonly="true">
+                                            </td>
+                                            <td class="text-center">=</td>
+                                            <td class="text-center">
+                                                <div class="fv-row fv-plugins-icon-container">
+                                                    <input type="text" class="form-control form-control-solid" name="jumlah_konversi_eqiv" id="jumlah_konversi_eqiv" readonly="true" placeholder="Konversi Jumlah">
+                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="form-select form-select-solid" disabled name="satuan_konversi_eqiv" id="satuan_konversi_eqiv" data-control="select2" data-dropdown-parent="#kt_modal_det_nego_rfq_goods_ekuivalen" data-placeholder="Pilih Satuan">
+                                                    <?php
+                                                    foreach ($UoMs as $UoM) {
+                                                    ?>
+                                                        <option value="<?php echo $UoM->satuan; ?>"><?php echo $UoM->satuan; ?> (<?php echo $UoM->deskripsi_satuan; ?>)</option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Masa Berlaku Harga</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <input class="form-control form-control-solid" readonly="true" name="masa_berlaku_harga_eqiv" id="masa_berlaku_harga_eqiv" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_4" />
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">Keterangan</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <textarea class="form-control form-control-solid" name="keterangan_eqiv" id="keterangan_eqiv" readonly="true" placeholder="Keterangan" rows="5"></textarea>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Dibuat Oleh</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <input class="form-control form-control-solid" name="dibuat_oleh_eqiv" id="dibuat_oleh_eqiv" placeholder="Dibuat Oleh" readonly="true"/>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <!-- <div class="row mb-6">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">File Brosur</label>
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container" id="input_file_eqiv">
+                                <span class="form-text text-muted">File yang diperbolehkan .PDF</span>
+                                <div class="mb-3">
+                                    <input class="form-control eqiv_file" type="file" name="eqiv_file[]">
+                                </div>
+                                <div class="mb-3">
+                                    <input class="form-control eqiv_file" type="file" name="eqiv_file[]">
+                                </div>
+                                <div class="mb-3">
+                                    <input class="form-control eqiv_file" type="file" name="eqiv_file[]">
+                                </div>
+                                <div class="mb-3">
+                                    <input class="form-control eqiv_file" type="file" name="eqiv_file[]">
+                                </div>
+                                <div class="mb-3">
+                                    <input class="form-control eqiv_file" type="file" name="eqiv_file[]">
+                                </div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                        </div> -->
                     </div>
                     <!--end::Scroll-->
                 </div>
@@ -547,12 +854,13 @@
                     <button type="submit" id="kt_modal_det_nego_rfq_goods_ekuivalen_submit" class="btn btn-primary">
                         <span class="indicator-label">Simpan</span>
                         <span class="indicator-progress">Please wait...
-                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                     </button>
                     <!--end::Button-->
                 </div>
                 <!--end::Modal footer-->
-            <div></div></form>
+                <div></div>
+            </form>
         </div>
     </div>
 </div>
@@ -561,6 +869,8 @@
 
 var KTDataTables = (function() {
     var e;
+    const target_modal_eqiv = document.querySelector("#kt_modal_det_nego_rfq_goods_ekuivalen .modal-content");
+    const blockModalEQIV = new KTBlockUI(target_modal_eqiv);
     return {
         init: function() {
             e = $("#kt_datatable_detail_nego_rfq_goods").DataTable({
@@ -568,7 +878,7 @@ var KTDataTables = (function() {
                 serverSide: !0,
                 destroy: !0,
                 scrollX: !0,
-                dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
+                dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'><'col-sm-6 col-md-6 col-lg-6'f>>" +
                     "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
                 // buttons: [
@@ -671,21 +981,370 @@ var KTDataTables = (function() {
                 order: [1, 'ASC']
             }),
             $("#kt_datatable_detail_nego_rfq_goods tbody").on('click', 'button.rfq_form', function() {
+
+                // Get DataTables row data
                 var data = e.row($(this).parents('tr')).data();
-                // console.log($(this));
+
+                // Initialize modal form element
                 var modal_form = $("#kt_modal_det_nego_rfq_goods_form");
-                var $input = modal_form.closest('div').find('input.form-control, select.form-select');
-                console.log($input);
+
+                // Set Form Title
+                $("#kt_modal_det_nego_rfq_goods h4 span#txt_rfq_no").text(data.nomor_rfq);
+                $("#kt_modal_det_nego_rfq_goods h4 span#txt_material_code").text(data.kode_barang);
+
+                // Get inputs array from modal form
+                var $input = modal_form.closest('div').find('input[type="hidden"], input.form-control, select.form-select, input.form-check-input, textarea.form-control');
+                
+                // Loop inputs array to set value from DataTables row
+                $input.each( function(index, element) {
+                    
+                    // Get element class name
+                    var element_class = element.getAttribute('class');
+
+                    // Remove space character from element class name
+                    var class_input = (element_class !== null) ? element_class.split(' ') : ['form-control'];
+
+                    // Get inputs name
+                    var element_name = element.getAttribute('name');
+
+                    // Check if element has object in DataTables data row
+                    if(data.hasOwnProperty(element_name)) {
+
+                        if(class_input[0] == 'form-select') {
+
+                            // If class name select, initialize to select2
+                            $('#' + element_name).val(data[element_name]).trigger('change');
+
+                        } else if(class_input[0] == 'form-check-input') {
+
+                            // If class name checkbox or radio, set value to checked
+                            if(element.value == data[element_name]) {
+
+                                $('#' + element_name + '[value="' + data[element_name] + '"]').prop('checked', true);
+
+                            }
+
+                            // Show / Hide element if checkbox or radio is checked
+                            if($('#' + element_name + ':checked').val() == 0) {
+                                
+                                if(element_name == 'ketersediaan_barang') {
+                                    $("#form_status_ketersediaan_barang").hide();
+                                } else {
+                                    $("#form_convertion").hide();
+                                }
+
+                            } else {
+
+                                if(element_name == 'ketersediaan_barang') {
+                                    $("#form_status_ketersediaan_barang").show();
+                                } else {
+                                    $("#form_convertion").show();
+                                }
+
+                            }
+                        } else {
+
+                            if(element_name == 'per_harga_satuan_text') {
+
+                                $('#' + element_name).val(data['per_harga_satuan']);
+
+                            } else if(element_name == 'satuan') {
+
+                                $('#' + element_name).val(data[element_name] + ' (' + $.trim(data['deskripsi_satuan']) + ')');
+
+                            } else if(element_name == 'harga_satuan' || element_name == 'harga_satuan_nego') {
+
+                                $('#' + element_name).maskMoney('mask', data[element_name]);
+
+                            } else {
+
+                                $('#' + element_name).val(data[element_name]);
+
+                            }
+                        }
+                    }
+                });
             }),
-            $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form_1, button.eqiv_form_2, button.eqiv_form_3, button.eqiv_form_4', function() {
+            $('#kt_datatable_detail_nego_rfq_goods tbody').on('click', 'button.eqiv_form_1, button.eqiv_form_2, button.eqiv_form_3, button.eqiv_form_4', function() {
+                
+                // Get DataTables row data
                 var data = e.row($(this).parents('tr')).data();
+
+                // Get button id
+                var btn_id = $(this).attr('id');
+
+                // Get sequence rfq (urutan rfq)
+                var sequence_rfq =  btn_id.replace('btn_eqiv_', '');
+
+                // Initialize modal form element
+                var modal_form_eqiv = $("#kt_modal_det_nego_rfq_goods_ekuivalen_form");
+
+                // Set Form Title
+                $("#kt_modal_det_nego_rfq_goods_ekuivalen h4 span#txt_rfq_no_eqiv").text(data.nomor_rfq);
+                $("#kt_modal_det_nego_rfq_goods_ekuivalen h4 span#txt_material_code_eqiv").text(data.kode_barang);
+                $("#kt_modal_det_nego_rfq_goods_ekuivalen h4 span#txt_seq_eqiv").text(sequence_rfq);
+
+                // Get inputs array from modal equivalent form
+                var $inputs = modal_form_eqiv.closest('div').find('input[type="hidden"], input.form-control, select.form-select, input.form-check-input, textarea.form-control');
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('negotiation/get_det_nego_goods_eqiv'); ?>",
+                    data: {
+                        nomor_rfq: data.nomor_rfq,
+                        kode_barang: data.kode_barang,
+                        ekuivalen: sequence_rfq
+                    },
+                    beforeSend: function() {
+                        blockModalEQIV.block();
+                    },
+                    success: function(response) {
+                        blockModalEQIV.release();
+                        var obj = jQuery.parseJSON(response);
+                        if(obj.code == 0) {
+                            var data = obj.data;
+                            $inputs.each(function(index, element) {
+                                
+                                // Get element class name
+                                var element_class = element.getAttribute('class');
+
+                                // Remove space character from element class name
+                                var class_input = (element_class !== null) ? element_class.split(' ') : ['form-control'];
+
+                                // Get inputs name
+                                var $name = element.getAttribute('name');
+                                var element_name = $name.replace('_eqiv', '');
+
+                                // Check if element has object in DataTables data row
+                                if(data.hasOwnProperty(element_name)) {
+
+                                    if(class_input[0] == 'form-select') {
+
+                                        // If class name select, initialize to select2
+                                        $('#' + $name).val(data[element_name]).trigger('change');
+
+                                    } else if(class_input[0] == 'form-check-input') {
+
+                                        // If class name checkbox or radio, set value to checked
+                                        if(element.value == data[element_name]) {
+
+                                            $('#' + $name + '[value="' + data[element_name] + '"]').prop('checked', true);
+
+                                        }
+
+                                        // Show / Hide element if checkbox or radio is checked
+                                        if($('#' + $name + ':checked').val() == 0) {
+                                            
+                                            if($name == 'ketersediaan_barang_eqiv') {
+                                                $("#form_status_ketersediaan_barang_eqiv").hide();
+                                            } else {
+                                                $("#form_convertion_eqiv").hide();
+                                            }
+
+                                        } else {
+
+                                            if($name == 'ketersediaan_barang_eqiv') {
+                                                $("#form_status_ketersediaan_barang_eqiv").show();
+                                            } else {
+                                                $("#form_convertion_eqiv").show();
+                                            }
+
+                                        }
+                                    } else {
+
+                                        if($name == 'per_harga_satuan_eqiv_text') {
+
+                                            $('#' + $name).val(data['per_harga_satuan']);
+
+                                        } else if($name == 'satuan_eqiv') {
+
+                                            $('#' + $name).val(data[element_name] + ' (' + $.trim(data['deskripsi_satuan']) + ')');
+
+                                        } else if($name == 'harga_satuan_eqiv' || $name == 'harga_satuan_nego_eqiv') {
+
+                                            $('#' + $name).maskMoney('mask', parseInt(data[element_name]));
+
+                                        } else if($name == 'jumlah_permintaan_eqiv' || $name == 'jumlah_tersedia_eqiv' || $name == 'jumlah_inden_eqiv' || $name == 'lama_inden_eqiv') {
+
+                                            $('#' + $name).val(parseFloat(data[element_name]));
+
+                                        } else {
+
+                                            $('#' + $name).val(data[element_name]);
+
+                                        }
+                                    }
+                                }
+
+                            });
+                        } else {
+
+                        }
+                    },
+                    error: function() {
+                        blockModalEQIV.release();
+                    }
+                })
             });
         }
     };
 })();
 
+var KTModalForm = (function() {
+    var m_det_nego, m_det_nego_container, f_det_nego, b_det_nego_submit, b_det_nego_cancel, b_det_nego_close, fv_det_nego;
+    return {
+        det_nego_rfq_form: function() {
+            (m_det_nego_container = document.querySelector("#kt_modal_det_nego_rfq_goods")) &&
+            (
+                (m_det_nego = new bootstrap.Modal(m_det_nego_container)),
+                (f_det_nego = document.querySelector("#kt_modal_det_nego_rfq_goods_form")),
+                (b_det_nego_submit = document.getElementById("kt_modal_det_nego_rfq_goods_submit")),
+                (b_det_nego_cancel = document.getElementById("kt_modal_det_nego_rfq_goods_cancel")),
+                (b_det_nego_close = document.querySelector('[data-kt-det-nego-rfq-goods-modal-action="close"]')),
+                (
+                    fv_det_nego = FormValidation.formValidation(f_det_nego, {
+                        fields: {
+                            harga_satuan_nego: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Harga Satuan Nego tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            keterangan_nego: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Keterangan Nego tidak boleh kosong"
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            trigger: new FormValidation.plugins.Trigger(),
+                            bootstrap: new FormValidation.plugins.Bootstrap5({
+                                rowSelector: ".fv-row",
+                                eleInvalidClass: "",
+                                eleValidClass: ""
+                            })
+                        },
+                    })
+                ),
+                // Submit Button Action
+                b_det_nego_submit.addEventListener("click", function(event) {
+                    event.preventDefault(),
+                    fv_det_nego && fv_det_nego.validate().then(function(v) {
+                        // Set data to send from form
+                        var formData = new FormData(f_det_nego);
+                        "Valid" == v ?
+                        (
+                            Swal.fire({
+                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                                icon: "warning",
+                                showCancelButton: !0,
+                                buttonsStyling: !1,
+                                confirmButtonText: "Ya, Simpan",
+                                cancelButtonText: "Kembali",
+                                customClass: {
+                                    confirmButton: "btn btn-primary",
+                                    cancelButton: "btn btn-active-light"
+                                },
+                            }).then(function(r) {
+                                r.value ?
+                                (
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: f_det_nego.getAttribute('action'),
+                                        data: formData,
+                                        processData: false,
+                                        contentType: false,
+                                        beforeSend: function() {
+                                            b_det_nego_submit.setAttribute("data-kt-indicator", "on"), (b_det_nego_submit.disabled = !0),
+                                            (b_det_nego_cancel.disabled = !0), (b_det_nego_close.disabled = !0);
+                                        },
+                                        success: function(response) {
+                                            var obj = jQuery.parseJSON(response);
+                                            b_det_nego_submit.removeAttribute("data-kt-indicator"), (b_det_nego_submit.disabled = !1),
+                                            (b_det_nego_cancel.disabled = !1), (b_det_nego_close.disabled = !1);
+                                            Swal.fire({
+                                                text: obj.msg,
+                                                icon: obj.status,
+                                                buttonsStyling: !1,
+                                                confirmButtonText: "Tutup",
+                                                customClass: {
+                                                    confirmButton: "btn btn-primary"
+                                                }
+                                            }).then(
+                                                function(t) {
+                                                    t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(), fv_det_nego.resetForm(true), m_det_nego.hide()) : r.dismiss;
+                                                }
+                                            );
+                                        },
+                                        error: function() {
+                                            b_det_nego_submit.removeAttribute("data-kt-indicator"), (b_det_nego_submit.disabled = !1),
+                                            (b_det_nego_cancel.disabled = !1), (b_det_nego_close.disabled = !1);
+                                            Swal.fire({
+                                                text: "Terjadi masalah koneksi",
+                                                icon: "error",
+                                                buttonsStyling: !1,
+                                                confirmButtonText: "Tutup",
+                                                customClass: {
+                                                    confirmButton: "btn btn-primary"
+                                                }
+                                            }).then(
+                                                function(t) {
+                                                    t.isConfirmed && r.dismiss;
+                                                }
+                                            );
+                                        }
+                                    })
+                                )
+                                :
+                                "cancel" === r.dismiss;
+                            })
+                        )
+                        :
+                        Swal.fire({
+                            text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                            icon: "error",
+                            buttonsStyling: !1,
+                            confirmButtonText: "Tutup",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            },
+                        });
+                    })
+                }),
+                b_det_nego_cancel.addEventListener("click", function(event) {
+                    fv_det_nego.resetForm(true), m_det_nego.hide();
+                }),
+                b_det_nego_close.addEventListener("click", function(event) {
+                    fv_det_nego.resetForm(true), m_det_nego.hide();
+                })
+            );
+        },
+        det_nego_rfq_eqiv_form: function() {
+
+        }
+    }
+})();
+
+var MaskMoney = (function() {
+    return {
+        init: function() {
+            $(".mask-money").maskMoney({
+                thousands: '.',
+                decimal: ',',
+                affixesStay: false,
+                precision: 0
+            });
+        }
+    }
+})();
+
 KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();
+    KTModalForm.det_nego_rfq_form();
+    MaskMoney.init();
     $("#kt_daterangepicker_3").daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
