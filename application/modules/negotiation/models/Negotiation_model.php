@@ -253,6 +253,13 @@ class Negotiation_model extends CI_Model {
         return $result;
     }
 
+    public function updateNegoRfqEqiv($params = array(), $data = array())
+    {
+        $result = $this->global->update($this->table['eqiv'], $params, $data);
+
+        return $result;
+    }
+
     /**
      * Enabling Equivalent Button (1-4)
      *

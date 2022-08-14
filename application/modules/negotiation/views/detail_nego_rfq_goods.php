@@ -431,7 +431,7 @@
                 <h5 class="modal-title text-white">Pengisian Ekuivalen</h5>
 
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-light ms-2" data-kt-det-rfq-goods-ekuivalen-modal-action="close" aria-label="Close">
+                <div class="btn btn-icon btn-sm btn-light ms-2" data-kt-det-nego-rfq-goods-ekuivalen-modal-action="close" aria-label="Close">
                     <span class="svg-icon svg-icon-2x">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
@@ -444,7 +444,7 @@
                 <!--end::Close-->
             </div>
 
-            <form id="kt_modal_det_nego_rfq_goods_ekuivalen_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url('rfq/save_eqiv'); ?>">
+            <form id="kt_modal_det_nego_rfq_goods_ekuivalen_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url('negotiation/save_negotiation_eqiv'); ?>">
                 <!--begin::Modal body-->
                 <div class="modal-body py-4 px-lg-17">
                     <!--begin::Scroll-->
@@ -1162,7 +1162,11 @@ var KTDataTables = (function() {
 
                                         } else if($name == 'harga_satuan_eqiv' || $name == 'harga_satuan_nego_eqiv') {
 
-                                            $('#' + $name).maskMoney('mask', parseInt(data[element_name]));
+                                            if(data[element_name] !== null) {
+                                                $('#' + $name).maskMoney('mask', parseInt(data[element_name]));
+                                            } else {
+                                                $('#' + $name).val();
+                                            }
 
                                         } else if($name == 'jumlah_permintaan_eqiv' || $name == 'jumlah_tersedia_eqiv' || $name == 'jumlah_inden_eqiv' || $name == 'lama_inden_eqiv') {
 
@@ -1179,6 +1183,20 @@ var KTDataTables = (function() {
                             });
                         } else {
 
+                            Swal.fire({
+                                text: "Maaf, data tidak ditemukan.",
+                                icon: "error",
+                                buttonsStyling: !1,
+                                confirmButtonText: "Tutup",
+                                allowOutsideClick: false,
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                },
+                            }).then(function(t) {
+                                t.dismiss,
+                                $("#kt_modal_det_nego_rfq_goods_ekuivalen").modal('hide');
+                            });
+
                         }
                     },
                     error: function() {
@@ -1192,6 +1210,7 @@ var KTDataTables = (function() {
 
 var KTModalForm = (function() {
     var m_det_nego, m_det_nego_container, f_det_nego, b_det_nego_submit, b_det_nego_cancel, b_det_nego_close, fv_det_nego;
+    var m_det_nego_eqiv, m_det_nego_eqiv_container, f_det_nego_eqiv, b_det_nego_eqiv_submit, b_det_nego_eqiv_cancel, b_det_nego_eqiv_close, fv_det_nego_eqiv;
     return {
         det_nego_rfq_form: function() {
             (m_det_nego_container = document.querySelector("#kt_modal_det_nego_rfq_goods")) &&
@@ -1323,7 +1342,133 @@ var KTModalForm = (function() {
             );
         },
         det_nego_rfq_eqiv_form: function() {
-
+            (m_det_nego_eqiv_container = document.querySelector("#kt_modal_det_nego_rfq_goods_ekuivalen")) &&
+            (
+                (m_det_nego_eqiv = new bootstrap.Modal(m_det_nego_eqiv_container)),
+                (f_det_nego_eqiv = document.querySelector("#kt_modal_det_nego_rfq_goods_ekuivalen_form")),
+                (b_det_nego_eqiv_submit = document.getElementById("kt_modal_det_nego_rfq_goods_ekuivalen_submit")),
+                (b_det_nego_eqiv_cancel = document.getElementById("kt_modal_det_nego_rfq_goods_ekuivalen_cancel")),
+                (b_det_nego_eqiv_close = document.querySelector('[data-kt-det-nego-rfq-goods-ekuivalen-modal-action="close"]')),
+                (
+                    fv_det_nego_eqiv = FormValidation.formValidation(f_det_nego_eqiv, {
+                        fields: {
+                            harga_satuan_nego_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Harga Satuan Nego tidak boleh kosong"
+                                    }
+                                }
+                            },
+                            keterangan_nego_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Keterangan Nego tidak boleh kosong"
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            trigger: new FormValidation.plugins.Trigger(),
+                            bootstrap: new FormValidation.plugins.Bootstrap5({
+                                rowSelector: ".fv-row",
+                                eleInvalidClass: "",
+                                eleValidClass: ""
+                            })
+                        },
+                    })
+                ),
+                // Submit Button Action
+                b_det_nego_eqiv_submit.addEventListener("click", function(event) {
+                    event.preventDefault(),
+                    fv_det_nego_eqiv && fv_det_nego_eqiv.validate().then(function(v) {
+                        // Set data to send from form
+                        var formData = new FormData(f_det_nego_eqiv);
+                        "Valid" == v ?
+                        (
+                            Swal.fire({
+                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                                icon: "warning",
+                                showCancelButton: !0,
+                                buttonsStyling: !1,
+                                confirmButtonText: "Ya, Simpan",
+                                cancelButtonText: "Kembali",
+                                customClass: {
+                                    confirmButton: "btn btn-primary",
+                                    cancelButton: "btn btn-active-light"
+                                },
+                            }).then(function(r) {
+                                r.value ?
+                                (
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: f_det_nego_eqiv.getAttribute('action'),
+                                        data: formData,
+                                        processData: false,
+                                        contentType: false,
+                                        beforeSend: function() {
+                                            b_det_nego_eqiv_submit.setAttribute("data-kt-indicator", "on"), (b_det_nego_eqiv_submit.disabled = !0),
+                                            (b_det_nego_eqiv_cancel.disabled = !0), (b_det_nego_eqiv_close.disabled = !0);
+                                        },
+                                        success: function(response) {
+                                            var obj = jQuery.parseJSON(response);
+                                            b_det_nego_eqiv_submit.removeAttribute("data-kt-indicator"), (b_det_nego_eqiv_submit.disabled = !1),
+                                            (b_det_nego_eqiv_cancel.disabled = !1), (b_det_nego_eqiv_close.disabled = !1);
+                                            Swal.fire({
+                                                text: obj.msg,
+                                                icon: obj.status,
+                                                buttonsStyling: !1,
+                                                confirmButtonText: "Tutup",
+                                                customClass: {
+                                                    confirmButton: "btn btn-primary"
+                                                }
+                                            }).then(
+                                                function(t) {
+                                                    t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(), fv_det_nego_eqiv.resetForm(true), m_det_nego_eqiv.hide()) : r.dismiss;
+                                                }
+                                            );
+                                        },
+                                        error: function() {
+                                            b_det_nego_eqiv_submit.removeAttribute("data-kt-indicator"), (b_det_nego_eqiv_submit.disabled = !1),
+                                            (b_det_nego_eqiv_cancel.disabled = !1), (b_det_nego_eqiv_close.disabled = !1);
+                                            Swal.fire({
+                                                text: "Terjadi masalah koneksi",
+                                                icon: "error",
+                                                buttonsStyling: !1,
+                                                confirmButtonText: "Tutup",
+                                                customClass: {
+                                                    confirmButton: "btn btn-primary"
+                                                }
+                                            }).then(
+                                                function(t) {
+                                                    t.isConfirmed && r.dismiss;
+                                                }
+                                            );
+                                        }
+                                    })
+                                )
+                                :
+                                "cancel" === r.dismiss;
+                            })
+                        )
+                        :
+                        Swal.fire({
+                            text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                            icon: "error",
+                            buttonsStyling: !1,
+                            confirmButtonText: "Tutup",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            },
+                        });
+                    })
+                }),
+                b_det_nego_eqiv_cancel.addEventListener("click", function(event) {
+                    fv_det_nego_eqiv.resetForm(true), m_det_nego_eqiv.hide();
+                }),
+                b_det_nego_eqiv_close.addEventListener("click", function(event) {
+                    fv_det_nego_eqiv.resetForm(true), m_det_nego_eqiv.hide();
+                })
+            )
         }
     }
 })();
@@ -1344,6 +1489,7 @@ var MaskMoney = (function() {
 KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();
     KTModalForm.det_nego_rfq_form();
+    KTModalForm.det_nego_rfq_eqiv_form();
     MaskMoney.init();
     $("#kt_daterangepicker_3").daterangepicker({
         singleDatePicker: true,

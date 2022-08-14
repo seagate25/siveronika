@@ -107,6 +107,48 @@ class Negotiation extends CI_Controller {
         exit;
     }
 
+    public function save_negotiation_eqiv()
+    {
+        $nomor_rfq          = $this->input->post('nomor_rfq_eqiv');
+        $kode_barang        = $this->input->post('kode_barang_eqiv');
+        $ekuivalen          = $this->input->post('ekuivalen');
+        $harga_satuan_nego  = str_replace('.', '', $this->input->post('harga_satuan_nego_eqiv'));
+        $keterangan_nego    = $this->input->post('keterangan_nego_eqiv');
+
+        $params = array(
+            'nomor_rfq' => $nomor_rfq,
+            'kode_barang' => $kode_barang,
+            'ekuivalen' => $ekuivalen
+        );
+
+        $data = array(
+            'harga_satuan_nego' => $harga_satuan_nego,
+            'keterangan_nego' => $keterangan_nego
+        );
+
+        $update = $this->nego->updateNegoRfqEqiv($params, $data);
+        if($update > 0) {
+
+            $response = array(
+                'code'      => 0,
+                'msg'       => 'Berhasil menyimpan data.',
+                'status'    => 'success'
+            );
+
+        } else {
+
+            $response = array(
+                'code'      => 100,
+                'msg'       => 'Gagal menyimpan data',
+                'status'    => 'error'
+            );
+
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
     /**
      * Undocumented function
      *
