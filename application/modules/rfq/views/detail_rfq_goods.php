@@ -1940,7 +1940,7 @@
                                     }
                                 }).then(
                                     function(t) {
-                                        t.isConfirmed && (obj.code == 0) ? (modal_additional.hide()) : r.dismiss;
+                                        t.isConfirmed && (obj.code == 0) ? (modal_additional.hide(), Elements.on_close_modal()) : r.dismiss;
                                     }
                                 );
                             },
