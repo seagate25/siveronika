@@ -192,6 +192,83 @@ class Negotiation extends CI_Controller {
         exit;
     }
 
+    /**
+     * Show / Get Additional Price data
+     *
+     * @return void
+     */
+    public function show_additional_price()
+    {
+        $nomor_rfq  = $this->crypto->decode($this->input->post('id'));
+        $data       = $this->nego->getAdditionalPrice(['nomor_rfq' => $nomor_rfq]);
+        $result     = $data->result();
+
+        $response = array(
+            'code' => 0,
+            'msg' => 'Success',
+            'status' => 'success',
+            'data' => $result
+        );
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
+    /**
+     * Update Additional data
+     *
+     * @return void
+     */
+    public function save_additional_price()
+    {
+        $nomor_rfq          = $this->crypto->decode($this->input->post('id_rfq_other'));
+        $kode_biaya         = $this->input->post('add_price_type');
+        $jumlah_biaya_nego  = $this->input->post('add_price_nego');
+        $keterangan         = $this->input->post('add_notes');
+
+        $success = 0;
+        for($i = 0; $i < count($kode_biaya); $i++) {
+
+            $explode = explode("_", $kode_biaya[$i]);
+
+            $params = [
+                'nomor_rfq' => $nomor_rfq,
+                'kode_biaya' => $explode[0]
+            ];
+
+            $data = [
+                'jumlah_biaya_nego' => (!empty($jumlah_biaya_nego[$i])) ? str_replace('.', '', $jumlah_biaya_nego[$i]) : 0,
+                'keterangan' => $keterangan
+            ];
+
+            $save = $this->nego->updateAdditionalPrice($params, $data);
+            if($save > 0) {
+                $success = $success + $save;
+            }
+        }
+
+        if($success > 0) {
+
+            $response = array(
+                'code'      => 0,
+                'msg'       => 'Berhasil menyimpan data.',
+                'status'    => 'success'
+            );
+
+        } else {
+
+            $response = array(
+                'code'      => 100,
+                'msg'       => 'Gagal menyimpan data',
+                'status'    => 'error'
+            );
+
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
 }
 
 /* End of file Master.php */

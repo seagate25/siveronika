@@ -11,7 +11,8 @@ class Negotiation_model extends CI_Model {
      *      'detail'        => 'TB_S_MST_NEGO_BARANG_DTL',
      *      'eqiv'          => 'TB_S_MST_NEGO_BARANG_EQIV',
      *      'head'          => 'TB_S_MST_NEGO_BARANG_HEAD',
-     *      'attachment'    => 'TB_S_MST_NEGO_LAMPIRAN_BARANG'
+     *      'attachment'    => 'TB_S_MST_NEGO_LAMPIRAN_BARANG',
+     *      'additional'    => 'TB_S_MST_NEGO_BIAYA_TAMBAHAN'
      * ]
      * 
      * @var array
@@ -42,7 +43,8 @@ class Negotiation_model extends CI_Model {
             'detail' => 'TB_S_MST_NEGO_BARANG_DTL',
             'eqiv' => 'TB_S_MST_NEGO_BARANG_EQIV',
             'head' => 'TB_S_MST_NEGO_BARANG_HEAD',
-            'attachment' => 'TB_S_MST_NEGO_LAMPIRAN_BARANG'
+            'attachment' => 'TB_S_MST_NEGO_LAMPIRAN_BARANG',
+            'additional' => 'TB_S_MST_NEGO_BIAYA_TAMBAHAN'
         ];
         $this->vendor_code = $this->session->userdata('kode_vendor');
         $this->timestamps = date('Y-m-d H:i:s');
@@ -318,9 +320,42 @@ class Negotiation_model extends CI_Model {
         return $result;
     }
 
+    /**
+     * Get Detail Negotiation Equivalent Data
+     *
+     * @param array $params
+     * @return void
+     */
     public function getDetNegoRfqGoodsEqiv($params = array())
     {
         $query = $this->global->get_by($this->table['eqiv'], $params);
+
+        return $query;
+    }
+
+    /**
+     * Get Additional Price Data
+     *
+     * @param array $params
+     * @return object
+     */
+    public function getAdditionalPrice($params = [])
+    {
+        $query  = $this->global->get_by($this->table['additional'], $params);
+
+        return $query;
+    }
+
+    /**
+     * Update additional data into database
+     *
+     * @param array $params
+     * @param array $data
+     * @return object
+     */
+    public function updateAdditionalPrice($params = [], $data = [])
+    {
+        $query = $this->global->update($this->table['additional'], $params, $data);
 
         return $query;
     }

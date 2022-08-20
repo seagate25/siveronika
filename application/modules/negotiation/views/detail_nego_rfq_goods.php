@@ -864,13 +864,120 @@
         </div>
     </div>
 </div>
+<div class="modal fade" tabindex="-1" id="kt_modal_additional_price" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" style="min-width:990px;">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title text-white">Biaya Lainnya</h5>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-light ms-2" data-kt-additional-price-modal-action="close" aria-label="Close">
+                    <span class="svg-icon svg-icon-2x">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                                <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1"></rect>
+                                <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <form id="kt_modal_additional_price_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" action="<?php echo site_url('negotiation/save_additional_price'); ?>">
+                <!--begin::Modal body-->
+                <div class="modal-body py-4 px-lg-17">
+                    <!--begin::Scroll-->
+                    <div class="scroll-y me-n7 pe-7 mt-5" id="kt_modal_additional_price_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_additional_price_header" data-kt-scroll-wrappers="#kt_modal_additional_price_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
+                        <!-- <div class="fw-bold">
+                            <h4 class="text-gray-900 fw-bolder">Biaya Lainnya</h4>
+                        </div> -->
+                        <input type="hidden" name="id_rfq_other" value="<?php echo $this->uri->segment(3); ?>">
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6" id="el_add_1">
+                            <!--begin::Label-->
+                            <div class="col-lg-3 fv-row fv-plugins-icon-container">
+                                <select class="form-select form-select-solid" name="add_price_type[]" id="add_price_type_1" disabled data-control="select2" data-dropdown-parent="#kt_modal_additional_price" data-placeholder="Pilih Biaya Lainnya">
+                                    <option value="ZFR1_Freight Cost - Taxable">Freight Cost - Taxable</option>
+                                    <option value="ZFR2_Freight Cost - Non Taxable">Freight Cost - Non Taxable</option>
+                                    <option value="ZFIN_Freight & Insurance">Freight & Insurance</option>
+                                    <option value="ZINS_Insurance">Insurance</option>
+                                </select>
+                            </div>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-2 fv-row fv-plugins-icon-container">
+                                <input type="text" name="add_price[]" id="add_price_1" class="form-control form-control-solid text-end add_price_val" readonly="true" placeholder="">
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                                <select class="form-select form-select-solid" name="add_currency[]" id="add_currency_1" disabled data-control="select2" data-dropdown-parent="#kt_modal_additional_price" data-placeholder="Pilih Mata Uang">
+                                    <?php
+                                    foreach ($currencies as $currency) {
+                                    ?>
+                                        <option value="<?php echo $currency->kode_uang; ?>" <?php echo ($currency->kode_uang == 'IDR') ? 'selected' : ''; ?>><?php echo $currency->kode_uang; ?> (<?php echo $currency->deskripsi; ?>)</option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-lg-3 fv-row fv-plugins-icon-container">
+                                <input type="text" name="add_price_nego[]" id="add_price_nego_1" class="form-control add_price_nego_val" placeholder="Negosiasi">
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-3 ms-5 col-form-label fw-bold fs-6">Keterangan</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <textarea rows="6" name="add_notes" id="add_notes" class="form-control" placeholder="Keterangan"></textarea>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                    </div>
+                    <!--end::Scroll-->
+                </div>
+                <!--end::Modal body-->
+                <!--begin::Modal footer-->
+                <div class="modal-footer flex-center">
+                    <!--begin::Button-->
+                    <button type="reset" id="kt_modal_additional_price_cancel" class="btn btn-light me-3">Tutup</button>
+                    <!--end::Button-->
+                    <!--begin::Button-->
+                    <button type="submit" id="kt_modal_additional_price_submit" class="btn btn-primary">
+                        <span class="indicator-label">Simpan</span>
+                        <span class="indicator-progress">Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button>
+                    <!--end::Button-->
+                </div>
+                <!--end::Modal footer-->
+                <div></div>
+            </form>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
 "use strict";
+
+const modal_additional_container = document.querySelector("#kt_modal_additional_price");
+const modal_additional = new bootstrap.Modal(modal_additional_container);
 
 var KTDataTables = (function() {
     var e;
     const target_modal_eqiv = document.querySelector("#kt_modal_det_nego_rfq_goods_ekuivalen .modal-content");
     const blockModalEQIV = new KTBlockUI(target_modal_eqiv);
+    const loading = new KTBlockUI(document.querySelector("#kt_content"), {
+        overlayClass: "bg-dark bg-opacity-10",
+    });
     return {
         init: function() {
             e = $("#kt_datatable_detail_nego_rfq_goods").DataTable({
@@ -878,48 +985,48 @@ var KTDataTables = (function() {
                 serverSide: !0,
                 destroy: !0,
                 scrollX: !0,
-                dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'><'col-sm-6 col-md-6 col-lg-6'f>>" +
+                dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
                     "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
-                // buttons: [
-                //     {
-                //         text: 'Biaya Lainnya',
-                //         className: 'btn btn-sm btn-success',
-                //         action: function ( e, dt, node, config ) {
-                //             $.ajax({
-                //                 type: "POST",
-                //                 url: "<?php //echo site_url('rfq/get_other_data') ?>",
-                //                 data: { id: $('input[name=id_rfq_other]').val() },
-                //                 beforeSend: function() {
-                //                     loading.block();
-                //                 },
-                //                 success: function(response) {
-                //                     var obj = jQuery.parseJSON(response);
-                //                     if(obj.data.length > 0) {
-                //                         if(obj.data.length > 1) {
-                //                             // console.log($("div[id^=el_add_]").length);
-                //                             for(var i = 0; i < obj.data.length - 1; i++) {
-                //                                 Elements.add_row();
-                //                             }
-                //                         }
+                buttons: [
+                    {
+                        text: 'Biaya Lainnya',
+                        className: 'btn btn-sm btn-success',
+                        action: function ( e, dt, node, config ) {
+                            $.ajax({
+                                type: "POST",
+                                url: "<?php echo site_url('negotiation/show_additional_price') ?>",
+                                data: { id: $('input[name=id_rfq_other]').val() },
+                                beforeSend: function() {
+                                    loading.block();
+                                },
+                                success: function(response) {
+                                    var obj = jQuery.parseJSON(response);
+                                    if(obj.data.length > 0) {
+                                        if(obj.data.length > 1) {
+                                            for(var i = 0; i < obj.data.length - 1; i++) {
+                                                Elements.add_row();
+                                            }
+                                        }
 
-                //                         $("div[id^=el_add_]").each( function(key, value) {
-                //                             $("#add_price_type_"+(key+1)).val(obj.data[key].kode_biaya+'_'+obj.data[key].deskripsi_biaya).trigger('change');
-                //                             $("#add_price_"+(key+1)).maskMoney('mask', parseInt(obj.data[key].jumlah_biaya));
-                //                             $("#add_currency_"+(key+1)).val($.trim(obj.data[key].mata_uang)).trigger('change');
-                //                         }),
-                //                         loading.release(), modal_additional.show();
-                //                     } else {
-                //                         loading.release(), modal_additional.show();
-                //                     }
-                //                 },
-                //                 error: function() {
-                //                     loading.release();
-                //                 }
-                //             });
-                //         }
-                //     }
-                // ],
+                                        $("div[id^=el_add_]").each( function(key, value) {
+                                            $("#add_price_type_"+(key+1)).val(obj.data[key].kode_biaya+'_'+obj.data[key].deskripsi_biaya).trigger('change');
+                                            $("#add_price_"+(key+1)).maskMoney('mask', parseInt(obj.data[key].jumlah_biaya));
+                                            $("#add_currency_"+(key+1)).val($.trim(obj.data[key].mata_uang)).trigger('change');
+                                        }),
+                                        $("#add_currency_").val($.trim(obj.data[0].keterangan)),
+                                        loading.release(), modal_additional.show();
+                                    } else {
+                                        loading.release(), modal_additional.show();
+                                    }
+                                },
+                                error: function() {
+                                    loading.release();
+                                }
+                            });
+                        }
+                    }
+                ],
                 paging: !0,
                 ordering: !0,
                 searching: !0,
@@ -1211,6 +1318,7 @@ var KTDataTables = (function() {
 var KTModalForm = (function() {
     var m_det_nego, m_det_nego_container, f_det_nego, b_det_nego_submit, b_det_nego_cancel, b_det_nego_close, fv_det_nego;
     var m_det_nego_eqiv, m_det_nego_eqiv_container, f_det_nego_eqiv, b_det_nego_eqiv_submit, b_det_nego_eqiv_cancel, b_det_nego_eqiv_close, fv_det_nego_eqiv;
+    var btn_submit, btn_cancel, btn_close, form_additional;
     return {
         det_nego_rfq_form: function() {
             (m_det_nego_container = document.querySelector("#kt_modal_det_nego_rfq_goods")) &&
@@ -1469,7 +1577,89 @@ var KTModalForm = (function() {
                     fv_det_nego_eqiv.resetForm(true), m_det_nego_eqiv.hide();
                 })
             )
-        }
+        },
+        additional_form: function() {
+                (form_additional = document.querySelector("#kt_modal_additional_price_form")),
+                (btn_submit = document.getElementById("kt_modal_additional_price_submit")),
+                (btn_cancel = document.getElementById("kt_modal_additional_price_cancel")),
+                (btn_close = document.querySelector('[data-kt-additional-price-modal-action="close"]')),
+                btn_submit.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    var count_invalid = 0;
+                    $('input[name="add_price_nego[]"]').each(function(key, value) {
+                        if($(this).val() == '') {
+                            count_invalid = count_invalid + 1;
+                        }
+                    });
+                    var count_element = $('input[name="add_price_nego[]"]').length;
+                    if(count_invalid === count_element) {
+                        Swal.fire({
+                            text: "Silahkan isi salah 1 dari "+ count_element +" data biaya lainnya.",
+                            icon: "error",
+                            buttonsStyling: !1,
+                            confirmButtonText: "Tutup",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            },
+                        });
+                    } else {
+                        $('div[id^="el_add_"]').each(function(key, value) {
+                            $("#"+value.id).find('select[id^="add_price_type_').removeAttr('disabled');
+                        });
+
+                        var formData = new FormData(form_additional);
+                        $.ajax({
+                            type: 'POST',
+                            url: form_additional.getAttribute('action'),
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            beforeSend: function() {
+                                btn_submit.setAttribute("data-kt-indicator", "on"),(btn_submit.disabled = !0);
+                            },
+                            success: function(response) {
+                                var obj = jQuery.parseJSON(response);
+                                btn_submit.removeAttribute("data-kt-indicator"),(btn_submit.disabled = !1);
+                                Swal.fire({
+                                    text: obj.msg,
+                                    icon: obj.status,
+                                    buttonsStyling: !1,
+                                    confirmButtonText: "Tutup",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                }).then(
+                                    function(t) {
+                                        t.isConfirmed && (obj.code == 0) ? (modal_additional.hide(), Elements.on_close_modal()) : r.dismiss;
+                                    }
+                                );
+                            },
+                            error: function() {
+                                btn_submit.removeAttribute("data-kt-indicator"),(btn_submit.disabled = !1);
+                                Swal.fire({
+                                    text: "Terjadi masalah koneksi",
+                                    icon: "error",
+                                    buttonsStyling: !1,
+                                    confirmButtonText: "Tutup",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                }).then(
+                                    function(t) {
+                                        t.isConfirmed && r.dismiss;
+                                    }
+                                );
+                            }
+                        })
+                    }
+                }),
+                btn_cancel.addEventListener("click", function(e) {
+                    modal_additional.hide(), Elements.on_close_modal();
+                }),
+                btn_close.addEventListener("click", function(e) {
+                    modal_additional.hide(), Elements.on_close_modal();
+                })
+            }
     }
 })();
 
@@ -1486,11 +1676,66 @@ var MaskMoney = (function() {
     }
 })();
 
+var Elements = (function() {
+    return {
+        add_row: function() {
+            // get the last DIV which ID starts with ^= "klon"
+            var $div = $('div[id^="el_add_"]:last');
+            var num = parseInt( $div.prop("id").match(/\d+/g), 10 );
+            
+            if($('div[id^="el_add_"]').length < 4) {
+
+                $('div[id^="el_add_"]').each(function(key, value) {
+                    $("#"+value.id).find('select[id^="add_price_type_').select2('destroy');
+                    $("#"+value.id).find('select[id^="add_currency_').select2('destroy');
+                });
+                
+                // Read the Number from that DIV's ID (i.e: 3 from "klon3")
+                // And increment that number by 1
+                var next = num+1;
+
+                // Clone it and assign the new ID (i.e: from num 4 to ID "klon4")
+                var $klon = $div.clone().prop('id', 'el_add_'+next );
+                
+                $klon.closest('div').find('select[id^="add_price_type_"]').prop('id', 'add_price_type_'+next);
+                $klon.closest('div').find('input[id^="add_price_"]').prop('id', 'add_price_'+next).val('');
+                $klon.closest('div').find('select[id^="add_currency_"]').prop('id', 'add_currency_'+next);
+                $klon.closest('div').find('input[id^="add_price_nego_"]').prop('id', 'add_price_nego_'+next).val('');
+
+                // Finally insert $klon wherever you want
+                $div.after( $klon );
+
+                $('div[id^="el_add_"]').each(function(key, value) {
+                    $("#"+value.id).find('select[id^="add_price_type_').select2();
+                    $("#"+value.id).find('select[id^="add_currency_').select2();
+                });
+            }
+
+            Elements.inputMask();
+        },
+        inputMask: function() {
+            $("input[id^=add_price_], input[id^=add_price_nego_]").maskMoney({
+                thousands: '.',
+                decimal: ',',
+                affixesStay: false,
+                precision: 0
+            });
+        },
+        on_close_modal: function() {
+            modal_additional_container.addEventListener('hidden.bs.modal', function () {
+                $('div[id^="el_add_"]').not(':first').remove();
+            });
+        }
+    }
+})();
+
 KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();
     KTModalForm.det_nego_rfq_form();
     KTModalForm.det_nego_rfq_eqiv_form();
+    KTModalForm.additional_form();
     MaskMoney.init();
+    Elements.inputMask();
     $("#kt_daterangepicker_3").daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
