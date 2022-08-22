@@ -911,6 +911,11 @@
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
+                            <div class="col-lg-3 fv-row fv-plugins-icon-container">
+                                <input type="text" name="add_price_nego[]" id="add_price_nego_1" class="form-control add_price_nego_val" placeholder="Negosiasi">
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
                                 <select class="form-select form-select-solid" name="add_currency[]" id="add_currency_1" disabled data-control="select2" data-dropdown-parent="#kt_modal_additional_price" data-placeholder="Pilih Mata Uang">
                                     <?php
@@ -921,11 +926,6 @@
                                     }
                                     ?>
                                 </select>
-                            </div>
-                            <!--end::Col-->
-                            <!--begin::Col-->
-                            <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <input type="text" name="add_price_nego[]" id="add_price_nego_1" class="form-control add_price_nego_val" placeholder="Negosiasi">
                             </div>
                             <!--end::Col-->
                         </div>
