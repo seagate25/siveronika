@@ -237,7 +237,7 @@ class Rfq extends CI_Controller
                     /** Upload Config */
                     $config['file_name']        = $filename;
                     $config['upload_path']      = $path . $rfq_no . '/';
-                    $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+                    $config['allowed_types']    = 'pdf';
                     $config['max_size']         = '51200';
 
                     /** Load CodeIgniter Upload Library */
@@ -292,7 +292,7 @@ class Rfq extends CI_Controller
                         /** Upload Config */
                         $config['file_name']        = $filename;
                         $config['upload_path']      = $path . $rfq_no . '/';
-                        $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+                        $config['allowed_types']    = 'pdf';
                         $config['max_size']         = '51200';
 
                         /** Load CodeIgniter Upload Library */
@@ -400,7 +400,7 @@ class Rfq extends CI_Controller
                     /** Upload Config */
                     $config['file_name']        = $filename;
                     $config['upload_path']      = $path . $rfq_no . '/';
-                    $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+                    $config['allowed_types']    = 'pdf';
                     $config['max_size']         = '51200';
 
                     /** Load CodeIgniter Upload Library */
@@ -574,7 +574,7 @@ class Rfq extends CI_Controller
                         /** Upload Config */
                         $config['file_name']        = $filename;
                         $config['upload_path']      = $path . $rfq_no . '/';
-                        $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+                        $config['allowed_types']    = 'pdf';
                         $config['max_size']         = '51200';
 
                         /** Load CodeIgniter Upload Library */
@@ -628,7 +628,7 @@ class Rfq extends CI_Controller
                             /** Upload Config */
                             $config['file_name']        = $filename;
                             $config['upload_path']      = $path . $rfq_no . '/';
-                            $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+                            $config['allowed_types']    = 'pdf';
                             $config['max_size']         = '51200';
 
                             /** Load CodeIgniter Upload Library */
@@ -741,7 +741,7 @@ class Rfq extends CI_Controller
                         /** Upload Config */
                         $config['file_name']        = $filename;
                         $config['upload_path']      = $path . $rfq_no . '/';
-                        $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+                        $config['allowed_types']    = 'pdf';
                         $config['max_size']         = '51200';
 
                         /** Load CodeIgniter Upload Library */
@@ -840,7 +840,7 @@ class Rfq extends CI_Controller
                     /** Upload Config */
                     $config['file_name']        = $filename;
                     $config['upload_path']      = $path . $rfq_no . '/';
-                    $config['allowed_types']    = 'jpg|jpeg|png|pdf';
+                    $config['allowed_types']    = 'pdf';
                     $config['max_size']         = '51200';
 
                     /** Load CodeIgniter Upload Library */
