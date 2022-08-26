@@ -284,7 +284,7 @@ class History_model extends CI_Model
 
         $order_column = $field[$order_column];
         $where = " WHERE (konfirmasi_status = '1' AND kode_vendor = '{$this->vendor_code}' AND tanggal_kirim < '" . date('Y-m-d') . "') ";  // Get Konfirmasi harga with konfirmasi_status = 1
-        $where = " WHERE (konfirmasi_status = '1' AND kode_vendor = '{$this->vendor_code}' AND (tanggal_kirim < '" . date('Y-m-d') . "') OR flag_kirim = 1) ";  // Get Konfirmasi harga with konfirmasi_status = 1 and add filter flag_kirim =1
+        $where = " WHERE (konfirmasi_status = '1' AND kode_vendor = '{$this->vendor_code}' AND (tanggal_kirim < '" . date('Y-m-d') . "' OR flag_kirim = 1)) ";  // Get Konfirmasi harga with konfirmasi_status = 1 and add filter flag_kirim =1
         if (!empty($search['value'])) {
             $where .= " AND ";
             $where .= " (kode_konfirmasi LIKE '%" . $search['value'] . "%'";
@@ -403,7 +403,7 @@ class History_model extends CI_Model
 
         $order_column = $field[$order_column];
         $where = " WHERE (konfirmasi_status = '2' AND kode_vendor = '{$this->vendor_code}' AND tanggal_kirim < '" . date('Y-m-d') . "') ";  // Get Konfirmasi harga with konfirmasi_status = 2
-        $where = " WHERE (konfirmasi_status = '2' AND kode_vendor = '{$this->vendor_code}' AND (tanggal_kirim < '" . date('Y-m-d') . "') OR flag_kirim = 1) ";  // Get Konfirmasi harga with konfirmasi_status = 2 and add filter flag_kirim =1
+        $where = " WHERE (konfirmasi_status = '2' AND kode_vendor = '{$this->vendor_code}' AND (tanggal_kirim < '" . date('Y-m-d') . "' OR flag_kirim = 1)) ";  // Get Konfirmasi harga with konfirmasi_status = 2 and add filter flag_kirim =1
         if (!empty($search['value'])) {
             $where .= " AND ";
             $where .= " kode_konfirmasi LIKE '%" . $search['value'] . "%'";
