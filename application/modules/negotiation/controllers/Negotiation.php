@@ -107,6 +107,11 @@ class Negotiation extends CI_Controller {
         exit;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function save_negotiation_eqiv()
     {
         $nomor_rfq          = $this->input->post('nomor_rfq_eqiv');
@@ -267,6 +272,16 @@ class Negotiation extends CI_Controller {
 
         echo json_encode($response, JSON_PRETTY_PRINT);
         exit;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function get_uploaded_rfq_files()
+    {
+        
     }
 
 }

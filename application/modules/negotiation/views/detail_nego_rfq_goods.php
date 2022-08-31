@@ -378,28 +378,12 @@
                         </div>
                         <!--end::Input Group-->
                         <!--Begin::Input Group-->
-                        <!-- <div class="row mb-6">
+                        <div class="row mb-6">
                             <label class="col-lg-4 col-form-label fw-bold fs-6">File Brosur</label>
                             <div class="col-lg-8 fv-row fv-plugins-icon-container" id="input_file">
-                                <span class="form-text text-muted">File yang diperbolehkan .PDF</span>
-                                <div class="mb-3">
-                                    <input class="form-control rfq_file" type="file" name="rfq_file[]">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control rfq_file" type="file" name="rfq_file[]">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control rfq_file" type="file" name="rfq_file[]">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control rfq_file" type="file" name="rfq_file[]">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control rfq_file" type="file" name="rfq_file[]">
-                                </div>
-                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                                
                             </div>
-                        </div> -->
+                        </div>
                         <!--end::Input Group-->
                     </div>
                     <!--end::Scroll-->
@@ -1169,6 +1153,41 @@ var KTDataTables = (function() {
 
                             }
                         }
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('negotiation/get_uploaded_rfq_files'); ?>",
+                    data: {
+                        val_1: '<?php echo $this->uri->segment(3); ?>',
+                        val_2: 0
+                    },
+                    success: function(response) {
+                        var obj = jQuery.parseJSON(response);
+                        var i_file = '';
+                        if (obj.code == 0) {
+                            var uploaded_files = obj.data.length;
+                            if (uploaded_files > 0) {
+                                $.each(obj.data, function(index, value) {
+                                    i_file += '<div class="row mb-3">';
+                                    i_file += '<div class="col-lg-8" id="row_' + index + '"><input class="form-control form-control-solid" type="text" disabled value="' + value.nama_berkas_asli + '"></div>';
+                                    i_file += '<div class="col-lg-2" id="link_' + index + '">';
+                                    i_file += '<a href="<?php echo site_url('negotiation/download/'); ?>' + value.nama_berkas + '" class="btn btn-icon btn-sm btn-success me-2"><i class = "fas fa-download"></i></a>';
+                                    i_file += '</div>';
+                                    i_file += '</div>';
+                                });
+                            } else {
+                                i_file += '<div class="row mb-3">';
+                                i_file += '<div class="col-lg-8" id="row"><input class="form-control form-control-solid" type="text" disabled value="Tidak ada berkas yang diupload"></div>';
+                                i_file += '</div>';
+                            }
+                        } else {
+                            i_file += '<div class="row mb-3">';
+                            i_file += '<div class="col-lg-8" id="row"><input class="form-control form-control-solid" type="text" disabled value="Tidak ada berkas yang diupload"></div>';
+                            i_file += '</div>';
+                        }
+                        $("#input_file").html(i_file);
                     }
                 });
             }),
