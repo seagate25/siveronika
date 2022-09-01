@@ -88,7 +88,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="text" name="confirmation_price" class="form-control form-control-solid" readonly="true" placeholder="Harga">
+                                    <input type="text" name="confirmation_price" class="form-control form-control-solid" disabled placeholder="Harga">
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <!--end::Col-->
