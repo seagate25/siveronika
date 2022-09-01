@@ -359,6 +359,13 @@ class Negotiation_model extends CI_Model {
 
         return $query;
     }
+
+    public function getUploadedFiles($params = array())
+    {
+        $result = $this->global->get_by('TB_TR_QUOTATION_LAMPIRAN', $params);
+
+        return $result;
+    }
         
 }
 

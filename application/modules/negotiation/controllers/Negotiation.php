@@ -175,11 +175,21 @@ class Negotiation extends CI_Controller {
         if($result->num_rows() > 0) {
 
             $data       = $result->row();
+
+            $get_files  = $this->nego->getUploadedFiles($params);
+            if($get_files->num_rows() > 0) {
+                $files  = $get_files->result();
+                foreach ($files as $res) {
+                    $res->nama_berkas = $this->crypto->encode($res->nama_berkas);
+                }
+            }
+
             $response   = array(
                 'code' => 0,
                 'msg' => 'SUCCESS',
                 'status' => 'success',
-                'data' => $data
+                'data' => $data,
+                'files' => $files
             );
 
         } else {
@@ -281,7 +291,57 @@ class Negotiation extends CI_Controller {
      */
     public function get_uploaded_rfq_files()
     {
-        
+        $rfq_no     = $this->crypto->decode($this->input->post('val_1'));
+        $ekuivalen  = (int)$this->input->post('val_2');
+
+        $params = array('nomor_quotation' => $rfq_no, 'ekuivalen' => $ekuivalen);
+        $result = $this->nego->getUploadedFiles($params);
+        if ($result->num_rows() > 0) {
+            $files  = $result->result();
+            foreach ($files as $res) {
+                $res->nama_berkas = $this->crypto->encode($res->nama_berkas);
+            }
+
+            $response   = array(
+                'code'  => 0,
+                'msg'   => 'SUCCESS',
+                'data'  => $files
+            );
+        } else {
+
+            $response   = array(
+                'code'  => 100,
+                'msg'   => 'NOT FOUND',
+                'data'  => NULL
+            );
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function download()
+    {
+        $this->load->helper('download');
+
+        $filename       = $this->crypto->decode($this->uri->segment(3));
+        $explode_ext    = explode(".", $filename);
+        $file_name      = $explode_ext[0];
+        $explode_fName  = explode("_", $file_name);
+        $rfq_no         = $explode_fName[1];
+        $equivalent     = $explode_fName[2];
+        $sequence       = $explode_fName[3];
+
+        $params     = array('nomor_quotation' => $rfq_no, 'ekuivalen' => $equivalent, 'urutan_berkas' => $sequence);
+        $get_file   = $this->nego->getUploadedFiles($params);
+        $file_data  = $get_file->row();
+
+        force_download($file_data->nama_berkas_asli, file_get_contents($file_data->alamat_berkas . $file_data->nama_berkas));
     }
 
 }
