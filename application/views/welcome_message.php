@@ -157,6 +157,7 @@ License: For each use you must have a valid license purchased only from above li
 				left: 0;
 				right: 0;
 				width: 500px;
+				height: 450px;
 				box-shadow: 0px 0px 5px 5px rgb(0 0 0 / 35%);
 				border-radius: 10px;
 				margin-top:10%;
