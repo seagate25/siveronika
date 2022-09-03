@@ -83,6 +83,7 @@ class Rfq_model extends CI_Model
 
         // $sql        = "SELECT * FROM {$this->table[0]}{$where}";
         $sql        = "SELECT trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung FROM {$this->table[0]} trfq LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq) {$where}";
+        $sql        = "SELECT trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung FROM {$this->table[0]} trfq CROSS APPLY(SELECT  TOP 1 * FROM    baragud.dbo.TB_S_MST_RFQ_LAMPIRAN_BARANG WHERE   nomor_rfq = trfq.nomor_rfq) AS tl {$where}"; // Get select top 1 for lampiran by rfq_nomor
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
@@ -94,25 +95,26 @@ class Rfq_model extends CI_Model
         //             WHERE   RowNum > {$start}
         //                 AND RowNum < (({$start} + 1) + {$length})
         //             ORDER BY RowNum";
-        $sql_   = "SELECT  *
-                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum,
-                                        trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
-                            FROM      {$this->table[0]} trfq
-                            LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq)
-                            {$where}
-                            ) AS RowConstrainedResult
-                    WHERE   RowNum > {$start}
-                        AND RowNum < (({$start} + 1) + {$length})
-                    ORDER BY RowNum";
         // $sql_   = "SELECT  *
-        // FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum,
-        //                     trfq.*
-        //         FROM      {$this->table[0]} trfq
-        //         {$where}
-        //         ) AS RowConstrainedResult
-        // WHERE   RowNum > {$start}
-        //     AND RowNum < (({$start} + 1) + {$length})
-        // ORDER BY RowNum";
+        //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum,
+        //                                 trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
+        //                     FROM      {$this->table[0]} trfq
+        //                     LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq)
+        //                     {$where}
+        //                     ) AS RowConstrainedResult
+        //             WHERE   RowNum > {$start}
+        //                 AND RowNum < (({$start} + 1) + {$length})
+        //             ORDER BY RowNum";
+        $sql_   = "SELECT  *
+        FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum,
+                            trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
+                FROM      {$this->table[0]} trfq
+                CROSS APPLY(SELECT  TOP 1 * FROM    baragud.dbo.TB_S_MST_RFQ_LAMPIRAN_BARANG WHERE   nomor_rfq = trfq.nomor_rfq) AS tl 
+                {$where}
+                ) AS RowConstrainedResult
+        WHERE   RowNum > {$start}
+            AND RowNum < (({$start} + 1) + {$length})
+        ORDER BY RowNum";
 
         $query = $this->db->query($sql_);
         $rows_data = $query->result();
