@@ -170,10 +170,11 @@ class Rfq_model extends CI_Model
         $order_column = $order[0]['column'];
         $order_dir = strtoupper($order[0]['dir']);
         $field  = array(
-            1 => 'kode_barang',
-            2 => 'deskripsi_barang',
-            3 => 'jumlah_permintaan',
-            4 => 'satuan'
+            1 => 'nomor_rfq',
+            2 => 'kode_barang',
+            3 => 'deskripsi_barang',
+            4 => 'jumlah_permintaan',
+            5 => 'satuan'
         );
 
         $order_column = $field[$order_column];
@@ -187,7 +188,7 @@ class Rfq_model extends CI_Model
         }
 
         // $sql        = "SELECT * FROM {$this->table[1]} trfqd {$where}";
-        $sql        = "SELECT trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
+        $sql        = "SELECT trfqd.urutan_rfq, trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
                             trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
                             trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
                             trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by,
@@ -200,7 +201,7 @@ class Rfq_model extends CI_Model
                                     'Belum Diisi'
                             END StatusMaterial
                         FROM {$this->table[1]} trfqd {$where}
-                        GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+                        GROUP BY trfqd.urutan_rfq, trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
                         trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
                         trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by, trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden";
 
@@ -208,7 +209,7 @@ class Rfq_model extends CI_Model
         $records_total = $query->num_rows();
 
         $sql_   = "SELECT  *
-        FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
+        FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, trfqd.urutan_rfq,
                     trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
                     trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
                     trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
@@ -223,14 +224,14 @@ class Rfq_model extends CI_Model
                     END StatusMaterial
                 FROM {$this->table[1]} trfqd
                 {$where}
-                GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+                GROUP BY trfqd.urutan_rfq, trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
                 trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
                 trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by, trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden
                 ) AS RowConstrainedResult
         WHERE   RowNum > {$start}
             AND RowNum < (({$start} + 1) + {$length})
         ORDER BY RowNum";
-
+        
         // $sql_   = "SELECT  *
         //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, trfqd.*
         //                     FROM      {$this->table[1]} trfqd
