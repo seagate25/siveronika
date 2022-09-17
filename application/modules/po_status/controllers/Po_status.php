@@ -8,6 +8,8 @@ class Po_Status extends CI_Controller {
     {
         parent::__construct();
         logged_in();
+        $this->load->model('Po_status_model', 'po_status');
+        $this->load->library('Crypto');
     }
 
     /**
@@ -17,6 +19,11 @@ class Po_Status extends CI_Controller {
      */
     public function po_goods()
     {
+        if($this->input->is_ajax_request()) {
+            $rows   = $this->po_status->getPOHeadList();
+            echo json_encode($rows, JSON_PRETTY_PRINT);
+            exit;
+        }
         $data['title']      = "PO Barang";
         $data['menu']       = "Status PO";
         $data['submenu']    = "PO Barang";

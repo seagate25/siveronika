@@ -13,30 +13,15 @@
                 <tr class="fw-bold fs-6 text-muted">
                     <th class="min-w-50px text-center">No.</th>
                     <th class="min-w-80px text-center">No. PO/ Unduh</th>
-                    <th class="min-w-250px text-center">Lampiran PO</th>
-                    <th class="min-w-250px text-center">Unggah File Batch</th>
+                    <th class="min-w-50px text-center">Lampiran PO</th>
+                    <th class="min-w-50px text-center">Download Template</th>
+                    <th class="min-w-50px text-center">Unggah File Batch</th>
                     <th class="min-w-50px text-center">Tanggal Dokumen</th>
-                    <th class="min-w-50px text-center">Tanggal Terima</th>
+                    <th class="min-w-50px text-center">Tanggal Dibuat</th>
                     <th class="min-w-50px text-center">Tanggal Jatuh Tempo</th>
                     <th class="min-w-30px text-center">Aksi</th>
                 </tr>
             </thead>
-            <tbody class="text-gray-600 fw-bold">
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center"><a href="#">4100097754</a></td>
-                    <td class="text-center"><a href="#">logo file here</a></td>
-                    <td class="text-center"><a href="#">logo file here</a></td>
-                    <td class="text-center">19.01.2022</td>
-                    <td class="text-center">26.01.2022</td>
-                    <td class="text-center">26.01.2022</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_detail_po_goods">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
         </table>
     </div>
 </div>
@@ -120,7 +105,43 @@ var KTDataTables = (function() {
     var e, f;
     return {
         init: function() {
-            e = $("#kt_datatable_example_1").DataTable(),
+            e = $("#kt_datatable_example_1").DataTable({
+                processing:!0, 
+                serverSide:!0,
+                destroy: !0,
+                scrollX: !0,
+                dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
+                paging: !0,
+                ordering: !0,
+                searching: !0,
+                ajax: {
+                    type: "POST",
+                    url: "<?php echo site_url('po_status/po_goods');?>"
+                },
+                columns: [
+                    { data: 'number', className: 'text-center', sortable: false, searchable: false, orderable: false, 
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { data: 'nomor_po', className: 'text-center' },
+                    { data: 'attachment_po', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                    { data: 'template', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                    { data: 'upload', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                    { data: 'tanggal_document', className: 'text-center' },
+                    { data: 'tanggal_dibuat', className: 'text-center' },
+                    { data: 'jatuh_tempo', className: 'text-center' },
+                    { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
+                ],
+                lengthMenu: [
+                        [5, 10, 15, 25, -1],
+                        [5, 10, 15, 25, "All"]
+                    ],
+                pageLength: 10,
+                order: [1, 'ASC']
+            }),
             f = $("#kt_datatable_example_2").DataTable();
         }
     };
