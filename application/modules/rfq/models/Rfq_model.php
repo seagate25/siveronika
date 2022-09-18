@@ -109,7 +109,7 @@ class Rfq_model extends CI_Model
         FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum,
                             trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
                 FROM      {$this->table[0]} trfq
-                CROSS APPLY(SELECT  TOP 1 * FROM    baragud.dbo.TB_S_MST_RFQ_LAMPIRAN_BARANG WHERE   nomor_rfq = trfq.nomor_rfq) AS tl 
+                OUTER APPLY(SELECT  TOP 1 * FROM    baragud.dbo.TB_S_MST_RFQ_LAMPIRAN_BARANG WHERE   nomor_rfq = trfq.nomor_rfq) AS tl 
                 {$where}
                 ) AS RowConstrainedResult
         WHERE   RowNum > {$start}
