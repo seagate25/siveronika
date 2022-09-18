@@ -40,6 +40,7 @@ class Po_status_model extends CI_Model {
         $this->vendor = $this->session->userdata('kode_vendor');
         $this->timestamps = date('Y-m-d H:i:s');
         $this->load->model('Global_model', 'global');
+        $this->load->helper('directory');
     }
     
     /**
@@ -96,12 +97,33 @@ class Po_status_model extends CI_Model {
         $rows = array();
         $i = (0 + 1);
 
+        $scan_po_files = directory_map('upload_files/PO_RELEASE');
+
         foreach ($rows_data as $row) {
+            $row->po_no                 = '';
+            $link_attachment_po         = '';
+            if(in_array($row->nomor_po.'.pdf', $scan_po_files)) {
+                $row->po_no             = '<a href="'. site_url('po_status/download/head/'.$this->crypto->encode($row->nomor_po)) .'">'.$row->nomor_po.'</a>';
+            } else {
+                $row->po_no             = $row->nomor_po;
+            }
+
+            if(strpos(json_encode($scan_po_files), $row->nomor_po.'_') !== FALSE) {
+                $link_attachment_po     = site_url('po_status/download/detail/'.$this->crypto->encode($row->nomor_po));
+            } else {
+                $link_attachment_po     = '#';
+            }
+
             $row->number                = $i;
-            $row->attachment_po         = '<a href="#">Download</a>';
-            $row->template              = '<a href="#">Download</a>';
-            $row->upload                = '<a href="#">Upload</a>';
-            $row->nomor_po              = '<a href="#">'.$row->nomor_po.'</a>';
+            $row->attachment_po         = '<a href="' . $link_attachment_po . '" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
+                                                <i class="fas fa-download text-white"></i>
+                                            </a>';
+            $row->template              = '<a href="' . site_url('po_status/download/template/'.$this->crypto->encode($row->nomor_po)) . '" class="btn btn-icon btn-sm btn-primary me-2 mb-2" target="_blank">
+                                                <i class="fas fa-download text-white"></i>
+                                            </a>';
+            $row->upload                = '<a href="' . base_url('upload_files/Dokumen_RFQ/' . $row->nomor_po) . '" class="btn btn-icon btn-sm btn-primary me-2 mb-2" target="_blank">
+                                                <i class="fas fa-upload text-white"></i>
+                                            </a>';
             $row->tanggal_document      = date('d.M.y', strtotime($row->tanggal_document));
             $row->tanggal_dibuat        = date('d.M.y', strtotime($row->tanggal_dibuat));
             $row->jatuh_tempo           = ($row->jatuh_tempo === NULL) ? '-' : date('d.M.y', strtotime($row->jatuh_tempo));
@@ -119,6 +141,20 @@ class Po_status_model extends CI_Model {
             'recordsFiltered' => $records_total,
             'data' => $rows,
         );
+    }
+
+    /**
+     * Get Detail PO
+     *
+     * @param string $po_number
+     * @return array
+     */
+    public function getPODetail($po_number = '')
+    {
+        $params = ['nomor_po' => $po_number];
+        $query  = $this->global->get_by($this->table['detail'], $params);
+
+        return $query->result();
     }
 }
 

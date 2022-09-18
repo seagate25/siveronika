@@ -126,7 +126,7 @@ var KTDataTables = (function() {
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { data: 'nomor_po', className: 'text-center' },
+                    { data: 'po_no', className: 'text-center' },
                     { data: 'attachment_po', className: 'text-center', sortable: false, searchable: false, orderable: false },
                     { data: 'template', className: 'text-center', sortable: false, searchable: false, orderable: false },
                     { data: 'upload', className: 'text-center', sortable: false, searchable: false, orderable: false },
