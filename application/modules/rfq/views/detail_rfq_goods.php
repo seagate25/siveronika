@@ -363,7 +363,7 @@
                                 <!-- <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span> -->
                                 <span class="form-text text-muted">File yang diperbolehkan .PDF</span>
                                 <div class="mb-3">
-                                    <input class="form-control rfq_file" type="file" name="rfq_file[]">
+                                    <input class="form-control rfq_file" type="file"  name="rfq_file[]">
                                 </div>
                                 <div class="mb-3">
                                     <input class="form-control rfq_file" type="file" name="rfq_file[]">
@@ -1094,7 +1094,7 @@
                         var i_file = '';
                         for (var i = 0; i < 5; i++) {
                             i_file += '<div class="row mb-3">';
-                            i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
+                            i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" accept="application/pdf" name="rfq_file[]"></div>';
                             i_file += '</div>';
                         }
                         $("#input_file span").after(i_file);
@@ -1165,7 +1165,7 @@
 
                                             for (var i = 0; i < (5 - uploaded_files); i++) {
                                                 i_file += '<div class="row mb-3">';
-                                                i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
+                                                i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" accept="application/pdf" name="rfq_file[]"></div>';
                                                 i_file += '</div>';
                                             }
 
@@ -1174,7 +1174,7 @@
                                             var i_file = '';
                                             for (var i = 0; i < 5; i++) {
                                                 i_file += '<div class="row mb-3">';
-                                                i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
+                                                i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file"  accept="application/pdf"name="rfq_file[]"></div>';
                                                 i_file += '</div>';
                                             }
                                             $("#input_file span").after(i_file);
@@ -1184,7 +1184,7 @@
                                         var i_file = '';
                                         for (var i = 0; i < 5; i++) {
                                             i_file += '<div class="row mb-3">';
-                                            i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" name="rfq_file[]"></div>';
+                                            i_file += '<div class="col-lg-8"><input class="form-control rfq_file" type="file" accept="application/pdf" name="rfq_file[]"></div>';
                                             i_file += '</div>';
                                         }
                                         $("#input_file span").after(i_file);
@@ -1253,7 +1253,7 @@
                         var i_file = '';
                         for (var i = 0; i < 5; i++) {
                             i_file += '<div class="row mb-3">';
-                            i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
+                            i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" accept="application/pdf" name="eqiv_file[]"></div>';
                             i_file += '</div>';
                         }
                         $("#input_file_eqiv span").after(i_file);
@@ -1355,7 +1355,7 @@
 
                                         for (var i = 0; i < (5 - obj.files.length); i++) {
                                             i_file += '<div class="row mb-3">';
-                                            i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
+                                            i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" accept="application/pdf" name="eqiv_file[]"></div>';
                                             i_file += '</div>';
                                         }
 
@@ -1364,7 +1364,7 @@
                                         var i_file = '';
                                         for (var i = 0; i < 5; i++) {
                                             i_file += '<div class="row mb-3">';
-                                            i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
+                                            i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" accept="application/pdf" name="eqiv_file[]"></div>';
                                             i_file += '</div>';
                                         }
                                         $("#input_file_eqiv span").after(i_file);
@@ -1374,7 +1374,7 @@
                                     var i_file = '';
                                     for (var i = 0; i < 5; i++) {
                                         i_file += '<div class="row mb-3">';
-                                        i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" name="eqiv_file[]"></div>';
+                                        i_file += '<div class="col-lg-8"><input class="form-control eqiv_file" type="file" accept="application/pdf" name="eqiv_file[]"></div>';
                                         i_file += '</div>';
                                     }
                                     $("#input_file_eqiv span").after(i_file);
@@ -1979,7 +1979,7 @@
                 var checked = e.target.checked;
                 if (checked) {
                     $("#row_" + index + " > input, #link_" + index + " > a").remove();
-                    $("#row_" + index).append('<input class="form-control rfq_file" type="file" name="rfq_file[' + index + ']"><input type="hidden" name="old_name[' + index + ']" value="' + name + '">');
+                    $("#row_" + index).append('<input class="form-control rfq_file" type="file" accept="application/pdf" name="rfq_file[' + index + ']"><input type="hidden" name="old_name[' + index + ']" value="' + name + '">');
                 } else {
                     $("#row_" + index + " > input").remove();
                     $("#row_" + index).append('<input class="form-control form-control-solid" type="text" readonly value="' + name + '">');
@@ -1990,7 +1990,7 @@
                 var checked = e.target.checked;
                 if (checked) {
                     $("#row_eqiv_" + index + " > input, #link_eqiv_" + index + " > a").remove();
-                    $("#row_eqiv_" + index).append('<input class="form-control eqiv_file" type="file" name="eqiv_file[' + index + ']"><input type="hidden" name="old_name_eqiv[' + index + ']" value="' + name + '">');
+                    $("#row_eqiv_" + index).append('<input class="form-control eqiv_file" type="file" accept="application/pdf" name="eqiv_file[' + index + ']"><input type="hidden" name="old_name_eqiv[' + index + ']" value="' + name + '">');
                 } else {
                     $("#row_eqiv_" + index + " > input").remove();
                     $("#row_eqiv_" + index).append('<input class="form-control form-control-solid" type="text" readonly value="' + name + '">');
