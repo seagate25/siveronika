@@ -118,10 +118,10 @@ class Po_status_model extends CI_Model {
             $row->attachment_po         = '<a href="' . $link_attachment_po . '" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
                                                 <i class="fas fa-download text-white"></i>
                                             </a>';
-            $row->template              = '<a href="' . site_url('po_status/download/template/'.$this->crypto->encode($row->nomor_po)) . '" class="btn btn-icon btn-sm btn-primary me-2 mb-2" target="_blank">
+            $row->template              = '<a href="'. site_url('po_status/download/template/'.$this->crypto->encode($row->nomor_po)) .'" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
                                                 <i class="fas fa-download text-white"></i>
                                             </a>';
-            $row->upload                = '<a href="' . base_url('upload_files/Dokumen_RFQ/' . $row->nomor_po) . '" class="btn btn-icon btn-sm btn-primary me-2 mb-2" target="_blank">
+            $row->upload                = '<a href="#" class="btn btn-icon btn-sm btn-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_upload_po_goods">
                                                 <i class="fas fa-upload text-white"></i>
                                             </a>';
             $row->tanggal_document      = date('d.M.y', strtotime($row->tanggal_document));
