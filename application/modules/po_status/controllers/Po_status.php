@@ -57,7 +57,7 @@ class Po_Status extends CI_Controller {
         $type       = $this->uri->segment(3);    
         $nomor_po   = $this->crypto->decode($this->uri->segment(4));
         
-        $dir    = 'upload_files/PO_RELEASE';
+        $dir    = 'upload_files/Dokumen_PO';
         $scan   =  directory_map($dir);
         if($type === 'head') {
 

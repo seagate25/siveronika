@@ -97,7 +97,7 @@ class Po_status_model extends CI_Model {
         $rows = array();
         $i = (0 + 1);
 
-        $scan_po_files = directory_map('upload_files/PO_RELEASE');
+        $scan_po_files = directory_map('upload_files/Dokumen_PO');
 
         foreach ($rows_data as $row) {
             $row->po_no                 = '';
