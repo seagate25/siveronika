@@ -60,18 +60,20 @@
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Upload File Batch</label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
-                                <div class="col-lg-8 fv-row fv-plugins-icon-container" id="input_file">
-                                    <!-- <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span> -->
-                                    <span class="form-text text-muted">File yang diperbolehkan EXCEL</span>
+                                <div class="col-lg-6 fv-row fv-plugins-icon-container">
                                     <div class="mb-3">
-                                        <input class="form-control rfq_file" type="file"  name="rfq_file">
+                                        <input class="form-control batch_file" type="file" name="batch_file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                                     </div>
+                                    <span class="form-text text-muted">File yang diperbolehkan EXCEL</span>
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <!--end::Col-->
+                                <div class="col-lg-2 fv-row fv-plugins-icon-container">
+                                    <button type="submit" id="kt_modal_upload_po_goods_cancel" class="btn btn-primary me-3">Upload</button>
+                                </div>
                             </div>
                             <!--end::Input Group-->
-                            <table id="kt_datatable_example_2" class="align-middle table table-row-bordered gy-5">
+                            <table id="kt_datatable_preview_batch" class="align-middle table table-row-bordered gy-5">
                                 <thead>
                                     <tr class="fw-bold fs-6 text-muted">
                                         <th class="min-w-40px text-center">No.</th>
@@ -106,10 +108,10 @@
                     <!--begin::Modal footer-->
                     <div class="modal-footer flex-center">
                         <!--begin::Button-->
-                        <button type="reset" id="kt_modal_det_rfq_goods_cancel" class="btn btn-light me-3">Tutup</button>
+                        <button type="reset" id="kt_modal_upload_po_goods_cancel" class="btn btn-light me-3">Tutup</button>
                         <!--end::Button-->
                         <!--begin::Button-->
-                        <button type="submit" id="kt_modal_det_rfq_goods_submit" class="btn btn-primary">
+                        <button type="submit" id="kt_modal_upload_po_goods_submit" class="btn btn-primary">
                             <span class="indicator-label">Simpan</span>
                             <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -122,20 +124,6 @@
                 <!--end::Scroll-->
             </div>
             <!--end::Modal body-->
-            <!--begin::Modal footer-->
-            <div class="modal-footer flex-center">
-                <!--begin::Button-->
-                <button type="button" id="kt_modal_detail_po_goods_cancel" data-bs-dismiss="modal" aria-label="Close" class="btn btn-danger me-3">Tutup</button>
-                <!--end::Button-->
-                <!--begin::Button-->
-                <button type="submit" id="kt_modal_detail_po_goods_submit" class="btn btn-primary">
-                    <span class="indicator-label">Simpan</span>
-                    <span class="indicator-progress">Please wait...
-                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                </button>
-                <!--end::Button-->
-            </div>
-            <!--end::Modal footer-->
         </div>
     </div>
 </div>
