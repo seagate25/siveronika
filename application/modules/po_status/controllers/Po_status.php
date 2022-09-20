@@ -2,7 +2,6 @@
 
 use phpDocumentor\Reflection\Type;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -96,7 +95,13 @@ class Po_Status extends CI_Controller {
 
     }
 
-    public function create_template($po_number)
+    /**
+     * Create batch template Excel
+     *
+     * @param string $po_number
+     * @return void
+     */
+    public function create_template($po_number = '')
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet()->setShowGridlines(FALSE);
@@ -225,6 +230,71 @@ class Po_Status extends CI_Controller {
         header('Cache-Control: max-age=0');
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
+    }
+
+    public function do_upload()
+    {
+        $path   = 'upload_files/Dokumen_PO';
+        /** Upload Config */
+        $config['upload_path']      = $path;
+        $config['allowed_types']    = 'xls|xlsx';
+        $config['max_size']         = '51200';
+
+        /** Load CodeIgniter Upload Library */
+        $this->load->library('upload', $config);
+
+        $this->upload->initialize($config);
+
+        if(!$this->upload->do_upload('batch_file')) {
+
+            // $data['error'] = $this->upload->display_errors();
+
+            $data['error'] = $this->upload->display_errors();
+            
+        } else {
+
+            $file_data  = $this->upload->data();
+            $arr_file   = explode('.', $file_data['orig_name']);
+            $extension  = end($arr_file);
+
+            $excel_data = [];
+
+            if($extension === 'xls') {
+                $reader 	        = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xls');
+            } else {
+                $reader 	        = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
+            }
+            
+            $spreadsheet        = $reader->load($path . '/' . $file_data['orig_name']);
+            $worksheet          = $spreadsheet->getActiveSheet();
+            $highestRow         = $worksheet->getHighestRow(); // e.g. 10
+            $highestColumn      = $worksheet->getHighestColumn(); // e.g 'F'
+            // $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
+            
+            for ($row = 4; $row <= $highestRow; ++$row) {
+                $rowData    = $spreadsheet->getActiveSheet()->rangeToArray('A' . $row . ':' . $highestColumn . $highestRow,NULL,TRUE,TRUE,TRUE);
+                $rows       = [
+                    'no' => $rowData[$row]['A'],
+                    'po_no' => $rowData[$row]['B'],
+                    'item' => $rowData[$row]['C'],
+                    'item_code' => $rowData[$row]['D'],
+                    'description' => $rowData[$row]['E'],
+                    'qty' => $rowData[$row]['F'],
+                    'uom' => $rowData[$row]['G'],
+                    'batch_no' => $rowData[$row]['H'],
+                    'expiry_date' => $rowData[$row]['I'],
+                    'manufacture_date' => $rowData[$row]['J'],
+                ];
+
+                $excel_data[] = $rows;
+            }
+
+            $data['data'] = $excel_data;
+        }
+
+        unlink($path . '/' . $file_data['orig_name']);
+        echo json_encode($data, JSON_PRETTY_PRINT);
+        exit;
     }
 
 }

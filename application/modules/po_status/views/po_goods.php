@@ -48,7 +48,7 @@
             <!--begin::Modal body-->
             <div class="modal-body py-1 px-lg-4">
                 <!--begin::Scroll-->
-                <form id="kt_modal_upload_po_goods_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url('po_status/save_rfq'); ?>">
+                <form id="kt_modal_upload_po_goods_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url('po_status/do_upload'); ?>">
                     <!--begin::Modal body-->
                     <div class="modal-body py-4 px-lg-17">
                         <!--begin::Scroll-->
@@ -69,7 +69,7 @@
                                 </div>
                                 <!--end::Col-->
                                 <div class="col-lg-2 fv-row fv-plugins-icon-container">
-                                    <button type="submit" id="kt_modal_upload_po_goods_cancel" class="btn btn-primary me-3">Upload</button>
+                                    <button type="submit" id="kt_modal_upload_po_goods_uploads" class="btn btn-primary me-3">Upload</button>
                                 </div>
                             </div>
                             <!--end::Input Group-->
@@ -77,29 +77,17 @@
                                 <thead>
                                     <tr class="fw-bold fs-6 text-muted">
                                         <th class="min-w-40px text-center">No.</th>
-                                        <th class="min-w-125px text-center">MR. No</th>
+                                        <th class="min-w-80px text-center">Nomor PO</th>
+                                        <th class="min-w-80px text-center">Item</th>
                                         <th class="min-w-80px text-center">Item Code</th>
-                                        <th class="min-w-250px text-center">Description</th>
+                                        <th class="min-w-150px text-center">Description</th>
                                         <th class="min-w-40px text-center">Qty</th>
                                         <th class="min-w-40px text-center">UoM</th>
-                                        <th class="min-w-80px text-center">Unit Price</th>
-                                        <th class="min-w-100px text-center">Amount</th>
-                                        <th class="min-w-70px text-center">Qty that has been sent</th>
+                                        <th class="min-w-80px text-center">Batch No</th>
+                                        <th class="min-w-80px text-center">Expiry Date</th>
+                                        <th class="min-w-80px text-center">Manufacture Date</th>
                                     </tr>
                                 </thead>
-                                <tbody class="text-gray-600 fw-bold">
-                                    <tr>
-                                        <td class="text-center">1</td>
-                                        <td class="text-center">BB/TK/MR/128/X/21</td>
-                                        <td class="text-center">7015898</td>
-                                        <td class="text-center">BALL BEARING 6206 2Z/2C</td>
-                                        <td class="text-center">0</td>
-                                        <td class="text-center">BM</td>
-                                        <td class="text-center">75.000</td>
-                                        <td class="text-center">450.000</td>
-                                        <td class="text-center">6</td>
-                                    </tr>
-                                </tbody>
                             </table>
                         </div>
                         <!--end::Scroll-->
@@ -203,6 +191,8 @@
 <script type="text/javascript">
 "use strict";
 
+var json_data;
+
 var KTDataTables = (function() {
     var e, f;
     return {
@@ -243,13 +233,182 @@ var KTDataTables = (function() {
                     ],
                 pageLength: 10,
                 order: [1, 'ASC']
-            }),
-            f = $("#kt_datatable_example_2").DataTable();
+            });
+        },
+        preview: function(json) {
+            f = $("#kt_datatable_preview_batch").DataTable({
+                    responsive:!1, 
+                    processing:!0, 
+                    serverSide:!1,
+                    destroy: !0,
+                    data: json,
+                    columns: [
+                        { data: 'no', className: 'text-center' },
+                        { data: 'po_no', className: 'text-center' },
+                        { data: 'item', className: 'text-center' },
+                        { data: 'item_code', className: 'text-center' },
+                        { data: 'description' },
+                        { data: 'qty', className: 'text-right' },
+                        { data: 'uom', className: 'text-center' },
+                        { data: 'batch_no' },
+                        { data: 'expiry_date', className: 'text-center' },
+                        { data: 'manufacture_date', className: 'text-center' }
+                    ],
+                    lengthMenu: [
+                            [10, 15, 25, -1],
+                            [10, 15, 25, "All"]
+                        ],
+                    pageLength: 10,
+                    // columnDefs: [
+                    //     {
+                    //         targets: [0, 3, 5, 6, 7],
+                    //         sortable: false,
+                    //         searchable: false,
+                    //         className: 'dt-center',
+                    //         orderData: [ 0 ]
+                    //     }
+                    // ],
+                    // order: [0, 'DESC']
+            });
         }
     };
 })();
 
+var KTModalForm = (function() {
+    var a, b, c, d, e, f, g, h;
+    return {
+        upload_form: function() {
+            (a = document.querySelector("#kt_modal_upload_po_goods")) &&
+            ((b = new bootstrap.Modal(a)),
+            (c = document.querySelector("#kt_modal_upload_po_goods_form")),
+            (d = document.getElementById("kt_modal_upload_po_goods_submit")),
+            (e = document.getElementById("kt_modal_upload_po_goods_cancel")),
+            (h = document.getElementById("kt_modal_upload_po_goods_uploads")),
+            (f = document.querySelector('[data-kt-upload-po-goods-modal-action="close"]')),
+            (g = FormValidation.formValidation(c, {
+                fields: {
+                    batch_file: {
+                        validators: {
+                            notEmpty: {
+                                message: "File batch tidak boleh kosong"
+                            },
+                            file: {
+                                extension: 'xls,xlsx', //'jpeg,jpg,png,pdf',
+                                type: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',//'image/jpeg,image/png,application/pdf',
+                                message: 'Please choose a Excel file',//'Please choose a JPEG, JPG, PNG, & PDF file',
+                            },
+                        },
+                    },
+                },
+                plugins: {
+                    trigger: new FormValidation.plugins.Trigger(),
+                    bootstrap: new FormValidation.plugins.Bootstrap5({
+                        rowSelector: ".fv-row",
+                        eleInvalidClass: "",
+                        eleValidClass: ""
+                    })
+                },
+            })),
+            h.addEventListener("click", function(e) {
+                e.preventDefault(),
+                    g &&
+                    g.validate().then(function(e) {
+                        var frmData = new FormData(c);
+                        "Valid" == e
+                            ?
+                            (
+                                Swal.fire({
+                                    text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                                    icon: "warning",
+                                    showCancelButton: !0,
+                                    buttonsStyling: !1,
+                                    confirmButtonText: "Ya, Simpan",
+                                    cancelButtonText: "Kembali",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary",
+                                        cancelButton: "btn btn-active-light"
+                                    },
+                                }).then(function(r) {
+                                    r.value ?
+                                        (
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: c.getAttribute('action'),
+                                                dataType: 'text',  // what to expect back from the PHP script, if anything
+                                                cache: false,
+                                                data: frmData,
+                                                processData: false,
+                                                contentType: false,
+                                                beforeSend: function() {
+                                                    h.setAttribute("data-kt-indicator", "on"),
+                                                        (h.disabled = !0);
+                                                },
+                                                success: function(response) {
+                                                    var obj = jQuery.parseJSON(response);
+                                                    h.removeAttribute("data-kt-indicator"),
+                                                        (h.disabled = !1);
+                                                    json_data = obj.data;
+                                                    KTDataTables.preview(json_data);
+                                                    // Swal.fire({
+                                                    //     text: obj.msg,
+                                                    //     icon: obj.status,
+                                                    //     buttonsStyling: !1,
+                                                    //     confirmButtonText: "Tutup",
+                                                    //     customClass: {
+                                                    //         confirmButton: "btn btn-primary"
+                                                    //     }
+                                                    // }).then(
+                                                    //     function(t) {
+                                                    //         t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(), g.resetForm(true), b.hide()) : r.dismiss;
+                                                    //     }
+                                                    // );
+                                                },
+                                                error: function() {
+                                                    h.removeAttribute("data-kt-indicator"),
+                                                        (h.disabled = !1);
+                                                    Swal.fire({
+                                                        text: "Terjadi masalah koneksi",
+                                                        icon: "error",
+                                                        buttonsStyling: !1,
+                                                        confirmButtonText: "Tutup",
+                                                        customClass: {
+                                                            confirmButton: "btn btn-primary"
+                                                        }
+                                                    }).then(
+                                                        function(t) {
+                                                            t.isConfirmed && r.dismiss;
+                                                        }
+                                                    );
+                                                }
+                                            })
+                                        ) :
+                                        "cancel" === r.dismiss;
+                                })
+                            ) :
+                            Swal.fire({
+                                text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                                icon: "error",
+                                buttonsStyling: !1,
+                                confirmButtonText: "Tutup",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                },
+                            });
+                    });
+            }),
+            e.addEventListener("click", function(t) {
+                g.resetForm(true), b.hide();
+            })),
+            f.addEventListener("click", function(t) {
+                g.resetForm(true), b.hide();
+            });
+        },
+    }
+})();
+
 KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();
+    KTModalForm.upload_form();
+    json_data = [];
 }));
 </script>
