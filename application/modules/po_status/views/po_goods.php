@@ -53,7 +53,7 @@
                     <div class="modal-body py-4 px-lg-17">
                         <!--begin::Scroll-->
                         <div class="scroll-y me-n7 pe-7" id="kt_modal_upload_po_goods_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_det_rfq_goods_header" data-kt-scroll-wrappers="#kt_modal_det_rfq_goods_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
-                            <input type="hidden" name="id_rfq">
+                            <input type="hidden" name="po_no" id="po_no">
                             <!--Begin::Input Group-->
                             <div class="row mb-6">
                                 <!--begin::Label-->
@@ -69,7 +69,11 @@
                                 </div>
                                 <!--end::Col-->
                                 <div class="col-lg-2 fv-row fv-plugins-icon-container">
-                                    <button type="submit" id="kt_modal_upload_po_goods_uploads" class="btn btn-primary me-3">Upload</button>
+                                    <button type="submit" id="kt_modal_upload_po_goods_uploads" class="btn btn-success me-3">
+                                        <span class="indicator-label">Upload</span>
+                                        <span class="indicator-progress">Please wait...
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    </button>
                                 </div>
                             </div>
                             <!--end::Input Group-->
@@ -102,7 +106,7 @@
                         <button type="submit" id="kt_modal_upload_po_goods_submit" class="btn btn-primary">
                             <span class="indicator-label">Simpan</span>
                             <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
                         <!--end::Button-->
                     </div>
@@ -243,16 +247,16 @@ var KTDataTables = (function() {
                     destroy: !0,
                     data: json,
                     columns: [
-                        { data: 'no', className: 'text-center' },
-                        { data: 'po_no', className: 'text-center' },
-                        { data: 'item', className: 'text-center' },
-                        { data: 'item_code', className: 'text-center' },
-                        { data: 'description' },
-                        { data: 'qty', className: 'text-right' },
-                        { data: 'uom', className: 'text-center' },
-                        { data: 'batch_no' },
-                        { data: 'expiry_date', className: 'text-center' },
-                        { data: 'manufacture_date', className: 'text-center' }
+                        { data: 'id', className: 'text-center' },
+                        { data: 'nomor_po', className: 'text-center' },
+                        { data: 'item_po', className: 'text-center' },
+                        { data: 'kode_material', className: 'text-center' },
+                        { data: 'deskripsi_material' },
+                        { data: 'quantity', className: 'text-right' },
+                        { data: 'satuan', className: 'text-center' },
+                        { data: 'batch' },
+                        { data: 'kadaluarsa', className: 'text-center' },
+                        { data: 'tanggal_produksi', className: 'text-center' }
                     ],
                     lengthMenu: [
                             [10, 15, 25, -1],
@@ -345,8 +349,8 @@ var KTModalForm = (function() {
                                                 },
                                                 success: function(response) {
                                                     var obj = jQuery.parseJSON(response);
-                                                    h.removeAttribute("data-kt-indicator"),
-                                                        (h.disabled = !1);
+                                                    h.removeAttribute("data-kt-indicator");
+                                                    $('input[name="batch_file"]').attr('disabled', 'disabled');
                                                     json_data = obj.data;
                                                     KTDataTables.preview(json_data);
                                                     // Swal.fire({
@@ -396,19 +400,114 @@ var KTModalForm = (function() {
                             });
                     });
             }),
+            d.addEventListener("click", function(t) {
+                t.preventDefault();
+                
+                Swal.fire({
+                    text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                    icon: "warning",
+                    showCancelButton: !0,
+                    buttonsStyling: !1,
+                    confirmButtonText: "Ya, Simpan",
+                    cancelButtonText: "Kembali",
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-active-light"
+                    },
+                }).then(function(r) {
+                    r.value ?
+                    (
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo site_url('po_status/save_batch'); ?>",
+                            data: {
+                                po_no: $('input[name="po_no"]').val(),
+                                upload_data: JSON.stringify(json_data)
+                            },
+                            beforeSend: function() {
+                                d.setAttribute("data-kt-indicator", "on"),
+                                (d.disabled = !0);
+                            },
+                            success: function(response) {
+                                d.removeAttribute("data-kt-indicator"),
+                                (d.disabled = !1);
+                                var obj = jQuery.parseJSON(response);
+                                Swal.fire({
+                                    text: obj.msg,
+                                    icon: obj.status,
+                                    buttonsStyling: !1,
+                                    confirmButtonText: "Tutup",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                }).then(
+                                    function(x) {
+                                        x.isConfirmed && (obj.code == 0) ? (KTDataTables.init(), $('input[name="batch_file"]').removeAttr('disabled'), h.disabled = !1, json_data = [], KTDataTables.preview(json_data), g.resetForm(true), b.hide()) : r.dismiss;
+                                    }
+                                );
+                            },
+                            error: function() {
+                                d.removeAttribute("data-kt-indicator"),
+                                    (d.disabled = !1);
+                                Swal.fire({
+                                    text: "Terjadi masalah koneksi",
+                                    icon: "error",
+                                    buttonsStyling: !1,
+                                    confirmButtonText: "Tutup",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                }).then(
+                                    function(x) {
+                                        x.isConfirmed && r.dismiss;
+                                    }
+                                );
+                            }
+                        })
+                    ) :
+                    "cancel" === r.dismiss;
+                });
+            }),
             e.addEventListener("click", function(t) {
-                g.resetForm(true), b.hide();
+                g.resetForm(true), 
+                $('input[name="batch_file"]').removeAttr('disabled'), 
+                h.disabled = !1,
+                json_data = [],
+                KTDataTables.preview(json_data),
+                b.hide();
             })),
             f.addEventListener("click", function(t) {
-                g.resetForm(true), b.hide();
+                g.resetForm(true), 
+                $('input[name="batch_file"]').removeAttr('disabled'), 
+                h.disabled = !1, 
+                json_data = [],
+                KTDataTables.preview(json_data),
+                b.hide();
             });
         },
+    }
+})();
+
+var KTElement = (function() {
+    return {
+        modal_upload: function() {
+            $('#kt_modal_upload_po_goods').on('show.bs.modal', function(e) {
+
+                //get data-id attribute of the clicked element
+                var poNo = $(e.relatedTarget).data('bs-id');
+
+                //populate the textbox
+                $(e.currentTarget).find('input[name="po_no"]').val(poNo);
+
+            });
+        }
     }
 })();
 
 KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();
     KTModalForm.upload_form();
+    KTElement.modal_upload();
     json_data = [];
 }));
 </script>

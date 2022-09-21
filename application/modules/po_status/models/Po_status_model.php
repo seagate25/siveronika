@@ -35,7 +35,8 @@ class Po_status_model extends CI_Model {
         parent::__construct();
         $this->table = [
             'head'      => 'TB_S_TR_PO_HEAD',
-            'detail'    => 'TB_S_TR_PO_DTL'
+            'detail'    => 'TB_S_TR_PO_DTL',
+            'batch'     => 'TB_S_TR_BATCH'
         ];
         $this->vendor = $this->session->userdata('kode_vendor');
         $this->timestamps = date('Y-m-d H:i:s');
@@ -121,15 +122,16 @@ class Po_status_model extends CI_Model {
             $row->template              = '<a href="'. site_url('po_status/download/template/'.$this->crypto->encode($row->nomor_po)) .'" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
                                                 <i class="fas fa-download text-white"></i>
                                             </a>';
-            $row->upload                = '<a href="#" class="btn btn-icon btn-sm btn-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_upload_po_goods">
+            $row->upload                = '<a href="#" class="btn btn-icon btn-sm btn-primary me-2 mb-2" data-bs-toggle="modal" data-bs-id="'.$this->crypto->encode($row->nomor_po).'" data-bs-target="#kt_modal_upload_po_goods">
                                                 <i class="fas fa-upload text-white"></i>
                                             </a>';
             $row->tanggal_document      = date('d.M.y', strtotime($row->tanggal_document));
             $row->tanggal_dibuat        = date('d.M.y', strtotime($row->tanggal_dibuat));
             $row->jatuh_tempo           = ($row->jatuh_tempo === NULL) ? '-' : date('d.M.y', strtotime($row->jatuh_tempo));
-            $row->actions               = '<a href="' . site_url('negotiation/det_rfq_goods/' . $this->crypto->encode($row->nomor_po)) . '" class="btn btn-icon btn-sm btn-success me-2 mb-2">
-                                                <i class="fas fa-envelope-open-text"></i>
-                                            </a>';
+            // $row->actions               = '<a href="' . site_url('negotiation/det_rfq_goods/' . $this->crypto->encode($row->nomor_po)) . '" class="btn btn-icon btn-sm btn-success me-2 mb-2">
+            //                                     <i class="fas fa-envelope-open-text"></i>
+            //                                 </a>';
+            $row->actions               = '';
 
             $rows[] = $row;
             $i++;
@@ -155,6 +157,19 @@ class Po_status_model extends CI_Model {
         $query  = $this->global->get_by($this->table['detail'], $params);
 
         return $query->result();
+    }
+
+    /**
+     * Insert Batch Data
+     *
+     * @param array $data
+     * @return void
+     */
+    public function insertBatch($data = array())
+    {
+        $result = $this->global->insert_batch($this->table['batch'], $data);
+
+        return $result;
     }
 }
 

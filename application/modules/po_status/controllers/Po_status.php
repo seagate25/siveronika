@@ -232,6 +232,11 @@ class Po_Status extends CI_Controller {
         $writer->save('php://output');
     }
 
+    /**
+     * Upload batch file
+     *
+     * @return void
+     */
     public function do_upload()
     {
         $path   = 'upload_files/Dokumen_PO';
@@ -274,16 +279,16 @@ class Po_Status extends CI_Controller {
             for ($row = 4; $row <= $highestRow; ++$row) {
                 $rowData    = $spreadsheet->getActiveSheet()->rangeToArray('A' . $row . ':' . $highestColumn . $highestRow,NULL,TRUE,TRUE,TRUE);
                 $rows       = [
-                    'no' => $rowData[$row]['A'],
-                    'po_no' => $rowData[$row]['B'],
-                    'item' => $rowData[$row]['C'],
-                    'item_code' => $rowData[$row]['D'],
-                    'description' => $rowData[$row]['E'],
-                    'qty' => $rowData[$row]['F'],
-                    'uom' => $rowData[$row]['G'],
-                    'batch_no' => $rowData[$row]['H'],
-                    'expiry_date' => $rowData[$row]['I'],
-                    'manufacture_date' => $rowData[$row]['J'],
+                    'id' => $rowData[$row]['A'],
+                    'nomor_po' => $rowData[$row]['B'],
+                    'item_po' => $rowData[$row]['C'],
+                    'kode_material' => $rowData[$row]['D'],
+                    'deskripsi_material' => $rowData[$row]['E'],
+                    'quantity' => $rowData[$row]['F'],
+                    'satuan' => $rowData[$row]['G'],
+                    'batch' => $rowData[$row]['H'],
+                    'kadaluarsa' => $rowData[$row]['I'],
+                    'tanggal_produksi' => $rowData[$row]['J'],
                 ];
 
                 $excel_data[] = $rows;
@@ -294,6 +299,39 @@ class Po_Status extends CI_Controller {
 
         unlink($path . '/' . $file_data['orig_name']);
         echo json_encode($data, JSON_PRETTY_PRINT);
+        exit;
+    }
+
+    public function save_batch()
+    {
+        $nomor_po       = $this->crypto->decode($this->input->post('po_no'));
+        $upload_data    = json_decode($this->input->post('upload_data'), TRUE);
+        
+        foreach($upload_data as $row) {
+            $row['kadaluarsa']          = date('Y-m-d', strtotime($row['kadaluarsa']));
+            $row['tanggal_produksi']    = date('Y-m-d', strtotime($row['tanggal_produksi']));
+        }
+
+        $save   = $this->po_status->insertBatch($upload_data);
+        if($save > 0) {
+
+            $response = array(
+                'code'      => 0,
+                'msg'       => 'Berhasil menyimpan data',
+                'status'    => 'success'
+            );
+
+        } else {
+
+            $response = array(
+                'code'      => 100,
+                'msg'       => 'Gagal menyimpan data',
+                'status'    => 'error'
+            );
+
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
         exit;
     }
 
