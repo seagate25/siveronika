@@ -1355,6 +1355,22 @@ var KTModalForm = (function() {
                                 validators: {
                                     notEmpty: {
                                         message: "Harga Satuan Nego tidak boleh kosong"
+                                    },
+                                    callback: {
+                                        message: 'Harga Satuan Nego tidak boleh lebih besar dari Harga Satuan',
+                                        callback: function(input) {
+                                            const inputHargaSatuan = f_det_nego.querySelector('[name="harga_satuan"]');
+                                            // const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+
+                                            return (parseFloat(input.value) < parseFloat(inputHargaSatuan.value))
+                                                // The field is valid if user picks
+                                                // a given convertion from the list
+                                                ?
+                                                true
+                                                // Otherwise, the field value is required
+                                                :
+                                                (parseFloat(input.value) <= parseFloat(inputHargaSatuan.value));
+                                        }
                                     }
                                 }
                             },
