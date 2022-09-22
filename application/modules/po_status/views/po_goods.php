@@ -350,22 +350,31 @@ var KTModalForm = (function() {
                                                 success: function(response) {
                                                     var obj = jQuery.parseJSON(response);
                                                     h.removeAttribute("data-kt-indicator");
-                                                    $('input[name="batch_file"]').attr('disabled', 'disabled');
-                                                    json_data = obj.data;
-                                                    KTDataTables.preview(json_data);
-                                                    // Swal.fire({
-                                                    //     text: obj.msg,
-                                                    //     icon: obj.status,
-                                                    //     buttonsStyling: !1,
-                                                    //     confirmButtonText: "Tutup",
-                                                    //     customClass: {
-                                                    //         confirmButton: "btn btn-primary"
-                                                    //     }
-                                                    // }).then(
-                                                    //     function(t) {
-                                                    //         t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(), g.resetForm(true), b.hide()) : r.dismiss;
-                                                    //     }
-                                                    // );
+                                                    
+                                                    if(obj.code == 0) {
+
+                                                        $('input[name="batch_file"]').attr('disabled', 'disabled');
+                                                        json_data = obj.data;
+                                                        KTDataTables.preview(json_data);
+
+                                                    } else {
+
+                                                        (h.disabled = !1)
+                                                        Swal.fire({
+                                                            text: obj.msg,
+                                                            icon: obj.status,
+                                                            buttonsStyling: !1,
+                                                            confirmButtonText: "Tutup",
+                                                            customClass: {
+                                                                confirmButton: "btn btn-primary"
+                                                            }
+                                                        }).then(
+                                                            function(t) {
+                                                                t.isConfirmed && r.dismiss;
+                                                            }
+                                                        );
+
+                                                    }
                                                 },
                                                 error: function() {
                                                     h.removeAttribute("data-kt-indicator"),
@@ -498,6 +507,7 @@ var KTElement = (function() {
 
                 //populate the textbox
                 $(e.currentTarget).find('input[name="po_no"]').val(poNo);
+                KTDataTables.preview(json_data);
 
             });
         }

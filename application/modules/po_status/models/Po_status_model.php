@@ -171,6 +171,20 @@ class Po_status_model extends CI_Model {
 
         return $result;
     }
+
+    /**
+     * Get inserted PO Batch data
+     *
+     * @param string $po_number
+     * @return array
+     */
+    public function getPOBatch($po_number = '')
+    {
+        $params = ['nomor_po' => $po_number];
+        $query  = $this->global->get_by($this->table['batch'], $params);
+
+        return $query;
+    }
 }
 
 /* End of file Po_status_model.php */
