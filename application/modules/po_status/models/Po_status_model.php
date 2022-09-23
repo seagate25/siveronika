@@ -9,7 +9,8 @@ class Po_status_model extends CI_Model {
      * 
      * [
      *      'head'      => 'TB_S_TR_PO_HEAD'
-     *      'detail'    => 'TB_S_TR_PO_DTL'
+     *      'detail'    => 'TB_S_TR_PO_DTL',
+     *      'batch'     => 'TB_S_TR_BATCH'
      * ]
      *
      * @var array
@@ -182,6 +183,19 @@ class Po_status_model extends CI_Model {
     {
         $params = ['nomor_po' => $po_number];
         $query  = $this->global->get_by($this->table['batch'], $params);
+
+        return $query;
+    }
+
+    /**
+     * Get Detail PO Item
+     *
+     * @param array $params
+     * @return void
+     */
+    public function getPODetailItem($params = array())
+    {
+        $query = $this->global->get_by($this->table['detail'], $params);
 
         return $query;
     }

@@ -429,6 +429,7 @@ var KTModalForm = (function() {
                         $.ajax({
                             type: "POST",
                             url: "<?php echo site_url('po_status/save_batch'); ?>",
+                            cache: false,
                             data: {
                                 po_no: $('input[name="po_no"]').val(),
                                 upload_data: JSON.stringify(json_data)
