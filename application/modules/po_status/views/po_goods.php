@@ -19,7 +19,7 @@
                     <th class="min-w-50px text-center">Tanggal Dokumen</th>
                     <th class="min-w-50px text-center">Tanggal Dibuat</th>
                     <th class="min-w-50px text-center">Tanggal Jatuh Tempo</th>
-                    <th class="min-w-30px text-center">Aksi</th>
+                    <!-- <th class="min-w-30px text-center">Aksi</th> -->
                 </tr>
             </thead>
         </table>
@@ -228,8 +228,8 @@ var KTDataTables = (function() {
                     { data: 'upload', className: 'text-center', sortable: false, searchable: false, orderable: false },
                     { data: 'tanggal_document', className: 'text-center' },
                     { data: 'tanggal_dibuat', className: 'text-center' },
-                    { data: 'jatuh_tempo', className: 'text-center' },
-                    { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
+                    { data: 'jatuh_tempo', className: 'text-center' }
+                    // ,{ data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
                 ],
                 lengthMenu: [
                         [5, 10, 15, 25, -1],
