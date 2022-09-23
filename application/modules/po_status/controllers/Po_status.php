@@ -2,6 +2,7 @@
 
 use phpDocumentor\Reflection\Type;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -239,7 +240,10 @@ class Po_Status extends CI_Controller {
      */
     public function do_upload()
     {
-        $path   = 'upload_files/Dokumen_PO';
+        $nomor_po   = $this->crypto->decode($this->input->post('po_no'));
+        // $po_data    = $this->po_status->getPODetail($nomor_po);
+
+        $path       = 'upload_files/Dokumen_PO';
         /** Upload Config */
         $config['upload_path']      = $path;
         $config['allowed_types']    = 'xls|xlsx';
@@ -252,9 +256,11 @@ class Po_Status extends CI_Controller {
 
         if(!$this->upload->do_upload('batch_file')) {
 
-            // $data['error'] = $this->upload->display_errors();
-
-            $data['error'] = $this->upload->display_errors();
+            $response   = [
+                'code'      => 400,
+                'msg'       => $this->upload->display_errors(),
+                'status'    => 'error'
+            ];
             
         } else {
 
@@ -278,57 +284,96 @@ class Po_Status extends CI_Controller {
             
             for ($row = 4; $row <= $highestRow; ++$row) {
                 $rowData    = $spreadsheet->getActiveSheet()->rangeToArray('A' . $row . ':' . $highestColumn . $highestRow,NULL,TRUE,TRUE,TRUE);
-                $rows       = [
-                    'id' => $rowData[$row]['A'],
-                    'nomor_po' => $rowData[$row]['B'],
-                    'item_po' => $rowData[$row]['C'],
-                    'kode_material' => $rowData[$row]['D'],
-                    'deskripsi_material' => $rowData[$row]['E'],
-                    'quantity' => $rowData[$row]['F'],
-                    'satuan' => $rowData[$row]['G'],
-                    'batch' => $rowData[$row]['H'],
-                    'kadaluarsa' => $rowData[$row]['I'],
-                    'tanggal_produksi' => $rowData[$row]['J'],
-                ];
+                
+                if($rowData[$row]['B'] == $nomor_po) {
 
-                $excel_data[] = $rows;
+                    $rows       = [
+                        'id' => $rowData[$row]['A'],
+                        'nomor_po' => $rowData[$row]['B'],
+                        'item_po' => $rowData[$row]['C'],
+                        'kode_material' => $rowData[$row]['D'],
+                        'deskripsi_material' => $rowData[$row]['E'],
+                        'quantity' => $rowData[$row]['F'],
+                        'satuan' => $rowData[$row]['G'],
+                        'batch' => $rowData[$row]['H'],
+                        'kadaluarsa' => $rowData[$row]['I'],
+                        'tanggal_produksi' => $rowData[$row]['J'],
+                    ];
+    
+                    $excel_data[] = $rows;
+
+                } else {
+
+                    $response   = [
+                        'code'      => 200,
+                        'msg'       => 'Data Nomor PO tidak sesuai',
+                        'status'    => 'error'
+                    ];
+
+                    unlink($path . '/' . $file_data['orig_name']);
+                    echo json_encode($response, JSON_PRETTY_PRINT);
+                    exit;
+                }
             }
 
-            $data['data'] = $excel_data;
+            $response   = [
+                'code'      => 0,
+                'msg'       => 'SUCCESS',
+                'status'    => 'success',
+                'data'      => $excel_data
+            ];
         }
 
         unlink($path . '/' . $file_data['orig_name']);
-        echo json_encode($data, JSON_PRETTY_PRINT);
+        echo json_encode($response, JSON_PRETTY_PRINT);
         exit;
     }
 
+    /**
+     * Save batch data into DB
+     *
+     * @return void
+     */
     public function save_batch()
     {
         $nomor_po       = $this->crypto->decode($this->input->post('po_no'));
         $upload_data    = json_decode($this->input->post('upload_data'), TRUE);
+        $po_data        = $this->po_status->getPODetail($nomor_po);
         
-        foreach($upload_data as $row) {
-            $row['kadaluarsa']          = date('Y-m-d', strtotime($row['kadaluarsa']));
-            $row['tanggal_produksi']    = date('Y-m-d', strtotime($row['tanggal_produksi']));
+        foreach($upload_data as $key => $value) {
+            foreach($value as $valKey => $val) {
+                if($valKey == 'id') {
+                    unset($upload_data[$key][$valKey]);
+                }
+            }
         }
 
-        $save   = $this->po_status->insertBatch($upload_data);
-        if($save > 0) {
+        $getPOBatchData = $this->po_status->getPOBatch($nomor_po);
+        if($getPOBatchData->num_rows() > 0) {
 
-            $response = array(
-                'code'      => 0,
-                'msg'       => 'Berhasil menyimpan data',
-                'status'    => 'success'
-            );
+            $po_batch   = $getPOBatchData->result();
 
         } else {
 
-            $response = array(
-                'code'      => 100,
-                'msg'       => 'Gagal menyimpan data',
-                'status'    => 'error'
-            );
+            $save   = $this->po_status->insertBatch($upload_data);
+            if($save > 0) {
 
+                $response = array(
+                    'code'      => 0,
+                    'msg'       => 'Berhasil menyimpan data',
+                    'status'    => 'success'
+                );
+
+            } else {
+
+                $response = array(
+                    'code'      => 100,
+                    'msg'       => 'Gagal menyimpan data',
+                    'status'    => 'error'
+                );
+
+            }
+            
         }
 
         echo json_encode($response, JSON_PRETTY_PRINT);
