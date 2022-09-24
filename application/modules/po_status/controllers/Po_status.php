@@ -294,7 +294,7 @@ class Po_Status extends CI_Controller {
                         'short_text' => $rowData[$row]['E'],
                         'unit' => $rowData[$row]['G'],
                     ];
-                    
+
                     $getPOItem = $this->po_status->getPODetailItem($paramItem);
                     if($getPOItem->num_rows() > 0) {
 
@@ -317,9 +317,11 @@ class Po_Status extends CI_Controller {
                             $total_qty = 0;
                             foreach($excel_data as $agg) {
                                 if($rowData[$row]['D'] == $agg['kode_material']) {
-                                    $total_qty = (int)$agg['quantity'] + (int)$rowData[$row]['F'];
+                                    $total_qty = $total_qty + (int)$agg['quantity'];
                                 }
                             }
+
+                            $total_qty = $total_qty + (int)$rowData[$row]['F'];
                             
                             if($total_qty > (int)$POItem->jumlah) {
 
