@@ -311,6 +311,11 @@ class Po_Status extends CI_Controller {
                             'batch' => $rowData[$row]['H'],
                             'kadaluarsa' => $rowData[$row]['I'],
                             'tanggal_produksi' => $rowData[$row]['J'],
+
+                            'temp_quantity' => $rowData[$row]['F'],
+                            'status_receipt' => NULL,
+                            'modified_date' => date('Y-m-d'),
+                            'modified_by' => $this->session->userdata('kode_vendor')
                         ];
 
                         if(count($excel_data) > 0) {
@@ -365,7 +370,7 @@ class Po_Status extends CI_Controller {
 
                     $response   = [
                         'code'      => 200,
-                        'msg'       => 'Data Nomor PO tidak sesuai',
+                        'msg'       => 'Data  yang di Upload tidak sesuai, silahkan untuk dicek kembali.',
                         'status'    => 'error'
                     ];
 
