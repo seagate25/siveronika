@@ -365,7 +365,7 @@ class Po_Status extends CI_Controller {
 
                     $response   = [
                         'code'      => 200,
-                        'msg'       => 'Data Nomor PO tidak sesuai',
+                        'msg'       => 'Data  yang di Upload tidak sesuai, silahkan untuk dicek kembali.',
                         'status'    => 'error'
                     ];
 
