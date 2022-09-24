@@ -284,52 +284,60 @@ class Po_Status extends CI_Controller {
             
             for ($row = 4; $row <= $highestRow; ++$row) {
                 $rowData    = $spreadsheet->getActiveSheet()->rangeToArray('A' . $row . ':' . $highestColumn . $highestRow,NULL,TRUE,TRUE,TRUE);
-                
-                $paramItem  = [
-                    'nomor_po' => $rowData[$row]['B'],
-                    'item' => $rowData[$row]['C'],
-                    'kode_barang' => $rowData[$row]['D'],
-                    'short_text' => $rowData[$row]['E'],
-                    'unit' => $rowData[$row]['G'],
-                ];
 
-                $getPOItem = $this->po_status->getPODetailItem($paramItem);
-                if($getPOItem->num_rows() > 0) {
+                if($rowData[$row]['B'] == $nomor_po) {
 
-                    $POItem = $getPOItem->row();
-
-                    $rows   = [
-                        'id' => $rowData[$row]['A'],
+                    $paramItem  = [
                         'nomor_po' => $rowData[$row]['B'],
-                        'item_po' => $rowData[$row]['C'],
-                        'kode_material' => $rowData[$row]['D'],
-                        'deskripsi_material' => $rowData[$row]['E'],
-                        'quantity' => $rowData[$row]['F'],
-                        'satuan' => $rowData[$row]['G'],
-                        'batch' => $rowData[$row]['H'],
-                        'kadaluarsa' => $rowData[$row]['I'],
-                        'tanggal_produksi' => $rowData[$row]['J'],
+                        'item' => $rowData[$row]['C'],
+                        'kode_barang' => $rowData[$row]['D'],
+                        'short_text' => $rowData[$row]['E'],
+                        'unit' => $rowData[$row]['G'],
                     ];
+                    
+                    $getPOItem = $this->po_status->getPODetailItem($paramItem);
+                    if($getPOItem->num_rows() > 0) {
 
-                    if(count($excel_data) > 0) {
-                        $total_qty = 0;
-                        foreach($excel_data as $agg) {
-                            if($rowData[$row]['D'] == $agg['kode_material']) {
-                                $total_qty = (int)$agg['quantity'] + (int)$rowData[$row]['F'];
+                        $POItem = $getPOItem->row();
+
+                        $rows   = [
+                            'id' => $rowData[$row]['A'],
+                            'nomor_po' => $rowData[$row]['B'],
+                            'item_po' => $rowData[$row]['C'],
+                            'kode_material' => $rowData[$row]['D'],
+                            'deskripsi_material' => $rowData[$row]['E'],
+                            'quantity' => $rowData[$row]['F'],
+                            'satuan' => $rowData[$row]['G'],
+                            'batch' => $rowData[$row]['H'],
+                            'kadaluarsa' => $rowData[$row]['I'],
+                            'tanggal_produksi' => $rowData[$row]['J'],
+                        ];
+
+                        if(count($excel_data) > 0) {
+                            $total_qty = 0;
+                            foreach($excel_data as $agg) {
+                                if($rowData[$row]['D'] == $agg['kode_material']) {
+                                    $total_qty = (int)$agg['quantity'] + (int)$rowData[$row]['F'];
+                                }
                             }
-                        }
-                        
-                        if($total_qty > (int)$POItem->jumlah) {
+                            
+                            if($total_qty > (int)$POItem->jumlah) {
 
-                            $response   = [
-                                'code'      => 100,
-                                'msg'       => 'Jumlah quantity Item Code ' . $rowData[$row]['D'] . ' melebihi quantity detail.',
-                                'status'    => 'error'
-                            ];
-        
-                            unlink($path . '/' . $file_data['orig_name']);
-                            echo json_encode($response, JSON_PRETTY_PRINT);
-                            exit;
+                                $response   = [
+                                    'code'      => 100,
+                                    'msg'       => 'Jumlah quantity Item Code ' . $rowData[$row]['D'] . ' melebihi quantity detail.',
+                                    'status'    => 'error'
+                                ];
+            
+                                unlink($path . '/' . $file_data['orig_name']);
+                                echo json_encode($response, JSON_PRETTY_PRINT);
+                                exit;
+
+                            } else {
+
+                                $excel_data[] = $rows;
+
+                            }
 
                         } else {
 
@@ -339,7 +347,15 @@ class Po_Status extends CI_Controller {
 
                     } else {
 
-                        $excel_data[] = $rows;
+                        $response   = [
+                            'code'      => 200,
+                            'msg'       => 'Data tidak sesuai. Periksa kembali data No. PO, Item, Item Code, Description, dan UoM.',
+                            'status'    => 'error'
+                        ];
+
+                        unlink($path . '/' . $file_data['orig_name']);
+                        echo json_encode($response, JSON_PRETTY_PRINT);
+                        exit;
 
                     }
 
