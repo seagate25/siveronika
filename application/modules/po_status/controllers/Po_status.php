@@ -306,14 +306,13 @@ class Po_Status extends CI_Controller {
                             'item_po' => $rowData[$row]['C'],
                             'kode_material' => $rowData[$row]['D'],
                             'deskripsi_material' => $rowData[$row]['E'],
-                            'quantity' => $rowData[$row]['F'],
+                            'quantity' => (float)$rowData[$row]['F'],
                             'satuan' => $rowData[$row]['G'],
                             'batch' => $rowData[$row]['H'],
                             'kadaluarsa' => $rowData[$row]['I'],
                             'tanggal_produksi' => $rowData[$row]['J'],
-
-                            'temp_quantity' => $rowData[$row]['F'],
-                            'status_receipt' => NULL,
+                            'temp_quantity' => (float)$rowData[$row]['F'],
+                            'status_receipt' => 'NULL',
                             'modified_date' => date('Y-m-d'),
                             'modified_by' => $this->session->userdata('kode_vendor')
                         ];
@@ -322,13 +321,13 @@ class Po_Status extends CI_Controller {
                             $total_qty = 0;
                             foreach($excel_data as $agg) {
                                 if($rowData[$row]['D'] == $agg['kode_material']) {
-                                    $total_qty = $total_qty + (int)$agg['quantity'];
+                                    $total_qty = $total_qty + (float)$agg['quantity'];
                                 }
                             }
 
-                            $total_qty = $total_qty + (int)$rowData[$row]['F'];
+                            $total_qty = $total_qty + (float)$rowData[$row]['F'];
                             
-                            if($total_qty > (int)$POItem->jumlah) {
+                            if($total_qty > (float)$POItem->jumlah) {
 
                                 $response   = [
                                     'code'      => 100,
@@ -448,6 +447,14 @@ class Po_Status extends CI_Controller {
         if($getPOBatchData->num_rows() > 0) {
 
             $po_batch   = $getPOBatchData->result();
+            foreach($upload_data as $key => $value) {
+                if($value['batch'] == $po_batch[$key]->batch) {
+                    $data_update = [
+                        'kadaluarsa' => $value['kadaluarsa'],
+                        'tanggal_produksi' => $value['tanggal_produksi']
+                    ];
+                }
+            }
 
         } else {
 
