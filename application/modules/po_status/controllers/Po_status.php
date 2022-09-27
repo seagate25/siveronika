@@ -434,6 +434,7 @@ class Po_Status extends CI_Controller {
         $nomor_po       = $this->crypto->decode($this->input->post('po_no'));
         $upload_data    = json_decode($this->input->post('upload_data'), TRUE);
         $po_data        = $this->po_status->getPODetail($nomor_po);
+        $arrayBatch     = array();
         
         foreach($upload_data as $key => $value) {
             foreach($value as $valKey => $val) {
@@ -450,11 +451,30 @@ class Po_Status extends CI_Controller {
             foreach($upload_data as $key => $value) {
                 if($value['batch'] == $po_batch[$key]->batch) {
                     $data_update = [
-                        'kadaluarsa' => $value['kadaluarsa'],
-                        'tanggal_produksi' => $value['tanggal_produksi']
+                        'kadaluarsa' => (!empty($value['kadaluarsa'])) ? $value['kadaluarsa'] : 'NULL',
+                        'tanggal_produksi' => (!empty($value['tanggal_produksi'])) ? $value['tanggal_produksi'] : 'NULL'
                     ];
+
+                    $params_update = ['batch' => $value['batch']];
+
+                    $this->po_status->updateBatch($params_update, $data_update);
+
+                } else {
+
+                    $arrayBatch[] = $upload_data[$key];
+
                 }
             }
+
+            if(count($arrayBatch) > 0) {
+                $save   = $this->po_status->insertBatch($arrayBatch);
+            }
+
+            $response = array(
+                'code'      => 0,
+                'msg'       => 'Berhasil menyimpan data',
+                'status'    => 'success'
+            );
 
         } else {
 

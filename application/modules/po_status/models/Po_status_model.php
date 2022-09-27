@@ -199,6 +199,16 @@ class Po_status_model extends CI_Model {
 
         return $query;
     }
+
+    public function updateBatch($params = array(), $data = array())
+    {
+        $data['modified_date']  = $this->timestamps;
+        $data['modified_by']    = $this->vendor;
+
+        $query = $this->global->update($this->table['batch'], $params, $data);
+
+        return $query;
+    }
 }
 
 /* End of file Po_status_model.php */
