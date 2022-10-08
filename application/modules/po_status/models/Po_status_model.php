@@ -10,7 +10,8 @@ class Po_status_model extends CI_Model {
      * [
      *      'head'      => 'TB_S_TR_PO_HEAD'
      *      'detail'    => 'TB_S_TR_PO_DTL',
-     *      'batch'     => 'TB_S_TR_BATCH'
+     *      'batch'     => 'TB_S_TR_BATCH',
+     *      'attach'    => 'TB_S_TR_PO_LAMPIRAN'
      * ]
      *
      * @var array
@@ -37,7 +38,8 @@ class Po_status_model extends CI_Model {
         $this->table = [
             'head'      => 'TB_S_TR_PO_HEAD',
             'detail'    => 'TB_S_TR_PO_DTL',
-            'batch'     => 'TB_S_TR_BATCH'
+            'batch'     => 'TB_S_TR_BATCH',
+            'attach'    => 'TB_S_TR_PO_LAMPIRAN'
         ];
         $this->vendor = $this->session->userdata('kode_vendor');
         $this->timestamps = date('Y-m-d H:i:s');
@@ -110,16 +112,27 @@ class Po_status_model extends CI_Model {
                 $row->po_no             = $row->nomor_po;
             }
 
-            if(strpos(json_encode($scan_po_files), $row->nomor_po.'_') !== FALSE) {
-                $link_attachment_po     = site_url('po_status/download/detail/'.$this->crypto->encode($row->nomor_po));
+            // if(strpos(json_encode($scan_po_files), $row->nomor_po.'_') !== FALSE) {
+            //     $link_attachment_po     = site_url('po_status/download/detail/'.$this->crypto->encode($row->nomor_po));
+            // } else {
+            //     $link_attachment_po     = '#';
+            // }
+
+            $attachmentFiles    = $this->getPOAttachment(['nomor_po' => $row->nomor_po]);
+            if($attachmentFiles->num_rows() > 0) {
+                $row->attachment_po         = '<a href="' . site_url('po_status/download/detail/'.$this->crypto->encode($row->nomor_po)) . '" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
+                                                <i class="fas fa-download text-white"></i>
+                                            </a>';
             } else {
-                $link_attachment_po     = '#';
+                $row->attachment_po         = '<button disabled class="btn btn-icon btn-sm btn-primary me-2 mb-2">
+                                                <i class="fas fa-download text-white"></i>
+                                            </button>';
             }
 
             $row->number                = $i;
-            $row->attachment_po         = '<a href="' . $link_attachment_po . '" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                                                <i class="fas fa-download text-white"></i>
-                                            </a>';
+            // $row->attachment_po         = '<a href="' . $link_attachment_po . '" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
+            //                                     <i class="fas fa-download text-white"></i>
+            //                                 </a>';
             $row->template              = '<a href="'. site_url('po_status/download/template/'.$this->crypto->encode($row->nomor_po)) .'" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
                                                 <i class="fas fa-download text-white"></i>
                                             </a>';
@@ -200,12 +213,32 @@ class Po_status_model extends CI_Model {
         return $query;
     }
 
+    /**
+     * Update Batch Data
+     *
+     * @param array $params
+     * @param array $data
+     * @return void
+     */
     public function updateBatch($params = array(), $data = array())
     {
         $data['modified_date']  = $this->timestamps;
         $data['modified_by']    = $this->vendor;
 
         $query = $this->global->update($this->table['batch'], $params, $data);
+
+        return $query;
+    }
+
+    /**
+     * Get PO Attachment File
+     *
+     * @param array $params
+     * @return Object
+     */
+    public function getPOAttachment($params = array())
+    {
+        $query = $this->global->get_by($this->table['attach'], $params);
 
         return $query;
     }
