@@ -72,21 +72,35 @@ class Po_Status extends CI_Controller {
 
         } else if($type === 'detail') {
 
-            $filename   = $nomor_po . '_';
-            if(strpos(json_encode($scan), $filename) !== FALSE) {
-                foreach($scan as $file) {
-                    if(strpos($file, $filename) !== FALSE) {
-                        $file_path = $dir. '/' . $file;
-                        $this->zip->read_file($file_path);
-                    }
+            $po_attachment = $this->po_status->getPOAttachment(['nomor_po' => $nomor_po]);
+            if($po_attachment->num_rows() > 0) {
+                
+                foreach($po_attachment->result() as $file) {
+                    $file_path = $dir . '/' . $file->nama_berkas;
+                    $this->zip->read_file($file_path);
                 }
 
-                // $this->zip->archive($dir .'/'. $nomor_po . '.zip');
                 $this->zip->download($nomor_po . '.zip');
+
             } else {
-                var_dump(FALSE);
+
             }
-            exit;
+
+            // $filename   = $nomor_po . '_';
+            // if(strpos(json_encode($scan), $filename) !== FALSE) {
+            //     foreach($scan as $file) {
+            //         if(strpos($file, $filename) !== FALSE) {
+            //             $file_path = $dir. '/' . $file;
+            //             $this->zip->read_file($file_path);
+            //         }
+            //     }
+
+            //     // $this->zip->archive($dir .'/'. $nomor_po . '.zip');
+            //     $this->zip->download($nomor_po . '.zip');
+            // } else {
+            //     var_dump(FALSE);
+            // }
+            // exit;
 
         } else if($type === 'template') {
 
