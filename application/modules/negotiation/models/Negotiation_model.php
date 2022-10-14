@@ -249,7 +249,10 @@ class Negotiation_model extends CI_Model {
     }
 
     public function updateNegoRfq($params = array(), $data = array())
-    {
+    {   
+        $data['modified_date']  = $this->timestamps;
+        $data['modified_by']    = 'WEB';
+
         $result = $this->global->update($this->table['detail'], $params, $data);
 
         return $result;
@@ -257,6 +260,9 @@ class Negotiation_model extends CI_Model {
 
     public function updateNegoRfqEqiv($params = array(), $data = array())
     {
+        $data['modified_date']  = $this->timestamps;
+        $data['modified_by']    = 'WEB';
+        
         $result = $this->global->update($this->table['eqiv'], $params, $data);
 
         return $result;
