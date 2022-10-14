@@ -1361,15 +1361,16 @@ var KTModalForm = (function() {
                                         callback: function(input) {
                                             const inputHargaSatuan = f_det_nego.querySelector('[name="harga_satuan"]');
                                             // const convertion = selectedCheckbox ? selectedCheckbox.value : '';
-
-                                            return (parseFloat(input.value) < parseFloat(inputHargaSatuan.value))
+                                            console.log(input.value.replace(/[.]/g, ''));
+                                            console.log(inputHargaSatuan.value.replace(/[.]/g, ""));
+                                            return (parseFloat(input.value.replace(/[.]/g, '')) < parseFloat(inputHargaSatuan.value.replace(/[.]/g, "")))
                                                 // The field is valid if user picks
                                                 // a given convertion from the list
                                                 ?
                                                 true
                                                 // Otherwise, the field value is required
                                                 :
-                                                (parseFloat(input.value) <= parseFloat(inputHargaSatuan.value));
+                                                (parseFloat(input.value.replace(/[.]/g, '')) <= parseFloat(inputHargaSatuan.value.replace(/[.]/g, "")));
                                         }
                                     }
                                 }
