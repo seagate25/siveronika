@@ -1222,7 +1222,11 @@ var KTDataTables = (function() {
 
                                 // Get inputs name
                                 var $name = element.getAttribute('name');
-                                var element_name = $name.replace('_eqiv', '');
+                                console.log($name);
+                                if($name !== null) {
+                                    var element_name = $name.replace('_eqiv', '');
+                                    console.log(element_name);
+                                }
 
                                 // Check if element has object in DataTables data row
                                 if(data.hasOwnProperty(element_name)) {

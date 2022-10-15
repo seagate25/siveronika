@@ -176,12 +176,17 @@ class Negotiation extends CI_Controller {
 
             $data       = $result->row();
 
+            unset($params['nomor_rfq']);
+            $params['nomor_quotation'] = $nomor_rfq;
+
             $get_files  = $this->nego->getUploadedFiles($params);
             if($get_files->num_rows() > 0) {
                 $files  = $get_files->result();
                 foreach ($files as $res) {
                     $res->nama_berkas = $this->crypto->encode($res->nama_berkas);
                 }
+            } else {
+                $files = [];
             }
 
             $response   = array(
