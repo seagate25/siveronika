@@ -83,7 +83,7 @@ class Po_status_model extends CI_Model {
 
         $sql        = "SELECT 
                             nomor_po, tanggal_document, tanggal_dibuat, jatuh_tempo, modified_date, modified_by
-                        FROM {$this->table['head']}";
+                        FROM {$this->table['head']}{$where}";
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
