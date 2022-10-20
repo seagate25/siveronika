@@ -2,8 +2,8 @@
     <div class="card-header bg-success">
         <h3 class="card-title text-white"><?php echo $title; ?></h3>
         <div class="card-toolbar">
-            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
-            <i class="las la-sync fs-1"></i>
+            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2" onclick="return KTDataTables.init();">
+                <i class="las la-sync fs-1 text-success"></i>
             </button>
         </div>
     </div>
@@ -20,60 +20,6 @@
                     <th class="min-w-50px text-center">Aksi</th>
                 </tr>
             </thead>
-            <tbody class="text-gray-600 fw-bold">
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">6200272804</td>
-                    <td class="text-center">-</td>
-                    <td class="text-center">19.01.2022</td>
-                    <td class="text-center">26.01.2022</td>
-                    <td class="text-center">7 Hari</td>
-                    <td class="text-center">
-                        <a href="<?php echo site_url('history/det_nego_rfq_goods/6200272804');?>" class="btn btn-icon btn-sm btn-success me-2 mb-2">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">2</td>
-                    <td class="text-center">6300272804</td>
-                    <td class="text-center">-</td>
-                    <td class="text-center">20.01.2022</td>
-                    <td class="text-center">27.01.2022</td>
-                    <td class="text-center">6 Hari</td>
-                    <td class="text-center">
-                        <a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">3</td>
-                    <td class="text-center">6400272804</td>
-                    <td class="text-center">-</td>
-                    <td class="text-center">21.01.2022</td>
-                    <td class="text-center">28.01.2022</td>
-                    <td class="text-center">7 Hari</td>
-                    <td class="text-center">
-                        <a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">4</td>
-                    <td class="text-center">6700272804</td>
-                    <td class="text-center">-</td>
-                    <td class="text-center">25.01.2022</td>
-                    <td class="text-center">01.02.2022</td>
-                    <td class="text-center">5 Hari</td>
-                    <td class="text-center">
-                        <a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
         </table>
     </div>
 </div>
@@ -84,7 +30,50 @@ var KTDataTables = (function() {
     var e;
     return {
         init: function() {
-            e = $("#kt_datatable_example_1").DataTable();
+            e = $("#kt_datatable_example_1").DataTable({
+                processing:!0, 
+                serverSide:!0,
+                destroy: !0,
+                // responsive: !0,
+                // scrollY: "500px",
+                scrollX: !0,
+                // scrollCollapse: !0,
+                dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
+                // fixedHeader:    true,
+                // fixedColumns:   {
+                //     heightMatch: 'none',
+                //     leftColumns: 1,
+                //     rightColumns: 0
+                // },
+                paging: !0,
+                ordering: !0,
+                searching: !0,
+                ajax: {
+                    type: "POST",
+                    url: "<?php echo site_url('history/nego_rfq_goods');?>"
+                },
+                columns: [
+                    { data: 'number', className: 'text-center', sortable: false, searchable: false, orderable: false, 
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { data: 'nomor_rfq', className: 'text-center' },
+                    { data: 'berkas', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                    { data: 'tanggal_rfq', className: 'text-center' },
+                    { data: 'tanggal_jatuh_tempo', className: 'text-center' },
+                    { data: 'sisa_hari', className: 'text-center' },
+                    { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
+                ],
+                lengthMenu: [
+                        [5, 10, 15, 25, -1],
+                        [5, 10, 15, 25, "All"]
+                    ],
+                pageLength: 10,
+                order: [1, 'ASC']
+            });
         }
     };
 })();

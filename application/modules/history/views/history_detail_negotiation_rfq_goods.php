@@ -1,9 +1,15 @@
+<script src="<?php echo base_url(); ?>assets/plugins/custom/jquery-maskMoney/jquery.maskMoney.js"></script>
 <div class="card shadow-sm">
     <div class="card-header bg-success">
+        <div class="card-toolbar">
+            <a href="<?php echo site_url('history/nego_rfq_goods'); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
+                <i class="las la-arrow-left fs-1 text-success"></i>
+            </a>
+        </div>
         <h3 class="card-title text-white"><?php echo $title; ?></h3>
         <div class="card-toolbar">
-            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
-            <i class="las la-sync fs-1"></i>
+            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2" onclick="return KTDataTables.init();">
+                <i class="las la-sync fs-1 text-success"></i>
             </button>
         </div>
     </div>
@@ -21,89 +27,6 @@
                     <th class="min-w-150px text-center">Harga Permintaan Ekuivalen</th>
                 </tr>
             </thead>
-            <tbody class="text-gray-600 fw-bold">
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">7013165</td>
-                    <td class="text-center">BAYGON CAIR @1L/KG</td>
-                    <td class="text-center">30</td>
-                    <td class="text-center">KG</td>
-                    <td class="text-center">Sudah Diisi</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
-                            1
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            2
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            3
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            4
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">2</td>
-                    <td class="text-center">7013165</td>
-                    <td class="text-center">BAYGON CAIR @1L/KG</td>
-                    <td class="text-center">30</td>
-                    <td class="text-center">KG</td>
-                    <td class="text-center">Sudah Diisi</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            1
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            2
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            3
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            4
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">3</td>
-                    <td class="text-center">7013165</td>
-                    <td class="text-center">BAYGON CAIR @1L/KG</td>
-                    <td class="text-center">30</td>
-                    <td class="text-center">KG</td>
-                    <td class="text-center">Sudah Diisi</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </button>
-                    </td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            1
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            2
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            3
-                        </button>
-                        <button type="button" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-                            4
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
         </table>
     </div>
 </div>
@@ -143,7 +66,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="request_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan" value="7013165">
+                                <input type="text" name="request_total" class="form-control form-control-solid" readonly="true" placeholder="Kode Material">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -155,7 +78,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="text" name="measurement" class="form-control form-control-solid" readonly="true" placeholder="Satuan" value="BAYGON CAIR @1L/KLG">
+                                <input type="text" name="measurement" class="form-control form-control-solid" readonly="true" placeholder="Nama Material">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -167,7 +90,7 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <input type="number" name="available_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Tersedia" value="30">
+                                <input type="number" name="available_total" class="form-control form-control-solid" readonly="true" placeholder="Jumlah Permintaan">
                             <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             <!--end::Col-->
                         </div>
@@ -449,13 +372,237 @@
 "use strict";
 
 var KTDataTables = (function() {
-    var e;
-    return {
-        init: function() {
-            e = $("#kt_datatable_example_1").DataTable();
-        }
-    };
-})();
+        var e;
+        var target = document.querySelector("#kt_modal_det_rfq_goods_ekuivalen .modal-content");
+        var blockUI = new KTBlockUI(target);
+        return {
+            init: function() {
+                e = $("#kt_datatable_detail_rfq_goods").DataTable({
+                        processing: !0,
+                        serverSide: !0,
+                        destroy: !0,
+                        scrollX: !0,
+                        dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
+                            "<'row'<'col-sm-12'tr>>" +
+                            "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
+                        paging: !0,
+                        ordering: !0,
+                        searching: !0,
+                        ajax: {
+                            type: "POST",
+                            url: "<?php echo site_url('history/det_nego_rfq_goods/' . $this->uri->segment(3)); ?>"
+                        },
+                        columns: [{
+                                data: 'number',
+                                className: 'text-center',
+                                sortable: false,
+                                searchable: false,
+                                orderable: false,
+                                render: function(data, type, row, meta) {
+                                    return meta.row + meta.settings._iDisplayStart + 1;
+                                }
+                            },
+                            {
+                                data: 'kode_barang',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'deskripsi_barang',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'jumlah_permintaan',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'satuan',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'status',
+                                className: 'text-center'
+                            },
+                            {
+                                data: 'actions',
+                                className: 'text-center',
+                                sortable: false,
+                                searchable: false,
+                                orderable: false
+                            },
+                            {
+                                data: 'actions_equivalen',
+                                className: 'text-center',
+                                sortable: false,
+                                searchable: false,
+                                orderable: false
+                            }
+                        ],
+                        lengthMenu: [
+                            [5, 10, 15, 25, -1],
+                            [5, 10, 15, 25, "All"]
+                        ],
+                        pageLength: 10,
+                        order: [1, 'ASC']
+                    }),
+                    $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.rfq_form', function() {
+                        var data = e.row($(this).parents('tr')).data();
+                        $("#kt_modal_det_rfq_goods h4 span#txt_rfq_no").text(data.nomor_rfq);
+                        $("#kt_modal_det_rfq_goods h4 span#txt_material_code").text(data.kode_barang);
+                        $("input[name=id_rfq]").val('<?php echo $this->uri->segment(3); ?>');
+                        $("input[name=unit_price]").maskMoney('mask', data.harga_satuan);
+                        $("input[name=material_code]").val(data.kode_barang);
+                        $("input[name=material_name]").val(data.deskripsi_barang);
+                        $("input[name=request_total]").val(data.jumlah_permintaan);
+                        $("input[name=measurement]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
+                        // if($('input[name="convert"]:checked').val() == 0) {
+                        //     $("#form_convertion").hide();
+                        // } else {
+                        //     $("#form_convertion").show();
+                        // }
+
+                        // if(data.modified_date != null && data.modified_by != null) {
+                        //     $("input[name=currency]").val(data.mata_uang);
+                        //     $("input[name=unit_measure]").val(data.per_harga_satuan);
+                        //     $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
+                        //     if($('input[name="convert"]:checked').val() == 0) {
+                        //         $("#form_convertion").hide();
+                        //     } else {
+                        //         $("#form_convertion").show();
+                        //     }
+                        //     $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
+                        //     $("input[name=ed_price]").val(data.masa_berlaku_harga);
+                        //     $("input[name=notes]").val(data.keterangan);
+                        //     $("input[name=created_by]").val(data.dibuat_oleh);
+                        // }
+
+                        // Last Modify (2022-07-04)
+                        $("input[name=currency]").val(data.mata_uang);
+                        $("input[name=unit_measure]").val(data.per_harga_satuan);
+                        $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
+                        if ($('input[name="convert"]:checked').val() == 0) {
+                            $("#form_convertion").hide();
+                        } else {
+                            $("#form_convertion").show();
+                            $("input[name=convertion_qty]").val(parseInt(data.jumlah_konversi));
+                            $("input[name=convertion_measure]").val(data.per_harga_satuan);
+                        }
+                        $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
+                        $("input[name=ed_price]").val(data.masa_berlaku_harga);
+                        $("textarea[name=notes]").val(data.keterangan);
+                        $("input[name=created_by]").val(data.dibuat_oleh);
+
+                        if (data.modified_date != null && data.modified_by != null) {
+                            $.ajax({
+                                type: "POST",
+                                url: "<?php echo site_url('history/get_files'); ?>",
+                                data: {
+                                    val_1: '<?php echo $this->uri->segment(3); ?>',
+                                    val_2: 0
+                                },
+                                success: function(response) {
+                                    var obj = jQuery.parseJSON(response);
+                                    var i_file = '';
+                                    if (obj.code == 0) {
+                                        var uploaded_files = obj.data.length;
+                                        if (uploaded_files > 0) {
+                                            $.each(obj.data, function(index, value) {
+                                                i_file += '<div class="row mb-3">';
+                                                i_file += '<div class="col-lg-8" id="row_' + index + '"><input class="form-control form-control-solid" type="text" disabled value="' + value.nama_berkas_asli + '"></div>';
+                                                i_file += '<div class="col-lg-2" id="link_' + index + '">';
+                                                i_file += '<a href="<?php echo site_url('history/download/'); ?>' + value.nama_berkas + '" class="btn btn-icon btn-sm btn-success me-2"><i class = "fas fa-download"></i></a>';
+                                                i_file += '</div>';
+                                                i_file += '</div>';
+                                            });
+                                        } else {
+                                            i_file += '<div class="row mb-3">';
+                                            i_file += '<div class="col-lg-8" id="row"><input class="form-control form-control-solid" type="text" disabled value="Tidak ada berkas yang diupload"></div>';
+                                            i_file += '</div>';
+                                        }
+                                    } else {
+                                        i_file += '<div class="row mb-3">';
+                                        i_file += '<div class="col-lg-8" id="row"><input class="form-control form-control-solid" type="text" disabled value="Tidak ada berkas yang diupload"></div>';
+                                        i_file += '</div>';
+                                    }
+                                    $("#input_file").html(i_file);
+                                }
+                            });
+                        }
+                    }),
+                    $('#kt_datatable_detail_rfq_goods tbody').on('click', 'button.eqiv_form_1, button.eqiv_form_2, button.eqiv_form_3, button.eqiv_form_4', function() {
+                        blockUI.release();
+
+                        var data = e.row($(this).parents('tr')).data();
+                        var id = $(this).attr('id');
+                        var eqiv_id = id.replace('btn_eqiv_', '');
+
+                        $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_rfq_no_eqiv").text(data.nomor_rfq);
+                        $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_material_code_eqiv").text(data.kode_barang);
+                        $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_seq_eqiv").text(eqiv_id);
+                        $("input[name=id_rfq_eqiv]").val('<?php echo $this->uri->segment(3); ?>');
+                        $("input[name=id_eqiv]").val(eqiv_id);
+                        $("input[name=seq_eqiv]").val(data.urutan_rfq);
+                        $("input[name=material_code_eqiv]").val(data.kode_barang);
+                        $("input[name=material_name_eqiv]").val(data.deskripsi_barang);
+                        $("input[name=request_total_eqiv]").val(data.jumlah_permintaan);
+                        $("input[name=measurement_eqiv]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
+                        $("input[name=r_measurement_eqiv]").val(data.satuan);
+                        $("input[name=desc_measure_eqiv]").val(data.deskripsi_satuan);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo site_url('history/get_det_rfq_eqiv'); ?>",
+                            data: {
+                                val_1: '<?php echo $this->uri->segment(3); ?>',
+                                val_2: eqiv_id
+                            },
+                            beforeSend: function() {
+                                blockUI.block();
+                            },
+                            success: function(response) {
+                                blockUI.release();
+                                var obj = jQuery.parseJSON(response);
+                                if (obj.code == 0) {
+                                    $("input[name=currency_eqiv]").val(obj.data.mata_uang);
+                                    $("input[name=unit_price_eqiv]").maskMoney('mask', parseInt(obj.data.harga_satuan));
+                                    $("input[name=unit_measure_eqiv]").val(obj.data.per_harga_satuan);
+                                    $('input[name="convert_eqiv"][value="' + obj.data.konversi + '"]').prop('checked', true);
+                                    if ($('input[name="convert_eqiv"]:checked').val() == 0) {
+                                        $("#form_convertion_eqiv").hide();
+                                    } else {
+                                        $("#form_convertion_eqiv").show();
+                                        $("input[name=convertion_qty_eqiv]").val(parseInt(obj.data.jumlah_konversi));
+                                        $("input[name=convertion_measure_eqiv]").val(obj.data.satuan_konversi);
+                                    }
+                                    $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
+                                    $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
+                                    $("textarea[name=notes_eqiv]").val(obj.data.keterangan);
+                                    $("input[name=created_by_eqiv]").val(obj.data.dibuat_oleh);
+                                    var i_file = '';
+                                    if (obj.files.length > 0) {
+                                        $.each(obj.files, function(index, value) {
+                                            i_file += '<div class="row mb-3">';
+                                            i_file += '<div class="col-lg-8" id="row_eqiv_' + index + '"><input class="form-control form-control-solid" type="text" disabled value="' + value.nama_berkas_asli + '"></div>';
+                                            i_file += '<div class="col-lg-2" id="link_eqiv_' + index + '">';
+                                            i_file += '<a href="<?php echo site_url('history/download/'); ?>' + value.nama_berkas + '" class="btn btn-icon btn-sm btn-success me-2"><i class = "fas fa-download"></i></a>';
+                                            i_file += '</div>';
+                                            i_file += '</div>';
+                                        });
+                                    } else {
+                                        i_file += '<div class="row mb-3">';
+                                        i_file += '<div class="col-lg-8" id="row_eqiv"><input class="form-control form-control-solid" type="text" disabled value="Tidak ada berkas yang diupload"></div>';
+                                        i_file += '</div>';
+                                    }
+                                    $("#input_file_eqiv").html(i_file);
+                                }
+                            },
+                            error: function() {
+                                blockUI.release();
+                            }
+                        });
+                    });
+            }
+        };
+    })();
 
 KTUtil.onDOMContentLoaded((function() {
     KTDataTables.init();

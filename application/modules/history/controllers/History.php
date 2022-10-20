@@ -53,6 +53,11 @@ class History extends CI_Controller
      */
     public function nego_rfq_goods()
     {
+        if ($this->input->is_ajax_request()) {
+            $rows   = $this->history->getNegoRfqGoodsList();
+            echo json_encode($rows);
+            exit;
+        }
         $data['title']      = "Nego RFQ Barang";
         $data['menu']       = "Riwayat";
         $data['submenu']    = "Nego RFQ Barang";

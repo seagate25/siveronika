@@ -23,9 +23,19 @@ class History_model extends CI_Model
     protected $table_rfq;
 
     /**
-     * Undocumented variable
+     * Declare variable of table name
+     * This variable is array list of table name Nego RFQ
+     * 
+     * [
+     *      0 => 'TB_S_MST_NEGO_BARANG_HEAD',
+     *      1 => 'TB_S_MST_NEGO_BARANG_DTL',
+     *      2 => 'TB_S_MST_NEGO_BARANG_EQIV',
+     *      3 => 'TB_S_MST_NEGO_BIAYA_TAMBAHAN',
+     *      4 => 'TB_S_MST_NEGO_LAMPIRAN_BARANG',
+     *      5 => 'TB_TR_QUOTATION_LAMPIRAN'
+     * ]
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $table_nego;
 
@@ -60,7 +70,7 @@ class History_model extends CI_Model
         parent::__construct();
         $this->load->library('Crypto');
         $this->table_rfq    = ['TB_S_MST_RFQ_BARANG_HEAD', 'TB_S_MST_RFQ_BARANG_DTL', 'TB_S_MST_RFQ_BARANG_EQIV', 'TB_S_MST_RFQ_BIAYA_TAMBAHAN', 'TB_S_MST_RFQ_LAMPIRAN_BARANG', 'TB_TR_QUOTATION_LAMPIRAN'];
-        $this->table_nego   = [''];
+        $this->table_nego   = ['TB_S_MST_NEGO_BARANG_HEAD', 'TB_S_MST_NEGO_BARANG_DTL', 'TB_S_MST_NEGO_BARANG_EQIV', 'TB_S_MST_NEGO_BIAYA_TAMBAHAN', 'TB_S_MST_NEGO_LAMPIRAN_BARANG', 'TB_TR_QUOTATION_LAMPIRAN'];
         $this->vendor_code  = $this->session->userdata('kode_vendor');
         $this->today        = date('Y-m-d');
     }
@@ -132,6 +142,89 @@ class History_model extends CI_Model
             $row->tanggal_rfq           = date('d.M.y', strtotime($row->tanggal_rfq));
             $row->tanggal_jatuh_tempo   = date('d.M.y', strtotime($row->tanggal_jatuh_tempo));
             $row->actions               = '<a href="' . site_url('history/det_rfq_goods/' . $this->crypto->encode($row->nomor_rfq)) . '" class="btn btn-icon btn-sm btn-success me-2 mb-2">
+                                                <i class="fas fa-envelope-open-text"></i>
+                                            </a>';
+            // $row->sisa_hari             = diff_date($row->tanggal_jatuh_tempo)['days']. ' Hari';
+            $row->sisa_hari             = 0 . ' hari';
+
+            $rows[] = $row;
+            $i++;
+        }
+
+        return array(
+            'draw' => $draw,
+            'recordsTotal' => $records_total,
+            'recordsFiltered' => $records_total,
+            'data' => $rows,
+        );
+    }
+
+    /**
+     * Get History Nego RFQ Goods List
+     *
+     * @return array
+     */
+    public function getNegoRfqGoodsList()
+    {
+        $start = $this->input->post('start');
+        $length = $this->input->post('length') != -1 ? $this->input->post('length') : 10;
+        $draw = $this->input->post('draw');
+        $search = $this->input->post('search');
+        $order = $this->input->post('order');
+        $order_column = $order[0]['column'];
+        $order_dir = strtoupper($order[0]['dir']);
+        $field  = array(
+            1 => 'nomor_rfq',
+            3 => 'tanggal_rfq',
+            4 => 'tanggal_jatuh_tempo',
+        );
+
+        $order_column = $field[$order_column];
+        $where = " WHERE (kode_vendor = '{$this->vendor_code}' AND tanggal_jatuh_tempo < '" . date('Y-m-d') . "') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+        if (!empty($search['value'])) {
+            $where .= " AND ";
+            $where .= " (nomor_rfq LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tanggal_rfq LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tanggal_jatuh_tempo LIKE '%" . $search['value'] . "%')";
+        }
+
+        $sql = "SELECT trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung FROM {$this->table_nego[0]} trfq LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq) {$where}";
+        $query = $this->db->query($sql);
+        $records_total = $query->num_rows();
+
+        $sql_   = "SELECT  *
+                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum, 
+                                        trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
+                            FROM      {$this->table_nego[0]} trfq 
+                            LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq)
+                            {$where}
+                            ) AS RowConstrainedResult
+                    WHERE   RowNum > {$start}
+                        AND RowNum < (({$start} + 1) + {$length})
+                    ORDER BY RowNum";
+
+        $query = $this->db->query($sql_);
+        $rows_data = $query->result();
+        $rows = array();
+        $i = (0 + 1);
+
+        foreach ($rows_data as $row) {
+            $berkas = '';
+
+            if ($row->nama_berkas !== NULL) {
+                $berkas =
+                    '<a href="' . base_url('upload_files/Dokumen_RFQ/' . $row->nama_berkas) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
+                                <i class="las la-arrow-down fs-1 text-white"></i>
+                            </a>';
+            } else {
+                $berkas = '';
+            }
+            $row->number                = $i;
+            $row->berkas                = $berkas;
+            $row->nomor_rfq             = $row->nomor_rfq;
+            $row->tanggal_rfq           = date('d.M.y', strtotime($row->tanggal_rfq));
+            $row->tanggal_jatuh_tempo   = date('d.M.y', strtotime($row->tanggal_jatuh_tempo));
+            $row->actions               = '<a href="' . site_url('history/det_nego_rfq_goods/' . $this->crypto->encode($row->nomor_rfq)) . '" class="btn btn-icon btn-sm btn-success me-2 mb-2">
                                                 <i class="fas fa-envelope-open-text"></i>
                                             </a>';
             // $row->sisa_hari             = diff_date($row->tanggal_jatuh_tempo)['days']. ' Hari';
