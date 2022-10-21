@@ -144,8 +144,13 @@ class History extends CI_Controller
      */
     public function det_nego_rfq_goods()
     {
-        $material_code      = $this->uri->segment(3);
-        $data['title']      = "RFQ No : " . $material_code;
+        $rfq_no             = $this->crypto->decode($this->uri->segment(3));
+        if ($this->input->is_ajax_request()) {
+            $rows   = $this->history->getDetNegoRfqGoodsList($rfq_no);
+            echo json_encode($rows);
+            exit;
+        }
+        $data['title']      = "RFQ No : " . $rfq_no;
         $data['menu']       = "Riwayat";
         $data['submenu']    = "Nego RFQ Barang";
         $data['content']    = "history_detail_negotiation_rfq_goods";

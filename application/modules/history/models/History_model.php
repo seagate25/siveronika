@@ -310,16 +310,109 @@ class History_model extends CI_Model
             $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods">
                                             <i class="fas fa-envelope-open-text"></i>
                                         </button>';
-            $row->actions_equivalen     = '<button type="button" class="eqiv_form_1 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_1" ' . $this->enableEqivBtn($row->nomor_rfq, 1) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+            $row->actions_equivalen     = '<button type="button" class="eqiv_form_1 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_1" ' . $this->enableEqivBtn($row->nomor_rfq, 1, 'rfq') . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             1
                                         </button>
-                                        <button type="button" class="eqiv_form_2 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_2" ' . $this->enableEqivBtn($row->nomor_rfq, 2) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_2 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_2" ' . $this->enableEqivBtn($row->nomor_rfq, 2, 'rfq') . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             2
                                         </button>
-                                        <button type="button" class="eqiv_form_3 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_3" ' . $this->enableEqivBtn($row->nomor_rfq, 3) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_3 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_3" ' . $this->enableEqivBtn($row->nomor_rfq, 3, 'rfq') . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
                                             3
                                         </button>
-                                        <button type="button" class="eqiv_form_4 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_4" ' . $this->enableEqivBtn($row->nomor_rfq, 4) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_4 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_4" ' . $this->enableEqivBtn($row->nomor_rfq, 4, 'rfq') . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods_ekuivalen">
+                                            4
+                                        </button>';
+
+            $rows[] = $row;
+            $i++;
+        }
+
+        return array(
+            'draw' => $draw,
+            'recordsTotal' => $records_total,
+            'recordsFiltered' => $records_total,
+            'data' => $rows,
+        );
+    }
+
+    /**
+     * Get Detail Nego RFQ Goods List
+     *
+     * @param string $rfq_no
+     * @return void
+     */
+    public function getDetNegoRfqGoodsList($rfq_no = '')
+    {
+        $start = $this->input->post('start');
+        $length = $this->input->post('length') != -1 ? $this->input->post('length') : 10;
+        $draw = $this->input->post('draw');
+        $search = $this->input->post('search');
+        $order = $this->input->post('order');
+        $order_column = $order[0]['column'];
+        $order_dir = strtoupper($order[0]['dir']);
+        $field  = array(
+            1 => 'kode_barang',
+            2 => 'deskripsi_barang',
+            3 => 'jumlah_permintaan',
+            4 => 'satuan'
+        );
+
+        $order_column = $field[$order_column];
+        $where = " WHERE (nomor_rfq = '{$rfq_no}') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+        if (!empty($search['value'])) {
+            $where .= " AND ";
+            $where .= " (kode_barang LIKE '%" . $search['value'] . "%'";
+            $where .= " OR deskripsi_barang LIKE '%" . $search['value'] . "%'";
+            $where .= " OR jumlah_permintaan LIKE '%" . $search['value'] . "%'";
+            $where .= " OR satuan LIKE '%" . $search['value'] . "%')";
+        }
+
+        $sql        = "SELECT * FROM {$this->table_nego[1]}{$where}";
+
+        $query = $this->db->query($sql);
+        $records_total = $query->num_rows();
+
+        $sql_   = "SELECT  *
+                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, *
+                            FROM      {$this->table_nego[1]}
+                            {$where}
+                            ) AS RowConstrainedResult
+                    WHERE   RowNum > {$start}
+                        AND RowNum < (({$start} + 1) + {$length})
+                    ORDER BY RowNum";
+
+        $query = $this->db->query($sql_);
+        $rows_data = $query->result();
+
+        $rows = array();
+        $i = (0 + 1);
+
+        foreach ($rows_data as $row) {
+            $row->number                = $i;
+            $row->kode_barang           = $row->kode_barang;
+            $row->deskripsi_barang      = $row->deskripsi_barang;
+            $row->jumlah_permintaan     = (int)$row->jumlah_permintaan;
+            $row->satuan                = $row->satuan;
+            $row->harga_satuan          = (int)$row->harga_satuan;
+            $row->konversi              = (int)$row->konversi;
+            $row->ketersediaan_barang   = (int)$row->ketersediaan_barang;
+            $row->deskripsi_satuan      = trim($row->deskripsi_satuan);
+            $row->urutan_rfq            = trim($row->urutan_rfq);
+            $row->status                = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
+            $btn_eqiv_1                 = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'disabled' : '';
+            $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods">
+                                            <i class="fas fa-envelope-open-text"></i>
+                                        </button>';
+            $row->actions_equivalen     = '<button type="button" class="eqiv_form_1 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_1" ' . $this->enableEqivBtn($row->nomor_rfq, 1, 'nego') . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+                                            1
+                                        </button>
+                                        <button type="button" class="eqiv_form_2 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_2" ' . $this->enableEqivBtn($row->nomor_rfq, 2, 'nego') . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+                                            2
+                                        </button>
+                                        <button type="button" class="eqiv_form_3 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_3" ' . $this->enableEqivBtn($row->nomor_rfq, 3, 'nego') . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+                                            3
+                                        </button>
+                                        <button type="button" class="eqiv_form_4 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_4" ' . $this->enableEqivBtn($row->nomor_rfq, 4, 'nego') . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
                                             4
                                         </button>';
 
@@ -580,14 +673,19 @@ class History_model extends CI_Model
      * @param integer $equivalen
      * @return void
      */
-    public function enableEqivBtn(string $rfq_no, int $equivalen)
+    public function enableEqivBtn(string $rfq_no, int $equivalen, string $type)
     {
         $enable = 'disabled';
 
         $this->load->model('Global_model', 'global');
 
         $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen);
-        $isEquivalentExists = $this->global->get_by($this->table_rfq[2], $params);
+        if($type == 'rfq') {
+            $isEquivalentExists = $this->global->get_by($this->table_rfq[2], $params);
+        } else {
+            $isEquivalentExists = $this->global->get_by($this->table_nego[2], $params);
+        }
+
         if ($isEquivalentExists->num_rows() > 0) {
             $enable = '';
         }
