@@ -46,7 +46,7 @@ class Rfq_model extends CI_Model
     {
         parent::__construct();
         $this->load->library('Crypto');
-        $this->table        = ['TB_S_MST_RFQ_BARANG_HEAD', 'TB_S_MST_RFQ_BARANG_DTL', 'TB_S_MST_RFQ_BARANG_EQIV', 'TB_S_MST_RFQ_BIAYA_TAMBAHAN', 'TB_S_MST_RFQ_LAMPIRAN_BARANG', 'TB_TR_QUOTATION_LAMPIRAN'];
+        $this->table        = ['TB_S_MST_RFQ_BARANG_HEAD', 'TB_S_MST_RFQ_BARANG_DTL', 'TB_S_MST_RFQ_BARANG_EQIV', 'TB_S_MST_RFQ_BIAYA_TAMBAHAN', 'TB_S_MST_RFQ_LAMPIRAN_BARANG', 'TB_TR_QUOTATION_LAMPIRAN', 'TB_S_MST_SATUAN'];
         $this->vendor_code  = $this->session->userdata('kode_vendor');
         $this->today        = date('Y-m-d');
         $this->load->model('Global_model', 'global');
@@ -189,7 +189,7 @@ class Rfq_model extends CI_Model
 
         // $sql        = "SELECT * FROM {$this->table[1]} trfqd {$where}";
         $sql        = "SELECT trfqd.urutan_rfq, trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
-                            trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+                            trfqd.satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
                             trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
                             trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by,
                             trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden,
@@ -199,9 +199,12 @@ class Rfq_model extends CI_Model
                                 WHEN trfqd.modified_date IS NULL and trfqd.modified_by IS NULL THEN 'Belum Diisi'
                                 ELSE 
                                     'Belum Diisi'
-                            END StatusMaterial
-                        FROM {$this->table[1]} trfqd {$where}
-                        GROUP BY trfqd.urutan_rfq, trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+                            END StatusMaterial,
+                            tuom.deskripsi_satuan
+                        FROM {$this->table[1]} trfqd 
+                        LEFT JOIN {$this->table[6]} tuom ON(tuom.satuan = trfqd.satuan) 
+                        {$where}
+                        GROUP BY trfqd.urutan_rfq, trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.satuan, tuom.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
                         trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
                         trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by, trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden";
 
@@ -211,7 +214,7 @@ class Rfq_model extends CI_Model
         $sql_   = "SELECT  *
         FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, trfqd.urutan_rfq,
                     trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
-                    trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+                    trfqd.satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
                     trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
                     trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by,
                     trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden,
@@ -221,10 +224,12 @@ class Rfq_model extends CI_Model
                         WHEN trfqd.modified_date IS NULL and trfqd.modified_by IS NULL THEN 'Belum Diisi'
                         ELSE 
                             'Belum Diisi'
-                    END StatusMaterial
+                    END StatusMaterial,
+                    tuom.deskripsi_satuan
                 FROM {$this->table[1]} trfqd
+                LEFT JOIN {$this->table[6]} tuom ON(tuom.satuan = trfqd.satuan) 
                 {$where}
-                GROUP BY trfqd.urutan_rfq, trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.satuan, trfqd.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+                GROUP BY trfqd.urutan_rfq, trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.satuan, tuom.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
                 trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
                 trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by, trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden
                 ) AS RowConstrainedResult

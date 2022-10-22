@@ -104,7 +104,7 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Satuan</label>
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">SatuanX</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
@@ -2098,8 +2098,9 @@
             autoApply: true,
             singleDatePicker: true,
             showDropdowns: true,
-            minYear: 1901,
-            maxYear: parseInt(moment().format("YYYY"), 10),
+            minYear: new Date().getFullYear() - 5,
+            //maxYear: parseInt(moment().format("YYYY"), 10),
+            maxYear: new Date().getFullYear() + 5,
             locale: {
                 format: 'YYYY-MM-DD'
             }

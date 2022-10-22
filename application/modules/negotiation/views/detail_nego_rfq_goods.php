@@ -34,7 +34,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" style="min-width:1280px;">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h5 class="modal-title text-white">Pengisian RFQ</h5>
+                <h5 class="modal-title text-white">Pengisian Nego RFQ</h5>
 
                 <!--begin::Close-->
                 <div class="btn btn-icon btn-sm btn-danger ms-2" data-kt-det-nego-rfq-goods-modal-action="close" aria-label="Close">
@@ -1780,8 +1780,9 @@ KTUtil.onDOMContentLoaded((function() {
     $("#kt_daterangepicker_3").daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
-        minYear: 1901,
+        minYear: new Date().getFullYear() - 5,
         maxYear: parseInt(moment().format("YYYY"),10)
+        // maxYear: new Date().getFullYear() + 5
     }, function(start, end, label) {
         var years = moment().diff(start, "years");
         alert("You are " + years + " years old!");

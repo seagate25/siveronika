@@ -34,7 +34,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" style="min-width:1280px;">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h5 class="modal-title text-white">Pengisian RFQ</h5>
+                <h5 class="modal-title text-white">Nego RFQ</h5>
 
                 <!--begin::Close-->
                 <div class="btn btn-icon btn-sm btn-danger ms-2" data-kt-det-nego-rfq-goods-modal-action="close" aria-label="Close">
@@ -395,7 +395,7 @@
                     <button type="reset" id="kt_modal_det_nego_rfq_goods_cancel" class="btn btn-light me-3">Tutup</button>
                     <!--end::Button-->
                     <!--begin::Button-->
-                    <button type="submit" id="kt_modal_det_nego_rfq_goods_submit" class="btn btn-primary">
+                    <button type="submit" id="kt_modal_det_nego_rfq_goods_submit" class="btn btn-primary" hidden>
                         <span class="indicator-label">Simpan</span>
                         <span class="indicator-progress">Please wait...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -818,7 +818,7 @@
                     <button type="reset" id="kt_modal_det_nego_rfq_goods_ekuivalen_cancel" class="btn btn-light me-3">Tutup</button>
                     <!--end::Button-->
                     <!--begin::Button-->
-                    <button type="submit" id="kt_modal_det_nego_rfq_goods_ekuivalen_submit" class="btn btn-primary">
+                    <button type="submit" id="kt_modal_det_nego_rfq_goods_ekuivalen_submit" class="btn btn-primary" hidden>
                         <span class="indicator-label">Simpan</span>
                         <span class="indicator-progress">Please wait...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
