@@ -84,7 +84,7 @@
                             <!--Begin::Input Group-->
                             <div class="d-flex flex-row mb-6">
                                 <!--begin::Label-->
-                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Harga</label>
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Harga Satuan</label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">

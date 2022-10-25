@@ -17,7 +17,7 @@
                     <th class="min-w-50px text-center">Download Template</th>
                     <th class="min-w-50px text-center">Unggah File Batch</th>
                     <th class="min-w-50px text-center">Tanggal Dokumen</th>
-                    <th class="min-w-50px text-center">Tanggal Dibuat</th>
+                    <th class="min-w-50px text-center">Tanggal Terima</th>
                     <th class="min-w-50px text-center">Tanggal Jatuh Tempo</th>
                     <!-- <th class="min-w-30px text-center">Aksi</th> -->
                 </tr>

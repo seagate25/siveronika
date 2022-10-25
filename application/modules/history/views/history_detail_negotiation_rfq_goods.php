@@ -2,7 +2,7 @@
 <div class="card shadow-sm">
     <div class="card-header bg-success">
         <div class="card-toolbar">
-            <a href="<?php echo site_url('negotiation/rfq_goods'); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
+            <a href="<?php echo site_url('history/nego_rfq_goods'); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
                 <i class="las la-arrow-left fs-1 text-success"></i>
             </a>
         </div>

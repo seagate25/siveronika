@@ -170,8 +170,8 @@ class Po_Status extends CI_Controller {
         $sheet->setCellValue('F3', "Qty");
         $sheet->setCellValue('G3', "UoM");
         $sheet->setCellValue('H3', "Batch No");
-        $sheet->setCellValue('I3', "Expiry Date");
-        $sheet->setCellValue('J3', "Manufacture Date");
+        $sheet->setCellValue('I3', "Expiry Date (dd/MM/yyyy)");
+        $sheet->setCellValue('J3', "Manufacture Date (dd/MM/yyyy)");
 
         // Apply style header yang telah kita buat tadi ke masing-masing kolom header
         $sheet->getStyle('A3')->applyFromArray($style_col);
