@@ -162,7 +162,7 @@
                         </div>
                         <!--end::Input Group-->
                         <!--Begin::Input Group-->
-                        <div class="row mb-6">
+                        <div class="row mb-6" id="div_available_total">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Tersedia</label>
                             <!--end::Label-->
@@ -175,7 +175,7 @@
                         </div>
                         <!--end::Input Group-->
                         <!--Begin::Input Group-->
-                        <div class="row mb-6">
+                        <div class="row mb-6" id="div_indent_total">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Indent</label>
                             <!--end::Label-->
@@ -188,7 +188,7 @@
                         </div>
                         <!--end::Input Group-->
                         <!--Begin::Input Group-->
-                        <div class="row mb-6">
+                        <div class="row mb-6" id="div_indent_day">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Lama Indent (Hari)</label>
                             <!--end::Label-->
@@ -228,9 +228,9 @@
 
     var KTDataTables = (function() {
         var e;
-        const loading = new KTBlockUI(document.querySelector(".card.shadow-sm"), {
-        overlayClass: "bg-dark bg-opacity-10",
-    });
+            const loading = new KTBlockUI(document.querySelector(".card.shadow-sm"), {
+            overlayClass: "bg-dark bg-opacity-10",
+        });
         return {
             init: function() {
                 e = $("#kt_datatable_confirmation_price").DataTable({
@@ -366,6 +366,16 @@
                         $("input[name=confirmation_currency]").val(data.mata_uang_po_terakhir);
                         if (data.modified_date != null && data.modified_by != null) {
                             $("input[name=repeat_order][value=" + data.pesan_ulang + "]").prop('checked', true);
+                            if($("input[name=repeat_order]:checked").val() == '1') {
+                                $("#div_available_total").show();
+                                $("#div_indent_total").show();
+                                $("#div_indent_day").show();
+                            } else {
+                                $("#div_available_total").hide();
+                                $("#div_indent_total").hide();
+                                $("#div_indent_day").hide();
+                            }
+
                             $("input[name=available_total]").val(data.jumlah_tersedia);
                             $("input[name=indent_total]").val(data.jumlah_inden);
                             $("input[name=indent_day]").val(data.lama_inden);
@@ -533,21 +543,57 @@
             affixesStay: false,
             precision: 0
         });
-        $("input[name=available_total]").on('keyup change', function() {
-            var request_total = $("input[name=request_total]").val();
-            var indent_total = parseInt(request_total) - parseInt(this.value);
-            if (indent_total < 0) {
-                indent_total = 0;
-            } else {
-                indent_total = indent_total;
-            }
+        // $("input[name=available_total]").on('keyup change', function() {
+        //     var request_total = $("input[name=request_total]").val();
+        //     var indent_total = parseInt(request_total) - parseInt(this.value);
+        //     if (indent_total < 0) {
+        //         indent_total = 0;
+        //     } else {
+        //         indent_total = indent_total;
+        //     }
 
-            if (indent_total == 0) {
-                $("input[name=indent_day]").attr('readonly', true).addClass('form-control-solid').val(0);
-            } else {
+        //     if (indent_total == 0) {
+        //         $("input[name=indent_day]").attr('readonly', true).addClass('form-control-solid').val(0);
+        //     } else {
+        //         $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
+        //     }
+        //     $("input[name=indent_total]").val(indent_total);
+        // });
+        $("input[name=repeat_order]").on('change', function() {
+            if ($(this).is(':checked') && $(this).val() == '1') {
+
+                $("#div_available_total").show();
+                $("#div_indent_total").show();
+                $("#div_indent_day").show();
+
+                $("input[name=available_total]").attr('readonly', false).removeClass('form-control-solid');
                 $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
+
+                $("input[name=available_total]").on('keyup change', function() {
+                    var request_total = $("input[name=request_total]").val();
+                    var indent_total = parseInt(request_total) - parseInt(this.value);
+                    if (indent_total < 0) {
+                        indent_total = 0;
+                    } else {
+                        indent_total = indent_total;
+                    }
+
+                    if (indent_total == 0) {
+                        $("input[name=indent_day]").attr('readonly', true).addClass('form-control-solid').val(0);
+                    } else {
+                        $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
+                    }
+                    $("input[name=indent_total]").val(indent_total);
+                });
+                
+            } else {
+                $("#div_available_total").hide();
+                $("#div_indent_total").hide();
+                $("#div_indent_day").hide();
+                $("input[name=available_total]").attr('readonly', true).addClass('form-control-solid').val(0);
+                $("input[name=indent_day]").attr('readonly', true).addClass('form-control-solid').val(0);
+                $("input[name=indent_total]").val(0);
             }
-            $("input[name=indent_total]").val(indent_total);
         });
     }));
 </script>
