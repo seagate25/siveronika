@@ -116,13 +116,13 @@ class Confirmation extends CI_Controller
         $num_available  = $this->input->post('available_total');
         $num_indent     = $this->input->post('indent_total');
         $indent_day     = $this->input->post('indent_day');
-
+        
         $params = array('kode_konfirmasi' => $id);
         $data   = array(
             'jumlah_tersedia'   => $num_available,
             'jumlah_inden'      => $num_indent,
             'lama_inden'        => $indent_day,
-            'pesan_ulang'       => $repeat_order,
+            'pesan_ulang'       => ($repeat_order == NULL) ? 'NULL' : $repeat_order,
             'modified_by'       => 'WEB',
             'modified_date'     => date('Y-m-d H:i:s')
         );

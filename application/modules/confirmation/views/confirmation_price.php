@@ -110,7 +110,7 @@
                             <!--Begin::Input Group-->
                             <div class="d-flex flex-row">
                                 <!--begin::Label-->
-                                <label class="col-lg-5 col-form-label required fw-bold fs-6">Apakah dapat direpeat order?</label>
+                                <label class="col-lg-5 col-form-label fw-bold fs-6">Apakah dapat direpeat order?</label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-7 fv-row fv-plugins-icon-container">
@@ -367,14 +367,14 @@
                     $("input[name=confirmation_currency]").val(data.mata_uang_po_terakhir);
                     if (data.modified_date != null && data.modified_by != null) {
                         $("input[name=repeat_order][value=" + data.pesan_ulang + "]").prop('checked', true);
-                        if($("input[name=repeat_order]:checked").val() == '1') {
-                            $("#div_available_total").show();
-                            $("#div_indent_total").show();
-                            $("#div_indent_day").show();
-                        } else {
+                        if($("input[name=repeat_order]:checked").val() == '0') {
                             $("#div_available_total").hide();
                             $("#div_indent_total").hide();
                             $("#div_indent_day").hide();
+                        } else {
+                            $("#div_available_total").show();
+                            $("#div_indent_total").show();
+                            $("#div_indent_day").show();
                         }
 
                         $("input[name=available_total]").val(data.jumlah_tersedia);
@@ -403,13 +403,13 @@
                     }),
                     (n = FormValidation.formValidation(o, {
                         fields: {
-                            repeat_order: {
-                                validators: {
-                                    notEmpty: {
-                                        message: "Wajib diisi"
-                                    }
-                                }
-                            },
+                            // repeat_order: {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: "Wajib diisi"
+                            //         }
+                            //     }
+                            // },
                             // confirmation_price: { validators: { notEmpty: { message: "Harga tidak boleh kosong" } } },
                             // confirmation_currency: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
                             // request_total: { validators: { notEmpty: { message: "Jumlah permintaan tidak boleh kosong" } } },
@@ -552,23 +552,25 @@
             affixesStay: false,
             precision: 0
         });
-        // $("input[name=available_total]").on('keyup change', function() {
-        //     var request_total = $("input[name=request_total]").val();
-        //     var indent_total = parseInt(request_total) - parseInt(this.value);
-        //     if (indent_total < 0) {
-        //         indent_total = 0;
-        //     } else {
-        //         indent_total = indent_total;
-        //     }
+        $("input[name=available_total]").on('keyup change', function() {
+            var request_total = $("input[name=request_total]").val();
+            var indent_total = parseInt(request_total) - parseInt(this.value);
+            if (indent_total < 0) {
+                indent_total = 0;
+            } else {
+                indent_total = indent_total;
+            }
 
-        //     if (indent_total == 0) {
-        //         $("input[name=indent_day]").attr('readonly', true).addClass('form-control-solid').val(0);
-        //     } else {
-        //         $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
-        //     }
-        //     $("input[name=indent_total]").val(indent_total);
-        // });
+            if (indent_total == 0) {
+                $("input[name=indent_day]").attr('readonly', true).addClass('form-control-solid').val(0);
+            } else {
+                $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
+            }
+            $("input[name=indent_total]").val(indent_total);
+        });
+        
         $("input[name=repeat_order]").on('change', function() {
+            
             if ($(this).is(':checked') && $(this).val() == '1') {
 
                 $("#div_available_total").show();
@@ -577,23 +579,6 @@
 
                 $("input[name=available_total]").attr('readonly', false).removeClass('form-control-solid');
                 $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
-
-                $("input[name=available_total]").on('keyup change', function() {
-                    var request_total = $("input[name=request_total]").val();
-                    var indent_total = parseInt(request_total) - parseInt(this.value);
-                    if (indent_total < 0) {
-                        indent_total = 0;
-                    } else {
-                        indent_total = indent_total;
-                    }
-
-                    if (indent_total == 0) {
-                        $("input[name=indent_day]").attr('readonly', true).addClass('form-control-solid').val(0);
-                    } else {
-                        $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
-                    }
-                    $("input[name=indent_total]").val(indent_total);
-                });
                 
             } else {
                 $("#div_available_total").hide();
