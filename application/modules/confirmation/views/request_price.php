@@ -31,7 +31,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h5 class="modal-title text-white">Permintaan Harga</h5>
+                <h5 class="modal-title text-white">Permintaan Harga | <span id="txt_kode_material"></span> | <span id="txt_desk_material"></span></h5>
 
                 <!--begin::Close-->
                 <div class="btn btn-icon btn-sm btn-light ms-2" data-kt-confirmation-modal-action="close" aria-label="Close">
@@ -300,9 +300,10 @@ var KTDataTables = (function() {
             }),
             $('#kt_datatable_request_price tbody').on('click', 'button', function () {
                 var data = e.row($(this).parents('tr')).data();
+                $("#txt_kode_material").text(data.kode_material);
+                $("#txt_desk_material").text(data.deskripsi);
                 $("input[name=id]").val(data.kode_konfirmasi);
                 $("input[name=confirmation_price]").maskMoney('mask', data.harga);
-                // $("input[name=confirmation_price]").val(data.harga);
                 $("input[name=confirmation_currency]").val(data.mata_uang_po_terakhir);
                 $("input[name=request_total]").val(data.jumlah);
                 $("input[name=measurement]").val(data.satuan);
@@ -315,7 +316,6 @@ var KTDataTables = (function() {
         }
     };
 })();
-
 
 var KTModalConfirmationPrice = (function () {
     var t, e, n, o, i, r, z;

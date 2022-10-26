@@ -31,7 +31,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h5 class="modal-title text-white">Konfirmasi Harga</h5>
+                <h5 class="modal-title text-white">Konfirmasi Harga | <span id="txt_kode_material"></span> | <span id="txt_desk_material"></span></h5>
 
                 <!--begin::Close-->
                 <div class="btn btn-icon btn-sm btn-light ms-2" data-kt-confirmation-modal-action="close" aria-label="Close">
@@ -234,155 +234,156 @@
         return {
             init: function() {
                 e = $("#kt_datatable_confirmation_price").DataTable({
-                        processing: !0,
-                        serverSide: !0,
-                        destroy: !0,
-                        // responsive: !0,
-                        scrollX: !0,
-                        dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
-                            "<'row'<'col-sm-12'tr>>" +
-                            "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
-                        buttons: [
-                            {
-                                text: 'Kirim',
-                                className: 'btn btn-sm btn-success',
-                                action: function ( e, dt, node, config ) {
-                                    node.attr('id', 'btn_send');
-                                    var btn_send = document.getElementById("btn_send");
-                                    Swal.fire({
-                                        text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
-                                        icon: "warning",
-                                        showCancelButton: !0,
-                                        buttonsStyling: !1,
-                                        confirmButtonText: "Ya, Kirim",
-                                        cancelButtonText: "Kembali",
-                                        customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
-                                    }).then(function (r) {
-                                        r.value
-                                            ? 
-                                            (
-                                                $.ajax({
-                                                    type: 'POST',
-                                                    url: '<?php echo site_url("confirmation/send_confirmation"); ?>',
-                                                    data: { code: 1 },
-                                                    beforeSend: function() {
-                                                        btn_send.setAttribute("data-kt-indicator", "on"),
-                                                        (btn_send.disabled = !0);
-                                                    },
-                                                    success: function(response) {
-                                                        var obj = jQuery.parseJSON(response);
-                                                        btn_send.removeAttribute("data-kt-indicator"),
-                                                        (btn_send.disabled = !1);
-                                                        Swal.fire({ 
-                                                            text: obj.msg, 
-                                                            icon: obj.status, 
-                                                            buttonsStyling: !1, 
-                                                            confirmButtonText: "Tutup", 
-                                                            customClass: { confirmButton: "btn btn-primary" } }).then(
-                                                            function (t) {
-                                                                t.isConfirmed && (obj.code == 0) ? (KTDataTables.init()) : r.dismiss;
-                                                            }
-                                                        );
-                                                    },
-                                                    error: function() {
-                                                        btn_send.removeAttribute("data-kt-indicator"),
-                                                        (btn_send.disabled = !1);
-                                                        Swal.fire({ 
-                                                            text: "Terjadi masalah koneksi", 
-                                                            icon: "error", 
-                                                            buttonsStyling: !1, 
-                                                            confirmButtonText: "Tutup", 
-                                                            customClass: { confirmButton: "btn btn-primary" } }).then(
-                                                            function (t) {
-                                                                t.isConfirmed && r.dismiss;
-                                                            }
-                                                        );
-                                                    }
-                                                })
-                                            )
-                                            : "cancel" === r.dismiss;
-                                    })
-                                }
+                    processing: !0,
+                    serverSide: !0,
+                    destroy: !0,
+                    // responsive: !0,
+                    scrollX: !0,
+                    dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
+                    buttons: [
+                        {
+                            text: 'Kirim',
+                            className: 'btn btn-sm btn-success',
+                            action: function ( e, dt, node, config ) {
+                                node.attr('id', 'btn_send');
+                                var btn_send = document.getElementById("btn_send");
+                                Swal.fire({
+                                    text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                                    icon: "warning",
+                                    showCancelButton: !0,
+                                    buttonsStyling: !1,
+                                    confirmButtonText: "Ya, Kirim",
+                                    cancelButtonText: "Kembali",
+                                    customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
+                                }).then(function (r) {
+                                    r.value
+                                        ? 
+                                        (
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: '<?php echo site_url("confirmation/send_confirmation"); ?>',
+                                                data: { code: 1 },
+                                                beforeSend: function() {
+                                                    btn_send.setAttribute("data-kt-indicator", "on"),
+                                                    (btn_send.disabled = !0);
+                                                },
+                                                success: function(response) {
+                                                    var obj = jQuery.parseJSON(response);
+                                                    btn_send.removeAttribute("data-kt-indicator"),
+                                                    (btn_send.disabled = !1);
+                                                    Swal.fire({ 
+                                                        text: obj.msg, 
+                                                        icon: obj.status, 
+                                                        buttonsStyling: !1, 
+                                                        confirmButtonText: "Tutup", 
+                                                        customClass: { confirmButton: "btn btn-primary" } }).then(
+                                                        function (t) {
+                                                            t.isConfirmed && (obj.code == 0) ? (KTDataTables.init()) : r.dismiss;
+                                                        }
+                                                    );
+                                                },
+                                                error: function() {
+                                                    btn_send.removeAttribute("data-kt-indicator"),
+                                                    (btn_send.disabled = !1);
+                                                    Swal.fire({ 
+                                                        text: "Terjadi masalah koneksi", 
+                                                        icon: "error", 
+                                                        buttonsStyling: !1, 
+                                                        confirmButtonText: "Tutup", 
+                                                        customClass: { confirmButton: "btn btn-primary" } }).then(
+                                                        function (t) {
+                                                            t.isConfirmed && r.dismiss;
+                                                        }
+                                                    );
+                                                }
+                                            })
+                                        )
+                                        : "cancel" === r.dismiss;
+                                })
                             }
-                        ],
-                        paging: !0,
-                        ordering: !0,
-                        searching: !0,
-                        ajax: {
-                            type: "POST",
-                            url: "<?php echo site_url('confirmation/con_price'); ?>"
-                        },
-                        columns: [{
-                                data: 'number',
-                                className: 'text-center',
-                                sortable: false,
-                                searchable: false,
-                                orderable: false,
-                                render: function(data, type, row, meta) {
-                                    return meta.row + meta.settings._iDisplayStart + 1;
-                                }
-                            },
-                            {
-                                data: 'kode_material',
-                                className: 'text-center'
-                            },
-                            {
-                                data: 'deskripsi'
-                            },
-                            {
-                                data: 'jumlah'
-                            },
-                            {
-                                data: 'satuan'
-                            },
-                            {
-                                data: 'tanggal_kirim',
-                                className: 'text-center'
-                            },
-                            {
-                                data: 'status'
-                            },
-                            // { data: 'status_harga' },
-                            {
-                                data: 'actions',
-                                className: 'text-center',
-                                sortable: false,
-                                searchable: false,
-                                orderable: false
-                            }
-                        ],
-                        lengthMenu: [
-                            [5, 10, 15, 25, -1],
-                            [5, 10, 15, 25, "All"]
-                        ],
-                        pageLength: 10,
-                        order: [1, 'ASC']
-                    }),
-                    $('#kt_datatable_confirmation_price tbody').on('click', 'button', function() {
-                        var data = e.row($(this).parents('tr')).data();
-                        $("input[name=id]").val(data.kode_konfirmasi);
-                        $("input[name=confirmation_price]").maskMoney('mask', data.harga_po_terakhir);
-                        // $("input[name=confirmation_price]").val(data.harga_po_terakhir);
-                        $("input[name=confirmation_currency]").val(data.mata_uang_po_terakhir);
-                        if (data.modified_date != null && data.modified_by != null) {
-                            $("input[name=repeat_order][value=" + data.pesan_ulang + "]").prop('checked', true);
-                            if($("input[name=repeat_order]:checked").val() == '1') {
-                                $("#div_available_total").show();
-                                $("#div_indent_total").show();
-                                $("#div_indent_day").show();
-                            } else {
-                                $("#div_available_total").hide();
-                                $("#div_indent_total").hide();
-                                $("#div_indent_day").hide();
-                            }
-
-                            $("input[name=available_total]").val(data.jumlah_tersedia);
-                            $("input[name=indent_total]").val(data.jumlah_inden);
-                            $("input[name=indent_day]").val(data.lama_inden);
                         }
-                        $("input[name=request_total]").val(data.jumlah);
-                        $("input[name=measurement]").val(data.satuan);
-                    });
+                    ],
+                    paging: !0,
+                    ordering: !0,
+                    searching: !0,
+                    ajax: {
+                        type: "POST",
+                        url: "<?php echo site_url('confirmation/con_price'); ?>"
+                    },
+                    columns: [{
+                            data: 'number',
+                            className: 'text-center',
+                            sortable: false,
+                            searchable: false,
+                            orderable: false,
+                            render: function(data, type, row, meta) {
+                                return meta.row + meta.settings._iDisplayStart + 1;
+                            }
+                        },
+                        {
+                            data: 'kode_material',
+                            className: 'text-center'
+                        },
+                        {
+                            data: 'deskripsi'
+                        },
+                        {
+                            data: 'jumlah'
+                        },
+                        {
+                            data: 'satuan'
+                        },
+                        {
+                            data: 'tanggal_kirim',
+                            className: 'text-center'
+                        },
+                        {
+                            data: 'status'
+                        },
+                        // { data: 'status_harga' },
+                        {
+                            data: 'actions',
+                            className: 'text-center',
+                            sortable: false,
+                            searchable: false,
+                            orderable: false
+                        }
+                    ],
+                    lengthMenu: [
+                        [5, 10, 15, 25, -1],
+                        [5, 10, 15, 25, "All"]
+                    ],
+                    pageLength: 10,
+                    order: [1, 'ASC']
+                }),
+                $('#kt_datatable_confirmation_price tbody').on('click', 'button', function() {
+                    var data = e.row($(this).parents('tr')).data();
+                    $("#txt_kode_material").text(data.kode_material);
+                    $("#txt_desk_material").text(data.deskripsi);
+                    $("input[name=id]").val(data.kode_konfirmasi);
+                    $("input[name=confirmation_price]").maskMoney('mask', data.harga_po_terakhir);
+                    $("input[name=confirmation_currency]").val(data.mata_uang_po_terakhir);
+                    if (data.modified_date != null && data.modified_by != null) {
+                        $("input[name=repeat_order][value=" + data.pesan_ulang + "]").prop('checked', true);
+                        if($("input[name=repeat_order]:checked").val() == '1') {
+                            $("#div_available_total").show();
+                            $("#div_indent_total").show();
+                            $("#div_indent_day").show();
+                        } else {
+                            $("#div_available_total").hide();
+                            $("#div_indent_total").hide();
+                            $("#div_indent_day").hide();
+                        }
+
+                        $("input[name=available_total]").val(data.jumlah_tersedia);
+                        $("input[name=indent_total]").val(data.jumlah_inden);
+                        $("input[name=indent_day]").val(data.lama_inden);
+                    }
+                    $("input[name=request_total]").val(data.jumlah);
+                    $("input[name=measurement]").val(data.satuan);
+                });
             }
         };
     })();
