@@ -526,10 +526,18 @@
                             });
                     }),
                     e.addEventListener("click", function(t) {
-                        n.resetForm(true), i.hide()
+                        n.resetForm(true), 
+                        $("#div_available_total").show();
+                        $("#div_indent_total").show();
+                        $("#div_indent_day").show(),
+                        i.hide()
                     })),
                 z.addEventListener("click", function(t) {
-                    n.resetForm(true), i.hide()
+                    n.resetForm(true), 
+                    $("#div_available_total").show();
+                    $("#div_indent_total").show();
+                    $("#div_indent_day").show(),
+                    i.hide()
                 });
             },
         };
