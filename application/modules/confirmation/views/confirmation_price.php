@@ -418,6 +418,22 @@
                                 validators: {
                                     notEmpty: {
                                         message: "Jumlah tersedia tidak boleh kosong"
+                                    },
+                                    callback: {
+                                        message: 'Jumlah tersedia tidak boleh 0 (Nol)',
+                                        callback: function(input) {
+                                            const selectedCheckbox = o.querySelector('[name="repeat_order"]:checked');
+                                            const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+
+                                            return (convertion !== '1')
+                                                // The field is valid if user picks
+                                                // a given convertion from the list
+                                                ?
+                                                true
+                                                // Otherwise, the field value is required
+                                                :
+                                                (parseInt(input.value) > 0);
+                                        }
                                     }
                                 }
                             },
@@ -432,6 +448,22 @@
                                 validators: {
                                     notEmpty: {
                                         message: "Lama indent tidak boleh kosong"
+                                    },
+                                    callback: {
+                                        message: 'Lama indent tidak boleh 0 (Nol)',
+                                        callback: function(input) {
+                                            const selectedCheckbox = o.querySelector('[name="repeat_order"]:checked');
+                                            const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+
+                                            return (convertion !== '1')
+                                                // The field is valid if user picks
+                                                // a given convertion from the list
+                                                ?
+                                                true
+                                                // Otherwise, the field value is required
+                                                :
+                                                (parseInt(input.value) > 0);
+                                        }
                                     }
                                 }
                             },
@@ -523,6 +555,7 @@
                                             confirmButton: "btn btn-primary"
                                         },
                                     });
+                                    console.log(o.querySelectorAll("div.invalid-feedback > div"));
                             });
                     }),
                     e.addEventListener("click", function(t) {
