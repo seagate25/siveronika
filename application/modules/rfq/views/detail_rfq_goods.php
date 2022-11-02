@@ -319,7 +319,7 @@
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Masa Berlaku Harga</label>
                             <!--end::Label-->
                             <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container" id="mbh_rfq">
                                 <input class="form-control form-control-solid" name="ed_price" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_3" readonly/>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
@@ -747,7 +747,7 @@
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Masa Berlaku Harga</label>
                             <!--end::Label-->
                             <!--begin::Col-->
-                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container" id="mbh_eqiv">
                                 <input class="form-control form-control-solid" readonly name="ed_price_eqiv" placeholder="Masa Berlaku Harga" id="kt_daterangepicker_4" readonly/>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
@@ -2094,12 +2094,27 @@
             affixesStay: false,
             precision: 0
         });
-        $("#kt_daterangepicker_3, #kt_daterangepicker_4").daterangepicker({
+        $("#kt_daterangepicker_3").daterangepicker({
             autoApply: true,
             singleDatePicker: true,
             showDropdowns: true,
             minYear: new Date().getFullYear() - 5,
             //maxYear: parseInt(moment().format("YYYY"), 10),
+            drops: 'down',
+            parentEl: '#mbh_rfq',
+            maxYear: new Date().getFullYear() + 5,
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+        });
+        $("#kt_daterangepicker_4").daterangepicker({
+            autoApply: true,
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: new Date().getFullYear() - 5,
+            //maxYear: parseInt(moment().format("YYYY"), 10),
+            drops: 'down',
+            parentEl: '#mbh_eqiv',
             maxYear: new Date().getFullYear() + 5,
             locale: {
                 format: 'YYYY-MM-DD'
