@@ -380,6 +380,8 @@
                         $("input[name=available_total]").val(data.jumlah_tersedia);
                         $("input[name=indent_total]").val(data.jumlah_inden);
                         $("input[name=indent_day]").val(data.lama_inden);
+                    } else {
+                        $("input[name=repeat_order]").prop('checked', false);
                     }
                     $("input[name=request_total]").val(data.jumlah);
                     $("input[name=measurement]").val(data.satuan);
@@ -520,7 +522,7 @@
                                                                 }
                                                             }).then(
                                                                 function(t) {
-                                                                    t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(), n.resetForm(true), i.hide()) : r.dismiss;
+                                                                    t.isConfirmed && (obj.code == 0) ? (n.resetForm(true), $("#div_available_total").show(), $("#div_indent_total").show(), $("#div_indent_day").show(), i.hide(), KTDataTables.init()) : r.dismiss;
                                                                 }
                                                             );
                                                         },
@@ -560,15 +562,15 @@
                     }),
                     e.addEventListener("click", function(t) {
                         n.resetForm(true), 
-                        $("#div_available_total").show();
-                        $("#div_indent_total").show();
+                        $("#div_available_total").show(),
+                        $("#div_indent_total").show(),
                         $("#div_indent_day").show(),
                         i.hide()
                     })),
                 z.addEventListener("click", function(t) {
                     n.resetForm(true), 
-                    $("#div_available_total").show();
-                    $("#div_indent_total").show();
+                    $("#div_available_total").show(),
+                    $("#div_indent_total").show(),
                     $("#div_indent_day").show(),
                     i.hide()
                 });
