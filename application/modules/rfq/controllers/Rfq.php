@@ -10,7 +10,7 @@ class Rfq extends CI_Controller
         parent::__construct();
         logged_in();
         $this->load->model('Rfq_model', 'rfq');
-        $this->load->library('Crypto');
+        $this->load->library(['Crypto', 'zip']);
     }
 
     public function index()
@@ -1042,6 +1042,28 @@ class Rfq extends CI_Controller
 
         echo json_encode($response, JSON_PRETTY_PRINT);
         exit;
+    }
+
+    public function download_attachment()
+    {
+        $nomor_rfq  = $this->crypto->decode($this->uri->segment(3));
+        $path       = 'upload_files/Dokumen_RFQ';
+        
+        $getRfqAttachment = $this->rfq->getRfqAttachment($nomor_rfq);
+        if($getRfqAttachment->num_rows() > 0) {
+
+            foreach($getRfqAttachment->result() as $file) {
+                $file_path = $path . '/' . $file->nama_berkas;
+                $this->zip->read_file($file_path);
+            }
+
+            $this->zip->download($nomor_rfq . '.zip');
+
+        } else {
+
+            $this->zip->download($nomor_rfq . '.zip');
+            
+        }
     }
 }
 
