@@ -101,7 +101,7 @@
             </div>
             <div class="col-xl-3">
                 <!--begin::Statistics Widget 5-->
-                <a href="<?php echo site_url('dashboard'); ?>" class="card bg-secondary hoverable card-xl-stretch mb-xl-8">
+                <a href="<?php echo site_url('po_status/po_goods'); ?>" class="card bg-secondary hoverable card-xl-stretch mb-xl-8">
                     <!--begin::Body-->
                     <div class="card-body">
                         <!--begin::Svg Icon | path: icons/duotone/Home/Building.svg-->
@@ -112,7 +112,7 @@
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
-                        <div class="text-inverse-secondary fw-bolder fs-2 mb-2 mt-5">0 <small>Data</small></div>
+                        <div class="text-inverse-secondary fw-bolder fs-2 mb-2 mt-5" id="c_status_po_barang"></div>
                         <div class="text-inverse-primary fs-2 mb-2 mt-5"><medium>Status PO Barang</medium></div>
                     </div>
                     <!--end::Body-->
@@ -306,6 +306,7 @@
                         $("#c_confirm_price").html(obj.konfirmasi_harga + " <small>Data</small>");
                         $("#c_rfq_goods").html(obj.rfq_barang + " <small>Data</small>");
                         $("#c_nego_goods").html(obj.nego_barang + " <small>Data</small>");
+                        $("#c_status_po_barang").html(obj.status_po_barang + " <small>Data</small>");
                     }
                 })
                 return false;

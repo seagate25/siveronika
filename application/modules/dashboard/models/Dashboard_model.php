@@ -52,6 +52,12 @@ class Dashboard_model extends CI_Model {
         $result = $query->row();
         $graph_data['nego_barang'] = (int)$result->nego_barang;
 
+        // Status PO
+        $sql    = "SELECT COUNT(nomor_po) AS status_po_barang FROM TB_S_TR_PO_HEAD WHERE [status] = 0 AND kode_vendor = '{$vendor_code}'";
+        $query  = $this->db->query($sql);
+        $result = $query->row();
+        $graph_data['status_po_barang'] = (int)$result->status_po_barang;
+
         return $graph_data;
     }
 

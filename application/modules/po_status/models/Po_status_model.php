@@ -72,7 +72,7 @@ class Po_status_model extends CI_Model {
         $order_column = $field[$order_column];
 
         // $where = " WHERE (kode_vendor = '{$this->vendor_code}' AND jatuh_tempo >= '" . date('Y-m-d') . "') ";
-        $where = " WHERE (kode_vendor = '{$this->vendor}') ";
+        $where = " WHERE (kode_vendor = '{$this->vendor}' AND status = 0) ";
         if (!empty($search['value'])) {
             $where .= " AND ";
             $where .= " (nomor_po LIKE '%" . $search['value'] . "%'";
