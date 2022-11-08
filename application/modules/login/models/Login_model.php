@@ -149,6 +149,7 @@ class Login_model extends CI_Model {
     {
         $sql    = "SELECT
                         a.deletion,
+                        a.first_login,
                         a.kode_vendor,
                         b.nama_perusahaan,
                         b.email_perusahaan
@@ -165,6 +166,13 @@ class Login_model extends CI_Model {
                 $response   = array(
                     'code'  => 200,
                     'msg'   => 'Maaf, akun Anda diblokir. Silahkan hubungi Administrator.'
+                );
+
+            } else if($vendor_data->first_login == 1) {
+            
+                $response   = array(
+                    'code'  => 200,
+                    'msg'   => 'Maaf, Anda belum pernah melakukan login. Silahkan login dengan password yang dikirimkan melalui e-mail.'
                 );
 
             } else {
