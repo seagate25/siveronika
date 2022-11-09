@@ -334,7 +334,7 @@ class Po_Status extends CI_Controller {
                         if(count($excel_data) > 0) {
                             $total_qty = 0;
                             foreach($excel_data as $agg) {
-                                if($rowData[$row]['D'] == $agg['kode_material']) {
+                                if($rowData[$row]['D'] == $agg['kode_material'] && $rowData[$row]['C'] == $agg['item_po']) {
                                     $total_qty = $total_qty + (float)$agg['quantity'];
                                 }
                             }
@@ -342,7 +342,7 @@ class Po_Status extends CI_Controller {
                             $total_qty = $total_qty + (float)$rowData[$row]['F'];
                             
                             if($total_qty > (float)$POItem->jumlah) {
-
+                                var_dump($rowData[$row]);exit;
                                 $response   = [
                                     'code'      => 100,
                                     'msg'       => 'Jumlah quantity Item Code ' . $rowData[$row]['D'] . ' melebihi quantity detail.',
@@ -454,6 +454,12 @@ class Po_Status extends CI_Controller {
             foreach($value as $valKey => $val) {
                 if($valKey == 'id') {
                     unset($upload_data[$key][$valKey]);
+                } else {
+                    
+                    if($valKey == 'kadaluarsa' || $valKey == 'tanggal_produksi') {
+                        $upload_data[$key][$valKey] = (!empty($val)) ? $val : 'NULL';
+                    }
+
                 }
             }
         }
@@ -491,6 +497,12 @@ class Po_Status extends CI_Controller {
             );
 
         } else {
+
+            foreach ($upload_data as $key => $value) {
+                if(empty($value['batch'])) {
+                    unset($upload_data[$key]);
+                }
+            }
 
             $save   = $this->po_status->insertBatch($upload_data);
             if($save > 0) {
