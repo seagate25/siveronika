@@ -165,6 +165,7 @@ class Rfq extends CI_Controller
         $rfq_no         = $this->crypto->decode($this->input->post('id_rfq'));
         $material_code  = $this->input->post('material_code');
         $material_name  = $this->input->post('material_name');
+        $material_desc  = $this->input->post('material_desc');
         $request_total  = $this->input->post('request_total');
         $measurement    = $this->input->post('measurement');
         $real_measure   = $this->input->post('r_measurement');
@@ -493,6 +494,7 @@ class Rfq extends CI_Controller
         $rfq_no         = $this->crypto->decode($this->input->post('id_rfq_eqiv'));
         $material_code  = $this->input->post('material_code_eqiv');
         $material_name  = $this->input->post('material_name_eqiv');
+        $material_desc  = $this->input->post('material_desc_eqiv');
         $request_total  = $this->input->post('request_total_eqiv');
         $measurement    = $this->input->post('r_measurement_eqiv');
         $desc_measure   = $this->input->post('desc_measure_eqiv');
@@ -874,6 +876,7 @@ class Rfq extends CI_Controller
                 'ekuivalen'             => $id_eqiv,
                 'kode_barang'           => $material_code,
                 'deskripsi_barang'      => $material_name,
+                'deskripsi_material'    => $material_desc,
                 'deskripsi'             => '',
                 'jumlah_permintaan'     => $request_total,
                 'satuan'                => $measurement,

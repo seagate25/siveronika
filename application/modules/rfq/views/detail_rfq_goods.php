@@ -91,6 +91,19 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label fw-bold fs-6"></label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <textarea class="form-control form-control-solid" readonly="true"  name="material_desc" rows="4"></textarea>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
                             <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Permintaan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
@@ -457,6 +470,19 @@
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="material_name_eqiv" class="form-control form-control-solid" readonly="true" placeholder="Nama Material">
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input Group-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label fw-bold fs-6"> </label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <textarea class="form-control form-control-solid" readonly="true" name="material_desc_eqiv" rows="4"></textarea>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -1065,6 +1091,7 @@
                         $("#currency").val('IDR').trigger('change');
                         $("input[name=material_code]").val(data.kode_barang);
                         $("input[name=material_name]").val(data.deskripsi_barang);
+                        $("textarea[name=material_desc]").val(data.deskripsi_material);
                         $("input[name=request_total]").val(data.jumlah_permintaan);
                         $("input[name=measurement]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
                         $("input[name=r_measurement]").val($.trim(data.satuan));
@@ -1212,6 +1239,7 @@
                         // $("input[name=seq_eqiv]").val(data.urutan_rfq);
                         $("input[name=material_code_eqiv]").val(data.kode_barang);
                         $("input[name=material_name_eqiv]").val(data.deskripsi_barang);
+                        $("textarea[name=material_desc_eqiv]").val(data.deskripsi_material);
                         $("input[name=request_total_eqiv]").val(data.jumlah_permintaan);
                         $("input[name=measurement_eqiv]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
                         $("input[name=r_measurement_eqiv]").val($.trim(data.satuan));
