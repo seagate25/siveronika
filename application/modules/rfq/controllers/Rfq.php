@@ -198,7 +198,7 @@ class Rfq extends CI_Controller
         $arr_exists     = array();
         $arr_not_exists = array();
 
-        $rfq_params = array('nomor_quotation' => $rfq_no, 'ekuivalen' => 0);
+        $rfq_params = array('nomor_quotation' => $rfq_no, 'ekuivalen' => 0, 'kode_barang' => $material_code);
         if (isset($old_name)) {
             foreach ($files as $key => $value) {
                 if (array_key_exists($key, $old_name)) {
@@ -769,6 +769,8 @@ class Rfq extends CI_Controller
 
                             $attach_files[] = $upload_data;
                         }
+
+                        $last_sequence++;
                     }
                 }
 
