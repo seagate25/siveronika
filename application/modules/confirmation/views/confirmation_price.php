@@ -138,7 +138,7 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Nama Material</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">Nama Material</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
