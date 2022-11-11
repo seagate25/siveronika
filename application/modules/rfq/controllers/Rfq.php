@@ -128,8 +128,9 @@ class Rfq extends CI_Controller
     {
         $rfq_no     = $this->crypto->decode($this->input->post('val_1'));
         $ekuivalen  = (int)$this->input->post('val_2');
+        $kode_mat   = $this->input->post('val_3');
 
-        $params = array('nomor_quotation' => $rfq_no, 'ekuivalen' => $ekuivalen);
+        $params = array('nomor_quotation' => $rfq_no, 'ekuivalen' => $ekuivalen, 'kode_barang' => $kode_mat);
         $result = $this->rfq->getAttachedFiles($params);
         if ($result->num_rows() > 0) {
             $files  = $result->result();

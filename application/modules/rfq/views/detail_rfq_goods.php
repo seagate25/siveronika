@@ -1162,7 +1162,8 @@
                                 url: "<?php echo site_url('rfq/get_files'); ?>",
                                 data: {
                                     val_1: '<?php echo $this->uri->segment(3); ?>',
-                                    val_2: 0
+                                    val_2: 0,
+                                    val_3: data.kode_barang
                                 },
                                 beforeSend: function() {
                                     blockUI.block();
