@@ -221,6 +221,7 @@ class Confirmation_model extends CI_Model
             $row->item_pr               = $row->item_pr;
             $row->kode_material         = $row->kode_material;
             $row->deskripsi             = utf8_encode($row->deskripsi);
+            $row->deskripsi_material    = utf8_encode($row->deskripsi_material);
             $row->jumlah                = (int)$row->jumlah;
             $row->harga                 = ($row->modified_by == NULL && $row->modified_date == NULL) ? 0 : (int)$row->harga;
             $row->mata_uang             = ($row->modified_by == NULL && $row->modified_date == NULL) ? '' : trim($row->mata_uang);

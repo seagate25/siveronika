@@ -82,7 +82,7 @@
                             </div>
                             <!--end::Wrapper-->
                             <!--Begin::Input Group-->
-                            <div class="d-flex flex-row mb-6">
+                            <div class="d-flex flex-row mb-4">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Harga Satuan</label>
                                 <!--end::Label-->
@@ -94,7 +94,7 @@
                             </div>
                             <!--end::Input Group-->
                             <!--Begin::Input Group-->
-                            <div class="d-flex flex-row mb-6">
+                            <div class="d-flex flex-row mb-4">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label required fw-bold fs-6">Mata Uang</label>
                                 <!--end::Label-->
@@ -105,6 +105,30 @@
                                 <!--end::Col-->
                             </div>
                             <!--end::Input Group-->
+                        </div>
+                        <!--end::Notice-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-4">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Nama Material</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <input type="text" name="material_name" class="form-control form-control-solid" readonly="true" min="1">
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Notice-->
+                        <!--Begin::Input Group-->
+                        <div class="row mb-4">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label fw-bold fs-6"></label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <textarea name="material_desc" id="material_desc" class="form-control form-control-solid" readonly="true" rows="4"></textarea>
+                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <!--end::Col-->
                         </div>
                         <!--end::Notice-->
                         <!--Begin::Input Group-->
@@ -305,6 +329,8 @@ var KTDataTables = (function() {
                 $("input[name=id]").val(data.kode_konfirmasi);
                 $("input[name=confirmation_price]").maskMoney('mask', data.harga);
                 $("input[name=confirmation_currency]").val(data.mata_uang_po_terakhir);
+                $("input[name=material_name]").val(data.deskripsi);
+                $("textarea[name=material_desc]").val(data.deskripsi_material);
                 $("input[name=request_total]").val(data.jumlah);
                 $("input[name=measurement]").val(data.satuan);
                 if(data.modified_date != null && data.modified_by != null) {
