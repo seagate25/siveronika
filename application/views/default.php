@@ -189,8 +189,19 @@ License: For each use you must have a valid license purchased only from above li
 							<div class="d-flex align-items-stretch flex-shrink-0">
 								<!--begin::Toolbar wrapper-->
 								<div class="d-flex align-items-stretch flex-shrink-0">
+
 									<!--begin::User-->
 									<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
+										<!--begin::User info-->
+										<div class="d-flex align-items-center py-2 px-2 px-md-3">
+											<!--begin::Name-->
+											<div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2">
+												<span class="text-muted fs-7 fw-semibold lh-1 mb-2"><i>Selamat Datang,</i></span>
+												<span class="text-dark fs-base fw-bold lh-1" style="font-weight: 700 !important;"><?php echo $this->session->userdata('nama'); ?></span>
+											</div>
+											<!--end::Name-->
+										</div>
+										<!--end::User info-->
 										<!--begin::Menu wrapper-->
 										<div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
 											<img src="<?php echo base_url(); ?>assets/media/avatars/blank.png" alt="metronic" />
@@ -224,123 +235,10 @@ License: For each use you must have a valid license purchased only from above li
 												<a href="<?php echo base_url() . "master/vendor"; ?>" class="menu-link px-5">Profil</a>
 											</div>
 											<!--end::Menu item-->
-											<!--begin::Menu item-->
-											<!-- <div class="menu-item px-5">
-													<a href="../../demo1/dist/pages/projects/list.html" class="menu-link px-5">
-														<span class="menu-text">Permintaan Harga</span>
-														<span class="menu-badge">
-															<span class="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>
-														</span>
-													</a>
-												</div> -->
-											<!--end::Menu item-->
-											<!--begin::Menu item-->
-											<div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="left-start" data-kt-menu-flip="bottom, top">
-												<!-- <a href="#" class="menu-link px-5">
-														<span class="menu-title">My Subscription</span>
-														<span class="menu-arrow"></span>
-													</a> -->
-												<!--begin::Menu sub-->
-												<!-- <div class="menu-sub menu-sub-dropdown w-175px py-4"> -->
-												<!--begin::Menu item-->
-												<!-- <div class="menu-item px-3">
-															<a href="../../demo1/dist/account/referrals.html" class="menu-link px-5">Referrals</a>
-														</div> -->
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<!-- <div class="menu-item px-3">
-															<a href="../../demo1/dist/account/billing.html" class="menu-link px-5">Billing</a>
-														</div> -->
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<!-- <div class="menu-item px-3">
-															<a href="../../demo1/dist/account/statements.html" class="menu-link px-5">Payments</a>
-														</div> -->
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<!-- <div class="menu-item px-3">
-															<a href="../../demo1/dist/account/statements.html" class="menu-link d-flex flex-stack px-5">Statements
-															<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="View your statements"></i></a>
-														</div> -->
-												<!--end::Menu item-->
-												<!--begin::Menu separator-->
-												<!-- <div class="kseparator my-2"></div> -->
-												<!--end::Menu separator-->
-												<!--begin::Menu item-->
-												<!-- <div class="menu-item px-3">
-															<div class="menu-content px-3">
-																<label class="form-check form-switch form-check-custom form-check-solid">
-																	<input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
-																	<span class="form-check-label text-muted fs-7">Notifications</span>
-																</label>
-															</div>
-														</div> -->
-												<!--end::Menu item-->
-												<!-- </div> -->
-												<!--end::Menu sub-->
-											</div>
-											<!--end::Menu item-->
-											<!--begin::Menu item-->
-											<!-- <div class="menu-item px-5">
-													<a href="../../demo1/dist/account/statements.html" class="menu-link px-5">My Statements</a>
-												</div> -->
-											<!--end::Menu item-->
 											<!--begin::Menu separator-->
 											<div class="separator my-2"></div>
 											<!--end::Menu separator-->
-											<!--begin::Menu item-->
-											<div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="left-start" data-kt-menu-flip="bottom, top">
-												<!-- <a href="#" class="menu-link px-5">
-														<span class="menu-title position-relative">Language
-														<span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">English
-														<img class="w-15px h-15px rounded-1 ms-2" src="<?php echo base_url(); ?>assets/media/flags/united-states.svg" alt="metronic" /></span></span>
-													</a> -->
-												<!--begin::Menu sub-->
-												<div class="menu-sub menu-sub-dropdown w-175px py-4">
-													<!--begin::Menu item-->
-													<!-- <div class="menu-item px-3">
-															<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5 active">
-															<span class="symbol symbol-20px me-4">
-																<img class="rounded-1" src="<?php echo base_url(); ?>assets/media/flags/united-states.svg" alt="metronic" />
-															</span>English</a>
-														</div> -->
-													<!--end::Menu item-->
-													<!--begin::Menu item-->
-													<!-- <div class="menu-item px-3">
-															<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
-															<span class="symbol symbol-20px me-4">
-																<img class="rounded-1" src="<?php echo base_url(); ?>assets/media/flags/spain.svg" alt="metronic" />
-															</span>Spanish</a>
-														</div> -->
-													<!--end::Menu item-->
-													<!--begin::Menu item-->
-													<!-- <div class="menu-item px-3">
-															<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
-															<span class="symbol symbol-20px me-4">
-																<img class="rounded-1" src="<?php echo base_url(); ?>assets/media/flags/germany.svg" alt="metronic" />
-															</span>German</a>
-														</div> -->
-													<!--end::Menu item-->
-													<!--begin::Menu item-->
-													<!-- <div class="menu-item px-3">
-															<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
-															<span class="symbol symbol-20px me-4">
-																<img class="rounded-1" src="<?php echo base_url(); ?>assets/media/flags/japan.svg" alt="metronic" />
-															</span>Japanese</a>
-														</div> -->
-													<!--end::Menu item-->
-													<!--begin::Menu item-->
-													<!-- <div class="menu-item px-3">
-															<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
-															<span class="symbol symbol-20px me-4">
-																<img class="rounded-1" src="<?php echo base_url(); ?>assets/media/flags/france.svg" alt="metronic" />
-															</span>French</a>
-														</div> -->
-													<!--end::Menu item-->
-												</div>
-												<!--end::Menu sub-->
-											</div>
-											<!--end::Menu item-->
+											
 											<!--begin::Menu item-->
 											<!-- <div class="menu-item px-5 my-1">
 													<a href="<?php echo site_url('users/settings'); ?>" class="menu-link px-5">Account Settings</a>
