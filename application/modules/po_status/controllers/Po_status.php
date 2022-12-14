@@ -44,6 +44,11 @@ class Po_Status extends CI_Controller {
         $this->load->view('default', $data);
     }
 
+    public function list_os_po()
+    {
+        
+    }
+
     /**
      * Download file
      *
