@@ -35,18 +35,32 @@ class Po_Status extends CI_Controller {
         $this->load->view('default', $data);
     }
 
-    public function po_service()
-    {
-        $data['title']      = "PO Jasa";
-        $data['menu']       = "Status PO";
-        $data['submenu']    = "PO Jasa";
-        $data['content']    = "po_service";
-        $this->load->view('default', $data);
-    }
+    // public function po_service()
+    // {
+    //     $data['title']      = "PO Jasa";
+    //     $data['menu']       = "Status PO";
+    //     $data['submenu']    = "PO Jasa";
+    //     $data['content']    = "po_service";
+    //     $this->load->view('default', $data);
+    // }
 
+    /**
+     * Show Menu List of Outstanding PO
+     *
+     * @return void
+     */
     public function list_os_po()
     {
-        
+        if($this->input->is_ajax_request()) {
+            $rows   = $this->po_status->getListOsPo();
+            echo json_encode($rows, JSON_PRETTY_PRINT);
+            exit;
+        }
+        $data['title']      = "List of Outstanding PO";
+        $data['menu']       = "Status PO";
+        $data['submenu']    = "";
+        $data['content']    = "list_os_po";
+        $this->load->view('default', $data);
     }
 
     /**

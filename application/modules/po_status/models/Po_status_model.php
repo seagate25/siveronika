@@ -242,6 +242,33 @@ class Po_status_model extends CI_Model {
 
         return $query;
     }
+
+    public function getListOsPo()
+    {
+        $sql    = "SELECT
+                        CONCAT(purchasing_document, '-', posnr) AS po_number_item,
+                        CONCAT(FORMAT(posting_date, 'dd/MM/yyyy'), '-', FORMAT(deadline_date, 'dd/MM/yyyy')) AS order_date_deadline,
+                        vendor_name,
+                        estate AS dept_estate,
+                        CONCAT(item_code, '-', description) AS material_num_desc,
+                        CONCAT(order_unit, '', STR(outstanding)) AS uom_ng_qty,
+                        net_order_value AS outstanding_value,
+                        gr_late_in_day AS late_days,
+                        '%' AS progress_supply,
+                        order_unit AS uom,
+                        unitprice AS unit_price,
+                        order_qty,
+                        outstanding AS outstanding_qty
+                    FROM 
+                        TB_S_TR_PO_OUTSTANDING
+                    WHERE
+                        vendor = '{$this->vendor}'";
+        $query  = $this->db->query($sql);
+
+        $result = $query->result();
+
+        return $result;
+    }
 }
 
 /* End of file Po_status_model.php */
