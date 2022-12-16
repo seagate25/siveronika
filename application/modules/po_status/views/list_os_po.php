@@ -2,7 +2,7 @@
     <div class="card-header bg-success">
         <h3 class="card-title text-white"><?php echo $title; ?></h3>
         <div class="card-toolbar">
-            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
+            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2" onclick="return KTDataTables.init();">
             <i class="las la-sync fs-1"></i>
             </button>
         </div>
@@ -12,10 +12,11 @@
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
                     <th class="min-w-50px text-center">No.</th>
-                    <th class="min-w-80px text-center">PO Number - Item</th>
-                    <th class="min-w-50px text-center">Order Date - Deadline</th>
+                    <th class="min-w-150px text-center">PO Number - Item</th>
+                    <th class="min-w-200px text-center">Order Date - Deadline</th>
+                    <th class="min-w-100px text-center">Vendor Name</th>
                     <th class="min-w-50px text-center">Dept / Estate</th>
-                    <th class="min-w-50px text-center">Material Num - Desc</th>
+                    <th class="min-w-400px text-center">Material Num - Desc</th>
                     <th class="min-w-50px text-center">UoM ng Qty</th>
                     <th class="min-w-50px text-center">Outstanding Value</th>
                     <th class="min-w-50px text-center">Late Days</th>
@@ -39,13 +40,26 @@ var KTDataTables = (function() {
     return {
         init: function() {
             e = $("#kt_datatable_example_1").DataTable({
-                processing:!0, 
-                serverSide:!0,
+                processing:!1, 
+                serverSide:!1,
                 destroy: !0,
                 scrollX: !0,
-                dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
+                dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'B ><'col-sm-6 col-md-6 col-lg-6'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
+                    buttons: [
+                    {
+                        extend: 'excel', 
+                        exportOptions: { 
+                            modifier: { 
+                                page: 'all', 
+                                search: 'none' 
+                            }
+                        },
+                        text: 'Export',
+                        className: 'btn btn-sm btn-success'
+                    }
+                ],
                 paging: !0,
                 ordering: !0,
                 searching: !0,
@@ -54,26 +68,31 @@ var KTDataTables = (function() {
                     url: "<?php echo site_url('po_status/list_os_po');?>"
                 },
                 columns: [
-                    { data: 'number', className: 'text-center', sortable: false, searchable: false, orderable: false, 
+                    { data: '', className: 'text-center', sortable: true, searchable: false, orderable: true, 
                         render: function (data, type, row, meta) {
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { data: 'po_no', className: 'text-center' },
-                    { data: 'attachment_po', className: 'text-center', sortable: false, searchable: false, orderable: false },
-                    { data: 'template', className: 'text-center', sortable: false, searchable: false, orderable: false },
-                    { data: 'upload', className: 'text-center', sortable: false, searchable: false, orderable: false },
-                    { data: 'tanggal_document', className: 'text-center' },
-                    { data: 'tanggal_dibuat', className: 'text-center' },
-                    { data: 'jatuh_tempo', className: 'text-center' }
-                    // ,{ data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
+                    { data: 'po_number_item', className: 'text-center' },
+                    { data: 'order_date_deadline', className: 'text-center' },
+                    { data: 'vendor_name', className: 'text-center' },
+                    { data: 'dept_estate', className: 'text-center' },
+                    { data: 'material_num_desc', className: 'text-left' },
+                    { data: 'uom_ng_qty', className: 'text-center' },
+                    { data: 'outstanding_value', className: 'text-center' },
+                    { data: 'late_days', className: 'text-center' },
+                    { data: 'progress_supply', className: 'text-center' },
+                    { data: 'uom', className: 'text-center' },
+                    { data: 'unit_price', className: 'text-center' },
+                    { data: 'order_qty', className: 'text-center' },
+                    { data: 'outstanding_qty', className: 'text-center' }
                 ],
                 lengthMenu: [
                         [5, 10, 15, 25, -1],
                         [5, 10, 15, 25, "All"]
                     ],
                 pageLength: 10,
-                order: [1, 'ASC']
+                // order: [1, 'DESC']
             });
         }
     };
