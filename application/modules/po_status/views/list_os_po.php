@@ -12,14 +12,18 @@
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
                     <th class="min-w-50px text-center">No.</th>
-                    <th class="min-w-80px text-center">No. PO/ Unduh</th>
-                    <th class="min-w-50px text-center">Lampiran PO</th>
-                    <th class="min-w-50px text-center">Download Template</th>
-                    <th class="min-w-50px text-center">Unggah File Batch</th>
-                    <th class="min-w-50px text-center">Tanggal Dokumen</th>
-                    <th class="min-w-50px text-center">Tanggal Terima</th>
-                    <th class="min-w-50px text-center">Tanggal Jatuh Tempo</th>
-                    <!-- <th class="min-w-30px text-center">Aksi</th> -->
+                    <th class="min-w-80px text-center">PO Number - Item</th>
+                    <th class="min-w-50px text-center">Order Date - Deadline</th>
+                    <th class="min-w-50px text-center">Dept / Estate</th>
+                    <th class="min-w-50px text-center">Material Num - Desc</th>
+                    <th class="min-w-50px text-center">UoM ng Qty</th>
+                    <th class="min-w-50px text-center">Outstanding Value</th>
+                    <th class="min-w-50px text-center">Late Days</th>
+                    <th class="min-w-30px text-center">Progress Supply</th>
+                    <th class="min-w-30px text-center">UoM</th>
+                    <th class="min-w-30px text-center">Unit Price</th>
+                    <th class="min-w-30px text-center">Order Qty</th>
+                    <th class="min-w-30px text-center">Outstanding Qty</th>
                 </tr>
             </thead>
         </table>
@@ -47,7 +51,7 @@ var KTDataTables = (function() {
                 searching: !0,
                 ajax: {
                     type: "POST",
-                    url: "<?php echo site_url('po_status/po_goods');?>"
+                    url: "<?php echo site_url('po_status/list_os_po');?>"
                 },
                 columns: [
                     { data: 'number', className: 'text-center', sortable: false, searchable: false, orderable: false, 
