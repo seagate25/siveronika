@@ -254,7 +254,8 @@ class Po_status_model extends CI_Model {
                         CONCAT(order_unit, '', STR(outstanding)) AS uom_ng_qty,
                         net_order_value AS outstanding_value,
                         gr_late_in_day AS late_days,
-                        '%' AS progress_supply,
+                        -- '%' AS progress_supply,
+                        -- CONCAT(ROUND(((order_qty - outstanding) / order_qty) * 100, 2), '%') AS progress_supply,
                         order_unit AS uom,
                         unitprice AS unit_price,
                         order_qty,
@@ -269,6 +270,8 @@ class Po_status_model extends CI_Model {
         foreach($data as &$row) {
             $row->number    = $number;
             $row->material_num_desc = utf8_encode($row->material_num_desc);
+            $percentage = round(((((int)$row->order_qty - (int)$row->outstanding_qty) / (int)$row->order_qty) * 100), 2);
+            $row->progress_supply = ($percentage == 0) ? '100%' : $percentage.'%';
         }
         
         return ['data' => $data];
