@@ -10,7 +10,7 @@ class History extends CI_Controller
         parent::__construct();
         logged_in();
         $this->load->model('History_model', 'history');
-        $this->load->library('Crypto');
+        $this->load->library(['Crypto', 'zip']);
     }
 
     /**
@@ -262,6 +262,33 @@ class History extends CI_Controller
         $file_data  = $get_file->row();
 
         force_download($file_data->nama_berkas_asli, file_get_contents($file_data->alamat_berkas . $file_data->nama_berkas));
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function download_attachment()
+    {
+        $nomor_rfq  = $this->crypto->decode($this->uri->segment(3));
+        $path       = 'upload_files/Dokumen_RFQ';
+        
+        $getRfqAttachment = $this->history->getRfqAttachment($nomor_rfq);
+        if($getRfqAttachment->num_rows() > 0) {
+
+            foreach($getRfqAttachment->result() as $file) {
+                $file_path = $path . '/' . $file->nama_berkas;
+                $this->zip->read_file($file_path);
+            }
+
+            $this->zip->download($nomor_rfq . '.zip');
+
+        } else {
+
+            $this->zip->download($nomor_rfq . '.zip');
+            
+        }
     }
 }
 

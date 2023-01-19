@@ -69,8 +69,8 @@ class History_model extends CI_Model
     {
         parent::__construct();
         $this->load->library('Crypto');
-        $this->table_rfq    = ['TB_S_MST_RFQ_BARANG_HEAD', 'TB_S_MST_RFQ_BARANG_DTL', 'TB_S_MST_RFQ_BARANG_EQIV', 'TB_S_MST_RFQ_BIAYA_TAMBAHAN', 'TB_S_MST_RFQ_LAMPIRAN_BARANG', 'TB_TR_QUOTATION_LAMPIRAN'];
-        $this->table_nego   = ['TB_S_MST_NEGO_BARANG_HEAD', 'TB_S_MST_NEGO_BARANG_DTL', 'TB_S_MST_NEGO_BARANG_EQIV', 'TB_S_MST_NEGO_BIAYA_TAMBAHAN', 'TB_S_MST_NEGO_LAMPIRAN_BARANG', 'TB_TR_QUOTATION_LAMPIRAN'];
+        $this->table_rfq    = ['TB_S_MST_RFQ_BARANG_HEAD', 'TB_S_MST_RFQ_BARANG_DTL', 'TB_S_MST_RFQ_BARANG_EQIV', 'TB_S_MST_RFQ_BIAYA_TAMBAHAN', 'TB_S_MST_RFQ_LAMPIRAN_BARANG', 'TB_TR_QUOTATION_LAMPIRAN', 'TB_S_MST_SATUAN'];
+        $this->table_nego   = ['TB_S_MST_NEGO_BARANG_HEAD', 'TB_S_MST_NEGO_BARANG_DTL', 'TB_S_MST_NEGO_BARANG_EQIV', 'TB_S_MST_NEGO_BIAYA_TAMBAHAN', 'TB_S_MST_NEGO_LAMPIRAN_BARANG', 'TB_TR_QUOTATION_LAMPIRAN', 'TB_S_MST_SATUAN'];
         $this->vendor_code  = $this->session->userdata('kode_vendor');
         $this->today        = date('Y-m-d');
     }
@@ -104,38 +104,57 @@ class History_model extends CI_Model
             $where .= " OR tanggal_jatuh_tempo LIKE '%" . $search['value'] . "%')";
         }
 
-        $sql        = "SELECT trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung FROM {$this->table_rfq[0]} trfq LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq) {$where}";
+        $sql        = "SELECT * FROM {$this->table_rfq[0]}{$where}";
+        // $sql        = "SELECT trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung FROM {$this->table_rfq[0]} trfq LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq) {$where}";
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
         $sql_   = "SELECT  *
-                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum, 
-                                        trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
-                            FROM      {$this->table_rfq[0]} trfq 
-                            LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq)
+                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, *
+                            FROM      {$this->table_rfq[0]}
                             {$where}
                             ) AS RowConstrainedResult
                     WHERE   RowNum > {$start}
                         AND RowNum < (({$start} + 1) + {$length})
                     ORDER BY RowNum";
 
+        // $sql_   = "SELECT  *
+        //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum, 
+        //                                 trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
+        //                     FROM      {$this->table_rfq[0]} trfq 
+        //                     LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq)
+        //                     {$where}
+        //                     ) AS RowConstrainedResult
+        //             WHERE   RowNum > {$start}
+        //                 AND RowNum < (({$start} + 1) + {$length})
+        //             ORDER BY RowNum";
+
         $query = $this->db->query($sql_);
         $rows_data = $query->result();
-        // var_dump($rows_data);
         $rows = array();
         $i = (0 + 1);
 
         foreach ($rows_data as $row) {
             $berkas = '';
 
-            if ($row->nama_berkas !== NULL) {
-                $berkas =
-                    '<a href="' . base_url('upload_files/Dokumen_RFQ/' . $row->nama_berkas) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
+            // if ($row->nama_berkas !== NULL) {
+            //     $berkas =
+            //         '<a href="' . base_url('upload_files/Dokumen_RFQ/' . $row->nama_berkas) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
+            //                     <i class="las la-arrow-down fs-1 text-white"></i>
+            //                 </a>';
+            // } else {
+            //     $berkas = '';
+            // }
+
+            $checkRfqAttachment = $this->getRfqAttachment($row->nomor_rfq);
+            if($checkRfqAttachment->num_rows() > 0) {
+                $berkas = '<a href="' . site_url('history/download_attachment/'.$this->crypto->encode($row->nomor_rfq)) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
                                 <i class="las la-arrow-down fs-1 text-white"></i>
                             </a>';
             } else {
                 $berkas = '';
             }
+
             $row->number                = $i;
             $row->berkas                = $berkas;
             $row->nomor_rfq             = $row->nomor_rfq;
@@ -188,15 +207,25 @@ class History_model extends CI_Model
             $where .= " OR tanggal_jatuh_tempo LIKE '%" . $search['value'] . "%')";
         }
 
-        $sql = "SELECT trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung FROM {$this->table_nego[0]} trfq LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq) {$where}";
+        // $sql = "SELECT trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung FROM {$this->table_nego[0]} trfq LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq) {$where}";
+        $sql = "SELECT * FROM {$this->table_nego[0]}{$where}";
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
+        // $sql_   = "SELECT  *
+        //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum, 
+        //                                 trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
+        //                     FROM      {$this->table_nego[0]} trfq 
+        //                     LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq)
+        //                     {$where}
+        //                     ) AS RowConstrainedResult
+        //             WHERE   RowNum > {$start}
+        //                 AND RowNum < (({$start} + 1) + {$length})
+        //             ORDER BY RowNum";
+
         $sql_   = "SELECT  *
-                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum, 
-                                        trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
-                            FROM      {$this->table_nego[0]} trfq 
-                            LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq)
+                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, *
+                            FROM      {$this->table_nego[0]}
                             {$where}
                             ) AS RowConstrainedResult
                     WHERE   RowNum > {$start}
@@ -211,14 +240,24 @@ class History_model extends CI_Model
         foreach ($rows_data as $row) {
             $berkas = '';
 
-            if ($row->nama_berkas !== NULL) {
-                $berkas =
-                    '<a href="' . base_url('upload_files/Dokumen_RFQ/' . $row->nama_berkas) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
+            // if ($row->nama_berkas !== NULL) {
+            //     $berkas =
+            //         '<a href="' . base_url('upload_files/Dokumen_RFQ/' . $row->nama_berkas) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
+            //                     <i class="las la-arrow-down fs-1 text-white"></i>
+            //                 </a>';
+            // } else {
+            //     $berkas = '';
+            // }
+
+            $checkRfqAttachment = $this->getRfqAttachment($row->nomor_rfq);
+            if($checkRfqAttachment->num_rows() > 0) {
+                $berkas = '<a href="' . site_url('history/download_attachment/'.$this->crypto->encode($row->nomor_rfq)) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
                                 <i class="las la-arrow-down fs-1 text-white"></i>
                             </a>';
             } else {
                 $berkas = '';
             }
+
             $row->number                = $i;
             $row->berkas                = $berkas;
             $row->nomor_rfq             = $row->nomor_rfq;
@@ -257,36 +296,97 @@ class History_model extends CI_Model
         $order = $this->input->post('order');
         $order_column = $order[0]['column'];
         $order_dir = strtoupper($order[0]['dir']);
+        // $field  = array(
+        //     1 => 'kode_barang',
+        //     2 => 'deskripsi_barang',
+        //     3 => 'jumlah_permintaan',
+        //     4 => 'satuan'
+        // );
+
         $field  = array(
-            1 => 'kode_barang',
-            2 => 'deskripsi_barang',
-            3 => 'jumlah_permintaan',
-            4 => 'satuan'
+            1 => 'nomor_rfq',
+            2 => 'kode_barang',
+            3 => 'deskripsi_barang',
+            4 => 'jumlah_permintaan',
+            5 => 'satuan'
         );
 
         $order_column = $field[$order_column];
-        $where = " WHERE (nomor_rfq = '{$rfq_no}') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+        // $where = " WHERE (nomor_rfq = '{$rfq_no}') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+        // if (!empty($search['value'])) {
+        //     $where .= " AND ";
+        //     $where .= " (kode_barang LIKE '%" . $search['value'] . "%'";
+        //     $where .= " OR deskripsi_barang LIKE '%" . $search['value'] . "%'";
+        //     $where .= " OR jumlah_permintaan LIKE '%" . $search['value'] . "%'";
+        //     $where .= " OR satuan LIKE '%" . $search['value'] . "%')";
+        // }
+        $where = " WHERE (trfqd.nomor_rfq = '{$rfq_no}') ";  // Get Konfirmasi harga with konfirmasi_status = 1
         if (!empty($search['value'])) {
             $where .= " AND ";
-            $where .= " (kode_barang LIKE '%" . $search['value'] . "%'";
-            $where .= " OR deskripsi_barang LIKE '%" . $search['value'] . "%'";
-            $where .= " OR jumlah_permintaan LIKE '%" . $search['value'] . "%'";
-            $where .= " OR satuan LIKE '%" . $search['value'] . "%')";
+            $where .= " (trfqd.kode_barang LIKE '%" . $search['value'] . "%'";
+            $where .= " OR trfqd.deskripsi_barang LIKE '%" . $search['value'] . "%'";
+            $where .= " OR trfqd.jumlah_permintaan LIKE '%" . $search['value'] . "%'";
+            $where .= " OR trfqd.satuan LIKE '%" . $search['value'] . "%')";
         }
 
-        $sql        = "SELECT * FROM {$this->table_rfq[1]}{$where}";
+        // $sql        = "SELECT * FROM {$this->table_rfq[1]}{$where}";
+        $sql        = "SELECT trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
+                            trfqd.satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+                            trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+                            trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by,
+                            trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden,
+                            CASE    
+                                WHEN (trfqd.modified_date IS NULL and trfqd.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_RFQ_BARANG_EQIV teqiv where teqiv.nomor_rfq = trfqd.nomor_rfq and teqiv.kode_barang = trfqd.kode_barang)  > 0 THEN 'Sudah Diisi'
+                                WHEN trfqd.modified_date IS NOT NULL and  trfqd.modified_by IS NOT NULL THEN 'Sudah Diisi'
+                                WHEN trfqd.modified_date IS NULL and trfqd.modified_by IS NULL THEN 'Belum Diisi'
+                                ELSE 
+                                    'Belum Diisi'
+                            END StatusMaterial,
+                            tuom.deskripsi_satuan
+                        FROM {$this->table_rfq[1]} trfqd 
+                        LEFT JOIN {$this->table_rfq[6]} tuom ON(tuom.satuan = trfqd.satuan) 
+                        {$where}
+                        GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, trfqd.satuan, tuom.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+                        trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+                        trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by, trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden";
 
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
         $sql_   = "SELECT  *
-                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, *
-                            FROM      {$this->table_rfq[1]}
-                            {$where}
-                            ) AS RowConstrainedResult
-                    WHERE   RowNum > {$start}
-                        AND RowNum < (({$start} + 1) + {$length})
-                    ORDER BY RowNum";
+        FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
+                    trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
+                    trfqd.satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+                    trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+                    trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by,
+                    trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden,
+                    CASE    
+                        WHEN (trfqd.modified_date IS NULL and trfqd.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_RFQ_BARANG_EQIV teqiv where teqiv.nomor_rfq = trfqd.nomor_rfq and teqiv.kode_barang = trfqd.kode_barang)  > 0 THEN 'Sudah Diisi'
+                        WHEN trfqd.modified_date IS NOT NULL and  trfqd.modified_by IS NOT NULL THEN 'Sudah Diisi'
+                        WHEN trfqd.modified_date IS NULL and trfqd.modified_by IS NULL THEN 'Belum Diisi'
+                        ELSE 
+                            'Belum Diisi'
+                    END StatusMaterial,
+                    tuom.deskripsi_satuan
+                FROM {$this->table_rfq[1]} trfqd
+                LEFT JOIN {$this->table_rfq[6]} tuom ON(tuom.satuan = trfqd.satuan) 
+                {$where}
+                GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, trfqd.satuan, tuom.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+                trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+                trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by, trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden
+                ) AS RowConstrainedResult
+        WHERE   RowNum > {$start}
+            AND RowNum < (({$start} + 1) + {$length})
+        ORDER BY RowNum";
+
+        // $sql_   = "SELECT  *
+        //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, *
+        //                     FROM      {$this->table_rfq[1]}
+        //                     {$where}
+        //                     ) AS RowConstrainedResult
+        //             WHERE   RowNum > {$start}
+        //                 AND RowNum < (({$start} + 1) + {$length})
+        //             ORDER BY RowNum";
 
         $query = $this->db->query($sql_);
         $rows_data = $query->result();
@@ -304,7 +404,7 @@ class History_model extends CI_Model
             $row->konversi              = (int)$row->konversi;
             $row->ketersediaan_barang   = (int)$row->ketersediaan_barang;
             $row->deskripsi_satuan      = trim($row->deskripsi_satuan);
-            $row->urutan_rfq            = trim($row->urutan_rfq);
+            // $row->urutan_rfq            = trim($row->urutan_rfq);
             $row->status                = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
             $btn_eqiv_1                 = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'disabled' : '';
             $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods">
@@ -358,28 +458,62 @@ class History_model extends CI_Model
         );
 
         $order_column = $field[$order_column];
-        $where = " WHERE (nomor_rfq = '{$rfq_no}') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+        // $where = " WHERE (nomor_rfq = '{$rfq_no}') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+        $where = " WHERE (tnego_det.nomor_rfq = '{$rfq_no}') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+        // if (!empty($search['value'])) {
+        //     $where .= " AND ";
+        //     $where .= " (kode_barang LIKE '%" . $search['value'] . "%'";
+        //     $where .= " OR deskripsi_barang LIKE '%" . $search['value'] . "%'";
+        //     $where .= " OR jumlah_permintaan LIKE '%" . $search['value'] . "%'";
+        //     $where .= " OR satuan LIKE '%" . $search['value'] . "%')";
+        // }
         if (!empty($search['value'])) {
             $where .= " AND ";
-            $where .= " (kode_barang LIKE '%" . $search['value'] . "%'";
-            $where .= " OR deskripsi_barang LIKE '%" . $search['value'] . "%'";
-            $where .= " OR jumlah_permintaan LIKE '%" . $search['value'] . "%'";
-            $where .= " OR satuan LIKE '%" . $search['value'] . "%')";
+            $where .= " (tnego_det.kode_barang LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tnego_det.deskripsi_barang LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tnego_det.jumlah_permintaan LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tnego_det.satuan LIKE '%" . $search['value'] . "%')";
         }
 
-        $sql        = "SELECT * FROM {$this->table_nego[1]}{$where}";
+        // $sql        = "SELECT * FROM {$this->table_nego[1]}{$where}";
+        $sql        = "SELECT tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+                            tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+                            tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+                            tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
+                            tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego
+                        FROM {$this->table_nego[1]} tnego_det {$where}
+                        GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+                        tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+                        tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000))";
 
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
+        // $sql_   = "SELECT  *
+        //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, *
+        //                     FROM      {$this->table_nego[1]}
+        //                     {$where}
+        //                     ) AS RowConstrainedResult
+        //             WHERE   RowNum > {$start}
+        //                 AND RowNum < (({$start} + 1) + {$length})
+        //             ORDER BY RowNum";
+
         $sql_   = "SELECT  *
-                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, *
-                            FROM      {$this->table_nego[1]}
-                            {$where}
-                            ) AS RowConstrainedResult
-                    WHERE   RowNum > {$start}
-                        AND RowNum < (({$start} + 1) + {$length})
-                    ORDER BY RowNum";
+        FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
+                tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+        tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
+        tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego
+                FROM {$this->table_nego[1]} tnego_det
+                {$where}
+                GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000))
+                ) AS RowConstrainedResult
+        WHERE   RowNum > {$start}
+            AND RowNum < (({$start} + 1) + {$length})
+        ORDER BY RowNum";
 
         $query = $this->db->query($sql_);
         $rows_data = $query->result();
@@ -397,7 +531,7 @@ class History_model extends CI_Model
             $row->konversi              = (int)$row->konversi;
             $row->ketersediaan_barang   = (int)$row->ketersediaan_barang;
             $row->deskripsi_satuan      = trim($row->deskripsi_satuan);
-            $row->urutan_rfq            = trim($row->urutan_rfq);
+            // $row->urutan_rfq            = trim($row->urutan_rfq);
             $row->status                = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
             $btn_eqiv_1                 = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'disabled' : '';
             $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods">
@@ -719,6 +853,21 @@ class History_model extends CI_Model
         $result = $this->global->get_by($this->table_rfq[5], $params);
 
         return $result;
+    }
+
+    /**
+     * Get RFQ Attachment Files
+     *
+     * @return void
+     */
+    public function getRfqAttachment(String $rfq_no)
+    {
+        $this->load->model('Global_model', 'global');
+        $params = ['nomor_rfq' => $rfq_no];
+        
+        $query = $this->global->get_by($this->table_rfq[4], $params);
+
+        return $query;
     }
 }
 
