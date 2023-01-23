@@ -1083,6 +1083,7 @@
                         blockUI.release();
                         $("#input_file div").remove();
                         var data = e.row($(this).parents('tr')).data();
+                        var material_desc_val = '';
                         $("#kt_modal_det_rfq_goods h4 span#txt_rfq_no").text(data.nomor_rfq);
                         $("#kt_modal_det_rfq_goods h4 span#txt_material_code").text(data.kode_barang);
                         $("input[name=id_rfq]").val('<?php echo $this->uri->segment(3); ?>');
@@ -1091,7 +1092,8 @@
                         $("#currency").val('IDR').trigger('change');
                         $("input[name=material_code]").val(data.kode_barang);
                         $("input[name=material_name]").val(data.deskripsi_barang);
-                        $("textarea[name=material_desc]").val(data.deskripsi_material);
+                        material_desc_val = data.deskripsi_material + '\n' + data.dipakai_untuk;
+                        $("textarea[name=material_desc]").val(material_desc_val);
                         $("input[name=request_total]").val(data.jumlah_permintaan);
                         $("input[name=measurement]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
                         $("input[name=r_measurement]").val($.trim(data.satuan));
@@ -1231,6 +1233,7 @@
                         var id = $(this).attr('id');
                         var eqiv_id = id.replace('btn_eqiv_', '');
                         var material_code = data.kode_barang;
+                        var material_desc_eqiv_val = '';
 
                         $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_rfq_no_eqiv").text(data.nomor_rfq);
                         $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_material_code_eqiv").text(data.kode_barang);
@@ -1240,7 +1243,8 @@
                         // $("input[name=seq_eqiv]").val(data.urutan_rfq);
                         $("input[name=material_code_eqiv]").val(data.kode_barang);
                         $("input[name=material_name_eqiv]").val(data.deskripsi_barang);
-                        $("textarea[name=material_desc_eqiv]").val(data.deskripsi_material);
+                        material_desc_eqiv_val = data.deskripsi_material + '\n' + data.dipakai_untuk;
+                        $("textarea[name=material_desc_eqiv]").val(material_desc_eqiv_val);
                         $("input[name=request_total_eqiv]").val(data.jumlah_permintaan);
                         $("input[name=measurement_eqiv]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
                         $("input[name=r_measurement_eqiv]").val($.trim(data.satuan));

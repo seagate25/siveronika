@@ -1156,6 +1156,10 @@ var KTDataTables = (function() {
 
                                 $('#' + element_name).maskMoney('mask', data[element_name]);
 
+                            } else if (element_name == 'deskripsi_material') {
+
+                                $('#' + element_name).val(data[element_name] + '\n' + data['dipakai_untuk']);
+
                             } else {
 
                                 $('#' + element_name).val(data[element_name]);
@@ -1310,6 +1314,10 @@ var KTDataTables = (function() {
                                         } else if($name == 'jumlah_permintaan_eqiv' || $name == 'jumlah_tersedia_eqiv' || $name == 'jumlah_inden_eqiv' || $name == 'lama_inden_eqiv') {
 
                                             $('#' + $name).val(parseFloat(data[element_name]));
+
+                                        } else if ($name == 'deskripsi_material') {
+
+                                            $('#' + element_name).val(data[element_name] + '\n' + data['dipakai_untuk']);
 
                                         } else {
 
