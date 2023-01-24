@@ -603,7 +603,7 @@ class History_model extends CI_Model
         );
 
         $order_column = $field[$order_column];
-        $where = " WHERE (konfirmasi_status = '1' AND kode_vendor = '{$this->vendor_code}' AND tanggal_kirim < '" . date('Y-m-d') . "') ";  // Get Konfirmasi harga with konfirmasi_status = 1
+        // $where = " WHERE (konfirmasi_status = '1' AND kode_vendor = '{$this->vendor_code}' AND tanggal_kirim < '" . date('Y-m-d') . "') ";  // Get Konfirmasi harga with konfirmasi_status = 1
         $where = " WHERE (konfirmasi_status = '1' AND kode_vendor = '{$this->vendor_code}' AND (tanggal_kirim < '" . date('Y-m-d') . "' OR flag_kirim = 1)) ";  // Get Konfirmasi harga with konfirmasi_status = 1 and add filter flag_kirim =1
         if (!empty($search['value'])) {
             $where .= " AND ";
@@ -722,20 +722,19 @@ class History_model extends CI_Model
         );
 
         $order_column = $field[$order_column];
-        $where = " WHERE (konfirmasi_status = '2' AND kode_vendor = '{$this->vendor_code}' AND tanggal_kirim < '" . date('Y-m-d') . "') ";  // Get Konfirmasi harga with konfirmasi_status = 2
+        // $where = " WHERE (konfirmasi_status = '2' AND kode_vendor = '{$this->vendor_code}' AND tanggal_kirim < '" . date('Y-m-d') . "') ";  // Get Konfirmasi harga with konfirmasi_status = 2
         $where = " WHERE (konfirmasi_status = '2' AND kode_vendor = '{$this->vendor_code}' AND (tanggal_kirim < '" . date('Y-m-d') . "' OR flag_kirim = 1)) ";  // Get Konfirmasi harga with konfirmasi_status = 2 and add filter flag_kirim =1
         if (!empty($search['value'])) {
             $where .= " AND ";
-            $where .= " kode_konfirmasi LIKE '%" . $search['value'] . "%'";
+            $where .= " (kode_konfirmasi LIKE '%" . $search['value'] . "%'";
             $where .= " OR kode_vendor LIKE '%" . $search['value'] . "%'";
             $where .= " OR nama_vendor LIKE '%" . $search['value'] . "%'";
             $where .= " OR nomor_pr LIKE '%" . $search['value'] . "%'";
             $where .= " OR kode_material LIKE '%" . $search['value'] . "%'";
-            $where .= " OR deskripsi LIKE '%" . $search['value'] . "%'";
+            $where .= " OR deskripsi LIKE '%" . $search['value'] . "%')";
         }
 
         $sql        = "SELECT * FROM {$this->table_confirmation}{$where}";
-
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
@@ -858,7 +857,7 @@ class History_model extends CI_Model
     /**
      * Get RFQ Attachment Files
      *
-     * @return void
+     * @return object
      */
     public function getRfqAttachment(String $rfq_no)
     {
