@@ -1414,11 +1414,11 @@ var KTModalForm = (function() {
                                 }
                             },
                             keterangan_nego: {
-                                validators: {
-                                    notEmpty: {
-                                        message: "Keterangan Nego tidak boleh kosong"
-                                    }
-                                }
+                                // validators: {
+                                //     notEmpty: {
+                                //         message: "Keterangan Nego tidak boleh kosong"
+                                //     }
+                                // }
                             }
                         },
                         plugins: {
@@ -1543,11 +1543,11 @@ var KTModalForm = (function() {
                                 }
                             },
                             keterangan_nego_eqiv: {
-                                validators: {
-                                    notEmpty: {
-                                        message: "Keterangan Nego tidak boleh kosong"
-                                    }
-                                }
+                                // validators: {
+                                //     notEmpty: {
+                                //         message: "Keterangan Nego tidak boleh kosong"
+                                //     }
+                                // }
                             }
                         },
                         plugins: {
