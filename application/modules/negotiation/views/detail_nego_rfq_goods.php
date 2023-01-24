@@ -1417,13 +1417,13 @@ var KTModalForm = (function() {
                                     }
                                 }
                             },
-                            keterangan_nego: {
-                                validators: {
-                                    notEmpty: {
-                                        message: "Keterangan Nego tidak boleh kosong"
-                                    }
-                                }
-                            }
+                            // keterangan_nego: {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: "Keterangan Nego tidak boleh kosong"
+                            //         }
+                            //     }
+                            // }
                         },
                         plugins: {
                             trigger: new FormValidation.plugins.Trigger(),
@@ -1546,13 +1546,13 @@ var KTModalForm = (function() {
                                     }
                                 }
                             },
-                            keterangan_nego_eqiv: {
-                                validators: {
-                                    notEmpty: {
-                                        message: "Keterangan Nego tidak boleh kosong"
-                                    }
-                                }
-                            }
+                            // keterangan_nego_eqiv: {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: "Keterangan Nego tidak boleh kosong"
+                            //         }
+                            //     }
+                            // }
                         },
                         plugins: {
                             trigger: new FormValidation.plugins.Trigger(),
