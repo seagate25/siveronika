@@ -1158,7 +1158,9 @@ var KTDataTables = (function() {
 
                             } else if (element_name == 'deskripsi_material') {
 
-                                $('#' + element_name).val(data[element_name] + '\n' + data['dipakai_untuk']);
+                                var txt_desc_mat = (data[element_name] == '' || data[element_name] == null) ? '' : data[element_name];
+                                var txt_dipakai  = (data['dipakai_untuk'] == '' || data['dipakai_untuk'] == null) ? '' : data['dipakai_untuk']; 
+                                $('#' + element_name).val(txt_desc_mat + '\n' + txt_dipakai);
 
                             } else {
 
@@ -1317,7 +1319,9 @@ var KTDataTables = (function() {
 
                                         } else if ($name == 'deskripsi_material') {
 
-                                            $('#' + element_name).val(data[element_name] + '\n' + data['dipakai_untuk']);
+                                            var txt_desc_mat = (data[element_name] == '' || data[element_name] == null) ? '' : data[element_name];
+                                            var txt_dipakai  = (data['dipakai_untuk'] == '' || data['dipakai_untuk'] == null) ? '' : data['dipakai_untuk']; 
+                                            $('#' + element_name).val(txt_desc_mat + '\n' + txt_dipakai);
 
                                         } else {
 
@@ -1413,13 +1417,13 @@ var KTModalForm = (function() {
                                     }
                                 }
                             },
-                            keterangan_nego: {
-                                validators: {
-                                    notEmpty: {
-                                        message: "Keterangan Nego tidak boleh kosong"
-                                    }
-                                }
-                            }
+                            // keterangan_nego: {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: "Keterangan Nego tidak boleh kosong"
+                            //         }
+                            //     }
+                            // }
                         },
                         plugins: {
                             trigger: new FormValidation.plugins.Trigger(),
@@ -1542,13 +1546,13 @@ var KTModalForm = (function() {
                                     }
                                 }
                             },
-                            keterangan_nego_eqiv: {
-                                validators: {
-                                    notEmpty: {
-                                        message: "Keterangan Nego tidak boleh kosong"
-                                    }
-                                }
-                            }
+                            // keterangan_nego_eqiv: {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: "Keterangan Nego tidak boleh kosong"
+                            //         }
+                            //     }
+                            // }
                         },
                         plugins: {
                             trigger: new FormValidation.plugins.Trigger(),
