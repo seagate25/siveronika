@@ -857,7 +857,7 @@ class History_model extends CI_Model
     /**
      * Get RFQ Attachment Files
      *
-     * @return void
+     * @return object
      */
     public function getRfqAttachment(String $rfq_no)
     {
