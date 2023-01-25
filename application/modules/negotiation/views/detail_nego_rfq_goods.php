@@ -1207,7 +1207,7 @@ var KTDataTables = (function() {
                 });
             }),
             $('#kt_datatable_detail_nego_rfq_goods tbody').on('click', 'button.eqiv_form_1, button.eqiv_form_2, button.eqiv_form_3, button.eqiv_form_4', function() {
-                
+                blockModalEQIV.release();
                 // Get DataTables row data
                 var data = e.row($(this).parents('tr')).data();
 
