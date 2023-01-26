@@ -940,7 +940,7 @@ var KTDataTables = (function() {
 
                     // Check if element has object in DataTables data row
                     if(data.hasOwnProperty(element_name)) {
-
+                        console.log(element_name + ' = ' + data[element_name]);
                         if(class_input[0] == 'form-select') {
 
                             // If class name select, initialize to select2
@@ -985,7 +985,13 @@ var KTDataTables = (function() {
 
                             } else if(element_name == 'harga_satuan' || element_name == 'harga_satuan_nego') {
 
-                                $('#' + element_name).maskMoney('mask', data[element_name]);
+                                // $('#' + element_name).maskMoney('mask', data[element_name]);
+
+                                if(data[element_name] !== null) {
+                                    $('#' + element_name).maskMoney('mask', parseInt(data[element_name]));
+                                } else {
+                                    $('#' + element_name).val();
+                                }
 
                             } else {
 
