@@ -221,20 +221,20 @@ class Negotiation_model extends CI_Model {
             $row->ketersediaan_barang   = (int)$row->ketersediaan_barang;
             $row->deskripsi_satuan      = trim($row->deskripsi_satuan);
             $row->status                = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
-            $btn_eqiv_1                 = '';
-            $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods">
+            $btn_rfq                    = (trim($row->modified_by) == 'SAP') ? '' : 'disabled';
+            $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" '.$btn_rfq.' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods">
                                             <i class="fas fa-envelope-open-text"></i>
                                         </button>';
-            $row->actions_equivalen     = '<button type="button" class="eqiv_form_1 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_1" ' . $btn_eqiv_1 . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+            $row->actions_equivalen     = '<button type="button" class="eqiv_form_1 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_1" ' . $this->enableEqivBtn($row->nomor_rfq, 1, $row->kode_barang) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
                                             1
                                         </button>
-                                        <button type="button" class="eqiv_form_2 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_2" ' . $this->enableEqivBtn($row->nomor_rfq, 1, $row->kode_barang) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_2 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_2" ' . $this->enableEqivBtn($row->nomor_rfq, 2, $row->kode_barang) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
                                             2
                                         </button>
-                                        <button type="button" class="eqiv_form_3 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_3" ' . $this->enableEqivBtn($row->nomor_rfq, 2, $row->kode_barang) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_3 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_3" ' . $this->enableEqivBtn($row->nomor_rfq, 3, $row->kode_barang) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
                                             3
                                         </button>
-                                        <button type="button" class="eqiv_form_4 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_4" ' . $this->enableEqivBtn($row->nomor_rfq, 3, $row->kode_barang) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_4 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_4" ' . $this->enableEqivBtn($row->nomor_rfq, 4, $row->kode_barang) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
                                             4
                                         </button>';
 
@@ -281,7 +281,9 @@ class Negotiation_model extends CI_Model {
     {
         $enable = 'disabled';
 
-        $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen, 'kode_barang' => $item_code);
+        // $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen, 'kode_barang' => $item_code);
+
+        $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen, 'kode_barang' => $item_code, 'modified_by' => 'SAP');
         $isEquivalentExists = $this->global->get_by($this->table['eqiv'], $params);
         if ($isEquivalentExists->num_rows() > 0) {
             $enable = '';
