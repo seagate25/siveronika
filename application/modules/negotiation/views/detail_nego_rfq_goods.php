@@ -1444,7 +1444,7 @@ var KTModalForm = (function() {
                         "Valid" == v ?
                         (
                             Swal.fire({
-                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan, karena data yang telah disimpan akan terkirim langsung ke Socfindo",
                                 icon: "warning",
                                 showCancelButton: !0,
                                 buttonsStyling: !1,
@@ -1573,7 +1573,7 @@ var KTModalForm = (function() {
                         "Valid" == v ?
                         (
                             Swal.fire({
-                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
+                                text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan, karena data yang telah disimpan akan terkirim langsung ke Socfindo",
                                 icon: "warning",
                                 showCancelButton: !0,
                                 buttonsStyling: !1,
