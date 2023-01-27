@@ -221,7 +221,7 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Harga Satuan</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">Harga Satuan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
@@ -329,7 +329,7 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Masa Berlaku Harga</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">Masa Berlaku Harga</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container" id="mbh_rfq">
@@ -660,7 +660,7 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Harga Satuan</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">Harga Satuan</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
@@ -770,7 +770,7 @@
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-bold fs-6">Masa Berlaku Harga</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6">Masa Berlaku Harga</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container" id="mbh_eqiv">
@@ -1111,8 +1111,7 @@
                             $("#form_convertion").show();
                         }
                         $('input[name="available"][value="0"]').prop('checked', true);
-                        $("input[name=ed_price]").val('');
-
+                        $("input[name=ed_price]").val(Elements.get_date());
                         $("input[name=available_total]").val(0);
                         $("input[name=indent_total]").val(0);
                         $("input[name=indent_day]").val(0);
@@ -1259,10 +1258,11 @@
                         $("input[name=desc_measure_eqiv]").val($.trim(data.deskripsi_satuan));
                         $("#unit_measure_eqiv").val(data.satuan).trigger('change');
                         $("#currency_eqiv").val('IDR').trigger('change');
+                        $("input[name=unit_price_eqiv]").maskMoney('mask', 0);
                         $("input[name=temp_unit_measure_eqiv]").val(data.per_harga_satuan);
                         $('input[name="convert_eqiv"][value="0"]').prop('checked', true);
                         $('input[name="available_eqiv"][value="0"]').prop('checked', true);
-                        $("input[name=ed_price_eqiv]").val('');
+                        $("input[name=ed_price_eqiv]").val(Elements.get_date());
                         $("textarea[name=notes_eqiv]").val('');
                         $("input[name=created_by_eqiv]").val('');
 
@@ -1478,13 +1478,13 @@
                                     }
                                 }
                             },
-                            unit_price: {
-                                validators: {
-                                    notEmpty: {
-                                        message: "Harga Satuan tidak boleh kosong"
-                                    }
-                                }
-                            },
+                            // unit_price: {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: "Harga Satuan tidak boleh kosong"
+                            //         }
+                            //     }
+                            // },
                             unit_measure: {
                                 validators: {
                                     notEmpty: {
@@ -1532,13 +1532,13 @@
                                     }
                                 }
                             },
-                            ed_price: {
-                                validators: {
-                                    notEmpty: {
-                                        message: "Masa Berlaku Harga tidak boleh kosong"
-                                    }
-                                }
-                            },
+                            // ed_price: {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: "Masa Berlaku Harga tidak boleh kosong"
+                            //         }
+                            //     }
+                            // },
                             created_by: {
                                 validators: {
                                     notEmpty: {
@@ -1703,13 +1703,13 @@
                                     }
                                 }
                             },
-                            unit_price_eqiv: {
-                                validators: {
-                                    notEmpty: {
-                                        message: "Harga Satuan tidak boleh kosong"
-                                    }
-                                }
-                            },
+                            // unit_price_eqiv: {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: "Harga Satuan tidak boleh kosong"
+                            //         }
+                            //     }
+                            // },
                             unit_measure_eqiv: {
                                 validators: {
                                     notEmpty: {
@@ -1807,13 +1807,13 @@
                                     }
                                 }
                             },
-                            ed_price_eqiv: {
-                                validators: {
-                                    notEmpty: {
-                                        message: "Masa Berlaku Harga tidak boleh kosong"
-                                    }
-                                }
-                            },
+                            // ed_price_eqiv: {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: "Masa Berlaku Harga tidak boleh kosong"
+                            //         }
+                            //     }
+                            // },
                             created_by_eqiv: {
                                 validators: {
                                     notEmpty: {
@@ -2114,6 +2114,16 @@
                         $btn_rm.remove();
                     }
                 });
+            },
+            get_date: function() {
+                // var date = new Date();
+                // var year = date.getFullYear();
+                // var month = date.getMonth();
+                // var day = date.getDate();
+                // var today = year + '-' + month + '-' + day;
+                var today = moment().format('YYYY-MM-DD');
+                // console.log(today);
+                return today;
             }
         }
     })();
@@ -2127,13 +2137,15 @@
             thousands: '.',
             decimal: ',',
             affixesStay: false,
-            precision: 0
+            precision: 0,
+            allowZero: !0
         });
         $("input[name=unit_price_eqiv]").maskMoney({
             thousands: '.',
             decimal: ',',
             affixesStay: false,
-            precision: 0
+            precision: 0,
+            allowZero: !0
         });
         $("#kt_daterangepicker_3").daterangepicker({
             autoApply: true,
