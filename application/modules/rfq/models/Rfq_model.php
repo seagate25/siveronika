@@ -199,12 +199,34 @@ class Rfq_model extends CI_Model
         }
 
         // $sql        = "SELECT * FROM {$this->table[1]} trfqd {$where}";
+
+        // $sql        = "SELECT trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
+        //                     trfqd.satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+        //                     trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+        //                     trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by,
+        //                     trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden,
+        //                     trfqd.dipakai_untuk, /** penambahan pada textarea */
+        //                     CASE    
+        //                         WHEN (trfqd.modified_date IS NULL and trfqd.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_RFQ_BARANG_EQIV teqiv where teqiv.nomor_rfq = trfqd.nomor_rfq and teqiv.kode_barang = trfqd.kode_barang)  > 0 THEN 'Sudah Diisi'
+        //                         WHEN trfqd.modified_date IS NOT NULL and  trfqd.modified_by IS NOT NULL THEN 'Sudah Diisi'
+        //                         WHEN trfqd.modified_date IS NULL and trfqd.modified_by IS NULL THEN 'Belum Diisi'
+        //                         ELSE 
+        //                             'Belum Diisi'
+        //                     END StatusMaterial,
+        //                     tuom.deskripsi_satuan
+        //                 FROM {$this->table[1]} trfqd 
+        //                 LEFT JOIN {$this->table[6]} tuom ON(tuom.satuan = trfqd.satuan) 
+        //                 {$where}
+        //                 GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, trfqd.satuan, tuom.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+        //                 trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+        //                 trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by, trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden, trfqd.dipakai_untuk";
+
         $sql        = "SELECT trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
                             trfqd.satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
                             trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
                             trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by,
                             trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden,
-                            trfqd.dipakai_untuk, /** penambahan pada textarea */
+                            d.dipakai_untuk, /** penambahan pada textarea */
                             CASE    
                                 WHEN (trfqd.modified_date IS NULL and trfqd.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_RFQ_BARANG_EQIV teqiv where teqiv.nomor_rfq = trfqd.nomor_rfq and teqiv.kode_barang = trfqd.kode_barang)  > 0 THEN 'Sudah Diisi'
                                 WHEN trfqd.modified_date IS NOT NULL and  trfqd.modified_by IS NOT NULL THEN 'Sudah Diisi'
@@ -214,37 +236,92 @@ class Rfq_model extends CI_Model
                             END StatusMaterial,
                             tuom.deskripsi_satuan
                         FROM {$this->table[1]} trfqd 
-                        LEFT JOIN {$this->table[6]} tuom ON(tuom.satuan = trfqd.satuan) 
+                        LEFT JOIN {$this->table[6]} tuom ON(tuom.satuan = trfqd.satuan)
+                        JOIN
+                            (
+                                SELECT 
+                                    a.nomor_rfq,
+                                    a.kode_barang,
+                                    STRING_AGG( ISNULL(a.dipakai_untuk , ' '), ' & ') As dipakai_untuk
+                                FROM 
+                                    {$this->table[1]} a
+                                WHERE
+                                    a.nomor_rfq = '{$rfq_no}'
+                                GROUP BY 
+                                    a.nomor_rfq,
+                                    a.kode_barang
+                            ) d ON (trfqd.kode_barang = d.kode_barang)
                         {$where}
                         GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, trfqd.satuan, tuom.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
                         trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
-                        trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by, trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden, trfqd.dipakai_untuk";
+                        trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by, trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden, d.dipakai_untuk";
 
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
+        // $sql_   = "SELECT  *
+        // FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
+        //             trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
+        //             trfqd.satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+        //             trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+        //             trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by,
+        //             trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden,
+        //             trfqd.dipakai_untuk, /** penambahan pada textarea */
+        //             CASE    
+        //                 WHEN (trfqd.modified_date IS NULL and trfqd.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_RFQ_BARANG_EQIV teqiv where teqiv.nomor_rfq = trfqd.nomor_rfq and teqiv.kode_barang = trfqd.kode_barang)  > 0 THEN 'Sudah Diisi'
+        //                 WHEN trfqd.modified_date IS NOT NULL and  trfqd.modified_by IS NOT NULL THEN 'Sudah Diisi'
+        //                 WHEN trfqd.modified_date IS NULL and trfqd.modified_by IS NULL THEN 'Belum Diisi'
+        //                 ELSE 
+        //                     'Belum Diisi'
+        //             END StatusMaterial,
+        //             tuom.deskripsi_satuan
+        //         FROM {$this->table[1]} trfqd
+        //         LEFT JOIN {$this->table[6]} tuom ON(tuom.satuan = trfqd.satuan) 
+        //         {$where}
+        //         GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, trfqd.satuan, tuom.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+        //         trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+        //         trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by, trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden, trfqd.dipakai_untuk
+        //         ) AS RowConstrainedResult
+        // WHERE   RowNum > {$start}
+        //     AND RowNum < (({$start} + 1) + {$length})
+        // ORDER BY RowNum";
+
         $sql_   = "SELECT  *
-        FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
+        FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfqd.{$order_column} {$order_dir} ) AS RowNum,
                     trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
-                    trfqd.satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
-                    trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
-                    trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by,
-                    trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden,
-                    trfqd.dipakai_untuk, /** penambahan pada textarea */
-                    CASE    
-                        WHEN (trfqd.modified_date IS NULL and trfqd.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_RFQ_BARANG_EQIV teqiv where teqiv.nomor_rfq = trfqd.nomor_rfq and teqiv.kode_barang = trfqd.kode_barang)  > 0 THEN 'Sudah Diisi'
-                        WHEN trfqd.modified_date IS NOT NULL and  trfqd.modified_by IS NOT NULL THEN 'Sudah Diisi'
-                        WHEN trfqd.modified_date IS NULL and trfqd.modified_by IS NULL THEN 'Belum Diisi'
-                        ELSE 
-                            'Belum Diisi'
-                    END StatusMaterial,
-                    tuom.deskripsi_satuan
-                FROM {$this->table[1]} trfqd
-                LEFT JOIN {$this->table[6]} tuom ON(tuom.satuan = trfqd.satuan) 
-                {$where}
-                GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, trfqd.satuan, tuom.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
-                trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
-                trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by, trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden, trfqd.dipakai_untuk
+                            trfqd.satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+                            trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+                            trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by,
+                            trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden,
+                            d.dipakai_untuk, /** penambahan pada textarea */
+                            CASE    
+                                WHEN (trfqd.modified_date IS NULL and trfqd.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_RFQ_BARANG_EQIV teqiv where teqiv.nomor_rfq = trfqd.nomor_rfq and teqiv.kode_barang = trfqd.kode_barang)  > 0 THEN 'Sudah Diisi'
+                                WHEN trfqd.modified_date IS NOT NULL and  trfqd.modified_by IS NOT NULL THEN 'Sudah Diisi'
+                                WHEN trfqd.modified_date IS NULL and trfqd.modified_by IS NULL THEN 'Belum Diisi'
+                                ELSE 
+                                    'Belum Diisi'
+                            END StatusMaterial,
+                            tuom.deskripsi_satuan
+                        FROM {$this->table[1]} trfqd 
+                        LEFT JOIN {$this->table[6]} tuom ON(tuom.satuan = trfqd.satuan)
+                        JOIN
+                            (
+                                SELECT 
+                                    a.nomor_rfq,
+                                    a.kode_barang,
+                                    STRING_AGG( ISNULL(a.dipakai_untuk , ' '), ' & ') As dipakai_untuk
+                                FROM 
+                                    {$this->table[1]} a
+                                WHERE
+                                    a.nomor_rfq = '{$rfq_no}'
+                                GROUP BY 
+                                    a.nomor_rfq,
+                                    a.kode_barang
+                            ) d ON (trfqd.kode_barang = d.kode_barang)
+                        {$where}
+                        GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, trfqd.satuan, tuom.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
+                        trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
+                        trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by, trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden, d.dipakai_untuk
                 ) AS RowConstrainedResult
         WHERE   RowNum > {$start}
             AND RowNum < (({$start} + 1) + {$length})
@@ -544,7 +621,7 @@ class Rfq_model extends CI_Model
     /**
      * Get RFQ Attachment Files
      *
-     * @return void
+     * @return object
      */
     public function getRfqAttachment(String $rfq_no)
     {

@@ -1086,6 +1086,7 @@
                         var material_desc_val = '';
                         var txt_desc_mat = '';
                         var txt_dipakai = '';
+                        var last_char = '';
                         $("#kt_modal_det_rfq_goods h4 span#txt_rfq_no").text(data.nomor_rfq);
                         $("#kt_modal_det_rfq_goods h4 span#txt_material_code").text(data.kode_barang);
                         $("input[name=id_rfq]").val('<?php echo $this->uri->segment(3); ?>');
@@ -1095,8 +1096,10 @@
                         $("input[name=material_code]").val(data.kode_barang);
                         $("input[name=material_name]").val(data.deskripsi_barang);
                         txt_desc_mat = (data.deskripsi_material == '' || data.deskripsi_material == null) ? '' : data.deskripsi_material;
-                        txt_dipakai = (data.dipakai_untuk == '' || data.dipakai_untuk == null) ? '' : data.dipakai_untuk;
-                        material_desc_val = txt_desc_mat + '\n' + txt_dipakai;
+                        txt_dipakai = (data.dipakai_untuk == '' || data.dipakai_untuk == null) ? ' - ' : $.trim(data.dipakai_untuk);
+                        last_char = txt_dipakai.slice(-1);
+                        txt_dipakai = (last_char == '&') ? txt_dipakai.slice(0, -2) : txt_dipakai;
+                        material_desc_val = txt_desc_mat + '\n' + 'Dipakai untuk : ' + txt_dipakai;
                         $("textarea[name=material_desc]").val(material_desc_val);
                         $("input[name=request_total]").val(data.jumlah_permintaan);
                         $("input[name=measurement]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
@@ -1239,6 +1242,7 @@
                         var material_desc_eqiv_val = '';
                         var txt_desc_eqiv = '';
                         var txt_dipakai_eqiv = '';
+                        var last_char_eqiv = '';
                         $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_rfq_no_eqiv").text(data.nomor_rfq);
                         $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_material_code_eqiv").text(data.kode_barang);
                         $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_seq_eqiv").text(eqiv_id);
@@ -1248,9 +1252,11 @@
                         $("input[name=material_code_eqiv]").val(data.kode_barang);
                         $("input[name=material_name_eqiv]").val(data.deskripsi_barang);
                         txt_desc_eqiv = (data.deskripsi_material == '' || data.deskripsi_material == null) ? '' : data.deskripsi_material;
-                        txt_dipakai_eqiv = (data.dipakai_untuk == '' || data.dipakai_untuk == null) ? '' : data.dipakai_untuk;
-                        // material_desc_val = txt_desc_mat + '\n' + txt_dipakai;
-                        material_desc_eqiv_val = txt_desc_eqiv + '\n' + txt_dipakai_eqiv;
+                        txt_dipakai_eqiv = (data.dipakai_untuk == '' || data.dipakai_untuk == null) ? ' - ' : $.trim(data.dipakai_untuk);
+                        last_char_eqiv = txt_dipakai_eqiv.slice(-1);
+                        txt_dipakai_eqiv = (last_char_eqiv == '&') ? txt_dipakai_eqiv.slice(0, -2) : txt_dipakai_eqiv;
+
+                        material_desc_eqiv_val = txt_desc_eqiv + '\n' + 'Dipakai untuk : ' + txt_dipakai_eqiv;
                         $("textarea[name=material_desc_eqiv]").val(material_desc_eqiv_val);
                         $("input[name=request_total_eqiv]").val(data.jumlah_permintaan);
                         $("input[name=measurement_eqiv]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
