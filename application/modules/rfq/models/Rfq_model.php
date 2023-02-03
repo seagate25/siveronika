@@ -242,7 +242,11 @@ class Rfq_model extends CI_Model
                                 SELECT 
                                     a.nomor_rfq,
                                     a.kode_barang,
-                                    STRING_AGG( ISNULL(a.dipakai_untuk , ' '), ' & ') As dipakai_untuk
+                                    -- STRING_AGG( ISNULL(a.dipakai_untuk , ' '), ' & ') As dipakai_untuk
+                                    STUFF((SELECT ' & ' + b.dipakai_untuk 
+                                    FROM TB_S_MST_RFQ_BARANG_DTL b
+                                    WHERE b.nomor_rfq = a.nomor_rfq AND b.kode_barang = a.kode_barang
+                                    FOR XML PATH('')), 1, 1, '') AS dipakai_untuk
                                 FROM 
                                     {$this->table[1]} a
                                 WHERE
@@ -309,7 +313,11 @@ class Rfq_model extends CI_Model
                                 SELECT 
                                     a.nomor_rfq,
                                     a.kode_barang,
-                                    STRING_AGG( ISNULL(a.dipakai_untuk , ' '), ' & ') As dipakai_untuk
+                                    -- STRING_AGG( ISNULL(a.dipakai_untuk , ' '), ' & ') As dipakai_untuk
+                                    STUFF((SELECT ' & ' + b.dipakai_untuk 
+                                    FROM TB_S_MST_RFQ_BARANG_DTL b
+                                    WHERE b.nomor_rfq = a.nomor_rfq AND b.kode_barang = a.kode_barang
+                                    FOR XML PATH('')), 1, 1, '') AS dipakai_untuk
                                 FROM 
                                     {$this->table[1]} a
                                 WHERE
@@ -354,6 +362,7 @@ class Rfq_model extends CI_Model
             $row->ketersediaan_barang   = (int)$row->ketersediaan_barang;
             $row->deskripsi_satuan      = trim($row->deskripsi_satuan);
             $row->dipakai_untuk         = $row->dipakai_untuk;
+            $row->dipakai_untuk         = substr(htmlspecialchars_decode($row->dipakai_untuk), 2);
             // $row->urutan_rfq            = trim($row->urutan_rfq);
             $row->status                = $row->StatusMaterial;//($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
             // $btn_eqiv_1                 = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'disabled' : '';
