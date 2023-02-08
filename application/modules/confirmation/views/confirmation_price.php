@@ -110,7 +110,7 @@
                             <!--Begin::Input Group-->
                             <div class="d-flex flex-row">
                                 <!--begin::Label-->
-                                <label class="col-lg-5 col-form-label fw-bold fs-6">Apakah dapat direpeat order?</label>
+                                <label class="col-lg-5 col-form-label required fw-bold fs-6">Apakah dapat direpeat order?</label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-7 fv-row fv-plugins-icon-container">
@@ -431,13 +431,13 @@
                     }),
                     (n = FormValidation.formValidation(o, {
                         fields: {
-                            // repeat_order: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Wajib diisi"
-                            //         }
-                            //     }
-                            // },
+                            repeat_order: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Wajib diisi"
+                                    }
+                                }
+                            },
                             // confirmation_price: { validators: { notEmpty: { message: "Harga tidak boleh kosong" } } },
                             // confirmation_currency: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
                             // request_total: { validators: { notEmpty: { message: "Jumlah permintaan tidak boleh kosong" } } },
