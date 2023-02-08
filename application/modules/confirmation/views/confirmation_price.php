@@ -452,15 +452,38 @@
                                         callback: function(input) {
                                             const selectedCheckbox = o.querySelector('[name="repeat_order"]:checked');
                                             const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+                                            const r_total = o.querySelector('[name="request_total"]');
 
-                                            return (convertion !== '1')
-                                                // The field is valid if user picks
-                                                // a given convertion from the list
-                                                ?
-                                                true
-                                                // Otherwise, the field value is required
-                                                :
-                                                (parseInt(input.value) > 0);
+                                            // return (convertion !== '1')
+                                            //     // The field is valid if user picks
+                                            //     // a given convertion from the list
+                                            //     ?
+                                            //     true
+                                            //     // Otherwise, the field value is required
+                                            //     :
+                                            //     (parseInt(input.value) > 0);
+
+                                            if(convertion !== '1') {
+                                                return true;
+                                            } else {
+
+                                                if(parseInt(input.value) == 0) {
+                                                    return {
+                                                        valid: false,
+                                                        message: 'Jumlah tersedia tidak boleh 0 (Nol)'
+                                                    }
+                                                } else {
+                                                    if(parseInt(input.value) > 0 && parseInt(input.value) <= r_total.value) {
+                                                        return true;
+                                                    } else {
+                                                        return {
+                                                            valid: false,
+                                                            message: 'Jumlah tersedia tidak boleh lebih dari jumlah permintaan'
+                                                        }
+                                                    }
+                                                }
+                                    
+                                            }
                                         }
                                     }
                                 }
@@ -482,15 +505,29 @@
                                         callback: function(input) {
                                             const selectedCheckbox = o.querySelector('[name="repeat_order"]:checked');
                                             const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+                                            const a_total = o.querySelector('[name="available_total"]');
+                                            const r_total = o.querySelector('[name="request_total"]');
 
-                                            return (convertion !== '1')
-                                                // The field is valid if user picks
-                                                // a given convertion from the list
-                                                ?
-                                                true
-                                                // Otherwise, the field value is required
-                                                :
-                                                (parseInt(input.value) > 0);
+                                            // return (convertion !== '1')
+                                            //     // The field is valid if user picks
+                                            //     // a given convertion from the list
+                                            //     ?
+                                            //     true
+                                            //     // Otherwise, the field value is required
+                                            //     :
+                                            //     (a_total.value == r_total.value) ? true : (parseInt(input.value) > 0);
+
+                                            if(convertion !== '1') {
+                                                return true;
+                                            } else {
+                                                if(a_total.value == r_total.value) {
+                                                    return true;
+                                                } else if(a_total.value > r_total.value) {
+                                                    return true;
+                                                } else {
+                                                    return (parseInt(input.value) > 0);
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -583,7 +620,7 @@
                                             confirmButton: "btn btn-primary"
                                         },
                                     });
-                                    console.log(o.querySelectorAll("div.invalid-feedback > div"));
+                                    // console.log(o.querySelectorAll("div.invalid-feedback > div"));
                             });
                     }),
                     e.addEventListener("click", function(t) {
@@ -639,7 +676,11 @@
                 $("#div_indent_day").show();
 
                 $("input[name=available_total]").attr('readonly', false).removeClass('form-control-solid');
-                $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
+                if($("input[name=available_total]").val() == $("input[name=request_total]").val()) {
+                    $("input[name=indent_day]").attr('readonly', true).addClass('form-control-solid').val(0);
+                } else {
+                    $("input[name=indent_day]").attr('readonly', false).removeClass('form-control-solid');
+                }
                 
             } else {
                 $("#div_available_total").hide();
