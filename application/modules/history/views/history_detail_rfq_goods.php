@@ -240,6 +240,47 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
+                        <div id="form_status_ketersediaan_barang">
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Tersedia</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="available_total" id="available_total" class="form-control" placeholder="Jumlah Tersedia" min="0" disabled>
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Indent</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="indent_total" id="indent_total" class="form-control form-control-solid" placeholder="Jumlah Indent" min="0" disabled>
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Lama Indent (Hari)</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="indent_day" id="indent_day" class="form-control" placeholder="Lama Indent (Hari)" min="0" disabled>
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                        </div>
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
@@ -543,6 +584,47 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input Group-->
+                        <div id="form_status_ketersediaan_barang_eqiv">
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Tersedia</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="available_total_eqiv" id="available_total" class="form-control" placeholder="Jumlah Tersedia" min="0" disabled>
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Jumlah Indent</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="indent_total" id="indent_total_eqiv" class="form-control form-control-solid" placeholder="Jumlah Indent" min="0" disabled>
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                            <!--Begin::Input Group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">Lama Indent (Hari)</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <input type="number" name="indent_day" id="indent_day_eqiv" class="form-control" placeholder="Lama Indent (Hari)" min="0" disabled>
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input Group-->
+                        </div>
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
@@ -761,6 +843,17 @@
                             $("input[name=convertion_measure]").val(data.per_harga_satuan);
                         }
                         $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
+                        if ($('input[name="available"]:checked').val() == 0) { // Status Ketersediaan Barang = Tersedia
+                                $("#form_status_ketersediaan_barang").hide();
+                                $('#available_total').val(0);
+                                $('#indent_total').val(0);
+                                $('#indent_day').val(0);
+                        } else { // Status Ketersediaan Barang = Tersedia
+                            $("#form_status_ketersediaan_barang").show();
+                            $('#available_total').val(parseFloat(data.jumlah_tersedia));
+                            $('#indent_total').val(parseFloat(data.jumlah_inden));
+                            $('#indent_day').val(parseFloat(data.lama_inden));
+                        }
                         $("input[name=ed_price]").val(data.masa_berlaku_harga);
                         $("textarea[name=notes]").val(data.keterangan);
                         $("input[name=created_by]").val(data.dibuat_oleh);
@@ -848,6 +941,17 @@
                                         $("input[name=convertion_measure_eqiv]").val(obj.data.satuan_konversi);
                                     }
                                     $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
+                                    if ($('input[name="available_eqiv"]:checked').val() == 0) { // Status Ketersediaan Barang = Tersedia
+                                            $("#form_status_ketersediaan_barang_eqiv").hide();
+                                            $('#available_total_eqiv').val(0);
+                                            $('#indent_total_eqiv').val(0);
+                                            $('#indent_day_eqiv').val(0);
+                                    } else { // Status Ketersediaan Barang = Tersedia
+                                        $("#form_status_ketersediaan_barang_eqiv").show();
+                                        $('#available_total_eqiv').val(parseFloat(obj.data.jumlah_tersedia));
+                                        $('#indent_total_eqiv').val(parseFloat(obj.data.jumlah_inden));
+                                        $('#indent_day_eqiv').val(parseFloat(obj.data.lama_inden));
+                                    }
                                     $("input[name=ed_price_eqiv]").val(obj.data.masa_berlaku_harga);
                                     $("textarea[name=notes_eqiv]").val(obj.data.keterangan);
                                     $("input[name=created_by_eqiv]").val(obj.data.dibuat_oleh);
@@ -1265,6 +1369,24 @@
                     $("#form_convertion").hide();
                 } else {
                     $("#form_convertion").show();
+                }
+            }
+        });
+        $("input[name=available]").on('change', function() {
+            if ($(this).is(':checked')) {
+                if ($(this).val() == 0) {   // Checked Tersedia
+                    // Hide object Jumlah Tersedia, Jumlah Indent, Lama Indent
+                    $('#form_status_ketersediaan_barang').hide();
+                    $('#available_total').val(0);
+                    $('#indent_total').val(0);
+                    $('#indent_day').val(0);
+                    
+                } else {    // Checked Indent
+                    // Show object Jumlah Tersedia, Jumlah Indent, Lama Indent
+                    $('#form_status_ketersediaan_barang').show();
+                    $('#available_total').val(0);
+                    $('#indent_total').val(0);
+                    $('#indent_day').val(0);
                 }
             }
         });
