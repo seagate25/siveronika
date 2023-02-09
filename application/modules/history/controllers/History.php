@@ -205,8 +205,9 @@ class History extends CI_Controller
     {
         $rfq_no = $this->crypto->decode($this->input->post('val_1'));
         $id     = (int)$this->input->post('val_2');
+        $material   = $this->input->post('val_3');
 
-        $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $id);
+        $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $id, 'kode_barang' => $material);
         $data   = $this->history->getHistoryDetailEquivalent($params);
         if ($data->num_rows() > 0) {
 
