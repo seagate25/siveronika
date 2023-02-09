@@ -864,7 +864,8 @@
                                 url: "<?php echo site_url('history/get_files'); ?>",
                                 data: {
                                     val_1: '<?php echo $this->uri->segment(3); ?>',
-                                    val_2: 0
+                                    val_2: 0,
+                                    val_3: $("input[name=material_code]").val()
                                 },
                                 success: function(response) {
                                     var obj = jQuery.parseJSON(response);
@@ -920,7 +921,8 @@
                             url: "<?php echo site_url('history/get_det_rfq_eqiv'); ?>",
                             data: {
                                 val_1: '<?php echo $this->uri->segment(3); ?>',
-                                val_2: eqiv_id
+                                val_2: eqiv_id,
+                                val_3: $("input[name=material_code_eqiv]").val()
                             },
                             beforeSend: function() {
                                 blockUI.block();
