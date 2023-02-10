@@ -220,7 +220,7 @@ class Negotiation_model extends CI_Model {
             $row->konversi              = (int)$row->konversi;
             $row->ketersediaan_barang   = (int)$row->ketersediaan_barang;
             $row->deskripsi_satuan      = trim($row->deskripsi_satuan);
-            $row->status                = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
+            $row->status                = ($row->modified_by == 'WEB' && $row->modified_date != NULL) ? "Sudah Diisi" : "Belum Diisi";
             $btn_rfq                    = (trim($row->modified_by) !== 'SAP') ? '' : 'disabled'; // $btn_rfq                    = (trim($row->modified_by) == 'SAP') ? '' : 'disabled';
             $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" '.$btn_rfq.' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods">
                                             <i class="fas fa-envelope-open-text"></i>

@@ -1426,7 +1426,9 @@ var KTModalForm = (function() {
                             // }
                         },
                         plugins: {
-                            trigger: new FormValidation.plugins.Trigger(),
+                            trigger: new FormValidation.plugins.Trigger({
+                                event: 'keyup'
+                            }),
                             bootstrap: new FormValidation.plugins.Bootstrap5({
                                 rowSelector: ".fv-row",
                                 eleInvalidClass: "",
@@ -1543,6 +1545,30 @@ var KTModalForm = (function() {
                                 validators: {
                                     notEmpty: {
                                         message: "Harga Satuan Nego tidak boleh kosong"
+                                    },
+                                    callback: {
+                                        message: "Harga Satuan Nego tidak boleh kosong",
+                                        callback: function(input) {
+                                            const inputHargaSatuanEqiv = f_det_nego_eqiv.querySelector('[name="harga_satuan_eqiv"]');
+
+                                            // return (parseFloat(input.value.replace(/[.]/g, '')) < parseFloat(inputHargaSatuanEqiv.value.replace(/[.]/g, "")))
+                                            //     // The field is valid if user picks
+                                            //     // a given convertion from the list
+                                            //     ?
+                                            //     true
+                                            //     // Otherwise, the field value is required
+                                            //     :
+                                            //     (parseFloat(input.value.replace(/[.]/g, '')) <= parseFloat(inputHargaSatuanEqiv.value.replace(/[.]/g, "")));
+
+                                            if(parseFloat(input.value.replace(/[.]/g, '')) > parseFloat(inputHargaSatuanEqiv.value.replace(/[.]/g, ""))){
+                                                return {
+                                                    valid: false,
+                                                    message: "Harga Satuan Nego tidak boleh lebih dari Harga Satuan"
+                                                }
+                                            } else {
+                                                return true;
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -1555,7 +1581,9 @@ var KTModalForm = (function() {
                             // }
                         },
                         plugins: {
-                            trigger: new FormValidation.plugins.Trigger(),
+                            trigger: new FormValidation.plugins.Trigger({
+                                event: 'keyup'
+                            }),
                             bootstrap: new FormValidation.plugins.Bootstrap5({
                                 rowSelector: ".fv-row",
                                 eleInvalidClass: "",
