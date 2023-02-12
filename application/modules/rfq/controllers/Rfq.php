@@ -232,7 +232,7 @@ class Rfq extends CI_Controller
                     $_FILES['file']['size'] = $_FILES['rfq_file']['size'][$x];
 
                     $next = $sequence;
-                    $filename  = date('Ymd') . '_' . $rfq_no . '_0_' . $next;
+                    $filename  = date('Ymd') . '_' . $rfq_no . '_' . $material_code . '_0_' . $next;
 
                     $original_name  = $_FILES['file']['name'];
 
@@ -287,7 +287,7 @@ class Rfq extends CI_Controller
                         $_FILES['file']['size'] = $_FILES['rfq_file']['size'][$x];
 
                         $next = (int)$last_sequence + 1;
-                        $filename  = date('Ymd') . '_' . $rfq_no . '_0_' . $next;
+                        $filename  = date('Ymd') . '_' . $rfq_no . '_' . $material_code . '_0_' . $next;
 
                         $original_name  = $_FILES['file']['name'];
 
@@ -395,7 +395,7 @@ class Rfq extends CI_Controller
                     $_FILES['file']['size'] = $_FILES['rfq_file']['size'][$i];
 
                     $next = (int)$last_sequence + 1;
-                    $filename  = date('Ymd') . '_' . $rfq_no . '_0_' . $next;
+                    $filename  = date('Ymd') . '_' . $rfq_no . '_' . $material_code . '_0_' . $next;
 
                     $original_name  = $_FILES['file']['name'];
 
@@ -570,7 +570,7 @@ class Rfq extends CI_Controller
                         $_FILES['file']['size'] = $_FILES['eqiv_file']['size'][$x];
 
                         $next = $sequence;
-                        $filename  = date('Ymd') . '_' . $rfq_no . '_' . $id_eqiv . '_' . $next;
+                        $filename  = date('Ymd') . '_' . $rfq_no . '_' . $material_code . '_' . $id_eqiv . '_' . $next;
 
                         $original_name  = $_FILES['file']['name'];
 
@@ -624,7 +624,7 @@ class Rfq extends CI_Controller
                             $_FILES['file']['size'] = $_FILES['eqiv_file']['size'][$x];
 
                             $next = (int)$last_sequence + 1;
-                            $filename  = date('Ymd') . '_' . $rfq_no . '_' . $id_eqiv . '_' . $next;
+                            $filename  = date('Ymd') . '_' . $rfq_no . '_' . $material_code . '_' . $id_eqiv . '_' . $next;
 
                             $original_name  = $_FILES['file']['name'];
 
@@ -737,7 +737,7 @@ class Rfq extends CI_Controller
                         $_FILES['file']['size'] = $_FILES['eqiv_file']['size'][$i];
 
                         $next = (int)$last_sequence + 1;
-                        $filename  = date('Ymd') . '_' . $rfq_no . '_' . $id_eqiv . '_' . $next;
+                        $filename  = date('Ymd') . '_' . $rfq_no . '_' . $material_code . '_' . $id_eqiv . '_' . $next;
 
                         $original_name  = $_FILES['file']['name'];
 
@@ -838,7 +838,7 @@ class Rfq extends CI_Controller
                     $_FILES['file']['size'] = $_FILES['eqiv_file']['size'][$i];
 
                     $next = (int)$i + 1;
-                    $filename  = date('Ymd') . '_' . $rfq_no . '_' . $id_eqiv . '_' . $next;
+                    $filename  = date('Ymd') . '_' . $rfq_no . '_' . $material_code . '_' . $id_eqiv . '_' . $next;
 
                     $original_name  = $_FILES['file']['name'];
 
