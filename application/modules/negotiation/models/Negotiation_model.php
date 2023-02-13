@@ -170,36 +170,100 @@ class Negotiation_model extends CI_Model {
             $where .= " OR tnego_det.satuan LIKE '%" . $search['value'] . "%')";
         }
 
-        $sql        = "SELECT tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
-                            tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
-                            tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
-                            tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
-                            tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, tnego_det.dipakai_untuk
-                        FROM {$this->table['detail']} tnego_det {$where}
-                        GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        // $sql        = "SELECT tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+        //                     tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        //                     tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        //                     tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
+        //                     tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, tnego_det.dipakai_untuk
+        //                 FROM {$this->table['detail']} tnego_det {$where}
+        //                 GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        //                 tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        //                 tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), tnego_det.dipakai_untuk";
+        $sql        ="SELECT 
+                        tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+                        tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
                         tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
-                        tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), tnego_det.dipakai_untuk";
+                        tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
+                        tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, d.dipakai_untuk /** penambahan pada textarea */
+                    FROM {$this->table['detail']} tnego_det
+                    LEFT JOIN baragud.dbo.TB_S_MST_SATUAN tuom ON(tuom.satuan = tnego_det.satuan)
+                    JOIN
+                        (
+                            SELECT 
+                                a.nomor_rfq,
+                                a.kode_barang,
+                                -- STRING_AGG( ISNULL(a.dipakai_untuk , ' '), ' & ') As dipakai_untuk
+                                STUFF((SELECT ' & ' + b.dipakai_untuk 
+                                FROM TB_S_MST_RFQ_BARANG_DTL b
+                                WHERE b.nomor_rfq = a.nomor_rfq AND b.kode_barang = a.kode_barang
+                                FOR XML PATH('')), 1, 1, '') AS dipakai_untuk
+                            FROM 
+                                baragud.dbo.TB_S_MST_RFQ_BARANG_DTL a
+                            WHERE
+                                a.nomor_rfq = '{$rfq_no}'
+                            GROUP BY 
+                                a.nomor_rfq,
+                                a.kode_barang
+                        ) d ON (tnego_det.kode_barang = d.kode_barang)
+                    {$where}
+                    GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+                    tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+                    tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), d.dipakai_untuk";
 
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
-        $sql_   = "SELECT  *
-        FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
-                tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
-        tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
-        tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
-        tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
-        tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, tnego_det.dipakai_untuk
-                FROM {$this->table['detail']} tnego_det
-                {$where}
-                GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
-        tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
-        tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), tnego_det.dipakai_untuk
-                ) AS RowConstrainedResult
-        WHERE   RowNum > {$start}
-            AND RowNum < (({$start} + 1) + {$length})
-        ORDER BY RowNum";
-
+        // $sql_   = "SELECT  *
+        // FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
+        //         tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+        // tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        // tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        // tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
+        // tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, tnego_det.dipakai_untuk
+        //         FROM {$this->table['detail']} tnego_det
+        //         {$where}
+        //         GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        // tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        // tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), tnego_det.dipakai_untuk
+        //         ) AS RowConstrainedResult
+        // WHERE   RowNum > {$start}
+        //     AND RowNum < (({$start} + 1) + {$length})
+        // ORDER BY RowNum";
+        $sql_   = " SELECT  *
+                    FROM    ( SELECT    
+                                    ROW_NUMBER() OVER ( ORDER BY tnego_det.{$order_column} {$order_dir} ) AS RowNum,
+                                    tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+                                    tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+                                    tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+                                    tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
+                                    tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, d.dipakai_untuk
+                                FROM {$this->table['detail']} tnego_det
+                                JOIN
+                                    (
+                                        SELECT 
+                                            a.nomor_rfq,
+                                            a.kode_barang,
+                                            STUFF((SELECT ' & ' + b.dipakai_untuk 
+                                            FROM {$this->table['detail']}  b
+                                            WHERE b.nomor_rfq = a.nomor_rfq AND b.kode_barang = a.kode_barang
+                                            FOR XML PATH('')), 1, 1, '') AS dipakai_untuk
+                                        FROM 
+                                            {$this->table['detail']}  a
+                                        WHERE
+                                            a.nomor_rfq = '{$rfq_no}'
+                                        GROUP BY 
+                                            a.nomor_rfq,
+                                            a.kode_barang
+                                    ) d ON (tnego_det.kode_barang = d.kode_barang)
+                                {$where}
+                                GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+                                tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+                                tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), d.dipakai_untuk
+                            ) AS RowConstrainedResult
+                    WHERE   RowNum > {$start}
+                        AND RowNum < (({$start} + 1) + {$length})
+                    ORDER BY RowNum";
+        
         $query = $this->db->query($sql_);
         $rows_data = $query->result();
 
