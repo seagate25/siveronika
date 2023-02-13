@@ -218,7 +218,9 @@ class Negotiation_model extends CI_Model {
                         tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, 
                         d.dipakai_untuk, /** penambahan pada textarea */
                         CASE    
-                            WHEN (tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang)  > 0 THEN 'Sudah Diisi'
+                            -- WHEN (tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang)  > 0 THEN 'Sudah Diisi'
+                            WHEN (tnego_det.modified_date IS NOT NULL and  tnego_det.modified_by IS NOT NULL) OR 
+						        (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang and teqiv.modified_by IS NOT NULL and teqiv.modified_date iS NOT NULL)  > 0 THEN 'Sudah Diisi'
                             WHEN tnego_det.modified_date IS NOT NULL and  tnego_det.modified_by IS NOT NULL THEN 'Sudah Diisi'
                             WHEN tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL THEN 'Belum Diisi'
                             ELSE 
@@ -313,7 +315,9 @@ class Negotiation_model extends CI_Model {
                                     tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, 
                                     d.dipakai_untuk,
                                     CASE    
-                                        WHEN (tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang)  > 0 THEN 'Sudah Diisi'
+                                        -- WHEN (tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang)  > 0 THEN 'Sudah Diisi'
+                                        WHEN (tnego_det.modified_date IS NOT NULL and  tnego_det.modified_by IS NOT NULL) OR 
+						                    (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang and teqiv.modified_by IS NOT NULL and teqiv.modified_date iS NOT NULL)  > 0 THEN 'Sudah Diisi'
                                         WHEN tnego_det.modified_date IS NOT NULL and  tnego_det.modified_by IS NOT NULL THEN 'Sudah Diisi'
                                         WHEN tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL THEN 'Belum Diisi'
                                         ELSE 
