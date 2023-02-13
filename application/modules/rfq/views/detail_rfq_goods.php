@@ -1621,7 +1621,7 @@
                                                                 }
                                                             }).then(
                                                                 function(t) {
-                                                                    t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(), g.resetForm(true), b.hide()) : r.dismiss;
+                                                                    t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(), g.resetForm(true), $('textarea[name="notes"]').val(''), b.hide()) : r.dismiss;
                                                                 }
                                                             );
                                                         },
