@@ -1225,6 +1225,8 @@ var KTDataTables = (function() {
                 $("#kt_modal_det_nego_rfq_goods_ekuivalen h4 span#txt_material_code_eqiv").text(data.kode_barang);
                 $("#kt_modal_det_nego_rfq_goods_ekuivalen h4 span#txt_seq_eqiv").text(sequence_rfq);
 
+                var total_request = data.jumlah_permintaan;
+
                 // Get inputs array from modal equivalent form
                 var $inputs = modal_form_eqiv.closest('div').find('input[type="hidden"], input.form-control, select.form-select, input.form-check-input, textarea.form-control');
 
@@ -1313,11 +1315,15 @@ var KTDataTables = (function() {
                                                 $('#' + $name).val();
                                             }
 
-                                        } else if($name == 'jumlah_permintaan_eqiv' || $name == 'jumlah_tersedia_eqiv' || $name == 'jumlah_inden_eqiv' || $name == 'lama_inden_eqiv') {
+                                        } else if($name == 'jumlah_tersedia_eqiv' || $name == 'jumlah_inden_eqiv' || $name == 'lama_inden_eqiv') {
 
                                             $('#' + $name).val(parseFloat(data[element_name]));
 
-                                        } else if ($name == 'deskripsi_material') {
+                                        } else if($name == 'jumlah_permintaan_eqiv') {
+                                            
+                                            $('#' + $name).val(parseFloat(total_request));
+
+                                        }else if ($name == 'deskripsi_material') {
 
                                             var txt_desc_mat = (data[element_name] == '' || data[element_name] == null) ? '' : data[element_name];
                                             var txt_dipakai  = (data['dipakai_untuk'] == '' || data['dipakai_untuk'] == null) ? '' : data['dipakai_untuk']; 

@@ -96,7 +96,13 @@ class Global_model extends CI_Model
 
         $j  = 0;
         foreach ($params as $key => $value) {
-            $this->query .= "{$key} = '{$value}'";
+            
+            if($value !== 'NULL') {
+                $this->query .= "{$key} = '{$value}'";
+            } else {
+                $this->query .= "{$key} IS NULL";
+            }
+
             if ($j === (count($params) - 1)) {
                 $this->query .= "";
             } else {
