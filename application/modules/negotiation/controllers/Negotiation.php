@@ -76,7 +76,8 @@ class Negotiation extends CI_Controller {
         
         $params = array(
             'nomor_rfq' => $nomor_rfq,
-            'kode_barang' => $kode_barang
+            'kode_barang' => $kode_barang,
+            'modified_by' => 'NULL'
         );
 
         $data = array(

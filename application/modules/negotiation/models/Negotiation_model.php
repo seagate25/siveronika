@@ -179,12 +179,51 @@ class Negotiation_model extends CI_Model {
         //                 GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
         //                 tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
         //                 tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), tnego_det.dipakai_untuk";
+        // $sql        ="SELECT 
+        //                 tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+        //                 tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        //                 tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        //                 tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
+        //                 tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, d.dipakai_untuk /** penambahan pada textarea */
+        //             FROM {$this->table['detail']} tnego_det
+        //             LEFT JOIN baragud.dbo.TB_S_MST_SATUAN tuom ON(tuom.satuan = tnego_det.satuan)
+        //             JOIN
+        //                 (
+        //                     SELECT 
+        //                         a.nomor_rfq,
+        //                         a.kode_barang,
+        //                         -- STRING_AGG( ISNULL(a.dipakai_untuk , ' '), ' & ') As dipakai_untuk
+        //                         STUFF((SELECT ' & ' + b.dipakai_untuk 
+        //                         FROM TB_S_MST_RFQ_BARANG_DTL b
+        //                         WHERE b.nomor_rfq = a.nomor_rfq AND b.kode_barang = a.kode_barang
+        //                         FOR XML PATH('')), 1, 1, '') AS dipakai_untuk
+        //                     FROM 
+        //                         baragud.dbo.TB_S_MST_RFQ_BARANG_DTL a
+        //                     WHERE
+        //                         a.nomor_rfq = '{$rfq_no}'
+        //                     GROUP BY 
+        //                         a.nomor_rfq,
+        //                         a.kode_barang
+        //                 ) d ON (tnego_det.kode_barang = d.kode_barang)
+        //             {$where}
+        //             GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        //             tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        //             tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), d.dipakai_untuk";
+
         $sql        ="SELECT 
                         tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
                         tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
                         tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
                         tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
-                        tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, d.dipakai_untuk /** penambahan pada textarea */
+                        tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, 
+                        d.dipakai_untuk, /** penambahan pada textarea */
+                        CASE    
+                            WHEN (tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang)  > 0 THEN 'Sudah Diisi'
+                            WHEN tnego_det.modified_date IS NOT NULL and  tnego_det.modified_by IS NOT NULL THEN 'Sudah Diisi'
+                            WHEN tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL THEN 'Belum Diisi'
+                            ELSE 
+                                'Belum Diisi'
+                        END StatusMaterial
                     FROM {$this->table['detail']} tnego_det
                     LEFT JOIN baragud.dbo.TB_S_MST_SATUAN tuom ON(tuom.satuan = tnego_det.satuan)
                     JOIN
@@ -229,6 +268,41 @@ class Negotiation_model extends CI_Model {
         // WHERE   RowNum > {$start}
         //     AND RowNum < (({$start} + 1) + {$length})
         // ORDER BY RowNum";
+        // $sql_   = " SELECT  *
+        //             FROM    ( SELECT    
+        //                             ROW_NUMBER() OVER ( ORDER BY tnego_det.{$order_column} {$order_dir} ) AS RowNum,
+        //                             tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+        //                             tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        //                             tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        //                             tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
+        //                             tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, d.dipakai_untuk
+        //                         FROM {$this->table['detail']} tnego_det
+        //                         JOIN
+        //                             (
+        //                                 SELECT 
+        //                                     a.nomor_rfq,
+        //                                     a.kode_barang,
+        //                                     STUFF((SELECT ' & ' + b.dipakai_untuk 
+        //                                     FROM {$this->table['detail']}  b
+        //                                     WHERE b.nomor_rfq = a.nomor_rfq AND b.kode_barang = a.kode_barang
+        //                                     FOR XML PATH('')), 1, 1, '') AS dipakai_untuk
+        //                                 FROM 
+        //                                     {$this->table['detail']}  a
+        //                                 WHERE
+        //                                     a.nomor_rfq = '{$rfq_no}'
+        //                                 GROUP BY 
+        //                                     a.nomor_rfq,
+        //                                     a.kode_barang
+        //                             ) d ON (tnego_det.kode_barang = d.kode_barang)
+        //                         {$where}
+        //                         GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        //                         tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        //                         tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), d.dipakai_untuk
+        //                     ) AS RowConstrainedResult
+        //             WHERE   RowNum > {$start}
+        //                 AND RowNum < (({$start} + 1) + {$length})
+        //             ORDER BY RowNum";
+
         $sql_   = " SELECT  *
                     FROM    ( SELECT    
                                     ROW_NUMBER() OVER ( ORDER BY tnego_det.{$order_column} {$order_dir} ) AS RowNum,
@@ -236,7 +310,15 @@ class Negotiation_model extends CI_Model {
                                     tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
                                     tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
                                     tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
-                                    tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, d.dipakai_untuk
+                                    tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, 
+                                    d.dipakai_untuk,
+                                    CASE    
+                                        WHEN (tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang)  > 0 THEN 'Sudah Diisi'
+                                        WHEN tnego_det.modified_date IS NOT NULL and  tnego_det.modified_by IS NOT NULL THEN 'Sudah Diisi'
+                                        WHEN tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL THEN 'Belum Diisi'
+                                        ELSE 
+                                            'Belum Diisi'
+                                    END StatusMaterial
                                 FROM {$this->table['detail']} tnego_det
                                 JOIN
                                     (
@@ -284,8 +366,9 @@ class Negotiation_model extends CI_Model {
             $row->konversi              = (int)$row->konversi;
             $row->ketersediaan_barang   = (int)$row->ketersediaan_barang;
             $row->deskripsi_satuan      = trim($row->deskripsi_satuan);
-            $row->status                = ($row->modified_by == 'WEB' && $row->modified_date != NULL) ? "Sudah Diisi" : "Belum Diisi";
-            $btn_rfq                    = (trim($row->modified_by) !== 'SAP') ? '' : 'disabled'; // $btn_rfq                    = (trim($row->modified_by) == 'SAP') ? '' : 'disabled';
+            // $row->status                = ($row->modified_by == 'WEB' && $row->modified_date != NULL) ? "Sudah Diisi" : "Belum Diisi";
+            $row->status                = $row->StatusMaterial;
+            $btn_rfq                    = (trim($row->modified_by) !== NULL) ? 'disabled' : ''; // $btn_rfq                    = (trim($row->modified_by) == 'SAP') ? '' : 'disabled';
             $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" '.$btn_rfq.' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods">
                                             <i class="fas fa-envelope-open-text"></i>
                                         </button>';
