@@ -341,10 +341,11 @@ class Negotiation extends CI_Controller {
         $file_name      = $explode_ext[0];
         $explode_fName  = explode("_", $file_name);
         $rfq_no         = $explode_fName[1];
-        $equivalent     = $explode_fName[2];
-        $sequence       = $explode_fName[3];
+        $material       = $explode_fName[2]; // penambahan kode barang/material agar tidak terjadi duplikasi nama file
+        $equivalent     = $explode_fName[3];
+        $sequence       = $explode_fName[4];
 
-        $params     = array('nomor_quotation' => $rfq_no, 'ekuivalen' => $equivalent, 'urutan_berkas' => $sequence);
+        $params     = array('nomor_quotation' => $rfq_no, 'ekuivalen' => $equivalent, 'urutan_berkas' => $sequence, 'kode_barang' => $material);
         $get_file   = $this->nego->getUploadedFiles($params);
         $file_data  = $get_file->row();
 
