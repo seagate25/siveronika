@@ -1156,6 +1156,20 @@ var KTDataTables = (function() {
 
                                 $('#' + element_name).maskMoney('mask', data[element_name]);
 
+                                // readonly if have saved with initialization modified_by = WEB
+                                if(element_name == 'harga_satuan_nego'){  
+                                    var modifiedby = (data['modified_by']) ? data['modified_by'].trim() : "";
+                                    if(modifiedby == 'WEB'){ 
+                                        $('#' + element_name).attr('readonly', true);
+                                        $('#keterangan_nego').attr('readonly', true);
+                                        $('#kt_modal_det_nego_rfq_goods_submit').attr('disabled', true);
+                                    }else {
+                                        $('#' + element_name).attr('readonly', false);
+                                        $('#keterangan_nego').attr('readonly', false);
+                                        $('#kt_modal_det_nego_rfq_goods_submit').attr('disabled', false);
+                                    }
+                                    
+                                }
                             } else if (element_name == 'deskripsi_material') {
 
                                 var txt_desc_mat = (data[element_name] == '' || data[element_name] == null) ? '' : data[element_name];
@@ -1307,12 +1321,27 @@ var KTDataTables = (function() {
 
                                             $('#' + $name).val(data[element_name] + ' (' + $.trim(data['deskripsi_satuan']) + ')');
 
-                                        } else if($name == 'harga_satuan_eqiv' || $name == 'harga_satuan_nego_eqiv') {
+                                        } else if($name == 'harga_satuan_eqiv' || $name == 'harga_satuan_nego_eqiv') { 
 
                                             if(data[element_name] !== null) {
                                                 $('#' + $name).maskMoney('mask', parseInt(data[element_name]));
                                             } else {
                                                 $('#' + $name).val();
+                                            }
+
+                                            // readonly if have saved with initialization modified_by = WEB
+                                            if($name == 'harga_satuan_nego_eqiv'){  
+                                                var modifiedby = (data['modified_by']) ? data['modified_by'].trim() : "";
+                                                if(modifiedby == 'WEB'){ 
+                                                    $('#' + $name).attr('readonly', true);
+                                                    $('#keterangan_nego_eqiv').attr('readonly', true);
+                                                    $('#kt_modal_det_nego_rfq_goods_ekuivalen_submit').attr('disabled', true);
+                                                }else {
+                                                    $('#' + $name).attr('readonly', false);
+                                                    $('#keterangan_nego_eqiv').attr('readonly', false);
+                                                    $('#kt_modal_det_nego_rfq_goods_ekuivalen_submit').attr('disabled', false);
+                                                }
+                                                
                                             }
 
                                         } else if($name == 'jumlah_tersedia_eqiv' || $name == 'jumlah_inden_eqiv' || $name == 'lama_inden_eqiv') {

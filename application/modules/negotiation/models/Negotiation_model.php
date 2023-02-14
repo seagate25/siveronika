@@ -247,6 +247,7 @@ class Negotiation_model extends CI_Model {
                                 a.kode_barang
                         ) d ON (tnego_det.kode_barang = d.kode_barang)
                     {$where}
+                    AND LTRIM(TRIM(modified_by)) = 'WEB' Or ltrim(rtrim(modified_by)) IS NULL   -- Filter NEGO only with Nego data with initialization modified_by is NULL and is WEB
                     GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
                     tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
                     tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), d.dipakai_untuk";
@@ -346,8 +347,9 @@ class Negotiation_model extends CI_Model {
                                 tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
                                 tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), d.dipakai_untuk
                             ) AS RowConstrainedResult
-                    WHERE   RowNum > {$start}
-                        AND RowNum < (({$start} + 1) + {$length})
+                    WHERE   
+                        RowNum > {$start} AND RowNum < (({$start} + 1) + {$length}) 
+                        AND LTRIM(TRIM(modified_by)) = 'WEB' Or ltrim(rtrim(modified_by)) IS NULL   -- Filter NEGO only with Nego data with initialization modified_by is NULL and is WEB
                     ORDER BY RowNum";
         
         $query = $this->db->query($sql_);
@@ -372,7 +374,7 @@ class Negotiation_model extends CI_Model {
             $row->deskripsi_satuan      = trim($row->deskripsi_satuan);
             // $row->status                = ($row->modified_by == 'WEB' && $row->modified_date != NULL) ? "Sudah Diisi" : "Belum Diisi";
             $row->status                = $row->StatusMaterial;
-            $btn_rfq                    = (trim($row->modified_by) == NULL) ? '' : 'disabled'; // $btn_rfq                    = (trim($row->modified_by) == 'SAP') ? '' : 'disabled';
+            $btn_rfq                    = (trim($row->modified_by) == 'SAP') ? 'disabled' : ''; // $btn_rfq                    = (trim($row->modified_by) == 'SAP') ? '' : 'disabled';
             $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" '.$btn_rfq.' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods">
                                             <i class="fas fa-envelope-open-text"></i>
                                         </button>';
@@ -434,12 +436,17 @@ class Negotiation_model extends CI_Model {
 
         // $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen, 'kode_barang' => $item_code);
 
-        $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen, 'kode_barang' => $item_code, 'modified_by' => 'WEB', 'modified_by' => 'NULL');//$params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen, 'kode_barang' => $item_code, 'modified_by' => 'SAP');
+        $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen, 'kode_barang' => $item_code, 'modified_by' => 'NULL');//$params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen, 'kode_barang' => $item_code, 'modified_by' => 'SAP');
         $isEquivalentExists = $this->global->get_by($this->table['eqiv'], $params);
         if ($isEquivalentExists->num_rows() > 0) {
             $enable = '';
         }
-
+        $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen, 'kode_barang' => $item_code, 'modified_by' => 'WEB');
+        $isEquivalentExists = $this->global->get_by($this->table['eqiv'], $params);
+        if ($isEquivalentExists->num_rows() > 0) {
+            $enable = '';
+        }
+        
         return $enable;
     }
 
