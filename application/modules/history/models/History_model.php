@@ -563,17 +563,88 @@ class History_model extends CI_Model
         }
 
         // $sql        = "SELECT * FROM {$this->table_nego[1]}{$where}";
-        $sql        = "SELECT tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
-                            tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
-                            tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
-                            tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
-                            tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego
-                        FROM {$this->table_nego[1]} tnego_det 
-                        {$where} 
-                        AND LTRIM(TRIM(modified_by)) = 'WEB' Or ltrim(rtrim(modified_by)) IS NULL   -- Filter NEGO only with Nego data with initialization modified_by is NULL and is WEB
-                        GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
-                        tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
-                        tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000))";
+        // $sql        = "SELECT tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+        //                     tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        //                     tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        //                     tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
+        //                     tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego
+        //                 FROM {$this->table_nego[1]} tnego_det 
+        //                 {$where} 
+        //                 AND LTRIM(RTRIM(modified_by)) = 'WEB' Or LTRIM(RTRIM(modified_by)) IS NULL   -- Filter NEGO only with Nego data with initialization modified_by is NULL and is WEB
+        //                 GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        //                 tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        //                 tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000))";
+
+        // $sql     = "SELECT  *
+        //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
+        //                     tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+        //             tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        //             tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        //             tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
+        //             tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego
+        //                     FROM {$this->table_nego[1]} tnego_det
+        //                     {$where}
+        //                     GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        //             tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        //             tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000))
+        //                     ) AS RowConstrainedResult
+        //             WHERE   RowNum > {$start}
+        //                 AND RowNum < (({$start} + 1) + {$length}) 
+        //                 AND LTRIM(RTRIM(modified_by)) = 'WEB' Or LTRIM(RTRIM(modified_by)) IS NULL   -- Filter NEGO only with Nego data with initialization modified_by is NULL and is WEB
+        //             ORDER BY RowNum";
+        $sql        ="  SELECT * FROM (
+            SELECT 
+                tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+                tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+                tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+                tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
+                tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, 
+                d.dipakai_untuk, /** penambahan pada textarea */
+                CASE    
+                    -- WHEN (tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang)  > 0 THEN 'Sudah Diisi'
+                    WHEN (tnego_det.modified_date IS NOT NULL and  tnego_det.modified_by IS NOT NULL) OR 
+                        (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang and teqiv.modified_by IS NOT NULL and teqiv.modified_date iS NOT NULL)  > 0 THEN 'Sudah Diisi'
+                    WHEN tnego_det.modified_date IS NOT NULL and  tnego_det.modified_by IS NOT NULL THEN 'Sudah Diisi'
+                    WHEN tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL THEN 'Belum Diisi'
+                    ELSE 
+                        'Belum Diisi'
+                END StatusMaterial,
+                CASE	
+                    WHEN LTRIM(RTRIM(tnego_det.modified_by)) = 'WEB' Or LTRIM(RTRIM(tnego_det.modified_by)) IS NULL THEN 1 
+                    WHEN LTRIM(RTRIM(tnego_det.modified_by)) = 'SAP' And 
+                        (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv 
+                        where 
+                            teqiv.nomor_rfq = tnego_det.nomor_rfq And 
+                            teqiv.kode_barang = tnego_det.kode_barang And 
+                            (LTRIM(RTRIM(teqiv.modified_by)) = 'WEB' Or LTRIM(RTRIM(teqiv.modified_by)) IS NULL)) > 0 THEN 1
+                    ELSE
+                        0
+                END TampilkanData 
+            FROM {$this->table_nego[1]} tnego_det
+            LEFT JOIN baragud.dbo.TB_S_MST_SATUAN tuom ON(tuom.satuan = tnego_det.satuan)
+            JOIN
+                (
+                    SELECT 
+                        a.nomor_rfq,
+                        a.kode_barang,
+                        STUFF((SELECT ' & ' + b.dipakai_untuk 
+                        FROM {$this->table_nego[1]} b
+                        WHERE b.nomor_rfq = a.nomor_rfq AND b.kode_barang = a.kode_barang
+                        FOR XML PATH('')), 1, 1, '') AS dipakai_untuk
+                    FROM 
+                        {$this->table_nego[1]} a
+                    WHERE
+                        a.nomor_rfq = '{$rfq_no}'
+                    GROUP BY 
+                        a.nomor_rfq,
+                        a.kode_barang
+                ) d ON (tnego_det.kode_barang = d.kode_barang)
+            {$where} 
+            GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+            tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+            tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), d.dipakai_untuk
+        ) AS RowConstrainedResult 
+        WHERE TampilkanData = 1";
 
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
@@ -587,23 +658,80 @@ class History_model extends CI_Model
         //                 AND RowNum < (({$start} + 1) + {$length})
         //             ORDER BY RowNum";
 
-        $sql_   = "SELECT  *
-        FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
-                tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
-        tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
-        tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
-        tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
-        tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego
-                FROM {$this->table_nego[1]} tnego_det
-                {$where}
-                GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
-        tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
-        tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000))
-                ) AS RowConstrainedResult
-        WHERE   RowNum > {$start}
-            AND RowNum < (({$start} + 1) + {$length}) 
-            AND LTRIM(TRIM(modified_by)) = 'WEB' Or ltrim(rtrim(modified_by)) IS NULL   -- Filter NEGO only with Nego data with initialization modified_by is NULL and is WEB
-        ORDER BY RowNum";
+        // $sql_   = "SELECT  *
+        //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
+        //                     tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+        //             tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        //             tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        //             tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
+        //             tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego
+        //                     FROM {$this->table_nego[1]} tnego_det
+        //                     {$where}
+        //                     GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+        //             tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+        //             tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000))
+        //                     ) AS RowConstrainedResult
+        //             WHERE   RowNum > {$start}
+        //                 AND RowNum < (({$start} + 1) + {$length}) 
+        //                 AND LTRIM(RTRIM(modified_by)) = 'WEB' Or LTRIM(RTRIM(modified_by)) IS NULL   -- Filter NEGO only with Nego data with initialization modified_by is NULL and is WEB
+        //             ORDER BY RowNum";
+
+        $sql_   = " SELECT  *
+                    FROM    ( SELECT    
+                                    ROW_NUMBER() OVER ( ORDER BY tnego_det.{$order_column} {$order_dir} ) AS RowNum,
+                                    tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+                                    tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+                                    tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+                                    tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
+                                    tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, 
+                                    d.dipakai_untuk,
+                                    CASE    
+                                        -- WHEN (tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang)  > 0 THEN 'Sudah Diisi'
+                                        WHEN (tnego_det.modified_date IS NOT NULL and  tnego_det.modified_by IS NOT NULL) OR 
+						                    (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang and teqiv.modified_by IS NOT NULL and teqiv.modified_date iS NOT NULL)  > 0 THEN 'Sudah Diisi'
+                                        WHEN tnego_det.modified_date IS NOT NULL and  tnego_det.modified_by IS NOT NULL THEN 'Sudah Diisi'
+                                        WHEN tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL THEN 'Belum Diisi'
+                                        ELSE 
+                                            'Belum Diisi'
+                                    END StatusMaterial,
+                                    CASE	
+										WHEN LTRIM(RTRIM(tnego_det.modified_by)) = 'WEB' Or LTRIM(RTRIM(tnego_det.modified_by)) IS NULL THEN 1 
+										WHEN LTRIM(RTRIM(tnego_det.modified_by)) = 'SAP' And 
+											(select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv 
+											where 
+												teqiv.nomor_rfq = tnego_det.nomor_rfq And 
+												teqiv.kode_barang = tnego_det.kode_barang And 
+												(LTRIM(RTRIM(teqiv.modified_by)) = 'WEB' Or LTRIM(RTRIM(teqiv.modified_by)) IS NULL)) > 0 THEN 1
+										ELSE
+											0
+									END TampilkanData
+                                FROM {$this->table_nego[1]}  tnego_det
+                                JOIN
+                                    (
+                                        SELECT 
+                                            a.nomor_rfq,
+                                            a.kode_barang,
+                                            STUFF((SELECT ' & ' + b.dipakai_untuk 
+                                            FROM {$this->table_nego[1]}   b
+                                            WHERE b.nomor_rfq = a.nomor_rfq AND b.kode_barang = a.kode_barang
+                                            FOR XML PATH('')), 1, 1, '') AS dipakai_untuk
+                                        FROM 
+                                            {$this->table_nego[1]}  a
+                                        WHERE
+                                            a.nomor_rfq = '{$rfq_no}'
+                                        GROUP BY 
+                                            a.nomor_rfq,
+                                            a.kode_barang
+                                    ) d ON (tnego_det.kode_barang = d.kode_barang)
+                                {$where}
+                                GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+                                tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+                                tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), d.dipakai_untuk
+                            ) AS RowConstrainedResult
+                    WHERE   
+                        RowNum > {$start} AND RowNum < (({$start} + 1) + {$length}) 
+                        AND TampilkanData = 1
+                    ORDER BY RowNum";
 
         $query = $this->db->query($sql_);
         $rows_data = $query->result();
@@ -623,20 +751,21 @@ class History_model extends CI_Model
             $row->deskripsi_satuan      = trim($row->deskripsi_satuan);
             // $row->urutan_rfq            = trim($row->urutan_rfq);
             $row->status                = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
-            $btn_eqiv_1                 = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'disabled' : '';
-            $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods">
+            // $btn_eqiv_1                 = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'disabled' : '';
+            $btn_rfq                    = (trim($row->modified_by) == 'SAP') ? 'disabled' : ''; 
+            $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" '.$btn_rfq.' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods">
                                             <i class="fas fa-envelope-open-text"></i>
                                         </button>';
-            $row->actions_equivalen     = '<button type="button" class="eqiv_form_1 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_1" ' . $this->enableEqivBtn($row->nomor_rfq, 1, 'nego', NULL) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+            $row->actions_equivalen     = '<button type="button" class="eqiv_form_1 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_1" ' . $this->enableEqivBtn($row->nomor_rfq, 1, 'nego', $row->kode_barang) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
                                             1
                                         </button>
-                                        <button type="button" class="eqiv_form_2 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_2" ' . $this->enableEqivBtn($row->nomor_rfq, 2, 'nego', NULL) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_2 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_2" ' . $this->enableEqivBtn($row->nomor_rfq, 2, 'nego', $row->kode_barang) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
                                             2
                                         </button>
-                                        <button type="button" class="eqiv_form_3 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_3" ' . $this->enableEqivBtn($row->nomor_rfq, 3, 'nego', NULL) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_3 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_3" ' . $this->enableEqivBtn($row->nomor_rfq, 3, 'nego', $row->kode_barang) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
                                             3
                                         </button>
-                                        <button type="button" class="eqiv_form_4 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_4" ' . $this->enableEqivBtn($row->nomor_rfq, 4, 'nego', NULL) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
+                                        <button type="button" class="eqiv_form_4 btn btn-icon btn-sm btn-info me-2 mb-2" id="btn_eqiv_4" ' . $this->enableEqivBtn($row->nomor_rfq, 4, 'nego', $row->kode_barang) . ' data-bs-toggle="modal" data-bs-target="#kt_modal_det_nego_rfq_goods_ekuivalen">
                                             4
                                         </button>';
 
@@ -896,7 +1025,7 @@ class History_model extends CI_Model
      * @param integer $equivalen
      * @return void
      */
-    public function enableEqivBtn(string $rfq_no, int $equivalen, string $type, string $item_code = NULL)
+    public function enableEqivBtn(string $rfq_no, int $equivalen, string $type, string $item_code)
     {
         $enable = 'disabled';
 
@@ -905,14 +1034,28 @@ class History_model extends CI_Model
         if($type == 'rfq') {
             $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen, 'kode_barang' => $item_code);
             $isEquivalentExists = $this->global->get_by($this->table_rfq[2], $params);
-        } else {
-            $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen);
+            if ($isEquivalentExists->num_rows() > 0) {
+                $enable = '';
+            }
+        } elseif($type == 'nego') {
+            // $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen);
+            // $isEquivalentExists = $this->global->get_by($this->table_nego[2], $params);
+            
+            $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen, 'kode_barang' => $item_code, 'modified_by' => 'NULL');
             $isEquivalentExists = $this->global->get_by($this->table_nego[2], $params);
+            if ($isEquivalentExists->num_rows() > 0) {
+                $enable = '';
+            }
+            $params = array('nomor_rfq' => $rfq_no, 'ekuivalen' => $equivalen, 'kode_barang' => $item_code, 'modified_by' => 'WEB');
+            $isEquivalentExists = $this->global->get_by($this->table_nego[2], $params);
+            if ($isEquivalentExists->num_rows() > 0) {
+                $enable = '';
+            }
         }
 
-        if ($isEquivalentExists->num_rows() > 0) {
-            $enable = '';
-        }
+        // if ($isEquivalentExists->num_rows() > 0) {
+        //     $enable = '';
+        // }
 
         return $enable;
     }

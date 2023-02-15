@@ -210,47 +210,59 @@ class Negotiation_model extends CI_Model {
         //             tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
         //             tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), d.dipakai_untuk";
 
-        $sql        ="SELECT 
-                        tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
-                        tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
-                        tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
-                        tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
-                        tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, 
-                        d.dipakai_untuk, /** penambahan pada textarea */
-                        CASE    
-                            -- WHEN (tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang)  > 0 THEN 'Sudah Diisi'
-                            WHEN (tnego_det.modified_date IS NOT NULL and  tnego_det.modified_by IS NOT NULL) OR 
-						        (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang and teqiv.modified_by IS NOT NULL and teqiv.modified_date iS NOT NULL)  > 0 THEN 'Sudah Diisi'
-                            WHEN tnego_det.modified_date IS NOT NULL and  tnego_det.modified_by IS NOT NULL THEN 'Sudah Diisi'
-                            WHEN tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL THEN 'Belum Diisi'
-                            ELSE 
-                                'Belum Diisi'
-                        END StatusMaterial
-                    FROM {$this->table['detail']} tnego_det
-                    LEFT JOIN baragud.dbo.TB_S_MST_SATUAN tuom ON(tuom.satuan = tnego_det.satuan)
-                    JOIN
-                        (
+        $sql        ="  SELECT * FROM (
                             SELECT 
-                                a.nomor_rfq,
-                                a.kode_barang,
-                                -- STRING_AGG( ISNULL(a.dipakai_untuk , ' '), ' & ') As dipakai_untuk
-                                STUFF((SELECT ' & ' + b.dipakai_untuk 
-                                FROM TB_S_MST_RFQ_BARANG_DTL b
-                                WHERE b.nomor_rfq = a.nomor_rfq AND b.kode_barang = a.kode_barang
-                                FOR XML PATH('')), 1, 1, '') AS dipakai_untuk
-                            FROM 
-                                baragud.dbo.TB_S_MST_RFQ_BARANG_DTL a
-                            WHERE
-                                a.nomor_rfq = '{$rfq_no}'
-                            GROUP BY 
-                                a.nomor_rfq,
-                                a.kode_barang
-                        ) d ON (tnego_det.kode_barang = d.kode_barang)
-                    {$where}
-                    AND LTRIM(RTRIM(modified_by)) = 'WEB' Or LTRIM(RTRIM(modified_by)) IS NULL   -- Filter NEGO only with Nego data with initialization modified_by is NULL and is WEB
-                    GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
-                    tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
-                    tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), d.dipakai_untuk";
+                                tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, SUM(tnego_det.jumlah_permintaan) AS jumlah_permintaan,
+                                tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+                                tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+                                tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by,
+                                tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)) keterangan_nego, 
+                                d.dipakai_untuk, /** penambahan pada textarea */
+                                CASE    
+                                    -- WHEN (tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang)  > 0 THEN 'Sudah Diisi'
+                                    WHEN (tnego_det.modified_date IS NOT NULL and  tnego_det.modified_by IS NOT NULL) OR 
+                                        (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv where teqiv.nomor_rfq = tnego_det.nomor_rfq and teqiv.kode_barang = tnego_det.kode_barang and teqiv.modified_by IS NOT NULL and teqiv.modified_date iS NOT NULL)  > 0 THEN 'Sudah Diisi'
+                                    WHEN tnego_det.modified_date IS NOT NULL and  tnego_det.modified_by IS NOT NULL THEN 'Sudah Diisi'
+                                    WHEN tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL THEN 'Belum Diisi'
+                                    ELSE 
+                                        'Belum Diisi'
+                                END StatusMaterial,
+                                CASE	
+                                    WHEN LTRIM(RTRIM(tnego_det.modified_by)) = 'WEB' Or LTRIM(RTRIM(tnego_det.modified_by)) IS NULL THEN 1 
+                                    WHEN LTRIM(RTRIM(tnego_det.modified_by)) = 'SAP' And 
+                                        (select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv 
+                                        where 
+                                            teqiv.nomor_rfq = tnego_det.nomor_rfq And 
+                                            teqiv.kode_barang = tnego_det.kode_barang And 
+                                            (LTRIM(RTRIM(teqiv.modified_by)) = 'WEB' Or LTRIM(RTRIM(teqiv.modified_by)) IS NULL)) > 0 THEN 1
+                                    ELSE
+                                        0
+                                END TampilkanData 
+                            FROM {$this->table['detail']} tnego_det
+                            LEFT JOIN baragud.dbo.TB_S_MST_SATUAN tuom ON(tuom.satuan = tnego_det.satuan)
+                            JOIN
+                                (
+                                    SELECT 
+                                        a.nomor_rfq,
+                                        a.kode_barang,
+                                        STUFF((SELECT ' & ' + b.dipakai_untuk 
+                                        FROM TB_S_MST_RFQ_BARANG_DTL b
+                                        WHERE b.nomor_rfq = a.nomor_rfq AND b.kode_barang = a.kode_barang
+                                        FOR XML PATH('')), 1, 1, '') AS dipakai_untuk
+                                    FROM 
+                                        baragud.dbo.TB_S_MST_RFQ_BARANG_DTL a
+                                    WHERE
+                                        a.nomor_rfq = '{$rfq_no}'
+                                    GROUP BY 
+                                        a.nomor_rfq,
+                                        a.kode_barang
+                                ) d ON (tnego_det.kode_barang = d.kode_barang)
+                            {$where} 
+                            GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
+                            tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
+                            tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), d.dipakai_untuk
+                        ) AS RowConstrainedResult 
+                        WHERE TampilkanData = 1";
 
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
@@ -323,7 +335,18 @@ class Negotiation_model extends CI_Model {
                                         WHEN tnego_det.modified_date IS NULL and tnego_det.modified_by IS NULL THEN 'Belum Diisi'
                                         ELSE 
                                             'Belum Diisi'
-                                    END StatusMaterial
+                                    END StatusMaterial,
+                                    CASE	
+										WHEN LTRIM(RTRIM(tnego_det.modified_by)) = 'WEB' Or LTRIM(RTRIM(tnego_det.modified_by)) IS NULL THEN 1 
+										WHEN LTRIM(RTRIM(tnego_det.modified_by)) = 'SAP' And 
+											(select count(*) from baragud.dbo.TB_S_MST_NEGO_BARANG_EQIV teqiv 
+											where 
+												teqiv.nomor_rfq = tnego_det.nomor_rfq And 
+												teqiv.kode_barang = tnego_det.kode_barang And 
+												(LTRIM(RTRIM(teqiv.modified_by)) = 'WEB' Or LTRIM(RTRIM(teqiv.modified_by)) IS NULL)) > 0 THEN 1
+										ELSE
+											0
+									END TampilkanData
                                 FROM {$this->table['detail']} tnego_det
                                 JOIN
                                     (
@@ -349,7 +372,7 @@ class Negotiation_model extends CI_Model {
                             ) AS RowConstrainedResult
                     WHERE   
                         RowNum > {$start} AND RowNum < (({$start} + 1) + {$length}) 
-                        AND LTRIM(RTRIM(modified_by)) = 'WEB' Or LTRIM(RTRIM(modified_by)) IS NULL   -- Filter NEGO only with Nego data with initialization modified_by is NULL and is WEB
+                        AND TampilkanData = 1
                     ORDER BY RowNum";
         
         $query = $this->db->query($sql_);
