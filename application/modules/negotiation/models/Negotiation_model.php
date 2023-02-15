@@ -247,7 +247,7 @@ class Negotiation_model extends CI_Model {
                                 a.kode_barang
                         ) d ON (tnego_det.kode_barang = d.kode_barang)
                     {$where}
-                    AND LTRIM(TRIM(modified_by)) = 'WEB' Or ltrim(rtrim(modified_by)) IS NULL   -- Filter NEGO only with Nego data with initialization modified_by is NULL and is WEB
+                    AND LTRIM(RTRIM(modified_by)) = 'WEB' Or LTRIM(RTRIM(modified_by)) IS NULL   -- Filter NEGO only with Nego data with initialization modified_by is NULL and is WEB
                     GROUP BY tnego_det.nomor_rfq, tnego_det.kode_barang, tnego_det.deskripsi_barang, tnego_det.deskripsi_material, tnego_det.satuan, tnego_det.deskripsi_satuan, tnego_det.mata_uang, tnego_det.harga_satuan, tnego_det.per_harga_satuan,
                     tnego_det.konversi, tnego_det.jumlah_konversi, tnego_det.satuan_konversi, tnego_det.ketersediaan_barang, tnego_det.masa_berlaku_harga,
                     tnego_det.keterangan, tnego_det.dibuat_oleh, tnego_det.modified_date, tnego_det.modified_by, tnego_det.harga_satuan_nego, CAST(tnego_det.keterangan_nego AS NVARCHAR(4000)), d.dipakai_untuk";
@@ -349,7 +349,7 @@ class Negotiation_model extends CI_Model {
                             ) AS RowConstrainedResult
                     WHERE   
                         RowNum > {$start} AND RowNum < (({$start} + 1) + {$length}) 
-                        AND LTRIM(TRIM(modified_by)) = 'WEB' Or ltrim(rtrim(modified_by)) IS NULL   -- Filter NEGO only with Nego data with initialization modified_by is NULL and is WEB
+                        AND LTRIM(RTRIM(modified_by)) = 'WEB' Or LTRIM(RTRIM(modified_by)) IS NULL   -- Filter NEGO only with Nego data with initialization modified_by is NULL and is WEB
                     ORDER BY RowNum";
         
         $query = $this->db->query($sql_);
