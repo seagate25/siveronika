@@ -179,12 +179,12 @@ class Confirmation_model extends CI_Model
         $where = " WHERE (konfirmasi_status = '2' AND kode_vendor = '{$this->vendor_code}' AND tanggal_kirim = '" . date('Y-m-d') . "') AND (flag_kirim is null or flag_kirim = 0)";  // Get Konfirmasi harga with konfirmasi_status = 2; add validation flag_kirim = 1 not display
         if (!empty($search['value'])) {
             $where .= " AND ";
-            $where .= " kode_konfirmasi LIKE '%" . $search['value'] . "%'";
+            $where .= " (kode_konfirmasi LIKE '%" . $search['value'] . "%'";
             $where .= " OR kode_vendor LIKE '%" . $search['value'] . "%'";
             $where .= " OR nama_vendor LIKE '%" . $search['value'] . "%'";
             $where .= " OR nomor_pr LIKE '%" . $search['value'] . "%'";
             $where .= " OR kode_material LIKE '%" . $search['value'] . "%'";
-            $where .= " OR deskripsi LIKE '%" . $search['value'] . "%'";
+            $where .= " OR deskripsi LIKE '%" . $search['value'] . "%')";
         }
 
         $sql        = "SELECT * FROM {$this->table}{$where}";
