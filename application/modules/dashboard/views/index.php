@@ -2,7 +2,7 @@
     <div class="card-header bg-success">
         <h3 class="card-title text-white"><?php echo $title; ?></h3>
         <div class="card-toolbar">
-            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
+            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2" onclick="LoadGraph.init();">
                 <i class="las la-sync fs-1 text-success"></i>
             </button>
         </div>
@@ -113,7 +113,7 @@
                         </span>
                         <!--end::Svg Icon-->
                         <div class="text-inverse-secondary fw-bolder fs-2 mb-2 mt-5" id="c_status_po_barang"></div>
-                        <div class="text-inverse-primary fs-2 mb-2 mt-5"><medium>Status PO Barang</medium></div>
+                        <div class="text-inverse-secondary fs-2 mb-2 mt-5"><medium>Status PO Barang</medium></div>
                     </div>
                     <!--end::Body-->
                 </a>
@@ -176,7 +176,7 @@
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
-                        <div class="text-inverse-warning fw-bolder fs-2 mb-2 mt-5">0 <small>Data</small></div>
+                        <div class="text-inverse-warning fw-bolder fs-2 mb-2 mt-5" id="c_history_rfq_goods"></div>
                         <div class="text-inverse-primary fs-2 mb-2 mt-5"><medium>Riwayat RFQ Barang</medium></div>
                     </div>
                     <!--end::Body-->
@@ -202,7 +202,7 @@
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
-                        <div class="text-inverse-primary fw-bolder fs-2 mb-2 mt-5">0 <small>Data</small></div>
+                        <div class="text-inverse-primary fw-bolder fs-2 mb-2 mt-5" id="c_history_nego_goods"></div>
                         <div class="text-inverse-primary fs-2 mb-2 mt-5"><medium>Riwayat Nego Barang</medium></div>
                     </div>
                     <!--end::Body-->
@@ -307,6 +307,8 @@
                         $("#c_rfq_goods").html(obj.rfq_barang + " <small>Data</small>");
                         $("#c_nego_goods").html(obj.nego_barang + " <small>Data</small>");
                         $("#c_status_po_barang").html(obj.status_po_barang + " <small>Data</small>");
+                        $("#c_history_rfq_goods").html(obj.history_rfq_barang + " <small>Data</small>");
+                        $("#c_history_nego_goods").html(obj.history_nego_barang + " <small>Data</small>");
                     }
                 })
                 return false;
