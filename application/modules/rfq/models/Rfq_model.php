@@ -353,8 +353,8 @@ class Rfq_model extends CI_Model
         foreach ($rows_data as $row) {
             $row->number                = $i;
             $row->kode_barang           = $row->kode_barang;
-            $row->deskripsi_barang      = $row->deskripsi_barang;
-            $row->deskripsi_material     = $row->deskripsi_material;
+            $row->deskripsi_barang      = utf8_encode($row->deskripsi_barang);
+            $row->deskripsi_material    = utf8_encode($row->deskripsi_material);
             $row->jumlah_permintaan     = (int)$row->jumlah_permintaan;
             $row->satuan                = trim($row->satuan);
             $row->harga_satuan          = (int)$row->harga_satuan;

@@ -384,12 +384,12 @@ class Negotiation_model extends CI_Model {
         foreach ($rows_data as $row) {
             $row->number                = $i;
             $row->kode_barang           = $row->kode_barang;
-            $row->deskripsi_barang      = $row->deskripsi_barang;
-            $row->deskripsi_material    = $row->deskripsi_material;
-            $row->dipakai_untuk         = $row->dipakai_untuk;
+            $row->deskripsi_barang      = utf8_encode($row->deskripsi_barang);
+            $row->deskripsi_material    = utf8_encode($row->deskripsi_material);
+            $row->dipakai_untuk         = utf8_encode($row->dipakai_untuk);
             $row->jumlah_permintaan     = (int)$row->jumlah_permintaan;
             $row->harga_satuan_nego     = (int)$row->harga_satuan_nego;
-            $row->keterangan_nego       = $row->keterangan_nego;
+            $row->keterangan_nego       = utf8_encode($row->keterangan_nego);
             $row->satuan                = trim($row->satuan);
             $row->harga_satuan          = (int)$row->harga_satuan;
             $row->konversi              = (int)$row->konversi;
