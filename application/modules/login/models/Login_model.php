@@ -67,7 +67,8 @@ class Login_model extends CI_Model {
                         'first_login'   => $login_data->first_login,
                         'logged_in'     => TRUE,
                         'email'         => rtrim($vendor_data->email_perusahaan),
-                        'kode_negara'   => rtrim($vendor_data->kode_negara)
+                        'kode_negara'   => rtrim($vendor_data->kode_negara),
+                        'last_login'    => time()
                     ];
 
                     $this->session->set_userdata($user_session);

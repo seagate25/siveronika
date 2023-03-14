@@ -196,7 +196,7 @@ License: For each use you must have a valid license purchased only from above li
 										<div class="d-flex align-items-center py-2 px-2 px-md-3">
 											<!--begin::Name-->
 											<div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2">
-												<span class="text-muted fs-7 fw-semibold lh-1 mb-2"><i>Selamat Datang,</i></span>
+												<span class="text-muted fs-7 fw-semibold lh-1 mb-2"><i>Selamat Datang, <?php echo $this->session->userdata('last_login'); ?></i></span>
 												<span class="text-dark fs-base fw-bold lh-1" style="font-weight: 700 !important;"><?php echo $this->session->userdata('nama'); ?></span>
 											</div>
 											<!--end::Name-->
