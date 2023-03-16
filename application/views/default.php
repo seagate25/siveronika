@@ -3158,7 +3158,36 @@ License: For each use you must have a valid license purchased only from above li
 
 	<!--end::Page Vendors Javascript-->
 	<!--begin::Page Custom Javascript(used by this page)-->
-
+	<script type="text/javascript">
+		KTUtil.onDOMContentLoaded((function() {
+			var currentSessionValue = 1;
+			setTimeout(function() {
+				$.ajax({
+					type: "GET",
+					url: "<?php echo site_url('check_session'); ?>",
+					success: function(response) {
+						if(response != currentSessionValue) {
+							currentSessionValue = response;
+							Swal.fire({
+								text: "Sesi Anda telah berakhir, silahkan login kembali.",
+								icon: "warning",
+								allowOutsideClick: !1,
+								buttonsStyling: !1,
+								confirmButtonText: "OK",
+								customClass: {
+									confirmButton: "btn btn-primary",
+								},
+							}).then(function(r) {
+								window.location.reload();
+							});
+							// alert('Sesi Anda telah berakhir, silahkan login kembali.');
+							// window.location.reload();
+						}
+					}
+				})
+			}, 1800000);
+		}));
+	</script>
 	<!--end::Page Custom Javascript-->
 	<!--end::Javascript-->
 </body>

@@ -14,6 +14,8 @@ if(!function_exists('logged_in')) {
             if(!$logged_in) {
                 $CI->session->sess_destroy();
                 redirect('welcome');
+            } else {
+                $CI->session->set_userdata('last_activity', time());
             }
         }
     }

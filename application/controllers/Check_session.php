@@ -12,7 +12,10 @@ class Check_session extends CI_Controller {
     
     public function index()
     {
-        
+        $last_activity      = $this->session->userdata('last_activity');
+        $last_five_minutes  = date('YmdHis', strtotime('-30 minutes', time()));
+
+        echo date('YmdHis', $last_activity) > $last_five_minutes ? 1 : 0;
     }
 
 }
