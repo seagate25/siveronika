@@ -1538,6 +1538,93 @@
                                     }
                                 }
                             },
+                            available_total: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Jumlah tersedia tidak boleh kosong"
+                                    },
+                                    callback: {
+                                        message: 'Jumlah tersedia tidak boleh 0 (Nol)',
+                                        callback: function(input) {
+                                            const selectedCheckbox = c.querySelector('[name="available"]:checked');
+                                            const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+                                            const r_total = c.querySelector('[name="request_total"]');
+
+                                            if(convertion !== '1') {
+                                                return true;
+                                            } else {
+
+                                                if(parseInt(input.value) == 0) {
+                                                    return {
+                                                        valid: false,
+                                                        message: 'Jumlah tersedia tidak boleh 0 (Nol)'
+                                                    }
+                                                } else {
+                                                    if(parseInt(input.value) > 0 && parseInt(input.value) <= r_total.value) {
+                                                        return true;
+                                                    } else {
+                                                        return {
+                                                            valid: false,
+                                                            message: 'Jumlah tersedia tidak boleh lebih dari jumlah permintaan'
+                                                        }
+                                                    }
+                                                }
+                                    
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            indent_total: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Jumlah indent tidak boleh kosong"
+                                    },
+                                    callback: {
+                                        message: 'Jumlah tersedia tidak boleh 0 (Nol)',
+                                        callback: function(input) {
+                                            const selectedCheckbox = c.querySelector('[name="available"]:checked');
+                                            const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+
+                                            if(convertion !== '1') {
+                                                return true;
+                                            } else {
+
+                                                return (parseInt(input.value) > 0);
+                                    
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            indent_day: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Lama indent tidak boleh kosong"
+                                    },
+                                    callback: {
+                                        message: 'Lama indent tidak boleh 0 (Nol)',
+                                        callback: function(input) {
+                                            const selectedCheckbox = c.querySelector('[name="available"]:checked');
+                                            const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+                                            const a_total = c.querySelector('[name="available_total"]');
+                                            const r_total = c.querySelector('[name="request_total"]');
+
+                                            if(convertion !== '1') {
+                                                return true;
+                                            } else {
+                                                if(a_total.value == r_total.value) {
+                                                    return true;
+                                                } else if(a_total.value > r_total.value) {
+                                                    return true;
+                                                } else {
+                                                    return (parseInt(input.value) > 0);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
                             // ed_price: {
                             //     validators: {
                             //         notEmpty: {
@@ -1784,32 +1871,118 @@
                                     }
                                 }
                             },
+                            // available_total_eqiv: {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: "Jumlah tersedia tidak boleh kosong"
+                            //         }
+                            //     }
+                            // },
+                            // indent_total_eqiv: {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: "Jumlah inden tidak boleh kosong"
+                            //         }
+                            //     }
+                            // },
+                            // indent_day_eqiv: {
+                            //     validators: {
+                            //         notEmpty: {
+                            //             message: "Lama Indent tidak boleh kosong"
+                            //         }
+                            //     }
+                            // },
+                            available_eqiv: {
+                                validators: {
+                                    notEmpty: {
+                                        message: "Wajib pilih salah satu"
+                                    }
+                                }
+                            },
                             available_total_eqiv: {
                                 validators: {
                                     notEmpty: {
                                         message: "Jumlah tersedia tidak boleh kosong"
+                                    },
+                                    callback: {
+                                        message: 'Jumlah tersedia tidak boleh 0 (Nol)',
+                                        callback: function(input) {
+                                            const selectedCheckbox = v.querySelector('[name="available_eqiv"]:checked');
+                                            const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+                                            const r_total = v.querySelector('[name="request_total_eqiv"]');
+
+                                            if(convertion !== '1') {
+                                                return true;
+                                            } else {
+
+                                                if(parseInt(input.value) == 0) {
+                                                    return {
+                                                        valid: false,
+                                                        message: 'Jumlah tersedia tidak boleh 0 (Nol)'
+                                                    }
+                                                } else {
+                                                    if(parseInt(input.value) > 0 && parseInt(input.value) <= r_total.value) {
+                                                        return true;
+                                                    } else {
+                                                        return {
+                                                            valid: false,
+                                                            message: 'Jumlah tersedia tidak boleh lebih dari jumlah permintaan'
+                                                        }
+                                                    }
+                                                }
+                                    
+                                            }
+                                        }
                                     }
                                 }
                             },
                             indent_total_eqiv: {
                                 validators: {
                                     notEmpty: {
-                                        message: "Jumlah inden tidak boleh kosong"
+                                        message: "Jumlah indent tidak boleh kosong"
+                                    },
+                                    callback: {
+                                        message: 'Jumlah tersedia tidak boleh 0 (Nol)',
+                                        callback: function(input) {
+                                            const selectedCheckbox = v.querySelector('[name="available_eqiv"]:checked');
+                                            const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+
+                                            if(convertion !== '1') {
+                                                return true;
+                                            } else {
+
+                                                return (parseInt(input.value) > 0);
+                                    
+                                            }
+                                        }
                                     }
                                 }
                             },
                             indent_day_eqiv: {
                                 validators: {
                                     notEmpty: {
-                                        message: "Lama Indent tidak boleh kosong"
-                                    }
-                                }
-                            },
+                                        message: "Lama indent tidak boleh kosong"
+                                    },
+                                    callback: {
+                                        message: 'Lama indent tidak boleh 0 (Nol)',
+                                        callback: function(input) {
+                                            const selectedCheckbox = v.querySelector('[name="available_eqiv"]:checked');
+                                            const convertion = selectedCheckbox ? selectedCheckbox.value : '';
+                                            const a_total = v.querySelector('[name="available_total_eqiv"]');
+                                            const r_total = v.querySelector('[name="request_total_eqiv"]');
 
-                            available_eqiv: {
-                                validators: {
-                                    notEmpty: {
-                                        message: "Wajib pilih salah satu"
+                                            if(convertion !== '1') {
+                                                return true;
+                                            } else {
+                                                if(a_total.value == r_total.value) {
+                                                    return true;
+                                                } else if(a_total.value > r_total.value) {
+                                                    return true;
+                                                } else {
+                                                    return (parseInt(input.value) > 0);
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             },
