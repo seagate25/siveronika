@@ -222,6 +222,8 @@ class History extends CI_Controller
                 foreach ($files_data as $res) {
                     $res->nama_berkas = $this->crypto->encode($res->nama_berkas);
                 }
+            } else {
+                $files_data = 0;
             }
 
             $response = array(
