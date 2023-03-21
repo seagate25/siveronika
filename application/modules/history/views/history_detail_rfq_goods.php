@@ -592,7 +592,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="number" name="available_total_eqiv" id="available_total" class="form-control" placeholder="Jumlah Tersedia" min="0" disabled>
+                                    <input type="number" name="available_total_eqiv" id="available_total_eqiv" class="form-control" placeholder="Jumlah Tersedia" min="0" disabled>
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <!--end::Col-->
@@ -605,7 +605,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="number" name="indent_total" id="indent_total_eqiv" class="form-control form-control-solid" placeholder="Jumlah Indent" min="0" disabled>
+                                    <input type="number" name="indent_total_eqiv" id="indent_total_eqiv" class="form-control form-control-solid" placeholder="Jumlah Indent" min="0" disabled>
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <!--end::Col-->
@@ -618,7 +618,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="number" name="indent_day" id="indent_day_eqiv" class="form-control" placeholder="Lama Indent (Hari)" min="0" disabled>
+                                    <input type="number" name="indent_day_eqiv" id="indent_day_eqiv" class="form-control" placeholder="Lama Indent (Hari)" min="0" disabled>
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <!--end::Col-->
@@ -915,6 +915,13 @@
                         $("input[name=measurement_eqiv]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
                         $("input[name=r_measurement_eqiv]").val(data.satuan);
                         $("input[name=desc_measure_eqiv]").val(data.deskripsi_satuan);
+
+                        // Status Ketersediaan Barang Equivalent
+                        if ($('input[name="available_eqiv"]:checked').val() == 0) { // Checked Tersedia
+                            $("#form_status_ketersediaan_barang_eqiv").hide();
+                        } else {    // Checked Indent
+                            $("#form_status_ketersediaan_barang_eqiv").show();
+                        }
 
                         $.ajax({
                             type: "POST",
@@ -1388,6 +1395,24 @@
                     $('#form_status_ketersediaan_barang').show();
                     $('#available_total').val(0);
                     $('#indent_total').val(0);
+                    $('#indent_day').val(0);
+                }
+            }
+        });
+        $("input[name=available_eqiv]").on('change', function() {
+            if ($(this).is(':checked')) {
+                if ($(this).val() == 0) {   // Checked Tersedia
+                    // Hide object Jumlah Tersedia, Jumlah Indent, Lama Indent
+                    $('#form_status_ketersediaan_barang_eqiv').hide();
+                    $('#available_total_eqiv').val(0);
+                    $('#indent_total_eqiv').val(0);
+                    $('#indent_day_eqiv').val(0);
+                    
+                } else {    // Checked Indent
+                    // Show object Jumlah Tersedia, Jumlah Indent, Lama Indent
+                    $('#form_status_ketersediaan_barang_eqiv').show();
+                    $('#available_total_eqiv').val(0);
+                    $('#indent_total_eqiv').val(0);
                     $('#indent_day').val(0);
                 }
             }
