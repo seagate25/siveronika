@@ -88,7 +88,8 @@ class Rfq extends CI_Controller
         if ($data->num_rows() > 0) {
 
             $eqiv_data  = $data->row();
-            $eqiv_data->jumlah_inden = (int)$eqiv_data->jumlah_inden;
+            $eqiv_data->jumlah_inden        = (int)$eqiv_data->jumlah_inden;
+            $eqiv_data->deskripsi_barang    = utf8_encode($eqiv_data->deskripsi_barang);
             unset($params['nomor_rfq']);
             $params['nomor_quotation']  = $rfq_no;
 
@@ -99,6 +100,8 @@ class Rfq extends CI_Controller
                 foreach ($files_data as $res) {
                     $res->nama_berkas = $this->crypto->encode($res->nama_berkas);
                 }
+            } else {
+                $files_data = 0;
             }
             $response = array(
                 'code'  => 0,
@@ -878,8 +881,8 @@ class Rfq extends CI_Controller
                 'urutan_rfq'            => NULL,
                 'ekuivalen'             => $id_eqiv,
                 'kode_barang'           => $material_code,
-                'deskripsi_barang'      => $material_name,
-                'deskripsi_material'    => $material_desc,
+                'deskripsi_barang'      => utf8_decode($material_name),
+                'deskripsi_material'    => str_replace('Dipakai untuk : ', '', trim($material_desc)),
                 'deskripsi'             => '',
                 'jumlah_permintaan'     => $request_total,
                 'satuan'                => $measurement,
@@ -912,13 +915,13 @@ class Rfq extends CI_Controller
                 'kode_barang' => $material_code
             );
             $check_rfq = $this->rfq->getDetailRfq($params_det_rfq);
-
+            // var_dump(strlen($data['deskripsi_barang']));exit;
             if($check_rfq->num_rows() > 1) {
 
                 $result_rfq = $check_rfq->result();
                 $count = 0;
                 foreach($result_rfq as $row) {
-                    $data['urutan_rfq']         = $row->urutan_rfq;
+                    $data['urutan_rfq']         = trim($row->urutan_rfq);
                     $data['jumlah_permintaan']  = $row->jumlah_permintaan;
                     $data['nomor_sr']           = $row->nomor_sr;
                     $data['kode_kebun']         = $row->kode_kebun;
@@ -931,7 +934,7 @@ class Rfq extends CI_Controller
             } else {
                 
                 $row    = $check_rfq->row();
-                $data['urutan_rfq']         = $row->urutan_rfq;
+                $data['urutan_rfq']         = trim($row->urutan_rfq);
                 $data['nomor_sr']           = $row->nomor_sr;
                 $data['kode_kebun']         = $row->kode_kebun;
                 $save   = $this->rfq->insertEquivalent($data);
