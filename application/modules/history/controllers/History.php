@@ -212,7 +212,8 @@ class History extends CI_Controller
         if ($data->num_rows() > 0) {
 
             $eqiv_data  = $data->row();
-            $eqiv_data->jumlah_inden = (int)$eqiv_data->jumlah_inden;
+            $eqiv_data->jumlah_inden        = (int)$eqiv_data->jumlah_inden;
+            $eqiv_data->deskripsi_barang    = utf8_encode($eqiv_data->deskripsi_barang);
             unset($params['nomor_rfq']);
             $params['nomor_quotation']  = $rfq_no;
 
