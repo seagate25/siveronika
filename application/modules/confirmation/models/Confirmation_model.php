@@ -104,6 +104,7 @@ class Confirmation_model extends CI_Model
             $row->item_pr           = $row->item_pr;
             $row->kode_material     = $row->kode_material;
             $row->deskripsi         = utf8_encode($row->deskripsi);
+            $row->deskripsi_material= utf8_encode($row->deskripsi_material);
             $row->jumlah            = (int)$row->jumlah;
             $row->harga             = (int)$row->harga;
             $row->mata_uang         = $row->mata_uang;
