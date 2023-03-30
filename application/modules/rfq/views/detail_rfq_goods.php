@@ -1638,7 +1638,7 @@
                                         message: "Dibuat Oleh tidak boleh kosong"
                                     },
                                     stringLength: {
-                                        message: 'Inputan harus kurang dari 30 karakter',
+                                        message: 'Input Max 30 karakter',
                                         max: 30
                                     }
                                 }
@@ -2003,7 +2003,7 @@
                                         message: "Dibuat Oleh tidak boleh kosong"
                                     },
                                     stringLength: {
-                                        message: 'Inputan harus kurang dari 30 karakter',
+                                        message: 'Input Max 30 karakter',
                                         max: 30
                                     }
                                 }
