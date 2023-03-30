@@ -1636,6 +1636,10 @@
                                 validators: {
                                     notEmpty: {
                                         message: "Dibuat Oleh tidak boleh kosong"
+                                    },
+                                    stringLength: {
+                                        message: 'Inputan harus kurang dari 30 karakter',
+                                        max: 30
                                     }
                                 }
                             },
@@ -1997,6 +2001,10 @@
                                 validators: {
                                     notEmpty: {
                                         message: "Dibuat Oleh tidak boleh kosong"
+                                    },
+                                    stringLength: {
+                                        message: 'Inputan harus kurang dari 30 karakter',
+                                        max: 30
                                     }
                                 }
                             },
