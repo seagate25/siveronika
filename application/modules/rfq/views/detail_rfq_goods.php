@@ -1858,6 +1858,10 @@
                                 validators: {
                                     notEmpty: {
                                         message: "Merek tidak boleh kosong"
+                                    },
+                                    stringLength: {
+                                        message: 'Input Max 30 karakter',
+                                        max: 30
                                     }
                                 }
                             },
@@ -1865,6 +1869,10 @@
                                 validators: {
                                     notEmpty: {
                                         message: "Tipe tidak boleh kosong"
+                                    },
+                                    stringLength: {
+                                        message: 'Input Max 30 karakter',
+                                        max: 30
                                     }
                                 }
                             },
@@ -1872,6 +1880,10 @@
                                 validators: {
                                     notEmpty: {
                                         message: "Buatan tidak boleh kosong"
+                                    },
+                                    stringLength: {
+                                        message: 'Input Max 30 karakter',
+                                        max: 30
                                     }
                                 }
                             },
