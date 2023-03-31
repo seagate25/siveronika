@@ -448,7 +448,7 @@
                                         message: "Jumlah tersedia tidak boleh kosong"
                                     },
                                     callback: {
-                                        message: 'Jumlah tersedia tidak boleh 0 (Nol)',
+                                        message: 'Jumlah tersedia tidak boleh kosong',
                                         callback: function(input) {
                                             const selectedCheckbox = o.querySelector('[name="repeat_order"]:checked');
                                             const convertion = selectedCheckbox ? selectedCheckbox.value : '';
@@ -467,19 +467,28 @@
                                                 return true;
                                             } else {
 
-                                                if(parseInt(input.value) == 0) {
+                                                // if(parseInt(input.value) == 0) {
+                                                //     return {
+                                                //         valid: false,
+                                                //         message: 'Jumlah tersedia tidak boleh 0 (Nol)'
+                                                //     }
+                                                // } else {
+                                                //     if(parseInt(input.value) > 0 && parseInt(input.value) <= r_total.value) {
+                                                //         return true;
+                                                //     } else {
+                                                //         return {
+                                                //             valid: false,
+                                                //             message: 'Jumlah tersedia tidak boleh lebih dari jumlah permintaan'
+                                                //         }
+                                                //     }
+                                                // }
+
+                                                if(parseInt(input.value) >= 0 && parseInt(input.value) <= r_total.value) {
+                                                    return true;
+                                                } else {
                                                     return {
                                                         valid: false,
-                                                        message: 'Jumlah tersedia tidak boleh 0 (Nol)'
-                                                    }
-                                                } else {
-                                                    if(parseInt(input.value) > 0 && parseInt(input.value) <= r_total.value) {
-                                                        return true;
-                                                    } else {
-                                                        return {
-                                                            valid: false,
-                                                            message: 'Jumlah tersedia tidak boleh lebih dari jumlah permintaan'
-                                                        }
+                                                        message: 'Jumlah tersedia tidak boleh lebih dari jumlah permintaan'
                                                     }
                                                 }
                                     
