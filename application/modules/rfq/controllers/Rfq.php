@@ -90,6 +90,12 @@ class Rfq extends CI_Controller
             $eqiv_data  = $data->row();
             $eqiv_data->jumlah_inden        = (int)$eqiv_data->jumlah_inden;
             $eqiv_data->deskripsi_barang    = utf8_encode($eqiv_data->deskripsi_barang);
+            $eqiv_data->spesifikasi         = utf8_encode($eqiv_data->spesifikasi);
+            $eqiv_data->merek               = utf8_encode($eqiv_data->merek);
+            $eqiv_data->tipe                = utf8_encode($eqiv_data->tipe);
+            $eqiv_data->buatan              = utf8_encode($eqiv_data->buatan);
+            $eqiv_data->keterangan          = utf8_encode($eqiv_data->keterangan);
+            $eqiv_data->dibuat_oleh         = utf8_encode($eqiv_data->dibuat_oleh);
             unset($params['nomor_rfq']);
             $params['nomor_quotation']  = $rfq_no;
 
@@ -524,6 +530,13 @@ class Rfq extends CI_Controller
         $indent_total_eqiv      = $this->input->post('indent_total_eqiv');
         $indent_day_eqiv        = $this->input->post('indent_day_eqiv');
 
+        $convert_spec   = str_replace("'", "''", $specification_eqiv);
+        $convert_merk   = str_replace("'", "''", $merk_eqiv);
+        $convert_type   = str_replace("'", "''", $type_eqiv);
+        $convert_made   = str_replace("'", "''", $made_eqiv);
+        $convert_note   = str_replace("'", "''", $notes);
+        $convert_create = str_replace("'", "''", $created_by);
+
         $attach_files       = array();
         $attach_new_files   = array();
 
@@ -683,14 +696,14 @@ class Rfq extends CI_Controller
                     'satuan_konversi'       => ($convert == '1') ? (($conv_measure == NULL) ? $measurement : $conv_measure) : 'NULL',
                     'ketersediaan_barang'   => $available,
                     'masa_berlaku_harga'    => $ed_price,
-                    'keterangan'            => $notes,
-                    'dibuat_oleh'           => $created_by,
+                    'keterangan'            => utf8_decode($convert_note),
+                    'dibuat_oleh'           => utf8_decode($convert_create),
                     'modified_date'         => date('Y-m-d'),
                     'modified_by'           => 'WEB',
-                    'spesifikasi'           => $specification_eqiv,
-                    'merek'                 => $merk_eqiv,
-                    'tipe'                  => $type_eqiv,
-                    'buatan'                => $made_eqiv,
+                    'spesifikasi'           => utf8_decode($convert_spec),
+                    'merek'                 => utf8_decode($convert_merk),
+                    'tipe'                  => utf8_decode($convert_type),
+                    'buatan'                => utf8_decode($convert_made),
                     'jumlah_tersedia'       => ($available == '0') ? 0 : $available_total_eqiv,
                     'jumlah_inden'          => $indent_total_eqiv,
                     'lama_inden'            => $indent_day_eqiv
@@ -795,14 +808,14 @@ class Rfq extends CI_Controller
                     'satuan_konversi'       => ($convert == '1') ? (($conv_measure == NULL) ? $measurement : $conv_measure) : 'NULL',
                     'ketersediaan_barang'   => $available,
                     'masa_berlaku_harga'    => $ed_price,
-                    'keterangan'            => $notes,
-                    'dibuat_oleh'           => $created_by,
+                    'keterangan'            => utf8_decode($convert_note),
+                    'dibuat_oleh'           => utf8_decode($convert_create),
                     'modified_date'         => date('Y-m-d'),
                     'modified_by'           => 'WEB',
-                    'spesifikasi'           => $specification_eqiv,
-                    'merek'                 => $merk_eqiv,
-                    'tipe'                  => $type_eqiv,
-                    'buatan'                => $made_eqiv,
+                    'spesifikasi'           => utf8_decode($convert_spec),
+                    'merek'                 => utf8_decode($convert_merk),
+                    'tipe'                  => utf8_decode($convert_type),
+                    'buatan'                => utf8_decode($convert_made),
                     'jumlah_tersedia'       => ($available == '0') ? 0 : $available_total_eqiv,
                     'jumlah_inden'          => $indent_total_eqiv,
                     'lama_inden'            => $indent_day_eqiv
@@ -900,14 +913,14 @@ class Rfq extends CI_Controller
                 'satuan_konversi'       => ($convert == '1') ? (($conv_measure == NULL) ? $measurement : $conv_measure) : '',
                 'ketersediaan_barang'   => $available,
                 'masa_berlaku_harga'    => $ed_price,
-                'keterangan'            => $notes,
-                'dibuat_oleh'           => $created_by,
+                'keterangan'            => utf8_decode($convert_note),
+                'dibuat_oleh'           => utf8_decode($convert_create),
                 'modified_date'         => date('Y-m-d'),
                 'modified_by'           => 'WEB',
-                'spesifikasi'           => $specification_eqiv,
-                'merek'                 => $merk_eqiv,
-                'tipe'                  => $type_eqiv,
-                'buatan'                => $made_eqiv,
+                'spesifikasi'           => utf8_decode($convert_spec),
+                'merek'                 => utf8_decode($convert_merk),
+                'tipe'                  => utf8_decode($convert_type),
+                'buatan'                => utf8_decode($convert_made),
                 'jumlah_tersedia'       => ($available == '0') ? 0 : $available_total_eqiv,
                 'jumlah_inden'          => $indent_total_eqiv,
                 'lama_inden'            => $indent_day_eqiv
