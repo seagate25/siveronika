@@ -1739,7 +1739,7 @@
                                         })
                                     ) :
                                     Swal.fire({
-                                        text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                                        text: "Silahkan lengkapi data dan pastikan data input sudah benar.",
                                         icon: "error",
                                         buttonsStyling: !1,
                                         confirmButtonText: "Tutup",
@@ -2116,7 +2116,7 @@
                                         })
                                     ) :
                                     Swal.fire({
-                                        text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                                        text: "Silahkan lengkapi data dan pastikan data input sudah benar.",
                                         icon: "error",
                                         buttonsStyling: !1,
                                         confirmButtonText: "Tutup",
@@ -2148,7 +2148,7 @@
                     });
                     if(count_invalid > 0) {
                         Swal.fire({
-                            text: "Maaf, masih ada field yang kosong, silahkan diisi.",
+                            text: "Silahkan lengkapi data dan pastikan data input sudah benar.",
                             icon: "error",
                             buttonsStyling: !1,
                             confirmButtonText: "Tutup",
