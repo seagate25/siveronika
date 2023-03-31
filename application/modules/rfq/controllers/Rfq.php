@@ -184,6 +184,9 @@ class Rfq extends CI_Controller
         $notes          = $this->input->post('notes');
         $created_by     = $this->input->post('created_by');
 
+        $convert_notes  = str_replace("'", "''", $notes);
+        $convert_created_by = str_replace("'", "''", $created_by);
+
         $available_total   = $this->input->post('available_total');
         $indent_total      = $this->input->post('indent_total');
         $indent_day        = $this->input->post('indent_day');
@@ -342,8 +345,8 @@ class Rfq extends CI_Controller
                 'satuan_konversi'       => ($convert == '1') ? (($conv_measure == NULL) ? $real_measure : $conv_measure) : 'NULL',
                 'ketersediaan_barang'   => $available,
                 'masa_berlaku_harga'    => $ed_price,
-                'keterangan'            => $notes,
-                'dibuat_oleh'           => $created_by,
+                'keterangan'            => utf8_decode($convert_notes),
+                'dibuat_oleh'           => utf8_decode($convert_created_by),
                 'modified_date'         => date('Y-m-d'),
                 'modified_by'           => 'WEB',
                 'jumlah_tersedia'       => ($available == '0') ? 0 : $available_total,
@@ -449,8 +452,8 @@ class Rfq extends CI_Controller
                 'satuan_konversi'       => ($convert == '1') ? (($conv_measure == NULL) ? $real_measure : $conv_measure) : 'NULL',
                 'ketersediaan_barang'   => $available,
                 'masa_berlaku_harga'    => $ed_price,
-                'keterangan'            => $notes,
-                'dibuat_oleh'           => $created_by,
+                'keterangan'            => utf8_decode($convert_notes),
+                'dibuat_oleh'           => utf8_decode($convert_created_by),
                 'modified_date'         => date('Y-m-d'),
                 'modified_by'           => 'WEB',
                 'jumlah_tersedia'       => ($available == '0') ? 0 : $available_total,
