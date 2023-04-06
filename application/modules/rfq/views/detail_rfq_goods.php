@@ -1118,6 +1118,8 @@
                         $("input[name=available_total]").val(0);
                         $("input[name=indent_total]").val(0);
                         $("input[name=indent_day]").val(0);
+                        $("textarea[name=notes]").val('');
+                        $("input[name=created_by]").val('');
 
                         // Status Ketersediaan Barang
                         if ($('input[name="available"]:checked').val() == 0) { // Checked Tersedia
