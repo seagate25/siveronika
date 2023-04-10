@@ -15,16 +15,16 @@
                     <th class="min-w-150px text-center">PO Number - Item</th>
                     <th class="min-w-200px text-center">Order Date - Deadline</th>
                     <th class="min-w-100px text-center">Vendor Name</th>
-                    <th class="min-w-50px text-center">Dept / Estate</th>
+                    <!-- <th class="min-w-50px text-center">Dept / Estate</th> -->
                     <th class="min-w-400px text-center">Material Num - Desc</th>
-                    <th class="min-w-50px text-center">UoM ng Qty</th>
-                    <th class="min-w-50px text-center">Outstanding Value</th>
-                    <th class="min-w-50px text-center">Late Days</th>
-                    <th class="min-w-30px text-center">Progress Supply</th>
+                    <!-- <th class="min-w-50px text-center">UoM ng Qty</th> -->
                     <th class="min-w-30px text-center">UoM</th>
                     <th class="min-w-30px text-center">Unit Price</th>
                     <th class="min-w-30px text-center">Order Qty</th>
                     <th class="min-w-30px text-center">Outstanding Qty</th>
+                    <th class="min-w-50px text-center">Outstanding Value</th>
+                    <th class="min-w-50px text-center">Late Days</th>
+                    <th class="min-w-30px text-center">Progress Supply</th>
                 </tr>
             </thead>
         </table>
@@ -76,16 +76,16 @@ var KTDataTables = (function() {
                     { data: 'po_number_item', className: 'text-center' },
                     { data: 'order_date_deadline', className: 'text-center' },
                     { data: 'vendor_name', className: 'text-center' },
-                    { data: 'dept_estate', className: 'text-center' },
+                    // { data: 'dept_estate', className: 'text-center' },
                     { data: 'material_num_desc', className: 'text-left' },
-                    { data: 'uom_ng_qty', className: 'text-center' },
-                    { data: 'outstanding_value', className: 'text-center' },
-                    { data: 'late_days', className: 'text-center' },
-                    { data: 'progress_supply', className: 'text-center' },
+                    // { data: 'uom_ng_qty', className: 'text-center' },
                     { data: 'uom', className: 'text-center' },
                     { data: 'unit_price', className: 'text-center' },
                     { data: 'order_qty', className: 'text-center' },
-                    { data: 'outstanding_qty', className: 'text-center' }
+                    { data: 'outstanding_qty', className: 'text-center' },
+                    { data: 'outstanding_value', className: 'text-center' },
+                    { data: 'late_days', className: 'text-center' },
+                    { data: 'progress_supply', className: 'text-center' },
                 ],
                 lengthMenu: [
                         [5, 10, 15, 25, -1],

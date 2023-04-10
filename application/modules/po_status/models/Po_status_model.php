@@ -260,7 +260,7 @@ class Po_status_model extends CI_Model {
                         order_unit AS uom,
                         unitprice AS unit_price,
                         order_qty,
-                        outstanding AS outstanding_qty
+                        format(round(outstanding, 0), '#,###')AS outstanding_qty
                     FROM 
                         TB_S_TR_PO_OUTSTANDING
                     WHERE
