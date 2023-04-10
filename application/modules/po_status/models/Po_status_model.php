@@ -259,7 +259,7 @@ class Po_status_model extends CI_Model {
                         -- CONCAT(ROUND(((order_qty - outstanding) / order_qty) * 100, 2), '%') AS progress_supply,
                         order_unit AS uom,
                         unitprice AS unit_price,
-                        order_qty,
+                        qty as order_qty,
                         format(round(outstanding, 0), '#,###')AS outstanding_qty
                     FROM 
                         TB_S_TR_PO_OUTSTANDING
