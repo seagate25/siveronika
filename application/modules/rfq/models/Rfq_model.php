@@ -346,7 +346,7 @@ class Rfq_model extends CI_Model
 
         $query = $this->db->query($sql_);
         $rows_data = $query->result();
-
+        
         $rows = array();
         $i = (0 + 1);
 
@@ -362,9 +362,9 @@ class Rfq_model extends CI_Model
             $row->harga_satuan          = (int)$row->harga_satuan;
             $row->konversi              = (int)$row->konversi;
             $row->ketersediaan_barang   = (int)$row->ketersediaan_barang;
-            $row->deskripsi_satuan      = trim($row->deskripsi_satuan);
+            $row->deskripsi_satuan      = utf8_encode(trim($row->deskripsi_satuan));
             $row->dipakai_untuk         = $row->dipakai_untuk;
-            $row->dipakai_untuk         = substr(htmlspecialchars_decode($row->dipakai_untuk), 2);
+            $row->dipakai_untuk         = utf8_encode(substr(htmlspecialchars_decode($row->dipakai_untuk), 2));
             // $row->urutan_rfq            = trim($row->urutan_rfq);
             $row->status                = $row->StatusMaterial;//($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
             // $btn_eqiv_1                 = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'disabled' : '';
