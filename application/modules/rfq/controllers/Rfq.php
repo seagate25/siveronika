@@ -503,7 +503,6 @@ class Rfq extends CI_Controller
     public function save_eqiv()
     {
         $id_eqiv        = (int)$this->input->post('id_eqiv');
-        // $seq_eqiv       = (int)$this->input->post('seq_eqiv');
         $rfq_no         = $this->crypto->decode($this->input->post('id_rfq_eqiv'));
         $material_code  = $this->input->post('material_code_eqiv');
         $material_name  = $this->input->post('material_name_eqiv');
@@ -931,7 +930,6 @@ class Rfq extends CI_Controller
                 'kode_barang' => $material_code
             );
             $check_rfq = $this->rfq->getDetailRfq($params_det_rfq);
-            // var_dump(strlen($data['deskripsi_barang']));exit;
             if($check_rfq->num_rows() > 1) {
 
                 $result_rfq = $check_rfq->result();

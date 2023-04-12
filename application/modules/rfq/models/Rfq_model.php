@@ -82,8 +82,6 @@ class Rfq_model extends CI_Model
         }
 
         $sql        = "SELECT * FROM {$this->table[0]}{$where}";
-        // $sql        = "SELECT trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung FROM {$this->table[0]} trfq LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq) {$where}";
-        // $sql        = "SELECT trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung FROM {$this->table[0]} trfq CROSS APPLY(SELECT  TOP 1 * FROM    baragud.dbo.TB_S_MST_RFQ_LAMPIRAN_BARANG WHERE   nomor_rfq = trfq.nomor_rfq) AS tl {$where}"; // Get select top 1 for lampiran by rfq_nomor
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
@@ -95,26 +93,7 @@ class Rfq_model extends CI_Model
                     WHERE   RowNum > {$start}
                         AND RowNum < (({$start} + 1) + {$length})
                     ORDER BY RowNum";
-        // $sql_   = "SELECT  *
-        //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum,
-        //                                 trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
-        //                     FROM      {$this->table[0]} trfq
-        //                     LEFT JOIN TB_S_MST_RFQ_LAMPIRAN_BARANG AS tl ON(tl.nomor_rfq = trfq.nomor_rfq)
-        //                     {$where}
-        //                     ) AS RowConstrainedResult
-        //             WHERE   RowNum > {$start}
-        //                 AND RowNum < (({$start} + 1) + {$length})
-        //             ORDER BY RowNum";
-        // $sql_   = "SELECT  *
-        // FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfq.nomor_rfq {$order_dir} ) AS RowNum,
-        //                     trfq.*, tl.alamat_berkas, tl.nama_berkas, tl.sudah_gabung
-        //         FROM      {$this->table[0]} trfq
-        //         OUTER APPLY(SELECT  TOP 1 * FROM    baragud.dbo.TB_S_MST_RFQ_LAMPIRAN_BARANG WHERE   nomor_rfq = trfq.nomor_rfq) AS tl 
-        //         {$where}
-        //         ) AS RowConstrainedResult
-        // WHERE   RowNum > {$start}
-        //     AND RowNum < (({$start} + 1) + {$length})
-        // ORDER BY RowNum";
+        
 
         $query = $this->db->query($sql_);
         $rows_data = $query->result();
@@ -124,14 +103,7 @@ class Rfq_model extends CI_Model
         foreach ($rows_data as $row) {
             $berkas = '';
 
-            // if ($row->nama_berkas !== NULL) {
-            //     $berkas =
-            //         '<a href="' . base_url('upload_files/Dokumen_RFQ/' . $row->nama_berkas) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
-            //                     <i class="las la-arrow-down fs-1 text-white"></i>
-            //                 </a>';
-            // } else {
-            //     $berkas = '';
-            // }
+            
             $checkRfqAttachment = $this->getRfqAttachment($row->nomor_rfq);
             if($checkRfqAttachment->num_rows() > 0) {
                 $berkas = '<a href="' . site_url('rfq/download_attachment/'.$this->crypto->encode($row->nomor_rfq)) . '" class="btn btn-icon btn-sm btn-primary me-1 mb-1" target="_blank">
@@ -198,29 +170,7 @@ class Rfq_model extends CI_Model
             $where .= " OR trfqd.satuan LIKE '%" . $search['value'] . "%')";
         }
 
-        // $sql        = "SELECT * FROM {$this->table[1]} trfqd {$where}";
-
-        // $sql        = "SELECT trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
-        //                     trfqd.satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
-        //                     trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
-        //                     trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by,
-        //                     trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden,
-        //                     trfqd.dipakai_untuk, /** penambahan pada textarea */
-        //                     CASE    
-        //                         WHEN (trfqd.modified_date IS NULL and trfqd.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_RFQ_BARANG_EQIV teqiv where teqiv.nomor_rfq = trfqd.nomor_rfq and teqiv.kode_barang = trfqd.kode_barang)  > 0 THEN 'Sudah Diisi'
-        //                         WHEN trfqd.modified_date IS NOT NULL and  trfqd.modified_by IS NOT NULL THEN 'Sudah Diisi'
-        //                         WHEN trfqd.modified_date IS NULL and trfqd.modified_by IS NULL THEN 'Belum Diisi'
-        //                         ELSE 
-        //                             'Belum Diisi'
-        //                     END StatusMaterial,
-        //                     tuom.deskripsi_satuan
-        //                 FROM {$this->table[1]} trfqd 
-        //                 LEFT JOIN {$this->table[6]} tuom ON(tuom.satuan = trfqd.satuan) 
-        //                 {$where}
-        //                 GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, trfqd.satuan, tuom.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
-        //                 trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
-        //                 trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by, trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden, trfqd.dipakai_untuk";
-
+        
         $sql        = "SELECT trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
                             trfqd.satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
                             trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
@@ -242,7 +192,6 @@ class Rfq_model extends CI_Model
                                 SELECT 
                                     a.nomor_rfq,
                                     a.kode_barang,
-                                    -- STRING_AGG( ISNULL(a.dipakai_untuk , ' '), ' & ') As dipakai_untuk
                                     STUFF((SELECT ' & ' + b.dipakai_untuk 
                                     FROM TB_S_MST_RFQ_BARANG_DTL b
                                     WHERE b.nomor_rfq = a.nomor_rfq AND b.kode_barang = a.kode_barang
@@ -263,32 +212,7 @@ class Rfq_model extends CI_Model
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
-        // $sql_   = "SELECT  *
-        // FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
-        //             trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, SUM(trfqd.jumlah_permintaan) AS jumlah_permintaan,
-        //             trfqd.satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
-        //             trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
-        //             trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by,
-        //             trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden,
-        //             trfqd.dipakai_untuk, /** penambahan pada textarea */
-        //             CASE    
-        //                 WHEN (trfqd.modified_date IS NULL and trfqd.modified_by IS NULL) and (select count(*) from baragud.dbo.TB_S_MST_RFQ_BARANG_EQIV teqiv where teqiv.nomor_rfq = trfqd.nomor_rfq and teqiv.kode_barang = trfqd.kode_barang)  > 0 THEN 'Sudah Diisi'
-        //                 WHEN trfqd.modified_date IS NOT NULL and  trfqd.modified_by IS NOT NULL THEN 'Sudah Diisi'
-        //                 WHEN trfqd.modified_date IS NULL and trfqd.modified_by IS NULL THEN 'Belum Diisi'
-        //                 ELSE 
-        //                     'Belum Diisi'
-        //             END StatusMaterial,
-        //             tuom.deskripsi_satuan
-        //         FROM {$this->table[1]} trfqd
-        //         LEFT JOIN {$this->table[6]} tuom ON(tuom.satuan = trfqd.satuan) 
-        //         {$where}
-        //         GROUP BY trfqd.nomor_rfq, trfqd.kode_barang, trfqd.deskripsi_barang, trfqd.deskripsi_material, trfqd.satuan, tuom.deskripsi_satuan, trfqd.mata_uang, trfqd.harga_satuan, trfqd.per_harga_satuan,
-        //         trfqd.konversi, trfqd.jumlah_konversi, trfqd.satuan_konversi, trfqd.ketersediaan_barang, trfqd.masa_berlaku_harga,
-        //         trfqd.keterangan, trfqd.dibuat_oleh, trfqd.modified_date, trfqd.modified_by, trfqd.jumlah_tersedia, trfqd.jumlah_inden, trfqd.lama_inden, trfqd.dipakai_untuk
-        //         ) AS RowConstrainedResult
-        // WHERE   RowNum > {$start}
-        //     AND RowNum < (({$start} + 1) + {$length})
-        // ORDER BY RowNum";
+        
 
         $sql_   = "SELECT  *
         FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY trfqd.{$order_column} {$order_dir} ) AS RowNum,
@@ -313,7 +237,6 @@ class Rfq_model extends CI_Model
                                 SELECT 
                                     a.nomor_rfq,
                                     a.kode_barang,
-                                    -- STRING_AGG( ISNULL(a.dipakai_untuk , ' '), ' & ') As dipakai_untuk
                                     STUFF((SELECT ' & ' + b.dipakai_untuk 
                                     FROM TB_S_MST_RFQ_BARANG_DTL b
                                     WHERE b.nomor_rfq = a.nomor_rfq AND b.kode_barang = a.kode_barang
@@ -335,14 +258,7 @@ class Rfq_model extends CI_Model
             AND RowNum < (({$start} + 1) + {$length})
         ORDER BY RowNum";
         
-        // $sql_   = "SELECT  *
-        //             FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum, trfqd.*
-        //                     FROM      {$this->table[1]} trfqd
-        //                     {$where}
-        //                     ) AS RowConstrainedResult
-        //             WHERE   RowNum > {$start}
-        //                 AND RowNum < (({$start} + 1) + {$length})
-        //             ORDER BY RowNum";
+        
 
         $query = $this->db->query($sql_);
         $rows_data = $query->result();
@@ -365,9 +281,7 @@ class Rfq_model extends CI_Model
             $row->deskripsi_satuan      = utf8_encode(trim($row->deskripsi_satuan));
             $row->dipakai_untuk         = $row->dipakai_untuk;
             $row->dipakai_untuk         = utf8_encode(substr(htmlspecialchars_decode($row->dipakai_untuk), 2));
-            // $row->urutan_rfq            = trim($row->urutan_rfq);
-            $row->status                = $row->StatusMaterial;//($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Diisi" : "Sudah Diisi";
-            // $btn_eqiv_1                 = ($row->modified_by == NULL && $row->modified_date == NULL) ? 'disabled' : '';
+            $row->status                = $row->StatusMaterial;
             $btn_eqiv_1                 = '';
             $row->actions               = '<button type="button" class="rfq_form btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_det_rfq_goods">
                                             <i class="fas fa-envelope-open-text"></i>

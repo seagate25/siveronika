@@ -64,8 +64,6 @@ class Master_model extends CI_Model
                     WHERE   RowNum > {$start}
                         AND RowNum < ({$start} + {$length})
                     ORDER BY RowNum";
-        // $sql_ .= " ORDER BY " . $order_column . " {$order_dir}";
-        // $sql_ .= " LIMIT {$length} OFFSET {$start}";
 
         $query = $this->db->query($sql_);
         $rows_data = $query->result();

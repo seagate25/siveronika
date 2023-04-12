@@ -18,7 +18,6 @@
             <!--end::Title-->
             <!--begin::Link-->
             <div class="text-gray-400 fw-bold fs-4">Proses Pengadaan Barang yang Cepat, Akurat, & Terbuka
-                <!-- <a href="../../demo1/dist/authentication/flows/basic/sign-up.html" class="link-primary fw-bolder">Create an Account</a> -->
             </div>
             <!--end::Link-->
         </div>
@@ -46,19 +45,13 @@
             </div>
             <!--end::Wrapper-->
             <!--begin::Input-->
-            <!-- <input class="form-control form-control-lg form-control-solid" type="password" name="password" id="password" autocomplete="off" /> -->
             <input class="form-control form-control-lg form-control-solid" type="password" name="password" id="password"/>
             <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
             <!--end::Input-->
         </div>
         <!--end::Input group-->
         <div class="fv-row mb-10">
-            <!-- <div class="form-check form-check-custom form-check-solid form-check-sm">
-                <input class="form-check-input" type="checkbox" value="" id="flexRadioLg" onclick="showPassword()"/>
-                <label class="form-check-label fw-bold text-gray-700 fs-6" for="flexRadioLg">
-                Tampilkan Password
-                </label>
-            </div> -->
+            
         </div>
         <!--begin::Actions-->
         <div class="text-center">
@@ -107,14 +100,12 @@
                                 (e.disabled = !0),
                                 d = Object.fromEntries(new FormData(t).entries()),
                                 d.password = $.md5(d.password),
-                                // console.log(d)
                                 $.ajax({
                                     type: "POST",
                                     url: t.getAttribute('action'),
                                     data: d,
                                     success: function(response) {
                                         var obj = jQuery.parseJSON(response);
-                                        // console.log(obj);
                                         if(obj.code == 0) {
                                             document.location = obj.data;
                                         } else {

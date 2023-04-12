@@ -2,11 +2,6 @@
 <div class="card shadow-sm mb-5 mb-xl-10">
     <div class="card-header bg-success">
         <h3 class="card-title text-white"><?php echo $title; ?></h3>
-        <!-- <div class="card-toolbar">
-            <button type="button" class="btn btn-sm btn-icon btn-bg-white me-2 mb-2">
-                <i class="las la-sync fs-1 text-success"></i>
-            </button>
-        </div> -->
     </div>
     <div class="card-body px-9 pt-7 pb-1">
         <!--begin::Row-->

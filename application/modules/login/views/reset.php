@@ -5,22 +5,16 @@
         <div class="text-center mb-10">
             <!--begin::Title-->
             <h1 class="text-dark mb-3">Reset Password</h1>
-            <?php //echo $this->session->userdata('kode_vendor');?>
             <!--end::Title-->
-            <!--begin::Link-->
-            <!-- <div class="text-gray-400 fw-bold fs-4">Enter your email to reset your password.</div> -->
-            <!--end::Link-->
         </div>
         <!--begin::Heading-->
         <!--begin::Input group-->
         <div class="fv-row mb-10">
-            <!-- <label class="form-label fw-bolder text-gray-900 fs-6">Email</label> -->
             <input class="form-control" type="password" placeholder="Masukkan Password Baru" id="new_password" name="new_password" autocomplete="off" />
         </div>
         <!--end::Input group-->
         <!--begin::Input group-->
         <div class="fv-row mb-10">
-            <!-- <label class="form-label fw-bolder text-gray-900 fs-6">Email</label> -->
             <input class="form-control" type="password" placeholder="Konfirmasi Password Baru" id="confirm_password" name="confirm_password" autocomplete="off" />
         </div>
         <!--end::Input group-->
@@ -31,10 +25,8 @@
                 <span class="indicator-progress">Please wait...
                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
             </button>
-            <!-- <a href="<?php //echo site_url('login');?>" class="btn btn-lg btn-light-danger fw-bolder">Cancel</a> -->
             <button type="button" id="kt_password_reset_cancel" class="btn btn-lg btn-light-danger fw-bolder">
                 <span class="indicator-label">Kembali</span>
-                <!-- <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span> -->
             </button>
         </div>
         <!--end::Actions-->
@@ -93,7 +85,6 @@
                                     data: d,
                                     success: function(response) {
                                         var obj = jQuery.parseJSON(response);
-                                        // console.log(obj);
                                         if(obj.code == 0) {
                                             s.removeAttribute("data-kt-indicator"),
                                             (s.disabled = !1),
@@ -139,8 +130,6 @@
 
     KTUtil.onDOMContentLoaded(function () {
         KTResetPassword.init();
-        $(window).on('beforeunload', function(){
-            console.log('Ok');
-        });
+        $(window).on('beforeunload', function(){});
     });
 </script>

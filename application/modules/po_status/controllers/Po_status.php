@@ -86,7 +86,7 @@ class Po_Status extends CI_Controller {
                 force_download($filename, file_get_contents($dir . '/' . $filename));
 
             } else {
-                // var_dump(FALSE);
+                
             }
 
         } else if($type === 'detail') {
@@ -104,22 +104,6 @@ class Po_Status extends CI_Controller {
             } else {
 
             }
-
-            // $filename   = $nomor_po . '_';
-            // if(strpos(json_encode($scan), $filename) !== FALSE) {
-            //     foreach($scan as $file) {
-            //         if(strpos($file, $filename) !== FALSE) {
-            //             $file_path = $dir. '/' . $file;
-            //             $this->zip->read_file($file_path);
-            //         }
-            //     }
-
-            //     // $this->zip->archive($dir .'/'. $nomor_po . '.zip');
-            //     $this->zip->download($nomor_po . '.zip');
-            // } else {
-            //     var_dump(FALSE);
-            // }
-            // exit;
 
         } else if($type === 'template') {
 
@@ -177,7 +161,6 @@ class Po_Status extends CI_Controller {
         ];
 
         $sheet->setCellValue('A1', "Upload Batch data PO Barang");
-        // $sheet->mergeCells('A1:E1'); // Set Merge Cell pada kolom A1 sampai E1
         $sheet->getStyle('A1')->applyFromArray($style_title);
 
         // Buat header tabel nya pada baris ke 3
@@ -274,7 +257,6 @@ class Po_Status extends CI_Controller {
     public function do_upload()
     {
         $nomor_po   = $this->crypto->decode($this->input->post('po_no'));
-        // $po_data    = $this->po_status->getPODetail($nomor_po);
 
         $path       = 'upload_files/Dokumen_PO';
         /** Upload Config */
@@ -313,7 +295,6 @@ class Po_Status extends CI_Controller {
             $worksheet          = $spreadsheet->getActiveSheet();
             $highestRow         = $worksheet->getHighestRow(); // e.g. 10
             $highestColumn      = $worksheet->getHighestColumn(); // e.g 'F'
-            // $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
             
             for ($row = 4; $row <= $highestRow; ++$row) {
                 $rowData    = $spreadsheet->getActiveSheet()->rangeToArray('A' . $row . ':' . $highestColumn . $highestRow,NULL,TRUE,TRUE,TRUE);
@@ -411,36 +392,6 @@ class Po_Status extends CI_Controller {
                     exit;
 
                 }
-
-                // if($rowData[$row]['B'] == $nomor_po) {
-
-                //     $rows       = [
-                //         'id' => $rowData[$row]['A'],
-                //         'nomor_po' => $rowData[$row]['B'],
-                //         'item_po' => $rowData[$row]['C'],
-                //         'kode_material' => $rowData[$row]['D'],
-                //         'deskripsi_material' => $rowData[$row]['E'],
-                //         'quantity' => $rowData[$row]['F'],
-                //         'satuan' => $rowData[$row]['G'],
-                //         'batch' => $rowData[$row]['H'],
-                //         'kadaluarsa' => $rowData[$row]['I'],
-                //         'tanggal_produksi' => $rowData[$row]['J'],
-                //     ];
-    
-                //     $excel_data[] = $rows;
-
-                // } else {
-
-                //     $response   = [
-                //         'code'      => 200,
-                //         'msg'       => 'Data Nomor PO tidak sesuai',
-                //         'status'    => 'error'
-                //     ];
-
-                //     unlink($path . '/' . $file_data['orig_name']);
-                //     echo json_encode($response, JSON_PRETTY_PRINT);
-                //     exit;
-                // }
                 
             }
 

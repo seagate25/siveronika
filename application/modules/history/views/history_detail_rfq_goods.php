@@ -24,7 +24,6 @@
                     <th class="min-w-50px text-center">Satuan Permintaan</th>
                     <th class="min-w-50px text-center">Status</th>
                     <th class="min-w-50px text-center">Harga Sesuai Permintaan</th>
-                    <!-- <th class="min-w-50px text-center">Status Harga Ekuivalen</th> -->
                     <th class="min-w-150px text-center">Harga Permintaan Ekuivalen</th>
                 </tr>
             </thead>
@@ -328,21 +327,6 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container" id="input_file">
-                                <!-- <div class="mb-3">
-                                    <input class="form-control" type="file" name="rfq_file[]">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" name="rfq_file[]">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" name="rfq_file[]">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" name="rfq_file[]">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" name="rfq_file[]">
-                                </div> -->
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -356,13 +340,6 @@
                 <div class="modal-footer flex-center">
                     <!--begin::Button-->
                     <button type="reset" id="kt_modal_det_rfq_goods_cancel" class="btn btn-light me-3">Tutup</button>
-                    <!--end::Button-->
-                    <!--begin::Button-->
-                    <!-- <button type="submit" id="kt_modal_det_rfq_goods_submit" class="btn btn-primary">
-                        <span class="indicator-label">Simpan</span>
-                        <span class="indicator-progress">Please wait...
-                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button> -->
                     <!--end::Button-->
                 </div>
                 <!--end::Modal footer-->
@@ -672,21 +649,6 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container" id="input_file_eqiv">
-                                <!-- <div class="mb-3">
-                                    <input class="form-control" type="file" name="eqiv_file[]">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" name="eqiv_file[]">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" name="eqiv_file[]">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" name="eqiv_file[]">
-                                </div>
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" name="eqiv_file[]">
-                                </div> -->
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -700,13 +662,6 @@
                 <div class="modal-footer flex-center">
                     <!--begin::Button-->
                     <button type="reset" id="kt_modal_det_rfq_goods_ekuivalen_cancel" class="btn btn-light me-3">Tutup</button>
-                    <!--end::Button-->
-                    <!--begin::Button-->
-                    <!-- <button type="submit" id="kt_modal_det_rfq_goods_ekuivalen_submit" class="btn btn-primary">
-                        <span class="indicator-label">Simpan</span>
-                        <span class="indicator-progress">Please wait...
-                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button> -->
                     <!--end::Button-->
                 </div>
                 <!--end::Modal footer-->
@@ -728,19 +683,10 @@
                         processing: !0,
                         serverSide: !0,
                         destroy: !0,
-                        // responsive: !0,
-                        // scrollY: "500px",
                         scrollX: !0,
-                        // scrollCollapse: !0,
                         dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
                             "<'row'<'col-sm-12'tr>>" +
                             "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
-                        // fixedHeader:    true,
-                        // fixedColumns:   {
-                        //     heightMatch: 'none',
-                        //     leftColumns: 1,
-                        //     rightColumns: 0
-                        // },
                         paging: !0,
                         ordering: !0,
                         searching: !0,
@@ -810,26 +756,6 @@
                         $("input[name=material_name]").val(data.deskripsi_barang);
                         $("input[name=request_total]").val(data.jumlah_permintaan);
                         $("input[name=measurement]").val(data.satuan + ' (' + data.deskripsi_satuan + ')');
-                        // if($('input[name="convert"]:checked').val() == 0) {
-                        //     $("#form_convertion").hide();
-                        // } else {
-                        //     $("#form_convertion").show();
-                        // }
-
-                        // if(data.modified_date != null && data.modified_by != null) {
-                        //     $("input[name=currency]").val(data.mata_uang);
-                        //     $("input[name=unit_measure]").val(data.per_harga_satuan);
-                        //     $('input[name="convert"][value="' + data.konversi + '"]').prop('checked', true);
-                        //     if($('input[name="convert"]:checked').val() == 0) {
-                        //         $("#form_convertion").hide();
-                        //     } else {
-                        //         $("#form_convertion").show();
-                        //     }
-                        //     $('input[name="available"][value="' + data.ketersediaan_barang + '"]').prop('checked', true);
-                        //     $("input[name=ed_price]").val(data.masa_berlaku_harga);
-                        //     $("input[name=notes]").val(data.keterangan);
-                        //     $("input[name=created_by]").val(data.dibuat_oleh);
-                        // }
 
                         // Last Modify (2022-07-04)
                         $("input[name=currency]").val(data.mata_uang);
@@ -1090,78 +1016,6 @@
                             })
                         },
                     })),
-                    // d.addEventListener("click", function (e) {
-                    //     e.preventDefault(),
-                    //         g &&
-                    //             g.validate().then(function (e) {
-                    //                     var frmData = new FormData(c);
-                    //                     "Valid" == e
-                    //                         ? (
-                    //                             Swal.fire({
-                    //                                 text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
-                    //                                 icon: "warning",
-                    //                                 showCancelButton: !0,
-                    //                                 buttonsStyling: !1,
-                    //                                 confirmButtonText: "Ya, Simpan",
-                    //                                 cancelButtonText: "Kembali",
-                    //                                 customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
-                    //                             }).then(function (r) {
-                    //                                 r.value
-                    //                                     ? 
-                    //                                     (
-                    //                                         $.ajax({
-                    //                                             type: 'POST',
-                    //                                             url: c.getAttribute('action'),
-                    //                                             data: frmData,
-                    //                                             processData: false,
-                    //                                             contentType: false,
-                    //                                             beforeSend: function() {
-                    //                                                 d.setAttribute("data-kt-indicator", "on"),
-                    //                                                 (d.disabled = !0);
-                    //                                             },
-                    //                                             success: function(response) {
-                    //                                                 var obj = jQuery.parseJSON(response);
-                    //                                                 d.removeAttribute("data-kt-indicator"),
-                    //                                                 (d.disabled = !1);
-                    //                                                 Swal.fire({ 
-                    //                                                     text: obj.msg, 
-                    //                                                     icon: obj.status, 
-                    //                                                     buttonsStyling: !1, 
-                    //                                                     confirmButtonText: "Tutup", 
-                    //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
-                    //                                                     function (t) {
-                    //                                                         t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),g.resetForm(true),b.hide()) : r.dismiss;
-                    //                                                     }
-                    //                                                 );
-                    //                                             },
-                    //                                             error: function() {
-                    //                                                 d.removeAttribute("data-kt-indicator"),
-                    //                                                 (d.disabled = !1);
-                    //                                                 Swal.fire({ 
-                    //                                                     text: "Terjadi masalah koneksi", 
-                    //                                                     icon: "error", 
-                    //                                                     buttonsStyling: !1, 
-                    //                                                     confirmButtonText: "Tutup", 
-                    //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
-                    //                                                     function (t) {
-                    //                                                         t.isConfirmed && r.dismiss;
-                    //                                                     }
-                    //                                                 );
-                    //                                             }
-                    //                                         })
-                    //                                     )
-                    //                                     : "cancel" === r.dismiss;
-                    //                             })
-                    //                           )
-                    //                         : Swal.fire({
-                    //                               text: "Maaf, masih ada field yang kosong, silahkan diisi.",
-                    //                               icon: "error",
-                    //                               buttonsStyling: !1,
-                    //                               confirmButtonText: "Tutup",
-                    //                               customClass: { confirmButton: "btn btn-primary" },
-                    //                           });
-                    //             });
-                    // }),
                     e.addEventListener("click", function(t) {
                         $("#input_file div").remove(), g.resetForm(true), b.hide()
                     })),
@@ -1265,78 +1119,6 @@
                             })
                         },
                     })),
-                    // w.addEventListener("click", function (e) {
-                    //     e.preventDefault(),
-                    //         z &&
-                    //             z.validate().then(function (e) {
-                    //                     var frmData_eqiv = new FormData(v);
-                    //                     "Valid" == e
-                    //                         ? (
-                    //                             Swal.fire({
-                    //                                 text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
-                    //                                 icon: "warning",
-                    //                                 showCancelButton: !0,
-                    //                                 buttonsStyling: !1,
-                    //                                 confirmButtonText: "Ya, Simpan",
-                    //                                 cancelButtonText: "Kembali",
-                    //                                 customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
-                    //                             }).then(function (r) {
-                    //                                 r.value
-                    //                                     ? 
-                    //                                     (
-                    //                                         $.ajax({
-                    //                                             type: 'POST',
-                    //                                             url: v.getAttribute('action'),
-                    //                                             data: frmData_eqiv,
-                    //                                             processData: false,
-                    //                                             contentType: false,
-                    //                                             beforeSend: function() {
-                    //                                                 w.setAttribute("data-kt-indicator", "on"),
-                    //                                                 (w.disabled = !0);
-                    //                                             },
-                    //                                             success: function(response) {
-                    //                                                 var obj = jQuery.parseJSON(response);
-                    //                                                 w.removeAttribute("data-kt-indicator"),
-                    //                                                 (w.disabled = !1);
-                    //                                                 Swal.fire({ 
-                    //                                                     text: obj.msg, 
-                    //                                                     icon: obj.status, 
-                    //                                                     buttonsStyling: !1, 
-                    //                                                     confirmButtonText: "Tutup", 
-                    //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
-                    //                                                     function (t) {
-                    //                                                         t.isConfirmed && (obj.code == 0) ? (KTDataTables.init(),z.resetForm(true),u.hide()) : r.dismiss;
-                    //                                                     }
-                    //                                                 );
-                    //                                             },
-                    //                                             error: function() {
-                    //                                                 w.removeAttribute("data-kt-indicator"),
-                    //                                                 (w.disabled = !1);
-                    //                                                 Swal.fire({ 
-                    //                                                     text: "Terjadi masalah koneksi", 
-                    //                                                     icon: "error", 
-                    //                                                     buttonsStyling: !1, 
-                    //                                                     confirmButtonText: "Tutup", 
-                    //                                                     customClass: { confirmButton: "btn btn-primary" } }).then(
-                    //                                                     function (t) {
-                    //                                                         t.isConfirmed && r.dismiss;
-                    //                                                     }
-                    //                                                 );
-                    //                                             }
-                    //                                         })
-                    //                                     )
-                    //                                     : "cancel" === r.dismiss;
-                    //                             })
-                    //                           )
-                    //                         : Swal.fire({
-                    //                               text: "Maaf, masih ada field yang kosong, silahkan diisi.",
-                    //                               icon: "error",
-                    //                               buttonsStyling: !1,
-                    //                               confirmButtonText: "Tutup",
-                    //                               customClass: { confirmButton: "btn btn-primary" },
-                    //                           });
-                    //             });
-                    // }),
                     x.addEventListener("click", function(t) {
                         $("#input_file_eqiv div").remove(), z.resetForm(true), u.hide()
                     })),

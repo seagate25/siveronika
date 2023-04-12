@@ -83,7 +83,6 @@ if(!function_exists('generate_menu')) {
                             $active = '';
                         }
                     }
-                    // $active = ($child->uri == $uri) ? 'active' : '';
                     $html   .= '<div class="menu-item">
                                     <a class="menu-link ' . $active .'" href="'.site_url($child->uri).'">
                                         <span class="menu-bullet">

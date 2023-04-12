@@ -19,7 +19,6 @@
                     <th class="min-w-50px text-center">Tanggal Dokumen</th>
                     <th class="min-w-50px text-center">Tanggal Terima</th>
                     <th class="min-w-50px text-center">Tanggal Jatuh Tempo</th>
-                    <!-- <th class="min-w-30px text-center">Aksi</th> -->
                 </tr>
             </thead>
         </table>
@@ -229,7 +228,6 @@ var KTDataTables = (function() {
                     { data: 'tanggal_document', className: 'text-center' },
                     { data: 'tanggal_dibuat', className: 'text-center' },
                     { data: 'jatuh_tempo', className: 'text-center' }
-                    // ,{ data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
                 ],
                 lengthMenu: [
                         [5, 10, 15, 25, -1],
@@ -263,16 +261,6 @@ var KTDataTables = (function() {
                             [10, 15, 25, "All"]
                         ],
                     pageLength: 10,
-                    // columnDefs: [
-                    //     {
-                    //         targets: [0, 3, 5, 6, 7],
-                    //         sortable: false,
-                    //         searchable: false,
-                    //         className: 'dt-center',
-                    //         orderData: [ 0 ]
-                    //     }
-                    // ],
-                    // order: [0, 'DESC']
             });
         }
     };

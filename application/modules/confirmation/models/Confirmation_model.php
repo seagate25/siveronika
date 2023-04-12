@@ -83,8 +83,6 @@ class Confirmation_model extends CI_Model
                     WHERE   RowNum > {$start}
                         AND RowNum < (({$start} + 1) + {$length})
                     ORDER BY RowNum";
-        // $sql_ .= " ORDER BY " . $order_column . " {$order_dir}";
-        // $sql_ .= " LIMIT {$length} OFFSET {$start}";
 
         $query = $this->db->query($sql_);
         $rows_data = $query->result();
@@ -116,10 +114,8 @@ class Confirmation_model extends CI_Model
             $row->pesan_ulang       = $row->pesan_ulang;
             $row->modified_date     = ($row->modified_date == NULL) ? $row->modified_date : date('d M y', strtotime($row->modified_date));
             $row->modified_by       = $row->modified_by;
-            // $row->actions           = '<a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2"><i class="fas fa-envelope-open-text"></i></a>';
             $btn_disabled           = (($row->modified_by == NULL && $row->modified_date == NULL) || ($row->flag_kirim == NULL)) ? '' : 'disabled';
             $row->actions           = '<button type="button" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation" '. $btn_disabled .'><i class="fas fa-envelope-open-text"></i></button>';
-            // $row->actions           = '<a href="#" class="btn btn-icon btn-sm btn-success me-2 mb-2" data-bs-toggle="modal" data-bs-target="#kt_modal_confirmation"><i class="fas fa-envelope-open-text"></i></a>';
             $row->status            = ($row->modified_by == NULL && $row->modified_date == NULL) ? "Belum Konfirmasi" : "Sudah Konfirmasi";
             if ($row->modified_by == NULL && $row->modified_date == NULL) {
                 $row->status_harga      = "";
@@ -201,8 +197,6 @@ class Confirmation_model extends CI_Model
                     WHERE   RowNum > {$start}
                         AND RowNum < (({$start} + 1) + {$length})
                     ORDER BY RowNum";
-        // $sql_ .= " ORDER BY " . $order_column . " {$order_dir}";
-        // $sql_ .= " LIMIT {$length} OFFSET {$start}";
 
         $query = $this->db->query($sql_);
         $rows_data = $query->result();

@@ -35,19 +35,10 @@ var KTDataTables = (function() {
                 processing:!0, 
                 serverSide:!0,
                 destroy: !0,
-                // responsive: !0,
-                // scrollY: "500px",
                 scrollX: !0,
-                // scrollCollapse: !0,
                 dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
-                // fixedHeader:    true,
-                // fixedColumns:   {
-                //     heightMatch: 'none',
-                //     leftColumns: 1,
-                //     rightColumns: 0
-                // },
                 paging: !0,
                 ordering: !0,
                 searching: !0,
@@ -62,11 +53,6 @@ var KTDataTables = (function() {
                         }
                     },
                     { data: 'nomor_rfq', className: 'text-center' },
-                    // { data: 'berkas',
-                    //     render: function (data, type, row, meta) {
-                    //         return '';
-                    //     }    
-                    // },
                     { data: 'berkas', className: 'text-center', sortable: false, searchable: false, orderable: false },
                     { data: 'tanggal_rfq', className: 'text-center' },
                     { data: 'tanggal_jatuh_tempo', className: 'text-center' },

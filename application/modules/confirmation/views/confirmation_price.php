@@ -19,8 +19,6 @@
                     <th class="min-w-50px text-center">Satuan</th>
                     <th class="min-w-80px text-center">Tgl. Konfirmasi</th>
                     <th class="min-w-100px text-center">Status</th>
-                    <!-- <th class="min-w-80px text-center">Status Harga</th> -->
-                    <!-- Status Harga Di hilangkan -->
                     <th class="min-w-50px text-center">Aksi</th>
                 </tr>
             </thead>
@@ -32,7 +30,6 @@
         <div class="modal-content">
             <div class="modal-header bg-success">
                 <h5 class="modal-title text-white">Konfirmasi Harga | <span id="txt_kode_material"></span> | <span id="txt_desk_material"></span></h5>
-
                 <!--begin::Close-->
                 <div class="btn btn-icon btn-sm btn-light ms-2" data-kt-confirmation-modal-action="close" aria-label="Close">
                     <span class="svg-icon svg-icon-2x">
@@ -58,17 +55,6 @@
                         </div>
                         <!--begin::Notice-->
                         <div class="notice bg-light-warning rounded border-warning border border-dashed mb-10 p-6">
-                            <!--begin::Icon-->
-                            <!--begin::Svg Icon | path: icons/duotone/Code/Warning-1-circle.svg-->
-                            <!-- <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                    <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"></circle>
-                                    <rect fill="#000000" x="11" y="7" width="2" height="8" rx="1"></rect>
-                                    <rect fill="#000000" x="11" y="16" width="2" height="2" rx="1"></rect>
-                                </svg>
-                            </span> -->
-                            <!--end::Svg Icon-->
-                            <!--end::Icon-->
                             <!--begin::Wrapper-->
                             <div class="d-flex flex-row mb-4">
                                 <!--begin::Content-->
@@ -261,7 +247,6 @@
                     processing: !0,
                     serverSide: !0,
                     destroy: !0,
-                    // responsive: !0,
                     scrollX: !0,
                     dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
                         "<'row'<'col-sm-12'tr>>" +
@@ -366,7 +351,6 @@
                         {
                             data: 'status'
                         },
-                        // { data: 'status_harga' },
                         {
                             data: 'actions',
                             className: 'text-center',
@@ -438,10 +422,6 @@
                                     }
                                 }
                             },
-                            // confirmation_price: { validators: { notEmpty: { message: "Harga tidak boleh kosong" } } },
-                            // confirmation_currency: { validators: { notEmpty: { message: "Mata Uang tidak boleh kosong" } } },
-                            // request_total: { validators: { notEmpty: { message: "Jumlah permintaan tidak boleh kosong" } } },
-                            // measurement: { validators: { notEmpty: { message: "Satuan tidak boleh kosong" } } },
                             available_total: {
                                 validators: {
                                     notEmpty: {
@@ -454,34 +434,9 @@
                                             const convertion = selectedCheckbox ? selectedCheckbox.value : '';
                                             const r_total = o.querySelector('[name="request_total"]');
 
-                                            // return (convertion !== '1')
-                                            //     // The field is valid if user picks
-                                            //     // a given convertion from the list
-                                            //     ?
-                                            //     true
-                                            //     // Otherwise, the field value is required
-                                            //     :
-                                            //     (parseInt(input.value) > 0);
-
                                             if(convertion !== '1') {
                                                 return true;
                                             } else {
-
-                                                // if(parseInt(input.value) == 0) {
-                                                //     return {
-                                                //         valid: false,
-                                                //         message: 'Jumlah tersedia tidak boleh 0 (Nol)'
-                                                //     }
-                                                // } else {
-                                                //     if(parseInt(input.value) > 0 && parseInt(input.value) <= r_total.value) {
-                                                //         return true;
-                                                //     } else {
-                                                //         return {
-                                                //             valid: false,
-                                                //             message: 'Jumlah tersedia tidak boleh lebih dari jumlah permintaan'
-                                                //         }
-                                                //     }
-                                                // }
 
                                                 if(parseInt(input.value) >= 0 && parseInt(input.value) <= r_total.value) {
                                                     return true;
@@ -516,15 +471,6 @@
                                             const convertion = selectedCheckbox ? selectedCheckbox.value : '';
                                             const a_total = o.querySelector('[name="available_total"]');
                                             const r_total = o.querySelector('[name="request_total"]');
-
-                                            // return (convertion !== '1')
-                                            //     // The field is valid if user picks
-                                            //     // a given convertion from the list
-                                            //     ?
-                                            //     true
-                                            //     // Otherwise, the field value is required
-                                            //     :
-                                            //     (a_total.value == r_total.value) ? true : (parseInt(input.value) > 0);
 
                                             if(convertion !== '1') {
                                                 return true;
@@ -629,7 +575,6 @@
                                             confirmButton: "btn btn-primary"
                                         },
                                     });
-                                    // console.log(o.querySelectorAll("div.invalid-feedback > div"));
                             });
                     }),
                     e.addEventListener("click", function(t) {

@@ -106,8 +106,6 @@
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                 <input type="text" name="satuan" id="satuan" class="form-control form-control-solid" readonly="true" placeholder="Satuan">
-                                <!-- <input type="hidden" name="satuan" id="satuan">
-                                <input type="hidden" name="deskripsi_satuan" id="deskripsi_satuan"> -->
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
                             <!--end::Col-->
@@ -187,7 +185,6 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                                <!-- <input type="text" name="currency" class="form-control" placeholder="Mata Uang"> -->
                                 <select class="form-select form-select-solid" disabled name="mata_uang" id="mata_uang" data-control="select2" data-dropdown-parent="#kt_modal_det_nego_rfq_goods" data-placeholder="Pilih Mata Uang">
                                     <?php
                                     foreach ($currencies as $currency) {
@@ -218,7 +215,6 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <!-- <input type="text" name="unit_measure" class="form-control" placeholder="Satuan"> -->
                                 <select class="form-select form-select-solid" disabled name="per_harga_satuan" id="per_harga_satuan" data-control="select2" data-dropdown-parent="#kt_modal_det_nego_rfq_goods" data-placeholder="Pilih Satuan">
                                     <?php
                                     foreach ($UoMs as $UoM) {
@@ -253,7 +249,6 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <!-- <input class="form-control" name="notes" placeholder="Keterangan"/> -->
                                 <textarea class="form-control" name="keterangan_nego" id="keterangan_nego" placeholder="Keterangan Nego" readonly="true" rows="5"></textarea>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
@@ -319,7 +314,6 @@
                                                 </div>
                                             </td>
                                             <td class="text-center">
-                                                <!-- <input type="text" name="measurement" class="form-control form-control-solid" readonly="true"> -->
                                                 <select class="form-select form-select-solid" disabled name="satuan_konversi" id="satuan_konversi" data-control="select2" data-dropdown-parent="#kt_modal_det_nego_rfq_goods" data-placeholder="Pilih Satuan">
                                                     <?php
                                                     foreach ($UoMs as $UoM) {
@@ -357,7 +351,6 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <!-- <input class="form-control" name="notes" placeholder="Keterangan"/> -->
                                 <textarea class="form-control form-control-solid" name="keterangan" id="keterangan" placeholder="Keterangan" rows="5" readonly="true"></textarea>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
@@ -940,7 +933,6 @@ var KTDataTables = (function() {
 
                     // Check if element has object in DataTables data row
                     if(data.hasOwnProperty(element_name)) {
-                        console.log(element_name + ' = ' + data[element_name]);
                         if(class_input[0] == 'form-select') {
 
                             // If class name select, initialize to select2
@@ -984,8 +976,6 @@ var KTDataTables = (function() {
                                 $('#' + element_name).val(data[element_name] + ' (' + $.trim(data['deskripsi_satuan']) + ')');
 
                             } else if(element_name == 'harga_satuan' || element_name == 'harga_satuan_nego') {
-
-                                // $('#' + element_name).maskMoney('mask', data[element_name]);
 
                                 if(data[element_name] !== null) {
                                     $('#' + element_name).maskMoney('mask', parseInt(data[element_name]));
@@ -1085,10 +1075,8 @@ var KTDataTables = (function() {
 
                                 // Get inputs name
                                 var $name = element.getAttribute('name');
-                                console.log($name);
                                 if($name !== null) {
                                     var element_name = $name.replace('_eqiv', '');
-                                    console.log(element_name);
                                 }
 
                                 // Check if element has object in DataTables data row
@@ -1226,9 +1214,6 @@ var KTModalForm = (function() {
                                         message: 'Harga Satuan Nego tidak boleh lebih besar dari Harga Satuan',
                                         callback: function(input) {
                                             const inputHargaSatuan = f_det_nego.querySelector('[name="harga_satuan"]');
-                                            // const convertion = selectedCheckbox ? selectedCheckbox.value : '';
-                                            console.log(input.value.replace(/[.]/g, ''));
-                                            console.log(inputHargaSatuan.value.replace(/[.]/g, ""));
                                             return (parseFloat(input.value.replace(/[.]/g, '')) < parseFloat(inputHargaSatuan.value.replace(/[.]/g, "")))
                                                 // The field is valid if user picks
                                                 // a given convertion from the list

@@ -71,7 +71,6 @@ class Po_status_model extends CI_Model {
 
         $order_column = $field[$order_column];
 
-        // $where = " WHERE (kode_vendor = '{$this->vendor_code}' AND jatuh_tempo >= '" . date('Y-m-d') . "') ";
         $where = " WHERE (kode_vendor = '{$this->vendor}' AND status = 0) ";
         if (!empty($search['value'])) {
             $where .= " AND ";
@@ -112,12 +111,6 @@ class Po_status_model extends CI_Model {
                 $row->po_no             = $row->nomor_po;
             }
 
-            // if(strpos(json_encode($scan_po_files), $row->nomor_po.'_') !== FALSE) {
-            //     $link_attachment_po     = site_url('po_status/download/detail/'.$this->crypto->encode($row->nomor_po));
-            // } else {
-            //     $link_attachment_po     = '#';
-            // }
-
             $attachmentFiles    = $this->getPOAttachment(['nomor_po' => $row->nomor_po]);
             if($attachmentFiles->num_rows() > 0) {
                 $row->attachment_po         = '<a href="' . site_url('po_status/download/detail/'.$this->crypto->encode($row->nomor_po)) . '" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
@@ -130,9 +123,6 @@ class Po_status_model extends CI_Model {
             }
 
             $row->number                = $i;
-            // $row->attachment_po         = '<a href="' . $link_attachment_po . '" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
-            //                                     <i class="fas fa-download text-white"></i>
-            //                                 </a>';
             $row->template              = '<a href="'. site_url('po_status/download/template/'.$this->crypto->encode($row->nomor_po)) .'" class="btn btn-icon btn-sm btn-primary me-2 mb-2">
                                                 <i class="fas fa-download text-white"></i>
                                             </a>';
@@ -142,9 +132,6 @@ class Po_status_model extends CI_Model {
             $row->tanggal_document      = date('d.M.y', strtotime($row->tanggal_document));
             $row->tanggal_dibuat        = date('d.M.y', strtotime($row->tanggal_dibuat));
             $row->jatuh_tempo           = ($row->jatuh_tempo === NULL) ? '-' : date('d.M.y', strtotime($row->jatuh_tempo));
-            // $row->actions               = '<a href="' . site_url('negotiation/det_rfq_goods/' . $this->crypto->encode($row->nomor_po)) . '" class="btn btn-icon btn-sm btn-success me-2 mb-2">
-            //                                     <i class="fas fa-envelope-open-text"></i>
-            //                                 </a>';
             $row->actions               = '';
 
             $rows[] = $row;
@@ -252,11 +239,8 @@ class Po_status_model extends CI_Model {
                         estate AS dept_estate,
                         CONCAT(item_code, '-', description) AS material_num_desc,
                         CONCAT(order_unit, '', STR(outstanding)) AS uom_ng_qty,
-                        --net_order_value AS outstanding_value,
                         total_price AS outstanding_value,
                         gr_late_in_day AS late_days,
-                        -- '%' AS progress_supply,
-                        -- CONCAT(ROUND(((order_qty - outstanding) / order_qty) * 100, 2), '%') AS progress_supply,
                         order_unit AS uom,
                         unitprice AS unit_price,
                         qty as order_qty,
@@ -272,7 +256,6 @@ class Po_status_model extends CI_Model {
             $row->number    = $number;
             $row->material_num_desc = utf8_encode($row->material_num_desc);
             $percentage = round(((((int)$row->order_qty - (int)$row->outstanding_qty) / (int)$row->order_qty) * 100), 0);
-            // $row->progress_supply = ($percentage == 0) ? '100%' : $percentage.'%';
             $row->progress_supply = $percentage.'%';
         }
         

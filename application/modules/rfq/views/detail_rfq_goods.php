@@ -21,12 +21,10 @@
                     <th class="min-w-50px text-center">No.</th>
                     <th class="min-w-50px text-center">Kode Material</th>
                     <th class="min-w-125px text-center">Nama Material</th>
-                    <!-- <th class="min-w-125px text-center">Berkas</th> -->
                     <th class="min-w-50px text-center">Jumlah Permintaan</th>
                     <th class="min-w-50px text-center">Satuan Permintaan</th>
                     <th class="min-w-50px text-center">Status</th>
                     <th class="min-w-50px text-center">Harga Sesuai Permintaan</th>
-                    <!-- <th class="min-w-50px text-center">Status Harga Ekuivalen</th> -->
                     <th class="min-w-200px text-center">Harga Permintaan Ekuivalen</th>
                 </tr>
             </thead>
@@ -203,7 +201,6 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                                <!-- <input type="text" name="currency" class="form-control" placeholder="Mata Uang"> -->
                                 <select class="form-select form-select-solid" name="currency" id="currency" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods" data-placeholder="Pilih Mata Uang">
                                     <?php
                                     foreach ($currencies as $currency) {
@@ -234,7 +231,6 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <!-- <input type="text" name="unit_measure" class="form-control" placeholder="Satuan"> -->
                                 <select class="form-select form-select-solid" disabled name="unit_measure" id="unit_measure" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods" data-placeholder="Pilih Satuan">
                                     <?php
                                     foreach ($UoMs as $UoM) {
@@ -308,7 +304,6 @@
                                                 </div>
                                             </td>
                                             <td class="text-center">
-                                                <!-- <input type="text" name="measurement" class="form-control form-control-solid" readonly="true"> -->
                                                 <select class="form-select form-select-solid" disabled name="convertion_measurement" id="convertion_measurement" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods" data-placeholder="Pilih Satuan">
                                                     <?php
                                                     foreach ($UoMs as $UoM) {
@@ -346,7 +341,6 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <!-- <input class="form-control" name="notes" placeholder="Keterangan"/> -->
                                 <textarea class="form-control" name="notes" placeholder="Keterangan" rows="5"></textarea>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
@@ -373,7 +367,6 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container" id="input_file">
-                                <!-- <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span> -->
                                 <span class="form-text text-muted">File yang diperbolehkan .PDF</span>
                                 <div class="mb-3">
                                     <input class="form-control rfq_file" type="file"  name="rfq_file[]">
@@ -448,7 +441,6 @@
                         </div>
                         <input type="hidden" name="id_rfq_eqiv">
                         <input type="hidden" name="id_eqiv">
-                        <!-- <input type="hidden" name="seq_eqiv"> -->
                         <!--Begin::Input Group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
@@ -642,7 +634,6 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <!-- <input class="form-control" name="currency_eqiv" placeholder="Mata Uang" id="" /> -->
                                 <select class="form-select form-select-solid" name="currency_eqiv" id="currency_eqiv" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods_ekuivalen" data-placeholder="Pilih Mata Uang">
                                     <?php
                                     foreach ($currencies as $currency) {
@@ -673,7 +664,6 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                                <!-- <input type="text" name="unit_measure_eqiv" class="form-control" placeholder="Satuan"> -->
                                 <select class="form-select form-select-solid" disabled name="unit_measure_eqiv" id="unit_measure_eqiv" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods_ekuivalen" data-placeholder="Pilih Satuan">
                                     <?php
                                     foreach ($UoMs as $UoM) {
@@ -748,7 +738,6 @@
                                                 </div>
                                             </td>
                                             <td class="text-center">
-                                                <!-- <input type="text" name="measurement_eqiv" class="form-control form-control-solid" readonly="true"> -->
                                                 <select class="form-select form-select-solid" disabled name="convert_measurement_eqiv" id="convert_measurement_eqiv" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods_ekuivalen" data-placeholder="Pilih Satuan">
                                                     <?php
                                                     foreach ($UoMs as $UoM) {
@@ -787,7 +776,6 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <!-- <input class="form-control" name="notes_eqiv" placeholder="Keterangan" id=""/> -->
                                 <textarea class="form-control" name="notes_eqiv" placeholder="Keterangan" rows="5"></textarea>
                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                             </div>
@@ -814,7 +802,6 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row fv-plugins-icon-container" id="input_file_eqiv">
-                                <!-- <span class="form-text text-muted">File yang diperbolehkan JPG, JPEG, PNG, & PDF.</span> -->
                                 <span class="form-text text-muted">File yang diperbolehkan .PDF</span>
                                 <div class="mb-3">
                                     <input class="form-control eqiv_file" type="file" name="eqiv_file[]">
@@ -884,9 +871,7 @@
                 <div class="modal-body py-4 px-lg-17">
                     <!--begin::Scroll-->
                     <div class="scroll-y me-n7 pe-7 mt-5" id="kt_modal_additional_price_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_additional_price_header" data-kt-scroll-wrappers="#kt_modal_additional_price_scroll" data-kt-scroll-offset="300px" style="max-height: 144px;">
-                        <!-- <div class="fw-bold">
-                            <h4 class="text-gray-900 fw-bolder">Biaya Lainnya</h4>
-                        </div> -->
+
                         <input type="hidden" name="id_rfq_other" value="<?php echo $this->uri->segment(3); ?>">
                         <!--Begin::Input Group-->
                         <div class="row mb-6" id="el_add_1">
@@ -898,13 +883,11 @@
                                     <option value="ZFIN_Freight & Insurance">Freight & Insurance</option>
                                     <option value="ZINS_Insurance">Insurance</option>
                                 </select>
-                                <!-- <div class="fv-plugins-message-container invalid-feedback"></div> -->
                             </div>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-3 fv-row fv-plugins-icon-container">
                                 <input type="text" name="add_price[]" id="add_price_1" class="form-control add_price_val" placeholder="">
-                                <!-- <div class="fv-plugins-message-container invalid-feedback"></div> -->
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
@@ -918,7 +901,6 @@
                                     }
                                     ?>
                                 </select>
-                                <!-- <div class="fv-plugins-message-container invalid-feedback"></div> -->
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
@@ -971,7 +953,6 @@
                         processing: !0,
                         serverSide: !0,
                         destroy: !0,
-                        // responsive: !0,
                         scrollX: !0,
                         dom: "<'row'<'col-sm-6 col-md-6 col-lg-6 d-flex align-items-center'B><'col-sm-6 col-md-6 col-lg-6'f>>" +
                             "<'row'<'col-sm-12'tr>>" +
@@ -981,7 +962,6 @@
                                 text: 'Biaya Lainnya',
                                 className: 'btn btn-sm btn-success',
                                 action: function ( e, dt, node, config ) {
-                                    // loading.release();
                                     $.ajax({
                                         type: "POST",
                                         url: "<?php echo site_url('rfq/get_other_data') ?>",
@@ -993,7 +973,6 @@
                                             var obj = jQuery.parseJSON(response);
                                             if(obj.data.length > 0) {
                                                 if(obj.data.length > 1) {
-                                                    // console.log($("div[id^=el_add_]").length);
                                                     for(var i = 0; i < obj.data.length - 1; i++) {
                                                         Elements.add_row();
                                                     }
@@ -1041,10 +1020,6 @@
                                 data: 'deskripsi_barang',
                                 className: 'text-center'
                             },
-                            // {
-                            //     data: 'berkas',
-                            //     className: 'text-center'
-                            // },
                             {
                                 data: 'jumlah_permintaan',
                                 className: 'text-center'
@@ -1250,7 +1225,6 @@
                         $("#kt_modal_det_rfq_goods_ekuivalen h4 span#txt_seq_eqiv").text(eqiv_id);
                         $("input[name=id_rfq_eqiv]").val('<?php echo $this->uri->segment(3); ?>');
                         $("input[name=id_eqiv]").val(eqiv_id);
-                        // $("input[name=seq_eqiv]").val(data.urutan_rfq);
                         $("input[name=material_code_eqiv]").val(data.kode_barang);
                         $("input[name=material_name_eqiv]").val(data.deskripsi_barang);
                         txt_desc_eqiv = (data.deskripsi_material == '' || data.deskripsi_material == null) ? '' : data.deskripsi_material;
@@ -1322,7 +1296,6 @@
                                 blockUI.release();
                                 var obj = jQuery.parseJSON(response);
                                 if (obj.code == 0) {
-                                    // $("input[name=currency_eqiv]").val(obj.data.mata_uang);
                                     $("#currency_eqiv").val(obj.data.mata_uang).trigger('change');
                                     $("input[name=unit_price_eqiv]").maskMoney('mask', parseInt(obj.data.harga_satuan));
                                     $("#unit_measure_eqiv").val(obj.data.per_harga_satuan).trigger('change');
@@ -1353,9 +1326,6 @@
                                     }
                                     $('input[name="available_eqiv"][value="' + obj.data.ketersediaan_barang + '"]').prop('checked', true);
                                     if ($('input[name="available_eqiv"]:checked').val() == 0) { // Status Ketersediaan Barang = Tersedia
-                                            // $('#available_total_eqiv').attr('disabled', 'disabled');
-                                            // $('#available_total_eqiv').val(parseFloat(obj.data.jumlah_tersedia));
-                                            // $("input[name=indent_total_eqiv]").prop('readonly', false).removeClass('form-control-solid').val(parseInt(obj.data.jumlah_inden));
 
                                             $("#form_status_ketersediaan_barang_eqiv").hide();
                                             $('#available_total_eqiv').val(0);
@@ -1363,8 +1333,6 @@
                                             $('#indent_day_eqiv').val(0);
 
                                     } else { // Status Ketersediaan Barang = Tersedia
-                                        // $('#available_total_eqiv').removeAttr('disabled');
-                                        // $("input[name=indent_total_eqiv]").prop('readonly', true).addClass('form-control-solid').val(0);
 
                                         $("#form_status_ketersediaan_barang_eqiv").show();
                                         $('#available_total_eqiv').val(parseFloat(obj.data.jumlah_tersedia));
@@ -1379,8 +1347,6 @@
                                     $("input[name=merk_eqiv]").val(obj.data.merek);
                                     $("input[name=type_eqiv]").val(obj.data.tipe);
                                     $("input[name=made_eqiv]").val(obj.data.buatan);
-                                    // $("input[name=available_total_eqiv]").val(parseInt(obj.data.jumlah_tersedia));
-                                    // $("input[name=indent_total_eqiv]").val(parseInt(obj.data.jumlah_inden));
                                     $("input[name=indent_day_eqiv]").val(obj.data.lama_inden);
 
                                     $("#input_file_eqiv div").remove();
@@ -1486,13 +1452,6 @@
                                     }
                                 }
                             },
-                            // unit_price: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Harga Satuan tidak boleh kosong"
-                            //         }
-                            //     }
-                            // },
                             unit_measure: {
                                 validators: {
                                     notEmpty: {
@@ -1540,100 +1499,6 @@
                                     }
                                 }
                             },
-                            // available_total: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Jumlah tersedia tidak boleh kosong"
-                            //         },
-                            //         callback: {
-                            //             message: 'Jumlah tersedia tidak boleh 0 (Nol)',
-                            //             callback: function(input) {
-                            //                 const selectedCheckbox = c.querySelector('[name="available"]:checked');
-                            //                 const convertion = selectedCheckbox ? selectedCheckbox.value : '';
-                            //                 const r_total = c.querySelector('[name="request_total"]');
-
-                            //                 if(convertion !== '1') {
-                            //                     return true;
-                            //                 } else {
-
-                            //                     if(parseInt(input.value) == 0) {
-                            //                         return {
-                            //                             valid: false,
-                            //                             message: 'Jumlah tersedia tidak boleh 0 (Nol)'
-                            //                         }
-                            //                     } else {
-                            //                         if(parseInt(input.value) > 0 && parseInt(input.value) <= r_total.value) {
-                            //                             return true;
-                            //                         } else {
-                            //                             return {
-                            //                                 valid: false,
-                            //                                 message: 'Jumlah tersedia tidak boleh lebih dari jumlah permintaan'
-                            //                             }
-                            //                         }
-                            //                     }
-                                    
-                            //                 }
-                            //             }
-                            //         }
-                            //     }
-                            // },
-                            // indent_total: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Jumlah indent tidak boleh kosong"
-                            //         },
-                            //         callback: {
-                            //             message: 'Jumlah tersedia tidak boleh 0 (Nol)',
-                            //             callback: function(input) {
-                            //                 const selectedCheckbox = c.querySelector('[name="available"]:checked');
-                            //                 const convertion = selectedCheckbox ? selectedCheckbox.value : '';
-
-                            //                 if(convertion !== '1') {
-                            //                     return true;
-                            //                 } else {
-
-                            //                     return (parseInt(input.value) > 0);
-                                    
-                            //                 }
-                            //             }
-                            //         }
-                            //     }
-                            // },
-                            // indent_day: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Lama indent tidak boleh kosong"
-                            //         },
-                            //         callback: {
-                            //             message: 'Lama indent tidak boleh 0 (Nol)',
-                            //             callback: function(input) {
-                            //                 const selectedCheckbox = c.querySelector('[name="available"]:checked');
-                            //                 const convertion = selectedCheckbox ? selectedCheckbox.value : '';
-                            //                 const a_total = c.querySelector('[name="available_total"]');
-                            //                 const r_total = c.querySelector('[name="request_total"]');
-
-                            //                 if(convertion !== '1') {
-                            //                     return true;
-                            //                 } else {
-                            //                     if(a_total.value == r_total.value) {
-                            //                         return true;
-                            //                     } else if(a_total.value > r_total.value) {
-                            //                         return true;
-                            //                     } else {
-                            //                         return (parseInt(input.value) > 0);
-                            //                     }
-                            //                 }
-                            //             }
-                            //         }
-                            //     }
-                            // },
-                            // ed_price: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Masa Berlaku Harga tidak boleh kosong"
-                            //         }
-                            //     }
-                            // },
                             created_by: {
                                 validators: {
                                     notEmpty: {
@@ -1802,13 +1667,6 @@
                                     }
                                 }
                             },
-                            // unit_price_eqiv: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Harga Satuan tidak boleh kosong"
-                            //         }
-                            //     }
-                            // },
                             unit_measure_eqiv: {
                                 validators: {
                                     notEmpty: {
@@ -1889,27 +1747,6 @@
                                     }
                                 }
                             },
-                            // available_total_eqiv: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Jumlah tersedia tidak boleh kosong"
-                            //         }
-                            //     }
-                            // },
-                            // indent_total_eqiv: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Jumlah inden tidak boleh kosong"
-                            //         }
-                            //     }
-                            // },
-                            // indent_day_eqiv: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Lama Indent tidak boleh kosong"
-                            //         }
-                            //     }
-                            // },
                             available_eqiv: {
                                 validators: {
                                     notEmpty: {
@@ -1917,100 +1754,6 @@
                                     }
                                 }
                             },
-                            // available_total_eqiv: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Jumlah tersedia tidak boleh kosong"
-                            //         },
-                            //         callback: {
-                            //             message: 'Jumlah tersedia tidak boleh 0 (Nol)',
-                            //             callback: function(input) {
-                            //                 const selectedCheckbox = v.querySelector('[name="available_eqiv"]:checked');
-                            //                 const convertion = selectedCheckbox ? selectedCheckbox.value : '';
-                            //                 const r_total = v.querySelector('[name="request_total_eqiv"]');
-
-                            //                 if(convertion !== '1') {
-                            //                     return true;
-                            //                 } else {
-
-                            //                     if(parseInt(input.value) == 0) {
-                            //                         return {
-                            //                             valid: false,
-                            //                             message: 'Jumlah tersedia tidak boleh 0 (Nol)'
-                            //                         }
-                            //                     } else {
-                            //                         if(parseInt(input.value) > 0 && parseInt(input.value) <= r_total.value) {
-                            //                             return true;
-                            //                         } else {
-                            //                             return {
-                            //                                 valid: false,
-                            //                                 message: 'Jumlah tersedia tidak boleh lebih dari jumlah permintaan'
-                            //                             }
-                            //                         }
-                            //                     }
-                                    
-                            //                 }
-                            //             }
-                            //         }
-                            //     }
-                            // },
-                            // indent_total_eqiv: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Jumlah indent tidak boleh kosong"
-                            //         },
-                            //         callback: {
-                            //             message: 'Jumlah tersedia tidak boleh 0 (Nol)',
-                            //             callback: function(input) {
-                            //                 const selectedCheckbox = v.querySelector('[name="available_eqiv"]:checked');
-                            //                 const convertion = selectedCheckbox ? selectedCheckbox.value : '';
-
-                            //                 if(convertion !== '1') {
-                            //                     return true;
-                            //                 } else {
-
-                            //                     return (parseInt(input.value) > 0);
-                                    
-                            //                 }
-                            //             }
-                            //         }
-                            //     }
-                            // },
-                            // indent_day_eqiv: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Lama indent tidak boleh kosong"
-                            //         },
-                            //         callback: {
-                            //             message: 'Lama indent tidak boleh 0 (Nol)',
-                            //             callback: function(input) {
-                            //                 const selectedCheckbox = v.querySelector('[name="available_eqiv"]:checked');
-                            //                 const convertion = selectedCheckbox ? selectedCheckbox.value : '';
-                            //                 const a_total = v.querySelector('[name="available_total_eqiv"]');
-                            //                 const r_total = v.querySelector('[name="request_total_eqiv"]');
-
-                            //                 if(convertion !== '1') {
-                            //                     return true;
-                            //                 } else {
-                            //                     if(a_total.value == r_total.value) {
-                            //                         return true;
-                            //                     } else if(a_total.value > r_total.value) {
-                            //                         return true;
-                            //                     } else {
-                            //                         return (parseInt(input.value) > 0);
-                            //                     }
-                            //                 }
-                            //             }
-                            //         }
-                            //     }
-                            // },
-                            // ed_price_eqiv: {
-                            //     validators: {
-                            //         notEmpty: {
-                            //             message: "Masa Berlaku Harga tidak boleh kosong"
-                            //         }
-                            //     }
-                            // },
                             created_by_eqiv: {
                                 validators: {
                                     notEmpty: {
@@ -2294,10 +2037,7 @@
                 }
             },
             clear_additional_modal: function() {
-                // var $div = $('div[id^="el_add_"]');
-                // if($div.length > 1) {
-                //     console.log($div);
-                // }
+                
             },
             inputMask: function() {
                 $("input[id^=add_price_]").maskMoney({
@@ -2317,13 +2057,7 @@
                 });
             },
             get_date: function() {
-                // var date = new Date();
-                // var year = date.getFullYear();
-                // var month = date.getMonth();
-                // var day = date.getDate();
-                // var today = year + '-' + month + '-' + day;
                 var today = moment().format('YYYY-MM-DD');
-                // console.log(today);
                 return today;
             }
         }
@@ -2353,7 +2087,6 @@
             singleDatePicker: true,
             showDropdowns: true,
             minYear: new Date().getFullYear() - 5,
-            //maxYear: parseInt(moment().format("YYYY"), 10),
             drops: 'down',
             parentEl: '#mbh_rfq',
             maxYear: new Date().getFullYear() + 5,
@@ -2366,7 +2099,6 @@
             singleDatePicker: true,
             showDropdowns: true,
             minYear: new Date().getFullYear() - 5,
-            //maxYear: parseInt(moment().format("YYYY"), 10),
             drops: 'down',
             parentEl: '#mbh_eqiv',
             maxYear: new Date().getFullYear() + 5,
@@ -2384,7 +2116,6 @@
                     $('#unit_measure').removeAttr('disabled');
                     $("#form_convertion").show();
 
-                    // $("select[name=convertion_measurement]").val($("input[name=r_measurement]").val()).trigger('change');
 
                     if ($("#unit_measure").val() !== '') {
                         $("input[name=convertion_measure]").val($("#unit_measure").select2('data')[0].text);
@@ -2396,7 +2127,6 @@
                             $("select[name=convertion_measurement]").removeAttr('disabled').removeClass('form-select form-select-solid');
                             $("select[name=convertion_measurement]").addClass('form-select');
                             
-                            // $("select[name=convertion_measurement]").val($("input[name=r_measurement]").val());
                             $("select[name=convertion_measurement]").val($("input[name=r_measurement]").val()).trigger('change');
                         }
                     }
@@ -2509,9 +2239,6 @@
         $("input[name=available_eqiv]").on('change', function() {
             if ($(this).is(':checked')) {
                 if ($(this).val() == 0) {   // Status Ketersediaan barang eqiv = Checked Tersedia
-                    // $('#available_total_eqiv').attr('disabled', 'disabled');
-                    // $('#available_total_eqiv').val(0);
-                    // $("input[name=indent_total_eqiv]").prop('readonly', false).removeClass('form-control-solid').val($("input[name=request_total_eqiv]").val());
 
                     // Hide object Jumlah Tersedia, Jumlah Indent, Lama Indent
                     $('#form_status_ketersediaan_barang_eqiv').hide();
@@ -2520,8 +2247,6 @@
                     $('#indent_day_eqiv').val(0);
                     
                 } else {    // Status Ketersediaan barang eqiv = Checked Indent
-                    // $('#available_total_eqiv').removeAttr('disabled');
-                    // $("input[name=indent_total_eqiv]").prop('readonly', true).addClass('form-control-solid').val(0);
 
                     // Show object Jumlah Tersedia, Jumlah Indent, Lama Indent
                     $('#form_status_ketersediaan_barang_eqiv').show();

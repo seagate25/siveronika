@@ -12,11 +12,6 @@
 <div class="card shadow-sm">
     <div class="card-header bg-success">
         <h3 class="card-title text-white"><?php echo $title; ?></h3>
-        <!-- <div class="card-toolbar">
-            <button type="button" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2" onclick="return KTDataTables.init();">
-            <i class="las la-sync fs-1"></i>
-            </button>
-        </div> -->
     </div>
     <div class="card-body py-10">
         <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
@@ -24,12 +19,7 @@
             <form class="form w-100" novalidate="novalidate" id="kt_password_reset_form" action="<?php echo site_url('master/do_change'); ?>">
                 <!--begin::Heading-->
                 <div class="text-center mb-10">
-                    <!--begin::Title-->
-                    <?php //echo $this->session->userdata('kode_vendor');?>
-                    <!--end::Title-->
-                    <!--begin::Link-->
-                    <!-- <div class="text-gray-400 fw-bold fs-4">Enter your email to reset your password.</div> -->
-                    <!--end::Link-->
+                    
                 </div>
                 <!--begin::Heading-->
                 <!--begin::Input group-->
@@ -38,14 +28,6 @@
                     <input class="form-control" type="password" placeholder="Masukkan Password Lama" id="current_password" name="current_password" autocomplete="off" />
                     <span toggle="#current_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
-                <!-- <div class="fv-row mb-10">
-                    <div class="form-check form-check-custom form-check-solid form-check-sm">
-                        <input class="form-check-input" type="checkbox" onclick="showPassword('current')"/>
-                        <label class="form-check-label fw-bold text-gray-700 fs-6" for="flexRadioLg">
-                        Tampilkan Password
-                        </label>
-                    </div>
-                </div> -->
                 <!--end::Input group-->
                 <!--begin::Input group-->
                 <div class="fv-row mb-0">
@@ -53,14 +35,6 @@
                     <input class="form-control" type="password" placeholder="Masukkan Password Baru" id="new_password" name="new_password" autocomplete="off" />
                     <span toggle="#new_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
-                <!-- <div class="fv-row mb-10">
-                    <div class="form-check form-check-custom form-check-solid form-check-sm">
-                        <input class="form-check-input" type="checkbox" onclick="showPassword('new')"/>
-                        <label class="form-check-label fw-bold text-gray-700 fs-6" for="flexRadioLg">
-                        Tampilkan Password
-                        </label>
-                    </div>
-                </div> -->
                 <!--end::Input group-->
                 <!--begin::Input group-->
                 <div class="fv-row mb-0">
@@ -70,12 +44,6 @@
                 </div>
                 <!--end::Input group-->
                 <div class="fv-row mb-10">
-                    <!-- <div class="form-check form-check-custom form-check-solid form-check-sm">
-                        <input class="form-check-input" type="checkbox" value="" id="flexRadioLg" onclick="showPassword('confirm')"/>
-                        <label class="form-check-label fw-bold text-gray-700 fs-6" for="flexRadioLg">
-                        Tampilkan Password
-                        </label>
-                    </div> -->
                 </div>
                 <!--begin::Actions-->
                 <div class="d-flex flex-wrap justify-content-center pb-lg-0">
@@ -84,10 +52,8 @@
                         <span class="indicator-progress">Silahkan tunggu...
                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                     </button>
-                    <!-- <a href="<?php //echo site_url('login');?>" class="btn btn-lg btn-light-danger fw-bolder">Cancel</a> -->
                     <button type="button" id="kt_password_reset_cancel" class="btn btn-lg btn-light-danger fw-bolder">
                         <span class="indicator-label">Kembali</span>
-                        <!-- <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span> -->
                     </button>
                 </div>
                 <!--end::Actions-->
@@ -157,7 +123,6 @@
                                     data: d,
                                     success: function(response) {
                                         var obj = jQuery.parseJSON(response);
-                                        // console.log(obj);
                                         if(obj.code == 0) {
                                             s.removeAttribute("data-kt-indicator"),
                                             (s.disabled = !1),
@@ -206,9 +171,7 @@
 
     KTUtil.onDOMContentLoaded(function () {
         KTResetPassword.init();
-        $(window).on('beforeunload', function(){
-            console.log('Ok');
-        });
+        $(window).on('beforeunload', function(){});
     });
 
     function showPassword(name) {

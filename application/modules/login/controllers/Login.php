@@ -183,18 +183,14 @@ class Login extends CI_Controller
                 </table>
             </div><input id="ext-version" type="hidden" value="1.2.6"><input id="ext-id" type="hidden" value="ledliampejcpphmpamgpcgmodbjocnnn"></body></html>';
             $mail->msgHTML($mail_body); //$mail->msgHTML(file_get_contents('contents.html'), __DIR__); //Read an HTML message body from an external file, convert referenced images to embedded,
-            // $mail->AltBody = 'HTML messaging not supported';
-            // $mail->addStringAttachment($email_data['file'], 'Slip_Gaji_'.$email_data['emp_data']['emp_salary']['nik'].'_'.$periode.'.pdf'); //Attach an image file
 
             if (!$mail->send()) {
-                // echo "Mailer Error: " . $mail->ErrorInfo;
                 $response   = array(
                     'code'      => 100,
                     'status'    => 'error',
                     'msg'       => 'Gagal mengirim email'
                 );
             } else {
-                // echo "Message sent!";
                 $response   = array(
                     'code'      => 0,
                     'status'    => 'success',

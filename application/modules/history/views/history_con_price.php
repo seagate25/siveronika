@@ -60,7 +60,6 @@
                             <div class="d-flex flex-row mb-4">
                                 <!--begin::Content-->
                                 <div class="fw-bold">
-                                    <!-- <h4 class="text-gray-900 fw-bolder">Please Note!</h4> -->
                                     <div class="fs-6 text-gray-700">
                                         Konfirmasi harga
                                     </div>
@@ -255,7 +254,6 @@
                             {
                                 data: 'status'
                             },
-                            // { data: 'status_harga' },
                             {
                                 data: 'actions',
                                 className: 'text-center',
