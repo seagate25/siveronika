@@ -53,10 +53,10 @@
 			<!--begin::Aside-->
 			<div id="kt_aside" class="aside aside-light aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
 				<!--begin::Brand-->
-				<div class="aside-logo flex-column-auto" id="kt_aside_logo">
+				<div class="aside-logo flex-column-auto" id="kt_aside_logo" style="background-color:#460046 !important;">
 					<!--begin::Logo-->
 					<a href="<?php echo site_url('dashboard'); ?>">
-						<img alt="Logo" src="<?php echo base_url(); ?>assets/media/logos/Socfindo-Logo.svg" class="h-45px logo" />
+						<img alt="Logo" src="<?php echo base_url(); ?>assets/media/logos/logo.svg" class="h-45px logo" />
 					</a>
 					<!--end::Logo-->
 					<!--begin::Aside toggler-->
@@ -112,7 +112,7 @@
 			<!--begin::Wrapper-->
 			<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
 				<!--begin::Header-->
-				<div id="kt_header" class="header align-items-stretch">
+				<div id="kt_header" class="header align-items-stretch" style="background-color:#460046 !important;">
 					<!--begin::Container-->
 					<div class="container-fluid d-flex align-items-stretch justify-content-between">
 						<!--begin::Aside mobile toggle-->
@@ -146,7 +146,7 @@
 								<!--begin::Page title-->
 								<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_header_nav'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
 									<!--begin::Title-->
-									<h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Socfindo</h1>
+									<h1 class="d-flex align-items-center text-light fw-bolder fs-3 my-1">SiVeronika</h1>
 									<!--end::Title-->
 									<!--begin::Separator-->
 									<span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -154,8 +154,8 @@
 									<!--begin::Breadcrumb-->
 									<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
 										<!--begin::Item-->
-										<li class="breadcrumb-item text-muted">
-											<a href="<?php echo site_url('dashboard'); ?>" class="text-muted text-hover-primary"><?php echo $menu; ?></a>
+										<li class="breadcrumb-item text-white">
+											<a href="<?php echo site_url('dashboard'); ?>" class="text-white text-hover-white"><?php echo $menu; ?></a>
 										</li>
 										<!--end::Item-->
 										<!--begin::Item-->
@@ -166,7 +166,7 @@
 										</li>
 										<!--end::Item-->
 										<!--begin::Item-->
-										<li class="breadcrumb-item text-dark"><?php echo $submenu; ?></li>
+										<li class="breadcrumb-item text-white"><?php echo $submenu; ?></li>
 										<!--end::Item-->
 									</ul>
 									<!--end::Breadcrumb-->
@@ -185,7 +185,7 @@
 										<div class="d-flex align-items-center py-2 px-2 px-md-3">
 											<!--begin::Name-->
 											<div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2">
-												<span class="text-muted fs-7 fw-semibold lh-1 mb-2"><i>Selamat Datang, </i></span>
+												<span class="text-white fs-7 fw-semibold lh-1 mb-2"><i class="text-white">Selamat Datang, </i></span>
 												<span class="text-dark fs-base fw-bold lh-1" style="font-weight: 700 !important;"><?php echo $this->session->userdata('nama'); ?></span>
 											</div>
 											<!--end::Name-->
@@ -283,11 +283,11 @@
 				</div>
 				<!--end::Content-->
 				<!--begin::Footer-->
-				<div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
+				<div class="footer py-4 d-flex flex-lg-column" id="kt_footer" style="background-color:#460046 !important;">
 					<!--begin::Container-->
 					<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
 						<!--begin::Copyright-->
-						<div class="text-dark order-2 order-md-1">
+						<div class="text-white order-2 order-md-1">
 							<!-- <span class="text-muted fw-bold me-1">2022©</span>
 								<a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">Socfindo</a> -->
 						</div>
@@ -303,8 +303,8 @@
 								<li class="menu-item">
 									<a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Purchase</a>
 								</li> -->
-							<span class="text-muted fw-bold me-1">2022 ©</span>
-							<a href="https://socfindo.co.id" target="_blank" class="text-gray-800 text-hover-primary">Socfindo</a>
+							<span class="text-white fw-bold me-1">2022 ©</span>
+							<a href="https://socfindo.co.id" target="_blank" class="text-white-800 text-hover-white">Socfindo</a>
 						</ul>
 						<!--end::Menu-->
 					</div>
