@@ -19,6 +19,24 @@ class Verification extends CI_Controller {
         $this->load->view('default', $data);
     }
 
+    public function detail()
+    {
+        $data['title']      = "Verification";
+        $data['menu']       = "Verification";
+        $data['submenu']    = "Detail";
+        $data['content']    = "detail";
+        $this->load->view('default', $data);
+    }
+
+    public function add()
+    {
+        $data['title']      = "Verification";
+        $data['menu']       = "Verification";
+        $data['submenu']    = "Detail - Tambah Belanja";
+        $data['content']    = "add";
+        $this->load->view('default', $data);
+    }
+
 }
 
 /* End of file Verification.php */

@@ -39,6 +39,9 @@
 		html {
 			font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
 		}
+		#kt_footer {
+			/* background-color:#460046 !important; */
+		}
 	</style>
 </head>
 <!--end::Head-->
@@ -270,7 +273,7 @@
 				</div>
 				<!--end::Header-->
 				<!--begin::Content-->
-				<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+				<div class="content d-flex flex-column flex-column-fluid bg-secondary" id="kt_content">
 					<!--begin::Post-->
 					<div class="post d-flex flex-column-fluid" id="kt_post">
 						<!--begin::Container-->
@@ -283,7 +286,7 @@
 				</div>
 				<!--end::Content-->
 				<!--begin::Footer-->
-				<div class="footer py-4 d-flex flex-lg-column" id="kt_footer" style="background-color:#460046 !important;">
+				<div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
 					<!--begin::Container-->
 					<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
 						<!--begin::Copyright-->
@@ -303,8 +306,8 @@
 								<li class="menu-item">
 									<a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Purchase</a>
 								</li> -->
-							<span class="text-white fw-bold me-1">2022 ©</span>
-							<a href="https://socfindo.co.id" target="_blank" class="text-white-800 text-hover-white">Socfindo</a>
+							<span class="text-dark fw-bold me-1">2023 ©</span>
+							<a href="https://socfindo.co.id" target="_blank" class="text-muted-800 text-hover-muted">SiVeronika</a>
 						</ul>
 						<!--end::Menu-->
 					</div>
@@ -3149,32 +3152,30 @@
 	<!--begin::Page Custom Javascript(used by this page)-->
 	<script type="text/javascript">
 		KTUtil.onDOMContentLoaded((function() {
-			var currentSessionValue = 1;
-			setTimeout(function() {
-				$.ajax({
-					type: "GET",
-					url: "<?php echo site_url('check_session'); ?>",
-					success: function(response) {
-						if(response != currentSessionValue) {
-							currentSessionValue = response;
-							Swal.fire({
-								text: "Sesi Anda telah berakhir, silahkan login kembali.",
-								icon: "warning",
-								allowOutsideClick: !1,
-								buttonsStyling: !1,
-								confirmButtonText: "OK",
-								customClass: {
-									confirmButton: "btn btn-primary",
-								},
-							}).then(function(r) {
-								window.location.reload();
-							});
-							// alert('Sesi Anda telah berakhir, silahkan login kembali.');
-							// window.location.reload();
-						}
-					}
-				})
-			}, 1800000);
+			// var currentSessionValue = 1;
+			// setTimeout(function() {
+			// 	$.ajax({
+			// 		type: "GET",
+			// 		url: "<?php //echo site_url('check_session'); ?>",
+			// 		success: function(response) {
+			// 			if(response != currentSessionValue) {
+			// 				currentSessionValue = response;
+			// 				Swal.fire({
+			// 					text: "Sesi Anda telah berakhir, silahkan login kembali.",
+			// 					icon: "warning",
+			// 					allowOutsideClick: !1,
+			// 					buttonsStyling: !1,
+			// 					confirmButtonText: "OK",
+			// 					customClass: {
+			// 						confirmButton: "btn btn-primary",
+			// 					},
+			// 				}).then(function(r) {
+			// 					window.location.reload();
+			// 				});
+			// 			}
+			// 		}
+			// 	})
+			// }, 1800000);
 		}));
 	</script>
 	<!--end::Page Custom Javascript-->
