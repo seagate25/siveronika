@@ -2,6 +2,11 @@
     .card-header{
         background-color:#460046 !important;
     }
+
+    /* .table-condensed thead tr:nth-child(2),
+    .table-condensed tbody {
+        display: none
+    } */
 </style>
 <script src="<?php echo base_url(); ?>assets/plugins/custom/jquery-maskMoney/jquery.maskMoney.js"></script>
 <div class="card shadow-sm">
@@ -11,68 +16,62 @@
                 <i class="las la-arrow-left fs-1 text-success"></i>
             </a>
         </div>
-        <h3 class="card-title text-white">Summary Detail</h3>
+        <h3 class="card-title text-white">Pengajuan Verifikasi</h3>
         <div class="card-toolbar">
-            <a href="<?php echo site_url('verification/add'); ?>" class="btn btn-sm btn-bg-white me-2 mb-2">
+            <!-- <a href="<?php //echo site_url('verification/add'); ?>" class="btn btn-sm btn-bg-white me-2 mb-2">
                 Tambah Belanja
-            </a>
+            </a> -->
         </div>
     </div>
-    <div class="card-body">
-        <!--begin::Row-->
-        <div class="row mb-7">
-            <div class="col-lg-6">
-                <!--begin::Row-->
-                <div class="row mb-7">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">No. Verifikasi</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800">VR2306-001</span>
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <!--end::Row-->
-                <!--begin::Input group-->
-                <div class="row mb-7">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 fw-bold text-muted">Bidang</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8 d-flex align-items-center">
-                        <span class="fs-6 text-gray-800">SEKRETARIAT BAPPENDA</span>
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <!--end::Input group-->
-            </div>
-            <div class="col-lg-6">
-                <!--begin::Input group-->
-                <div class="row mb-7">
-                    
-                </div>
-                <!--end::Input group-->
-            </div>
-        </div>
-        <!--end::Row-->
-        <form id="kt_modal_det_rfq_goods_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url('rfq/save_rfq'); ?>">
+    <form id="" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url(''); ?>">
+        <div class="card-body border-top p-9">
             <div class="row">
-                <input type="hidden" name="id_rfq">
                 <!--Begin::Input Group-->
-                <div class="row mb-6">
+                <div class="row mb-0">
                     <!--begin::Label-->
-                    <label class="col-lg-4 col-form-label required fw-bold fs-6">Mata Uang</label>
+                    <label class="col-lg-2 col-form-label required fw-bold fs-6">No. Verifikasi</label>
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                        <select class="form-select form-select-solid" name="currency" id="currency" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods" data-placeholder="Pilih Mata Uang">
+                        <input type="text" name="m_verification_no" id="m_verification_no" class="form-control form-control-solid" readonly="true" value="VR2306-001">
+                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input Group-->
+                <div class="separator separator-dashed my-6"></div>
+                <!--Begin::Input Group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-2 col-form-label required fw-bold fs-6">Tipe Belanja</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-2 fv-row fv-plugins-icon-container">
+                        <select class="form-select form-select-solid" name="m_type" id="m_type">
+                            <option></option>
+                            <option value="GU">GU</option>
+                            <option value="LS">LS</option>
+                        </select>
+                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input Group-->
+                <!--Begin::Input Group-->
+                <div class="row mb-2">
+                    <!--begin::Label-->
+                    <label class="col-lg-2 col-form-label required fw-bold fs-6">Bidang</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                        <select class="form-select form-select-solid" name="m_bidang" id="m_bidang">
+                            <option></option>
                             <?php
-                            foreach ($currencies as $currency) {
+                                foreach($fields as $field) {
                             ?>
-                                <option value="<?php echo $currency->kode_uang; ?>"><?php echo $currency->kode_uang; ?> (<?php echo $currency->deskripsi; ?>)</option>
+                            <option value="<?=$field->bidang_code;?>">[<?=$field->bidang_code;?>] <?=$field->bidang_name;?></option>
                             <?php
-                            }
+                                }
                             ?>
                         </select>
                         <div class="fv-plugins-message-container invalid-feedback"></div>
@@ -83,56 +82,232 @@
                 <!--Begin::Input Group-->
                 <div class="row mb-6">
                     <!--begin::Label-->
-                    <label class="col-lg-4 col-form-label fw-bold fs-6">Harga Satuan</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                        <input type="text" name="unit_price" class="form-control" placeholder="Harga Satuan">
-                        <div class="fv-plugins-message-container invalid-feedback"></div>
-                    </div>
-                    <!--end::Col-->
-                    <!--begin::Label-->
-                    <label class="col-lg-1 col-form-label required fw-bold fs-6">Per</label>
+                    <label class="col-lg-2 col-form-label required fw-bold fs-6">Belanja</label>
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                        <select class="form-select form-select-solid" disabled name="unit_measure" id="unit_measure" data-control="select2" data-dropdown-parent="#kt_modal_det_rfq_goods" data-placeholder="Pilih Satuan">
-                            <?php
-                            foreach ($UoMs as $UoM) {
-                            ?>
-                                <option value="<?php echo $UoM->satuan; ?>"><?php echo $UoM->satuan; ?> (<?php echo $UoM->deskripsi_satuan; ?>)</option>
-                            <?php
-                            }
-                            ?>
+                        <select class="form-select form-select-solid" name="m_shop" id="m_shop">
+                            <option></option>
                         </select>
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
                     <!--end::Col-->
                 </div>
                 <!--end::Input Group-->
+                <!--Begin::Input Group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-2 col-form-label required fw-bold fs-6">Periode</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-2 fv-row fv-plugins-icon-container">
+                        <input class="form-control form-control-solid" name="m_period" placeholder="Periode" id="kt_daterangepicker_3" readonly/>
+                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input Group-->
+                <!--Begin::Input Group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-2 col-form-label required fw-bold fs-6">Nilai</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                        <input type="text" name="m_price" id="m_price" class="form-control" placeholder="Rp.">
+                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input Group-->
             </div>
-            <!--begin::Modal footer-->
             <div class="row">
-                <!--begin::Button-->
-                <button type="reset" id="kt_modal_det_rfq_goods_cancel" class="btn btn-light me-3">Tutup</button>
-                <!--end::Button-->
-                <!--begin::Button-->
-                <button type="submit" id="kt_modal_det_rfq_goods_submit" class="btn btn-primary">
-                    <span class="indicator-label">Simpan</span>
-                    <span class="indicator-progress">Please wait...
-                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                </button>
-                <!--end::Button-->
+                <table id="kt_datatable_document" class="align-middle table table-row-bordered">
+                    <thead>
+                        <tr class="fw-bold fs-6 text-muted">
+                            <th class="min-w-50px text-center">No.</th>
+                            <th class="min-w-50px text-center">Tipe</th>
+                            <th class="min-w-125px text-left">Detail</th>
+                            <th class="min-w-125px text-center">Doc</th>
+                            <th class="min-w-80px text-center">Notes</th>
+                            <th class="min-w-50px text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
-            <!--end::Modal footer-->
-            <div></div>
-        </form>
-    </div>
+        </div>
+        <!--begin::Card footer-->
+        <div class="card-footer d-flex justify-content-end py-6 px-9">
+            <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Simpan</button>
+        </div>
+        <!--end::Card footer-->
+    </form>
 </div>
 <script type="text/javascript">
     "use strict";
 
+    var docs = [];
+
+    var Select2 = (function() {
+        return {
+            init_m_type: function() {
+                $("#m_type").select2({
+                    placeholder: 'Pilih Tipe Belanja',
+                    minimumResultsForSearch: -1
+                }),
+                $("#m_type").on('select2:select', function(e) {
+                    var id  = e.params.data.id;
+                    Select2.init_m_shop(id);
+                    Select2.onselect_m_shop(id);
+                });
+            },
+            init_m_bidang: function() {
+                $("#m_bidang").select2({
+                    placeholder: 'Pilih Bidang'
+                });
+            },
+            init_m_shop: function(type) {
+                $("#m_shop").select2({
+                    placeholder: 'Pilih Belanja',
+                    ajax: {
+                        url: "<?php echo site_url('verification/get_shop'); ?>",
+                        dataType: "json",
+                        type: "POST",
+                        data: function (params) {
+
+                            var queryParameters = {
+                                term: type
+                            }
+                            return queryParameters;
+                        },
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data, function (item) {
+                                    return {
+                                        text: item.shop_name,
+                                        id: item.shop_name
+                                    }
+                                })
+                            };
+                        }
+                    }
+                });
+            },
+            onselect_m_shop: function(type) {
+                $("#m_shop").on('select2:select', function(e) {
+                    var id = e.params.data.id;
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo site_url('verification/get_require_docs'); ?>",
+                        data: { shop_type: type, shop_name: id },
+                        success: function(response) {
+                            docs = [];
+                            var obj = jQuery.parseJSON(response);
+                            docs = obj;
+                            KTDataTables.init(docs);
+                        }
+                    })
+                });
+            }
+        }
+    })();
+
+    var KTDataTables = (function() {
+        var table;
+        return {
+            init: function(x) {
+                table = $("#kt_datatable_document").DataTable({
+                    processing:!1, 
+                    serverSide:!1,
+                    destroy: !0,
+                    paging: !0,
+                    data: x,
+                    columns: [
+                        { data: 'shop_sequence', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                        { data: 'shop_type', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                        { data: 'shop_detail', className: 'text-left' },
+                        { data: 'doc', className: 'text-center', sortable: false, searchable: false, orderable: false,
+                            render: function (data, type, row, meta) {
+                                return '-';
+                            }
+                        },
+                        { data: 'notes', className: 'text-center', sortable: false, searchable: false, orderable: false,
+                            render: function (data, type, row, meta) {
+                                return '-';
+                            }
+                        },
+                        { data: 'action', className: 'text-center', sortable: false, searchable: false, orderable: false,
+                            render: function (data, type, row, meta) {
+                                return '<a href="" class="text-success fs-bold">Edit</a>';
+                            }
+                        },
+                    ],
+                    lengthMenu: [
+                            [5, 10, 15, 25, -1],
+                            [5, 10, 15, 25, "All"]
+                        ],
+                    pageLength: 10
+                });
+            }
+        };
+    })();
+
+    var Daterangepicker = (function() {
+        return {
+            init_m_period: function() {
+                moment.locale('id');
+                $("#kt_daterangepicker_3").daterangepicker({
+                    autoApply: true,
+                    singleDatePicker: true,
+                    showDropdowns: true,
+                    minYear: new Date().getFullYear() - 5,
+                    drops: 'down',
+                    viewMode: 'months',
+                    minViewMode: 'months',
+                    maxYear: new Date().getFullYear() + 5,
+                    locale: {
+                        format: 'MMMM-YYYY',
+                        monthNames: [
+                            "Januari",
+                            "Februari",
+                            "Maret",
+                            "April",
+                            "Mei",
+                            "Juni",
+                            "Juli",
+                            "Agustus",
+                            "September",
+                            "Oktober",
+                            "November",
+                            "Desember"
+                        ],
+                    }
+                });
+            }
+        }
+    })();
+
+    var Maskmoney = (function() {
+        return {
+            init_m_price: function() {
+                $("#m_price").maskMoney({
+                    thousands: '.',
+                    decimal: ',',
+                    affixesStay: true,
+                    precision: 0,
+                    allowZero: !0,
+                    prefix: 'Rp. '
+                });
+            }
+        }
+    })();
+
     KTUtil.onDOMContentLoaded((function() {
-        
+        Select2.init_m_type();
+        Select2.init_m_shop();
+        Select2.init_m_bidang();
+        Daterangepicker.init_m_period();
+        Maskmoney.init_m_price();
+        KTDataTables.init(docs);
     }));
 </script>
