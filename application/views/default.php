@@ -39,9 +39,6 @@
 		html {
 			font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
 		}
-		#kt_footer {
-			/* background-color:#460046 !important; */
-		}
 	</style>
 </head>
 <!--end::Head-->
