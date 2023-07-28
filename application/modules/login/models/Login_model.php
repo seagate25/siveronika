@@ -9,16 +9,18 @@ class Login_model extends CI_Model {
      * 
      * @var string
      */
-    protected $table;
-    protected $table_vendor;
+    protected $table_user;
+    protected $table_branch;
+    protected $table_role;
     protected $pass;
 
     public function __construct()
     {
         parent::__construct();
-        $this->table = "TB_S_MST_PENGGUNA";
-        $this->table_vendor = "TB_S_MST_VENDOR";
-        $this->pass = "";
+        $this->table_user   = "m_user";
+        $this->table_branch = "m_branch";
+        $this->table_role   = "m_role";
+        $this->pass         = "";
     }
     
     /**
@@ -32,14 +34,14 @@ class Login_model extends CI_Model {
      */
     public function getLogin($username, $password)
     {
-        $sql    = "SELECT * FROM {$this->table} WHERE kode_vendor = '{$username}'"; 
+        $sql    = "SELECT * FROM {$this->table_user} WHERE user_name = '{$username}'"; 
         $query  = $this->db->query($sql);
         if($query->num_rows() > 0) {
 
             $login_data = $query->row();
             
             // Check if Vendor Blocked
-            if($login_data->deletion == 1) {
+            if($login_data->user_deletion == 1) {
 
                 $response = [
                     'code'  => 200,
@@ -48,27 +50,47 @@ class Login_model extends CI_Model {
 
             } else {
 
-                $this->pass = ($login_data->first_login == 1) ? md5($login_data->sandi) : $login_data->sandi;
+                $this->pass = $login_data->user_password;
 
-                if($password == $this->pass) {
+                if(password_verify($password, $this->pass)) {
+                    
+                    // Get Branch Name
+                    $branch_data    = [];
+                    $sql_branch     = "SELECT branch_name, branch_description FROM {$this->table_branch} WHERE branch_code = '{$login_data->branch_id}'";
+                    $query_branch   = $this->db->query($sql_branch);
+                    if($query_branch->num_rows() > 0) {
+                        $branch_data    = $query_branch->row();
+                    } else {
+                        $branch_data    = [
+                            'branch_name'           => '',
+                            'branch_description'    => ''
+                        ];
+                        $branch_data    = (object) $branch_data;
+                    }
 
-                    // Get Vendor Data
-                    $vendor_data    = [];
-                    $sql_vendor     = "SELECT * FROM {$this->table_vendor} WHERE [kode_vendor] ='{$username}'";
-                    $query_vendor   = $this->db->query($sql_vendor);
-                    if($query_vendor->num_rows() > 0){
-                        $vendor_data = $query_vendor->row();
+                    // Get Role Name
+                    $role_data    = [];
+                    $sql_role     = "SELECT role_name, role_description FROM {$this->table_role} WHERE role_id = '{$login_data->role_id}'";
+                    $query_role   = $this->db->query($sql_role);
+                    if($query_role->num_rows() > 0) {
+                        $role_data    = $query_role->row();
+                    } else {
+                        $role_data    = [
+                            'role_name'           => '',
+                            'role_description'    => ''
+                        ];
+                        $role_data    = (object) $role_data;
                     }
 
                     // Set Session
                     $user_session   = [
-                        'kode_vendor'   => rtrim($login_data->kode_vendor),
-                        'nama'          => rtrim($login_data->nama),
-                        'first_login'   => $login_data->first_login,
-                        'logged_in'     => TRUE,
-                        'email'         => rtrim($vendor_data->email_perusahaan),
-                        'kode_negara'   => rtrim($vendor_data->kode_negara),
-                        'last_activity' => time()
+                        'user_name'         => rtrim($login_data->user_name),
+                        'user_email'        => rtrim($login_data->user_email),
+                        'user_description'  => rtrim($login_data->user_description),
+                        'logged_in'         => TRUE,
+                        'branch_name'       => rtrim($branch_data->branch_name),
+                        'role_name'         => rtrim($role_data->role_name),
+                        'last_activity'     => time()
                     ];
 
                     $this->session->set_userdata($user_session);

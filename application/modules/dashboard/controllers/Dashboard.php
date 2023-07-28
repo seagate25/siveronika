@@ -19,7 +19,7 @@ class Dashboard extends CI_Controller
      */
     public function index()
     {
-        $data['title']      = "Dashboard Vendor";
+        $data['title']      = "Dashboard";
         $data['menu']       = "Dashboard";
         $data['submenu']    = "";
         $data['content']    = "index";
@@ -27,13 +27,6 @@ class Dashboard extends CI_Controller
         $this->load->view('default', $data);
     }
 
-    public function get_dashboard_data()
-    {
-        $data   = $this->dashboard->getDashboardData();
-
-        echo json_encode($data);
-        exit;
-    }
 }
 
 /* End of file Dashboard.php */

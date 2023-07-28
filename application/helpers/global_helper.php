@@ -7,16 +7,9 @@ if(!function_exists('logged_in')) {
         $CI =& get_instance();
         $CI->load->library('session');
         $logged_in  = $CI->session->userdata('logged_in');
-        $first_log  = $CI->session->userdata('first_login');
-        if($first_log == 1) {
-            redirect('login/reset');
-        } else {
-            if(!$logged_in) {
-                $CI->session->sess_destroy();
-                redirect('welcome');
-            } else {
-                $CI->session->set_userdata('last_activity', time());
-            }
+        if(!$logged_in) {
+            $CI->session->sess_destroy();
+            redirect('login');
         }
     }
 }

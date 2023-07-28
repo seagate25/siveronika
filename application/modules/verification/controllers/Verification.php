@@ -7,6 +7,7 @@ class Verification extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        logged_in();
         $this->load->model('Verification_model', 'verification');
     }
     

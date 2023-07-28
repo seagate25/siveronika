@@ -13,7 +13,7 @@ License: For each use you must have a valid license purchased only from above li
 <html lang="en">
 	<!--begin::Head-->
 	<head><base href="../../../">
-		<title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular &amp; Laravel by Keenthemes</title>
+		<title>SiVeronika - Sistem Verifikasi Online Keuangan - Badan Pengelolaan Pendapatan Daerah Kabupaten Bogor</title>
 		<meta name="description" content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
 		<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -95,7 +95,7 @@ License: For each use you must have a valid license purchased only from above li
 						<!--begin::Wrapper-->
 						<div class="d-flex flex-column position-xl-fixed w-lg-500px p-10 p-lg-15 mx-auto">
 							<!--begin::Form-->
-							<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="#">
+							<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="<?php echo site_url('login/do_login'); ?>">
 								<!--begin::Heading-->
 								<div class="text-center mb-10">
 									<!--begin::Logo-->
@@ -109,7 +109,7 @@ License: For each use you must have a valid license purchased only from above li
 									<label class="form-label fs-6 fw-bolder text-dark">Username</label>
 									<!--end::Label-->
 									<!--begin::Input-->
-									<input class="form-control form-control-lg form-control-solid" type="text" name="email" autocomplete="off" />
+									<input class="form-control form-control-lg form-control-solid" type="text" name="username" autocomplete="off" />
 									<!--end::Input-->
 								</div>
 								<!--end::Input group-->
@@ -175,15 +175,15 @@ License: For each use you must have a valid license purchased only from above li
 		<script type="text/javascript">
             "use strict";
             var KTSigninGeneral = (function () {
-                var t, e, i;
+                var t, e, i, d;
                 return {
                     init: function () {
                         (t = document.querySelector("#kt_sign_in_form")),
                             (e = document.querySelector("#kt_sign_in_submit")),
                             (i = FormValidation.formValidation(t, {
                                 fields: {
-                                    email: { validators: { notEmpty: { message: "Email address is required" }, emailAddress: { message: "The value is not a valid email address" } } },
-                                    password: { validators: { notEmpty: { message: "The password is required" } } },
+                                    username: { validators: { notEmpty: { message: "Username tidak boleh kosong" } } },
+                                    password: { validators: { notEmpty: { message: "Password tidak boleh kosong" } } },
                                 },
                                 plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row" }) },
                             })),
@@ -191,15 +191,34 @@ License: For each use you must have a valid license purchased only from above li
                                 n.preventDefault(),
                                     i.validate().then(function (i) {
                                         "Valid" == i
-                                            ? (e.setAttribute("data-kt-indicator", "on"),
-                                            (e.disabled = !0),
-                                            setTimeout(function () {
-                                                e.removeAttribute("data-kt-indicator"),
-                                                    (e.disabled = !1),
-                                                    Swal.fire({ text: "You have successfully logged in!", icon: "success", buttonsStyling: !1, confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn btn-primary" } }).then(function (e) {
-                                                        e.isConfirmed && ((t.querySelector('[name="email"]').value = ""), (t.querySelector('[name="password"]').value = ""));
-                                                    });
-                                            }, 2e3))
+                                            ? (
+												e.setAttribute("data-kt-indicator", "on"),
+                                            	(e.disabled = !0),
+												d = Object.fromEntries(new FormData(t).entries()),
+												$.ajax({
+													type: "POST",
+													url: t.getAttribute('action'),
+													data: d,
+													success: function(response) {
+														var obj = jQuery.parseJSON(response);
+														if(obj.code == 0) {
+															document.location = obj.data;
+														} else {
+															e.removeAttribute("data-kt-indicator"),
+															(e.disabled = !1),
+															Swal.fire({ 
+																text: obj.msg, 
+																icon: "error", buttonsStyling: !1, 
+																confirmButtonText: "Ok",
+																allowOutsideClick: false,
+																customClass: { confirmButton: "btn btn-primary" } })
+															.then(function (t) {
+																t.isConfirmed && ((e.querySelector('[name="username"]').value = ""), (e.querySelector('[name="password"]').value = ""));
+															});
+														}
+													}
+												})
+                                            )
                                             : Swal.fire({
                                                 text: "Sorry, looks like there are some errors detected, please try again.",
                                                 icon: "error",
