@@ -27,12 +27,13 @@
 	<link href="<?php echo base_url(); ?>assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 	<link href="<?php echo base_url(); ?>assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 	<link href="<?php echo base_url(); ?>assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css">
-	<!-- <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.1.0/css/fixedColumns.dataTables.min.css" type="text/css"> -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.dataTables.min.css" type="text/css">
 	<!--end::Global Stylesheets Bundle-->
 	<!--begin::Global Javascript Bundle(used by all pages)-->
 	<script src="<?php echo base_url(); ?>assets/plugins/global/plugins.bundle.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/scripts.bundle.js"></script>
 	<script src="<?php echo base_url(); ?>assets/plugins/custom/datatables/datatables.bundle.js"></script>
+	<script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
 	<!--end::Global Javascript Bundle-->
 	<style>
 		body,

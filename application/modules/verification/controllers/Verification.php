@@ -13,6 +13,11 @@ class Verification extends CI_Controller {
     
     public function index()
     {
+        if($this->input->is_ajax_request()) {
+            $verification_data  = $this->verification->getVerificationList();
+            echo json_encode($verification_data, JSON_PRETTY_PRINT);
+            exit;
+        }
         $data['title']      = "Verification";
         $data['menu']       = "Verification";
         $data['submenu']    = "";
