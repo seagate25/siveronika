@@ -72,10 +72,8 @@ class Verification extends CI_Controller {
     public function get_require_docs()
     {
         if($this->input->is_ajax_request()) {
-            $shop_type  = $this->input->post('shop_type');
-            $shop_name  = $this->input->post('shop_name');
-            $params     = ['shop_type' => $shop_type, 'shop_name' => $shop_name];
-            $docs_data  = $this->verification->getRequireDocs($params);
+            $shop_id    = $this->input->post('shop_id');
+            $docs_data  = $this->verification->getRequireDocs($shop_id);
             
             if(count($docs_data) > 0) {
                 $col  = 'shop_sequence';

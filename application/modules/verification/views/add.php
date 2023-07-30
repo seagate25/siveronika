@@ -12,8 +12,8 @@
 <div class="card shadow-sm">
     <div class="card-header bg-success">
         <div class="card-toolbar">
-            <a href="<?php echo site_url('rfq/rfq_goods'); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
-                <i class="las la-arrow-left fs-1 text-success"></i>
+            <a href="<?php echo site_url('verification'); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
+                <i class="las la-arrow-left fw-bolder fs-1 text-danger"></i>
             </a>
         </div>
         <h3 class="card-title text-white">Pengajuan Verifikasi</h3>
@@ -63,7 +63,7 @@
                     <label class="col-lg-2 col-form-label required fw-bold fs-6">Bidang</label>
                     <!--end::Label-->
                     <!--begin::Col-->
-                    <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
                         <select class="form-select form-select-solid" name="m_bidang" id="m_bidang">
                             <option></option>
                             <?php
@@ -85,7 +85,7 @@
                     <label class="col-lg-2 col-form-label required fw-bold fs-6">Belanja</label>
                     <!--end::Label-->
                     <!--begin::Col-->
-                    <div class="col-lg-3 fv-row fv-plugins-icon-container">
+                    <div class="col-lg-6 fv-row fv-plugins-icon-container">
                         <select class="form-select form-select-solid" name="m_shop" id="m_shop">
                             <option></option>
                         </select>
@@ -158,7 +158,6 @@
                 $("#m_type").on('select2:select', function(e) {
                     var id  = e.params.data.id;
                     Select2.init_m_shop(id);
-                    Select2.onselect_m_shop(id);
                 });
             },
             init_m_bidang: function() {
@@ -185,7 +184,7 @@
                                 results: $.map(data, function (item) {
                                     return {
                                         text: item.shop_name,
-                                        id: item.shop_name
+                                        id: item.shop_id
                                     }
                                 })
                             };
@@ -193,13 +192,13 @@
                     }
                 });
             },
-            onselect_m_shop: function(type) {
+            onselect_m_shop: function() {
                 $("#m_shop").on('select2:select', function(e) {
                     var id = e.params.data.id;
                     $.ajax({
                         type: "POST",
                         url: "<?php echo site_url('verification/get_require_docs'); ?>",
-                        data: { shop_type: type, shop_name: id },
+                        data: { shop_id: id },
                         success: function(response) {
                             docs = [];
                             var obj = jQuery.parseJSON(response);
@@ -226,19 +225,11 @@
                         { data: 'shop_sequence', className: 'text-center', sortable: false, searchable: false, orderable: false },
                         { data: 'shop_type', className: 'text-center', sortable: false, searchable: false, orderable: false },
                         { data: 'shop_detail', className: 'text-left' },
-                        { data: 'doc', className: 'text-center', sortable: false, searchable: false, orderable: false,
-                            render: function (data, type, row, meta) {
-                                return '-';
-                            }
-                        },
-                        { data: 'notes', className: 'text-center', sortable: false, searchable: false, orderable: false,
-                            render: function (data, type, row, meta) {
-                                return '-';
-                            }
-                        },
+                        { data: 'doc', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                        { data: 'notes', className: 'text-center', sortable: false, searchable: false, orderable: false },
                         { data: 'action', className: 'text-center', sortable: false, searchable: false, orderable: false,
                             render: function (data, type, row, meta) {
-                                return '<a href="" class="text-success fs-bold">Edit</a>';
+                                return '<a href="" class="text-success fw-bolder">Edit</a>';
                             }
                         },
                     ],
@@ -306,6 +297,7 @@
         Select2.init_m_type();
         Select2.init_m_shop();
         Select2.init_m_bidang();
+        Select2.onselect_m_shop();
         Daterangepicker.init_m_period();
         Maskmoney.init_m_price();
         KTDataTables.init(docs);

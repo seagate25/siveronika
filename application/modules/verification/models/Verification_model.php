@@ -250,16 +250,22 @@ class Verification_model extends CI_Model {
      */
     public function getShopList(String $type = '')
     {
-        $sql    = "SELECT shop_name FROM m_shop WHERE shop_type = '{$type}' GROUP BY shop_name ORDER BY shop_name ASC";
+        $sql    = "SELECT shop_id, shop_name FROM m_shop WHERE shop_type = '{$type}' ORDER BY shop_name ASC";
         $query  = $this->db->query($sql);
         $result = $query->result();
 
         return $result;
     }
 
-    public function getRequireDocs(Array $params = [])
+    public function getRequireDocs(String $shop_id = '')
     {
-        $query  = $this->global->get_by('m_shop', $params);
+        $sql    = " SELECT ms.shop_type, msd.shop_id, ms.shop_name, msd.shop_sequence, msd.shop_detail,
+                        '' doc, '' notes
+                    FROM
+                        m_shop_det msd
+                    JOIN
+                        m_shop ms ON (msd.shop_id = ms.shop_id AND ms.shop_id = '{$shop_id}')";
+        $query  = $this->db->query($sql);
         $result = $query->result();
 
         return $result;
