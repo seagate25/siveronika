@@ -147,6 +147,87 @@ class Verification_model extends CI_Model {
             'data' => $rows,
         );
     }
+
+    public function getVerifDetailList(String $verif_no = '')
+    {
+        $start = $this->input->post('start');
+        $length = $this->input->post('length') != -1 ? $this->input->post('length') : 10;
+        $draw = $this->input->post('draw');
+        $search = $this->input->post('search');
+        $order = $this->input->post('order');
+        $order_column = $order[0]['column'];
+        $order_dir = strtoupper($order[0]['dir']);
+        $field  = array(
+            1 => 'ms.shop_type',
+            2 => 'ms.shop_name',
+            3 => 'tvs.period',
+            4 => 'tvs.total'
+        );
+
+        $order_column = $field[$order_column];
+        $where = "";
+        if (!empty($search['value'])) {
+            $where .= " WHERE (ms.shop_type LIKE '%" . $search['value'] . "%'";
+            $where .= " OR ms.shop_name LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tvs.period LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tvs.total LIKE '%" . $search['value'] . "%')";
+        }
+
+        $sql        = "SELECT tv.verif_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total 
+                        FROM
+                            t_verification tv
+                        JOIN
+                            t_verification_shop tvs ON (tv.verif_id = tvs.verif_id AND tv.verif_no = '{$verif_no}')
+                        JOIN
+                            m_shop ms ON (tvs.shop_id = ms.shop_id){$where}";
+        $query = $this->db->query($sql);
+        $records_total = $query->num_rows();
+
+        $sql_   = "SELECT  *
+                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
+                                tv.verif_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total 
+                            FROM
+                                t_verification tv
+                            JOIN
+                                t_verification_shop tvs ON (tv.verif_id = tvs.verif_id AND tv.verif_no = '{$verif_no}')
+                            JOIN
+                                m_shop ms ON (tvs.shop_id = ms.shop_id)
+                            {$where}
+                            ) AS RowConstrainedResult
+                    WHERE   RowNum > {$start}
+                        AND RowNum < (({$start} + 1) + {$length})
+                    ORDER BY RowNum";
+        
+
+        $query = $this->db->query($sql_);
+        $rows_data = $query->result();
+        $rows = array();
+        $i = (0 + 1);
+
+        foreach ($rows_data as $row) {
+            $row->number                = $i;
+            $row->total                 = number_format($row->total,0,',','.');
+            $row->actions               = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_id)) . '" class="fw-bolder text-success">
+                                                Edit
+                                            </a> |
+                                            <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_id)) . '" class="fw-bolder text-success">
+                                                Detail
+                                            </a> |
+                                            <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_id)) . '" class="fw-bolder text-danger">
+                                                Delete
+                                            </a>';
+
+            $rows[] = $row;
+            $i++;
+        }
+
+        return array(
+            'draw' => $draw,
+            'recordsTotal' => $records_total,
+            'recordsFiltered' => $records_total,
+            'data' => $rows,
+        );
+    }
     
     /**
      * Get Bidang List
@@ -180,6 +261,19 @@ class Verification_model extends CI_Model {
     {
         $query  = $this->global->get_by('m_shop', $params);
         $result = $query->result();
+
+        return $result;
+    }
+    
+    public function getVerifDetail(String $verif_no = '')
+    {
+        $sql    = " SELECT tv.verif_no, mb.bidang_code, mb.bidang_name, mb2.branch_code, mb2.branch_name
+                    FROM t_verification tv
+                    JOIN m_bidang mb ON (tv.bidang_id = mb.bidang_code)
+                    JOIN m_branch mb2 ON (tv.branch_id = mb2.branch_code)
+                    WHERE tv.verif_no = '{$verif_no}' ";
+        $query  = $this->db->query($sql);
+        $result = $query->row();
 
         return $result;
     }

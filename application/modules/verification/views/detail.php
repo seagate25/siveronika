@@ -7,8 +7,8 @@
 <div class="card shadow-sm">
     <div class="card-header bg-success">
         <div class="card-toolbar">
-            <a href="<?php echo site_url('rfq/rfq_goods'); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
-                <i class="las la-arrow-left fs-1 text-success"></i>
+            <a href="<?php echo site_url('verification'); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
+                <i class="las la-arrow-left fs-1 text-dark"></i>
             </a>
         </div>
         <h3 class="card-title text-white">Summary Detail</h3>
@@ -20,7 +20,7 @@
     </div>
     <div class="card-body">
         <!--begin::Row-->
-        <div class="row mb-7">
+        <div class="row mb-2">
             <div class="col-lg-6">
                 <!--begin::Row-->
                 <div class="row mb-7">
@@ -29,7 +29,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800">VR2306-001</span>
+                        <span class="fw-bolder fs-6 text-gray-800"><?=$verif_data->verif_no?></span>
                     </div>
                     <!--end::Col-->
                 </div>
@@ -41,7 +41,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8 d-flex align-items-center">
-                        <span class="fs-6 text-gray-800">SEKRETARIAT BAPPENDA</span>
+                        <span class="fs-6 text-gray-800"><?=$verif_data->bidang_name?></span>
                     </div>
                     <!--end::Col-->
                 </div>
@@ -56,7 +56,7 @@
             </div>
         </div>
         <!--end::Row-->
-        <table id="kt_datatable_detail_rfq_goods" class="align-middle table table-row-bordered gy-5">
+        <table id="kt_datatable_verif_detail" class="align-middle table table-row-bordered gy-5">
             <thead>
                 <tr class="fw-bold fs-6 text-muted">
                     <th class="min-w-50px text-center">No.</th>
@@ -64,39 +64,9 @@
                     <th class="min-w-125px text-center">Nama Belanja</th>
                     <th class="min-w-50px text-center">Periode</th>
                     <th class="min-w-50px text-center">Nilai</th>
-                    <th class="min-w-50px text-center"></th>
-                    <th class="min-w-50px text-center"></th>
+                    <th class="min-w-50px text-center">Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td class="min-w-50px text-center">1</td>
-                    <td class="min-w-50px text-center">GU</td>
-                    <td class="min-w-125px text-center">Belanja Cetak</td>
-                    <td class="min-w-50px text-center">Juni-2023</td>
-                    <td class="min-w-50px text-center">Rp. 8,000,000,-</td>
-                    <td class="min-w-50px text-center">Edit</td>
-                    <td class="min-w-50px text-center">Delete</td>
-                </tr>
-                <tr>
-                    <td class="min-w-50px text-center">2</td>
-                    <td class="min-w-50px text-center">GU</td>
-                    <td class="min-w-125px text-center">Belanja Cetak</td>
-                    <td class="min-w-50px text-center">Juni-2023</td>
-                    <td class="min-w-50px text-center">Rp. 8,000,000,-</td>
-                    <td class="min-w-50px text-center">Edit</td>
-                    <td class="min-w-50px text-center">Delete</td>
-                </tr>
-                <tr>
-                    <td class="min-w-50px text-center">3</td>
-                    <td class="min-w-50px text-center">GU</td>
-                    <td class="min-w-125px text-center">Belanja Cetak</td>
-                    <td class="min-w-50px text-center">Juni-2023</td>
-                    <td class="min-w-50px text-center">Rp. 8,000,000,-</td>
-                    <td class="min-w-50px text-center">Edit</td>
-                    <td class="min-w-50px text-center">Delete</td>
-                </tr>
-            </tbody>
         </table>
     </div>
 </div>
@@ -483,7 +453,53 @@
 <script type="text/javascript">
     "use strict";
 
+    var KTDataTables = (function() {
+        var e;
+        return {
+            init: function() {
+                e = $("#kt_datatable_verif_detail").DataTable({
+                    processing:!0, 
+                    serverSide:!0,
+                    destroy: !0,
+                    paging: !0,
+                    ordering: !0,
+                    searching: !0,
+                    dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
+                    ajax: {
+                        type: "POST",
+                        url: "<?php echo site_url('verification/detail/' . $this->uri->segment(3));?>"
+                    },
+                    scrollX: !1,
+                    columns: [
+                        { data: 'number', className: 'text-center', searchable: false,
+                            render: function (data, type, row, meta) {
+                                return meta.row + meta.settings._iDisplayStart + 1;
+                            }
+                        },
+                        { data: 'shop_type', className: 'text-center' },
+                        { data: 'shop_name', className: 'text-center' },
+                        { data: 'period', className: 'text-center' },
+                        { data: 'total', className: 'text-right',
+                            render: function (data, type, row, meta) {
+                                return 'Rp. ' + data;
+                            }
+                        },
+                        { data: 'actions', className: 'text-center', searchable: false }
+                    ],
+                    lengthMenu: [
+                            [5, 10, 15, 25, -1],
+                            [5, 10, 15, 25, "All"]
+                        ],
+                    pageLength: 10,
+                    order: [1, 'ASC']
+                });
+            }
+        };
+    })();
+
     KTUtil.onDOMContentLoaded((function() {
-        
+        KTDataTables.init();
     }));
 </script>

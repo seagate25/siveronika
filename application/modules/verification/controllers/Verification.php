@@ -8,6 +8,7 @@ class Verification extends CI_Controller {
     {
         parent::__construct();
         logged_in();
+        $this->load->library('Crypto');
         $this->load->model('Verification_model', 'verification');
     }
     
@@ -27,10 +28,17 @@ class Verification extends CI_Controller {
 
     public function detail()
     {
+        $verif_no   = $this->crypto->decode($this->uri->segment(3));
+        if($this->input->is_ajax_request()) {
+            $verif_det_data = $this->verification->getVerifDetailList($verif_no);
+            echo json_encode($verif_det_data, JSON_PRETTY_PRINT);
+            exit;
+        }
         $data['title']      = "Verification";
         $data['menu']       = "Verification";
         $data['submenu']    = "Detail";
         $data['content']    = "detail";
+        $data['verif_data'] = $this->verification->getVerifDetail($verif_no);
         $this->load->view('default', $data);
     }
 

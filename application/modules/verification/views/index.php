@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="card-body p-2">
-        <table id="kt_datatable_rfq_head" class="align-middle table table-row-bordered gy-5 min-h-70px" style="width: 100%;">
+        <table id="kt_datatable_verif_head" class="align-middle table table-row-bordered gy-5" style="width: 100%;">
             <thead>
                 <tr class="fw-bolder fs-6 text-dark">
                     <th class="min-w-50px text-center">No.</th>
@@ -38,24 +38,21 @@ var KTDataTables = (function() {
     var e;
     return {
         init: function() {
-            e = $("#kt_datatable_rfq_head").DataTable({
+            e = $("#kt_datatable_verif_head").DataTable({
                 processing:!0, 
                 serverSide:!0,
                 destroy: !0,
                 paging: !0,
                 ordering: !0,
                 searching: !0,
+                dom: "<'row'<'col-sm-12 col-md-12 col-lg-12'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-3'i><'col-sm-12 col-md-8'p>>",
                 ajax: {
                     type: "POST",
                     url: "<?php echo site_url('verification');?>"
                 },
-                fixedColumns: {
-                    left: 2,
-                    heightMatch: 'none'
-                },
-                scrollCollapse: true,
-                scrollX: true,
-                scrollY: 600,
+                scrollX: !0,
                 columns: [
                     { data: 'number', className: 'text-center', searchable: false,
                         render: function (data, type, row, meta) {
@@ -64,7 +61,7 @@ var KTDataTables = (function() {
                     },
                     { data: 'verif_no', className: 'text-left' },
                     { data: 'branch_name', className: 'text-left' },
-                    { data: 'verif_request_date', className: 'text-left' },
+                    { data: 'verif_request_date', className: 'text-center' },
                     { data: 'shop_type', className: 'text-center' },
                     { data: 'bidang_name', className: 'text-left' },
                     { data: 'total', className: 'text-right',
@@ -73,7 +70,7 @@ var KTDataTables = (function() {
                         }
                     },
                     { data: 'verif_status', className: 'text-left' },
-                    { data: 'actions', className: 'text-center', searchable: false }
+                    { data: 'actions', className: 'text-left', searchable: false }
                 ],
                 lengthMenu: [
                         [5, 10, 15, 25, -1],
