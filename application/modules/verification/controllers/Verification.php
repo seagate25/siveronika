@@ -44,14 +44,21 @@ class Verification extends CI_Controller {
 
     public function add()
     {
-        $fields = $this->verification->getBidangList();
+        $verif_no   = $this->verification->getAutoNumber();
+        $fields     = $this->verification->getBidangList();
 
         $data['title']      = "Verification";
         $data['menu']       = "Verification";
         $data['submenu']    = "Detail - Tambah Belanja";
         $data['content']    = "add";
         $data['fields']     = $fields;
+        $data['verif_no']   = $verif_no;
         $this->load->view('default', $data);
+    }
+
+    public function edit()
+    {
+        
     }
 
     public function get_shop()

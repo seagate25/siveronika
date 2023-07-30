@@ -1,5 +1,7 @@
 <?php
 
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Verification_model extends CI_Model {
@@ -257,6 +259,12 @@ class Verification_model extends CI_Model {
         return $result;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string $shop_id
+     * @return void
+     */
     public function getRequireDocs(String $shop_id = '')
     {
         $sql    = " SELECT ms.shop_type, msd.shop_id, ms.shop_name, msd.shop_sequence, msd.shop_detail,
@@ -271,6 +279,12 @@ class Verification_model extends CI_Model {
         return $result;
     }
     
+    /**
+     * Undocumented function
+     *
+     * @param string $verif_no
+     * @return void
+     */
     public function getVerifDetail(String $verif_no = '')
     {
         $sql    = " SELECT tv.verif_no, mb.bidang_code, mb.bidang_name, mb2.branch_code, mb2.branch_name
@@ -282,6 +296,24 @@ class Verification_model extends CI_Model {
         $result = $query->row();
 
         return $result;
+    }
+
+    public function getAutoNumber()
+    {
+        $code   = "";
+        $date   = date('ym');
+        $sql    = "SELECT MAX(verif_no) verif_no FROM {$this->table_main} WHERE SUBSTRING(verif_no, 3, 4) = '{$date}'";
+        $query  = $this->db->query($sql);
+        if($query->num_rows() > 0) {
+            $last_verif_no  = $query->row()->verif_no;
+            $last_sequence  = substr($last_verif_no, 7, 3);
+            $next_sequence  = str_pad(((int)$last_sequence + 1), 3, "0", STR_PAD_LEFT);
+            $code           = "VR" . $date . "-" . $next_sequence;
+        } else {
+            $code           = "VR" . $date . "-" . "001";
+        }
+
+        return $code;
     }
 
 }

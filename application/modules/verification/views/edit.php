@@ -33,7 +33,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                        <input type="text" name="m_verification_no" id="m_verification_no" class="form-control form-control-solid" readonly="true" value="<?=$verif_no?>">
+                        <input type="text" name="m_verification_no" id="m_verification_no" class="form-control form-control-solid" readonly="true" value="VR2306-001">
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
                     <!--end::Col-->
@@ -46,7 +46,7 @@
                     <label class="col-lg-2 col-form-label required fw-bold fs-6">Tipe Belanja</label>
                     <!--end::Label-->
                     <!--begin::Col-->
-                    <div class="col-lg-3 fv-row fv-plugins-icon-container">
+                    <div class="col-lg-2 fv-row fv-plugins-icon-container">
                         <select class="form-select form-select-solid" name="m_type" id="m_type">
                             <option></option>
                             <option value="GU">GU</option>
