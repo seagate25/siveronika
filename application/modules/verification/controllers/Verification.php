@@ -97,6 +97,13 @@ class Verification extends CI_Controller {
         }
     }
 
+    public function save()
+    {
+        var_dump($this->input->post());
+        var_dump($_FILES);
+        exit;
+    }
+
 }
 
 /* End of file Verification.php */
