@@ -99,9 +99,80 @@ class Verification extends CI_Controller {
 
     public function save()
     {
-        var_dump($this->input->post());
-        var_dump($_FILES);
-        exit;
+        $verif_no   = $this->input->post('m_verification_no');
+        $bidang_id  = $this->input->post('m_bidang');
+        $shop_id    = $this->input->post('m_shop');
+        $period     = $this->input->post('m_period');
+        $total      = str_replace('.', '', str_replace('Rp. ', '', $this->input->post('m_price')));
+        $req_doc    = $this->input->post('req_docs');
+        $verif_id   = '';
+
+        $months = [
+            '01' => "Januari",
+            '02' => "Februari",
+            '03' => "Maret",
+            '04' => "April",
+            '05' => "Mei",
+            '06' => "Juni",
+            '07' => "Juli",
+            '08' => "Agustus",
+            '09' => "September",
+            '10' => "Oktober",
+            '11' => "November",
+            '12' => "Desember"
+        ];
+        $explode_period = explode('-', $period);
+        $periode    = $explode_period[1].array_search($explode_period[0], $months);
+        
+        $data_head  = [
+            'verif_id'      => 'NEWID()',
+            'verif_no'      => $verif_no,
+            'bidang_id'     => $bidang_id,
+            'user_id'       => $this->session->userdata('user_id'),
+            'user_name'     => $this->session->userdata('user_name'),
+            'branch_id'     => $this->session->userdata('branch_code'),
+            'create_date'   => date('Y-m-d H:i:s'),
+            'create_by'     => $this->session->userdata('user_name')
+        ];
+
+        $insertHead = $this->verification->insertHead($data_head);
+        if($insertHead > 0) {
+            $detail     = $this->verification->getDetail($verif_no);
+            $verif_id   = $detail->verif_id;
+
+            $data_shop  = [
+                'verif_id'  => $verif_id,
+                'shop_id'   => $shop_id,
+                'period'    => $periode,
+                'total'     => $total
+            ];
+
+            $insertDetail   = $this->verification->insertDetail($data_shop);
+            if($insertDetail > 0) {
+                $data_doc   = [];
+                for($i = 1; $i <= $req_doc; $i++) {
+                    $doc    = [
+                        'verif_id'      => $verif_id,
+                        'shop_id'       => $shop_id,
+                        'shop_sequence' => $i,
+                        'doc_id'        => $_FILES[$shop_id.'_'.$i]['name'],
+                        'notes'         => $this->input->post('notes_'.$i)
+                    ];
+                    $data_doc[] = $doc;
+                }
+
+                $insertReqDoc   = $this->verification->insertReqDoc($data_doc);
+                if($insertReqDoc > 0) {
+                    $response   = [
+                        'code'  => 0,
+                        'msg'   => 'SUCCESS'
+                    ];
+
+                    echo json_encode($response, JSON_PRETTY_PRINT);
+                    exit;
+                }
+            }
+        }
     }
 
 }

@@ -40,7 +40,7 @@ class Global_model extends CI_Model
         $i  = 0;
         foreach ($data as $key => $val) {
             $column .= "{$key}";
-            $value  .= ($val !== '') ? "'{$val}'" : "NULL";
+            $value  .= ($val !== '') ? (($val == 'NEWID()') ? "NEWID()" : "'{$val}'") : "NULL";
 
             if ($i === (count($data) - 1)) {
                 $column .= "";

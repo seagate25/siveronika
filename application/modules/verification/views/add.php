@@ -168,6 +168,8 @@
                         n.preventDefault(),
                             i.validate().then(function (i) {
                                 var frmData = new FormData(t);
+                                var dt = $("#kt_datatable_document").DataTable().rows().data().length;
+                                frmData.append('req_docs', dt);
                                 "Valid" == i
                                     ? (
                                         e.setAttribute("data-kt-indicator", "on"),
@@ -181,7 +183,16 @@
                                             success: function(response) {
                                                 var obj = jQuery.parseJSON(response);
                                                 if(obj.code == 0) {
-                                                    document.location = obj.data;
+                                                    // document.location = obj.data;
+                                                    e.removeAttribute("data-kt-indicator"),
+                                                    (e.disabled = !1),
+                                                    Swal.fire({ 
+                                                        text: obj.msg, 
+                                                        buttonsStyling: !1, 
+                                                        confirmButtonText: "Ok",
+                                                        allowOutsideClick: false,
+                                                        customClass: { confirmButton: "btn btn-primary" } 
+                                                    });
                                                 } else {
                                                     e.removeAttribute("data-kt-indicator"),
                                                     (e.disabled = !1),

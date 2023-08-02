@@ -316,6 +316,34 @@ class Verification_model extends CI_Model {
         return $code;
     }
 
+    public function insertHead(Array $data = [])
+    {
+        $result = $this->global->insert($this->table_main, $data);
+
+        return $result;
+    }
+
+    public function insertDetail(Array $data = [])
+    {
+        $result = $this->global->insert($this->table_sub_1, $data);
+
+        return $result;
+    }
+    
+    public function insertReqDoc(Array $data = [])
+    {
+        $result = $this->global->insert_batch($this->table_sub_2, $data);
+
+        return $result;
+    }
+
+    public function getDetail(String $verif_no = '')
+    {
+        $query  = $this->global->get_by($this->table_main, ['verif_no' => $verif_no]);
+
+        return $query->row();
+    }
+
 }
 
 /* End of file Verification_model.php */

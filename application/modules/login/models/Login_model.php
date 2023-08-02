@@ -84,10 +84,12 @@ class Login_model extends CI_Model {
 
                     // Set Session
                     $user_session   = [
+                        'user_id'           => $login_data->user_id,
                         'user_name'         => rtrim($login_data->user_name),
                         'user_email'        => rtrim($login_data->user_email),
                         'user_description'  => rtrim($login_data->user_description),
                         'logged_in'         => TRUE,
+                        'branch_code'       => rtrim($login_data->branch_id),
                         'branch_name'       => rtrim($branch_data->branch_name),
                         'role_name'         => rtrim($role_data->role_name),
                         'last_activity'     => time()
