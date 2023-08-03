@@ -344,6 +344,21 @@ class Verification_model extends CI_Model {
         return $query->row();
     }
 
+    public function insertDoc(Array $data = [])
+    {
+        $result = $this->global->insert('t_doc', $data);
+
+        return $result;
+    }
+
+    public function lastInsertDoc()
+    {
+        $sql    = "SELECT TOP 1 * FROM t_doc ORDER BY create_date DESC";
+        $query  = $this->db->query($sql);
+
+        return $query->row();
+    }
+
 }
 
 /* End of file Verification_model.php */

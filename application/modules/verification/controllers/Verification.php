@@ -151,11 +151,44 @@ class Verification extends CI_Controller {
             if($insertDetail > 0) {
                 $data_doc   = [];
                 for($i = 1; $i <= $req_doc; $i++) {
+
+                    if(!empty($_FILES[$shop_id.'_'.$i]['name'])) {
+
+                        $path       = 'documents/';
+                        /** Upload Config */
+                        $config['upload_path']      = $path;
+                        $config['allowed_types']    = 'pdf';
+                        $config['max_size']         = '22000';
+
+                        /** Load CodeIgniter Upload Library */
+                        $this->load->library('upload', $config);
+
+                        $this->upload->initialize($config);
+
+                        if($this->upload->do_upload($shop_id.'_'.$i)) {
+
+                            $uploadData = $this->upload->data();
+                            $fName      = explode('.', $uploadData['file_name']);
+                            $upload_data    = array(
+                                'doc_id'        => 'NEWID()',
+                                'doc_filename'  => $fName[0],
+                                'doc_path'      => $path,
+                                'doc_type'      => 'pdf',
+                                'create_by'     => $this->session->userdata('user_name')
+                            );
+    
+                            $this->verification->insertDoc($upload_data);
+                        }
+                        
+                    }
+
+                    $doc_id = $this->verification->lastInsertDoc()->doc_id;
+
                     $doc    = [
                         'verif_id'      => $verif_id,
                         'shop_id'       => $shop_id,
                         'shop_sequence' => $i,
-                        'doc_id'        => $_FILES[$shop_id.'_'.$i]['name'],
+                        'doc_id'        => $doc_id,
                         'notes'         => $this->input->post('notes_'.$i)
                     ];
                     $data_doc[] = $doc;
