@@ -130,7 +130,7 @@
                             <th class="min-w-125px text-left">Detail</th>
                             <th class="min-w-125px text-center">Doc</th>
                             <th class="min-w-80px text-center">Notes</th>
-                            <th class="min-w-50px text-center">Aksi</th>
+                            <!-- <th class="min-w-50px text-center">Aksi</th> -->
                         </tr>
                     </thead>
                 </table>
@@ -311,11 +311,11 @@
                                 return '<input type="text" name="notes_'+row.shop_sequence+'">';
                             }
                         },
-                        { data: 'action', className: 'text-center', sortable: false, searchable: false, orderable: false,
-                            render: function (data, type, row, meta) {
-                                return '<a href="" class="text-success fw-bolder">Edit</a>';
-                            }
-                        },
+                        // { data: 'action', className: 'text-center', sortable: false, searchable: false, orderable: false,
+                        //     render: function (data, type, row, meta) {
+                        //         return '<a href="" class="text-success fw-bolder">Edit</a>';
+                        //     }
+                        // },
                     ],
                     lengthMenu: [
                             [5, 10, 15, 25, -1],
