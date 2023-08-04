@@ -175,7 +175,7 @@ class Verification_model extends CI_Model {
             $where .= " OR tvs.total LIKE '%" . $search['value'] . "%')";
         }
 
-        $sql        = "SELECT tv.verif_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total 
+        $sql        = "SELECT tv.verif_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total, tvs.shop_id 
                         FROM
                             t_verification tv
                         JOIN
@@ -187,7 +187,7 @@ class Verification_model extends CI_Model {
 
         $sql_   = "SELECT  *
                     FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
-                                tv.verif_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total 
+                                tv.verif_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total, tvs.shop_id 
                             FROM
                                 t_verification tv
                             JOIN
@@ -209,9 +209,18 @@ class Verification_model extends CI_Model {
         foreach ($rows_data as $row) {
             $row->number                = $i;
             $row->total                 = number_format($row->total,0,',','.');
-            $row->actions               = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_id)) . '" class="fw-bolder text-success">
+            // $row->actions               = '<a href="' . site_url('verification/edit/' . $this->crypto->encode($row->verif_id)) . '" class="fw-bolder text-success">
+            //                                     Edit
+            //                                 </a> |
+            //                                 <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_id)) . '" class="fw-bolder text-success">
+            //                                     Detail
+            //                                 </a> |
+            //                                 <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_id)) . '" class="fw-bolder text-danger">
+            //                                     Delete
+            //                                 </a>';
+            $row->actions               = '<button type="button" class="fw-bolder btn btn-clear text-success p-1" onclick="return Actions.btnEdit(\''.$row->verif_id.'\',\''.$row->shop_id.'\',\''.$row->period.'\')">
                                                 Edit
-                                            </a> |
+                                            </button> |
                                             <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_id)) . '" class="fw-bolder text-success">
                                                 Detail
                                             </a> |

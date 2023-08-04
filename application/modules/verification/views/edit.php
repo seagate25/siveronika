@@ -33,7 +33,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                        <input type="text" name="m_verification_no" id="m_verification_no" class="form-control form-control-solid" readonly="true" value="VR2306-001">
+                        <input type="text" name="m_verification_no" id="m_verification_no" class="form-control form-control-solid" readonly="true" value="<?=$verif_no;?>">
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
                     <!--end::Col-->

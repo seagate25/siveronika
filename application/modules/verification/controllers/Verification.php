@@ -58,7 +58,15 @@ class Verification extends CI_Controller {
 
     public function edit()
     {
-        
+        $verif_id   = $this->input->post('verif_id');
+        var_dump($verif_id);exit;
+        $data['title']      = "Verification";
+        $data['menu']       = "Verification";
+        $data['submenu']    = "Detail - Edit Belanja";
+        $data['content']    = "edit";
+        // $data['fields']     = $fields;
+        $data['verif_no']   = $verif_id;
+        $this->load->view('default', $data);
     }
 
     public function get_shop()
