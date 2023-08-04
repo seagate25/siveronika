@@ -152,6 +152,8 @@ class Verification extends CI_Controller {
                 $data_doc   = [];
                 for($i = 1; $i <= $req_doc; $i++) {
 
+                    $doc_id = '';
+
                     if(!empty($_FILES[$shop_id.'_'.$i]['name'])) {
 
                         $path       = 'documents/';
@@ -178,11 +180,10 @@ class Verification extends CI_Controller {
                             );
     
                             $this->verification->insertDoc($upload_data);
+                            $doc_id = $this->verification->lastInsertDoc()->doc_id;
                         }
                         
                     }
-
-                    $doc_id = $this->verification->lastInsertDoc()->doc_id;
 
                     $doc    = [
                         'verif_id'      => $verif_id,

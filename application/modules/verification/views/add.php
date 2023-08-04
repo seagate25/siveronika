@@ -193,7 +193,7 @@
                                                         allowOutsideClick: false,
                                                         customClass: { confirmButton: "btn btn-primary" } 
                                                     }).then(function (t) {
-                                                        t.isConfirmed && document.location = '<?php echo site_url("verification")?>';
+                                                        t.isConfirmed && (document.location = '<?php echo site_url("verification")?>');
                                                     });
                                                 } else {
                                                     e.removeAttribute("data-kt-indicator"),
