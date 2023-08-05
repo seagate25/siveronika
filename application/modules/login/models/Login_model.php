@@ -56,7 +56,7 @@ class Login_model extends CI_Model {
                     
                     // Get Branch Name
                     $branch_data    = [];
-                    $sql_branch     = "SELECT branch_name, branch_description FROM {$this->table_branch} WHERE branch_code = '{$login_data->branch_id}'";
+                    $sql_branch     = "SELECT branch_name, branch_code, branch_description FROM {$this->table_branch} WHERE branch_id = '{$login_data->branch_id}'";
                     $query_branch   = $this->db->query($sql_branch);
                     if($query_branch->num_rows() > 0) {
                         $branch_data    = $query_branch->row();
@@ -89,7 +89,7 @@ class Login_model extends CI_Model {
                         'user_email'        => rtrim($login_data->user_email),
                         'user_description'  => rtrim($login_data->user_description),
                         'logged_in'         => TRUE,
-                        'branch_code'       => rtrim($login_data->branch_id),
+                        'branch_code'       => rtrim($branch_data->branch_code),
                         'branch_name'       => rtrim($branch_data->branch_name),
                         'role_name'         => rtrim($role_data->role_name),
                         'last_activity'     => time()

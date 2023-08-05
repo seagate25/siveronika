@@ -72,7 +72,7 @@ class Verification_model extends CI_Model {
                         FROM 
                             {$this->table_main} tv
                         JOIN
-                            m_branch mb ON (tv.branch_id = mb.branch_id)
+                            m_branch mb ON (tv.branch_id = mb.branch_code)
                         JOIN
                             m_bidang mb2 ON (tv.bidang_id = mb2.bidang_id)
                         JOIN
@@ -102,7 +102,7 @@ class Verification_model extends CI_Model {
                                 FROM 
                                     {$this->table_main} tv
                                 JOIN
-                                    m_branch mb ON (tv.branch_id = mb.branch_id)
+                                    m_branch mb ON (tv.branch_id = mb.branch_code)
                                 JOIN
                                     m_bidang mb2 ON (tv.bidang_id = mb2.bidang_id)
                                 JOIN
@@ -175,7 +175,7 @@ class Verification_model extends CI_Model {
             $where .= " OR tvs.total LIKE '%" . $search['value'] . "%')";
         }
 
-        $sql        = "SELECT tv.verif_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total, tvs.shop_id 
+        $sql        = "SELECT tv.verif_id, tvs.verif_shop_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total, tvs.shop_id 
                         FROM
                             t_verification tv
                         JOIN
@@ -187,7 +187,7 @@ class Verification_model extends CI_Model {
 
         $sql_   = "SELECT  *
                     FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
-                                tv.verif_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total, tvs.shop_id 
+                                tv.verif_id, tvs.verif_shop_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total, tvs.shop_id 
                             FROM
                                 t_verification tv
                             JOIN
@@ -209,22 +209,13 @@ class Verification_model extends CI_Model {
         foreach ($rows_data as $row) {
             $row->number                = $i;
             $row->total                 = number_format($row->total,0,',','.');
-            // $row->actions               = '<a href="' . site_url('verification/edit/' . $this->crypto->encode($row->verif_id)) . '" class="fw-bolder text-success">
-            //                                     Edit
-            //                                 </a> |
-            //                                 <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_id)) . '" class="fw-bolder text-success">
-            //                                     Detail
-            //                                 </a> |
-            //                                 <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_id)) . '" class="fw-bolder text-danger">
-            //                                     Delete
-            //                                 </a>';
-            $row->actions               = '<button type="button" class="fw-bolder btn btn-clear text-success p-1" onclick="return Actions.btnEdit(\''.$row->verif_id.'\',\''.$row->shop_id.'\',\''.$row->period.'\')">
+            $row->actions               = '<a href="' . site_url('verification/edit/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
                                                 Edit
-                                            </button> |
-                                            <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_id)) . '" class="fw-bolder text-success">
+                                            </a> |
+                                            <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
                                                 Detail
                                             </a> |
-                                            <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_id)) . '" class="fw-bolder text-danger">
+                                            <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-danger">
                                                 Delete
                                             </a>';
 
@@ -298,7 +289,7 @@ class Verification_model extends CI_Model {
     {
         $sql    = " SELECT tv.verif_no, mb.bidang_code, mb.bidang_name, mb2.branch_code, mb2.branch_name
                     FROM t_verification tv
-                    JOIN m_bidang mb ON (tv.bidang_id = mb.bidang_code)
+                    JOIN m_bidang mb ON (tv.bidang_id = mb.bidang_id)
                     JOIN m_branch mb2 ON (tv.branch_id = mb2.branch_code)
                     WHERE tv.verif_no = '{$verif_no}' ";
         $query  = $this->db->query($sql);

@@ -149,10 +149,11 @@ class Verification extends CI_Controller {
             $verif_id   = $detail->verif_id;
 
             $data_shop  = [
-                'verif_id'  => $verif_id,
-                'shop_id'   => $shop_id,
-                'period'    => $periode,
-                'total'     => $total
+                'verif_shop_id' => 'NEWID()',
+                'verif_id'      => $verif_id,
+                'shop_id'       => $shop_id,
+                'period'        => $periode,
+                'total'         => $total
             ];
 
             $insertDetail   = $this->verification->insertDetail($data_shop);
@@ -194,11 +195,12 @@ class Verification extends CI_Controller {
                     }
 
                     $doc    = [
-                        'verif_id'      => $verif_id,
-                        'shop_id'       => $shop_id,
-                        'shop_sequence' => $i,
-                        'doc_id'        => $doc_id,
-                        'notes'         => $this->input->post('notes_'.$i)
+                        'verif_shop_det_id' => 'NEWID()',
+                        'verif_id'          => $verif_id,
+                        'shop_id'           => $shop_id,
+                        'shop_sequence'     => $i,
+                        'doc_id'            => $doc_id,
+                        'notes'             => $this->input->post('notes_'.$i)
                     ];
                     $data_doc[] = $doc;
                 }

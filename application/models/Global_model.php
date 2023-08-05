@@ -138,7 +138,7 @@ class Global_model extends CI_Model
             $j  = 0;
             $values .= "(";
             foreach ($row as $val) {
-                $values .= ($val !== 'NULL') ? "'{$val}'" : "NULL";
+                $values .= ($val !== 'NULL') ? (($val == 'NEWID()') ? "NEWID()" : "'{$val}'") : "NULL";
                 $values .= ($j === (count($row) - 1)) ? "" : ", ";
                 $j++;
             }
