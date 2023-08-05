@@ -329,6 +329,14 @@ class Verification_model extends CI_Model {
 
         return $result;
     }
+
+    public function lastInsertDetail()
+    {
+        $sql    = "SELECT TOP 1 * FROM {$this->table_sub_1} ORDER BY create_date DESC";
+        $query  = $this->db->query($sql);
+
+        return $query->row();
+    }
     
     public function insertReqDoc(Array $data = [])
     {
@@ -355,6 +363,33 @@ class Verification_model extends CI_Model {
     {
         $sql    = "SELECT TOP 1 * FROM t_doc ORDER BY create_date DESC";
         $query  = $this->db->query($sql);
+
+        return $query->row();
+    }
+    
+    public function getDetailVerifItem(String $id = '')
+    {
+        $sql = "SELECT
+                    tv.verif_id,
+                    tv.verif_no,
+                    tvs.period,
+                    tvs.shop_id,
+                    tvs.total,
+                    mb.bidang_code,
+                    mb.bidang_name,
+                    ms.shop_type,
+                    ms.shop_name 
+                FROM
+                    t_verification_shop tvs
+                JOIN
+                    t_verification tv ON (tvs.verif_id = tv.verif_id)
+                JOIN 
+                    m_bidang mb ON (tv.bidang_id = mb.bidang_id)
+                JOIN 
+                    m_shop ms ON (tvs.shop_id = ms.shop_id)
+                WHERE
+                    tvs.verif_shop_id = '{$id}'";
+        $query = $this->db->query($sql);
 
         return $query->row();
     }

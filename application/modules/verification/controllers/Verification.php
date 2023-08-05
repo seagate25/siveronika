@@ -58,14 +58,17 @@ class Verification extends CI_Controller {
 
     public function edit()
     {
-        $verif_id   = $this->input->post('verif_id');
-        var_dump($verif_id);exit;
+        $id     = $this->crypto->decode($this->uri->segment(3));
+        $fields = $this->verification->getBidangList();
+        $shops  = $this->verification->getShopList('GU');
+
         $data['title']      = "Verification";
         $data['menu']       = "Verification";
-        $data['submenu']    = "Detail - Edit Belanja";
+        $data['submenu']    = "Detail - Edit";
         $data['content']    = "edit";
-        // $data['fields']     = $fields;
-        $data['verif_no']   = $verif_id;
+        $data['fields']     = $fields;
+        $data['shops']      = $shops;
+        $data['verif_data'] = $this->verification->getDetailVerifItem($id);
         $this->load->view('default', $data);
     }
 
@@ -147,21 +150,23 @@ class Verification extends CI_Controller {
         if($insertHead > 0) {
             $detail     = $this->verification->getDetail($verif_no);
             $verif_id   = $detail->verif_id;
-
+            $detail_id  = '';
             $data_shop  = [
                 'verif_shop_id' => 'NEWID()',
                 'verif_id'      => $verif_id,
                 'shop_id'       => $shop_id,
                 'period'        => $periode,
-                'total'         => $total
+                'total'         => $total,
+                'create_by'     => $this->session->userdata('user_name')
             ];
 
             $insertDetail   = $this->verification->insertDetail($data_shop);
+            $detail_id      = $this->verification->lastInsertDetail()->verif_shop_id;
             if($insertDetail > 0) {
                 $data_doc   = [];
                 for($i = 1; $i <= $req_doc; $i++) {
 
-                    $doc_id = '';
+                    $doc_id = 'NULL';
 
                     if(!empty($_FILES[$shop_id.'_'.$i]['name'])) {
 
@@ -196,11 +201,16 @@ class Verification extends CI_Controller {
 
                     $doc    = [
                         'verif_shop_det_id' => 'NEWID()',
+                        'verif_shop_id'     => $detail_id,
                         'verif_id'          => $verif_id,
                         'shop_id'           => $shop_id,
                         'shop_sequence'     => $i,
                         'doc_id'            => $doc_id,
-                        'notes'             => $this->input->post('notes_'.$i)
+                        'notes'             => $this->input->post('notes_'.$i),
+                        'update_date'       => 'NULL',
+                        'update_by'         => 'NULL',
+                        'create_date'       => date('Y-m-d H:i:s.v'),
+                        'create_by'         => $this->session->userdata('user_name'),
                     ];
                     $data_doc[] = $doc;
                 }

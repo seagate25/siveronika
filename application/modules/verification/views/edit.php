@@ -12,7 +12,7 @@
 <div class="card shadow-sm">
     <div class="card-header bg-success">
         <div class="card-toolbar">
-            <a href="<?php echo site_url('verification'); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
+            <a href="<?php echo site_url('verification/detail/'.$this->crypto->encode($verif_data->verif_no)); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
                 <i class="las la-arrow-left fw-bolder fs-1 text-danger"></i>
             </a>
         </div>
@@ -33,7 +33,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                        <input type="text" name="m_verification_no" id="m_verification_no" class="form-control form-control-solid" readonly="true" value="<?=$verif_no;?>">
+                        <input type="text" name="m_verification_no" id="m_verification_no" class="form-control form-control-solid" readonly="true" value="<?=$verif_data->verif_no;?>">
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
                     <!--end::Col-->
@@ -49,8 +49,8 @@
                     <div class="col-lg-2 fv-row fv-plugins-icon-container">
                         <select class="form-select form-select-solid" name="m_type" id="m_type">
                             <option></option>
-                            <option value="GU">GU</option>
-                            <option value="LS">LS</option>
+                            <option value="GU" <?=($verif_data->shop_type == 'GU') ? 'selected' : ''?>>GU</option>
+                            <option value="LS" <?=($verif_data->shop_type == 'LS') ? 'selected' : ''?>>LS</option>
                         </select>
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
@@ -69,7 +69,7 @@
                             <?php
                                 foreach($fields as $field) {
                             ?>
-                            <option value="<?=$field->bidang_code;?>">[<?=$field->bidang_code;?>] <?=$field->bidang_name;?></option>
+                            <option value="<?=$field->bidang_code;?>" <?=($verif_data->bidang_code == $field->bidang_code) ? 'selected' : ''?>>[<?=$field->bidang_code;?>] <?=$field->bidang_name;?></option>
                             <?php
                                 }
                             ?>
@@ -88,6 +88,13 @@
                     <div class="col-lg-6 fv-row fv-plugins-icon-container">
                         <select class="form-select form-select-solid" name="m_shop" id="m_shop">
                             <option></option>
+                            <?php
+                                foreach($shops as $shop) {
+                            ?>
+                            <option value="<?=$shop->shop_id;?>" <?=($verif_data->shop_id == $shop->shop_id) ? 'selected' : ''?>><?=$shop->shop_name;?></option>
+                            <?php
+                                }
+                            ?>
                         </select>
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
@@ -154,10 +161,6 @@
                 $("#m_type").select2({
                     placeholder: 'Pilih Tipe Belanja',
                     minimumResultsForSearch: -1
-                }),
-                $("#m_type").on('select2:select', function(e) {
-                    var id  = e.params.data.id;
-                    Select2.init_m_shop(id);
                 });
             },
             init_m_bidang: function() {
@@ -167,45 +170,7 @@
             },
             init_m_shop: function(type) {
                 $("#m_shop").select2({
-                    placeholder: 'Pilih Belanja',
-                    ajax: {
-                        url: "<?php echo site_url('verification/get_shop'); ?>",
-                        dataType: "json",
-                        type: "POST",
-                        data: function (params) {
-
-                            var queryParameters = {
-                                term: type
-                            }
-                            return queryParameters;
-                        },
-                        processResults: function (data) {
-                            return {
-                                results: $.map(data, function (item) {
-                                    return {
-                                        text: item.shop_name,
-                                        id: item.shop_id
-                                    }
-                                })
-                            };
-                        }
-                    }
-                });
-            },
-            onselect_m_shop: function() {
-                $("#m_shop").on('select2:select', function(e) {
-                    var id = e.params.data.id;
-                    $.ajax({
-                        type: "POST",
-                        url: "<?php echo site_url('verification/get_require_docs'); ?>",
-                        data: { shop_id: id },
-                        success: function(response) {
-                            docs = [];
-                            var obj = jQuery.parseJSON(response);
-                            docs = obj;
-                            KTDataTables.init(docs);
-                        }
-                    })
+                    placeholder: 'Pilih Belanja'
                 });
             }
         }
@@ -288,7 +253,8 @@
                     precision: 0,
                     allowZero: !0,
                     prefix: 'Rp. '
-                });
+                }),
+                $("#m_price").maskMoney('mask', <?=$verif_data->total?>);
             }
         }
     })();
@@ -297,7 +263,6 @@
         Select2.init_m_type();
         Select2.init_m_shop();
         Select2.init_m_bidang();
-        Select2.onselect_m_shop();
         Daterangepicker.init_m_period();
         Maskmoney.init_m_price();
         KTDataTables.init(docs);
