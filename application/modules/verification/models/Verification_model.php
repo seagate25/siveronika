@@ -72,9 +72,9 @@ class Verification_model extends CI_Model {
                         FROM 
                             {$this->table_main} tv
                         JOIN
-                            m_branch mb ON (tv.branch_id = mb.branch_code)
+                            m_branch mb ON (tv.branch_id = mb.branch_id)
                         JOIN
-                            m_bidang mb2 ON (tv.bidang_id = mb2.bidang_code)
+                            m_bidang mb2 ON (tv.bidang_id = mb2.bidang_id)
                         JOIN
                             (
                                 SELECT 
@@ -102,9 +102,9 @@ class Verification_model extends CI_Model {
                                 FROM 
                                     {$this->table_main} tv
                                 JOIN
-                                    m_branch mb ON (tv.branch_id = mb.branch_code)
+                                    m_branch mb ON (tv.branch_id = mb.branch_id)
                                 JOIN
-                                    m_bidang mb2 ON (tv.bidang_id = mb2.bidang_code)
+                                    m_bidang mb2 ON (tv.bidang_id = mb2.bidang_id)
                                 JOIN
                                     (
                                         SELECT 
@@ -247,7 +247,7 @@ class Verification_model extends CI_Model {
      */
     public function getBidangList()
     {
-        $sql    = "SELECT bidang_code, bidang_name FROM m_bidang WHERE bidang_status = 1 ORDER BY bidang_code ASC";
+        $sql    = "SELECT bidang_id, bidang_code, bidang_name FROM m_bidang WHERE bidang_status = 1 ORDER BY bidang_code ASC";
         $query  = $this->db->query($sql);
         $result = $query->result();
 

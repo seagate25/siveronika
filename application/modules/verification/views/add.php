@@ -69,7 +69,7 @@
                             <?php
                                 foreach($fields as $field) {
                             ?>
-                            <option value="<?=$field->bidang_code;?>">[<?=$field->bidang_code;?>] <?=$field->bidang_name;?></option>
+                            <option value="<?=$field->bidang_id;?>">[<?=$field->bidang_code;?>] <?=$field->bidang_name;?></option>
                             <?php
                                 }
                             ?>
