@@ -59,8 +59,16 @@ class Verification extends CI_Controller {
     public function edit()
     {
         $id     = $this->crypto->decode($this->uri->segment(3));
+        if($this->input->is_ajax_request())
+        {
+            $uploadedDetailDocs = $this->verification->getUploadedDetailDoc($id);
+            echo json_encode($uploadedDetailDocs, JSON_PRETTY_PRINT);
+            exit;
+        }
+        
         $fields = $this->verification->getBidangList();
         $shops  = $this->verification->getShopList('GU');
+        $uploadedDetailDocs = $this->verification->getUploadedDetailDoc($id);
 
         $data['title']      = "Verification";
         $data['menu']       = "Verification";
@@ -68,6 +76,7 @@ class Verification extends CI_Controller {
         $data['content']    = "edit";
         $data['fields']     = $fields;
         $data['shops']      = $shops;
+        $data['docs']       = json_encode($uploadedDetailDocs, JSON_PRETTY_PRINT);
         $data['verif_data'] = $this->verification->getDetailVerifItem($id);
         $this->load->view('default', $data);
     }

@@ -371,6 +371,7 @@ class Verification_model extends CI_Model {
     {
         $sql = "SELECT
                     tv.verif_id,
+                    tvs.verif_shop_id,
                     tv.verif_no,
                     tvs.period,
                     tvs.shop_id,
@@ -392,6 +393,51 @@ class Verification_model extends CI_Model {
         $query = $this->db->query($sql);
 
         return $query->row();
+    }
+
+    /**
+     * Get Uploaded Detail Document
+     *
+     * @param string $verif_shop_id
+     * @return array
+     */
+    public function getUploadedDetailDoc(String $verif_shop_id = '')
+    {
+        $sql = "SELECT
+                    tvsd.verif_shop_det_id,
+                    tvsd.verif_shop_id,
+                    tvsd.shop_sequence,
+                    ms.shop_type,
+                    msd.shop_detail,
+                    CONCAT(td.doc_filename + '.', NULL + ' ', td.doc_type) doc_id,
+                    tvsd.notes,
+                    tvsd.shop_id
+                FROM
+                    t_verification_shop_det tvsd
+                JOIN
+                    m_shop_det msd ON (tvsd.shop_id = msd.shop_id AND tvsd.shop_sequence = msd.shop_sequence)
+                JOIN 
+                    m_shop ms ON (ms.shop_id = msd.shop_id)
+                LEFT JOIN
+                    t_doc td ON (tvsd.doc_id = td.doc_id)
+                WHERE
+                    tvsd.verif_shop_id = '{$verif_shop_id}'
+                ORDER BY
+                    tvsd.shop_sequence ASC";
+        $query  = $this->db->query($sql);
+        $result = $query->result();
+
+        foreach($result as $row) {
+            if($row->doc_id == '' && $row->notes == '') {
+                $row->action = '';
+            } else {
+                $row->action = '<button class="btn btn-clear text-success fw-bolder">Edit</button>';
+            }
+        }
+
+        return array(
+            'data' => $result
+        );
     }
 
 }

@@ -47,7 +47,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-2 fv-row fv-plugins-icon-container">
-                        <select class="form-select form-select-solid" name="m_type" id="m_type">
+                        <select class="form-select form-select-solid" name="m_type" id="m_type" disabled="true">
                             <option></option>
                             <option value="GU" <?=($verif_data->shop_type == 'GU') ? 'selected' : ''?>>GU</option>
                             <option value="LS" <?=($verif_data->shop_type == 'LS') ? 'selected' : ''?>>LS</option>
@@ -64,7 +64,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                        <select class="form-select form-select-solid" name="m_bidang" id="m_bidang">
+                        <select class="form-select form-select-solid" name="m_bidang" id="m_bidang" disabled="true">
                             <option></option>
                             <?php
                                 foreach($fields as $field) {
@@ -86,7 +86,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                        <select class="form-select form-select-solid" name="m_shop" id="m_shop">
+                        <select class="form-select form-select-solid" name="m_shop" id="m_shop" disabled="true">
                             <option></option>
                             <?php
                                 foreach($shops as $shop) {
@@ -153,7 +153,10 @@
 <script type="text/javascript">
     "use strict";
 
-    var docs = [];
+    var docs = null;
+    var doc_id = '';
+    var notes = '';
+    var btn = '';
 
     var Select2 = (function() {
         return {
@@ -185,24 +188,64 @@
                     serverSide:!1,
                     destroy: !0,
                     paging: !0,
-                    data: x,
+                    ajax: {
+                        type: "GET",
+                        url: "<?php echo site_url('verification/edit/') ?>" + '<?=$this->uri->segment(3);?>'
+                    },
                     columns: [
                         { data: 'shop_sequence', className: 'text-center', sortable: false, searchable: false, orderable: false },
                         { data: 'shop_type', className: 'text-center', sortable: false, searchable: false, orderable: false },
                         { data: 'shop_detail', className: 'text-left' },
-                        { data: 'doc', className: 'text-center', sortable: false, searchable: false, orderable: false },
-                        { data: 'notes', className: 'text-center', sortable: false, searchable: false, orderable: false },
-                        { data: 'action', className: 'text-center', sortable: false, searchable: false, orderable: false,
-                            render: function (data, type, row, meta) {
-                                return '<a href="" class="text-success fw-bolder">Edit</a>';
+                        { data: 'doc_id', className: 'text-center', sortable: false, searchable: false, orderable: false,
+                            render: function(data, type, row, meta) {
+                                if(data !== '') {
+                                    return data;
+                                } else {
+                                    return '<input type="file" name="'+row.shop_id+'_'+row.shop_sequence+'">';
+                                }
                             }
                         },
+                        { data: 'notes', className: 'text-center', sortable: false, searchable: false, orderable: false,
+                            render: function (data, type, row, meta) {
+                                if(data !== '') {
+                                    return data;
+                                } else {
+                                    return '<input type="text" name="notes_'+row.shop_sequence+'">';
+                                }
+                            }
+                        },
+                        { data: 'action', className: 'text-center', sortable: false, searchable: false, orderable: false },
                     ],
                     lengthMenu: [
                             [5, 10, 15, 25, -1],
                             [5, 10, 15, 25, "All"]
                         ],
                     pageLength: 10
+                }),
+                table.on('click', 'button', function (e) {
+                    e.preventDefault();
+                    let index = $(this).closest('tr').index();
+                    let allData = table.data();
+                    let data = table.row(e.target.closest('tr')).data();
+                    console.log(docs);
+                    let str = data.action;
+                    if(str.indexOf("text-success") >= 0) {
+                        if(data.doc_id !== '') {
+                            data.doc_id = '';
+                        }
+                        if(data.notes !== '') {
+                            data.notes = '';
+                        }
+                        if(data.action !== '') {
+                            data.action = data.action = '<button class="btn btn-clear text-danger fw-bolder">Batal</button>';
+                        }
+                    } else if(str.indexOf("text-danger") >= 0) {
+                        data.doc_id = docs.data[index].doc_id;
+                        data.notes = docs.data[index].notes;
+                        data.action = docs.data[index].action;
+                    }
+                    
+                    table.row(index).data(data);
                 });
             }
         };
@@ -260,11 +303,12 @@
     })();
 
     KTUtil.onDOMContentLoaded((function() {
+        docs = <?=$docs?>;
         Select2.init_m_type();
         Select2.init_m_shop();
         Select2.init_m_bidang();
         Daterangepicker.init_m_period();
         Maskmoney.init_m_price();
-        KTDataTables.init(docs);
+        KTDataTables.init();
     }));
 </script>
