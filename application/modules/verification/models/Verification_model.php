@@ -60,10 +60,15 @@ class Verification_model extends CI_Model {
         
         if($this->session->userdata('isApprove') !== '1') {
 
-            $where .= " WHERE tv.user_id = '{$this->user_id}'";
+            if($this->session->userdata('role_name') == 'Initiator') {
+                
+                $where .= " WHERE tv.user_id = '{$this->user_id}'";
+                
+            }
 
         } else {
-            if($this->session->userdata('role_name') == 'Verifikator') {
+
+            if($this->session->userdata('role_name') == 'Verifikator' || $this->session->userdata('role_name') == 'Bendahara') {
 
                 $bidang_list    = $this->session->userdata('bidang_user');
 
@@ -81,13 +86,14 @@ class Verification_model extends CI_Model {
                 }
                 $bidang =  "(" . $value . ")";
 
-                $where .= " WHERE tv.bidang_id IN {$bidang}";
+                $where .= " WHERE (tv.bidang_id IN {$bidang} AND tv.branch_id = '{$this->branch_code}')";
                 
             } else if($this->session->userdata('role_name') == 'Verifikator Admin' || $this->session->userdata('role_name') == 'Bendahara Admin') {
 
                 $where .= " WHERE tv.branch_id = '{$this->branch_code}'";
 
             }
+
         }
 
         if (!empty($search['value'])) {

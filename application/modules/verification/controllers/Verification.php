@@ -168,7 +168,6 @@ class Verification extends CI_Controller {
             'user_id'       => $this->session->userdata('user_id'),
             'user_name'     => $this->session->userdata('user_name'),
             'branch_id'     => $this->session->userdata('branch_code'),
-            // 'create_date'   => date('Y-m-d H:i:s.v'),
             'create_by'     => $this->session->userdata('user_name')
         ];
 
@@ -183,7 +182,6 @@ class Verification extends CI_Controller {
                 'shop_id'       => $shop_id,
                 'period'        => $periode,
                 'total'         => $total,
-                // 'create_date'   => date('Y-m-d H:i:s.v'),
                 'create_by'     => $this->session->userdata('user_name')
             ];
 
@@ -237,6 +235,10 @@ class Verification extends CI_Controller {
                         'shop_sequence'     => $i,
                         'doc_id'            => $doc_id,
                         'notes'             => $this->input->post('notes_'.$i),
+                        'approval_status'   => 'NULL',
+                        'approval_note'     => 'NULL',
+                        'approval_date'     => 'NULL',
+                        'approval_userid'   => 'NULL',
                         'update_date'       => 'NULL',
                         'update_by'         => 'NULL',
                         'create_date'       => $time,
@@ -306,7 +308,6 @@ class Verification extends CI_Controller {
                 'shop_id'       => $shop_id,
                 'period'        => $periode,
                 'total'         => $total,
-                // 'create_date'   => date('Y-m-d H:i:s.v'),
                 'create_by'     => $this->session->userdata('user_name')
             ];
 
@@ -360,6 +361,10 @@ class Verification extends CI_Controller {
                         'shop_sequence'     => $i,
                         'doc_id'            => $doc_id,
                         'notes'             => $this->input->post('notes_'.$i),
+                        'approval_status'   => 'NULL',
+                        'approval_note'     => 'NULL',
+                        'approval_date'     => 'NULL',
+                        'approval_userid'   => 'NULL',
                         'update_date'       => 'NULL',
                         'update_by'         => 'NULL',
                         'create_date'       => $time,
