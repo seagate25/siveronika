@@ -69,6 +69,12 @@
             </thead>
         </table>
     </div>
+    <!--begin::Card footer-->
+    <div class="card-footer d-flex justify-content-end py-6 px-9">
+            <button type="button" class="btn btn-primary me-2" id="btn_draft">Save Draft</button>
+            <button type="button" class="btn btn-primary" id="btn_submit">Submit</button>
+        </div>
+        <!--end::Card footer-->
 </div>
 <script type="text/javascript">
     "use strict";

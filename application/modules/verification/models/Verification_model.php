@@ -182,7 +182,7 @@ class Verification_model extends CI_Model {
         foreach ($rows_data as $row) {
             $row->number                = $i;
             $row->verif_request_date    = ($row->verif_request_date == NULL) ? '-' : $row->verif_request_date;
-            $row->verif_status          = ($row->verif_status == NULL) ? 'DRAFT' : $row->verif_status;
+            $row->verif_status          = $row->verif_status;
             $row->total                 = number_format($row->total,0,',','.');
             $row->actions               = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="fw-bolder text-success">
                                                 Detail
