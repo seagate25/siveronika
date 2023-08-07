@@ -1,3 +1,8 @@
+<style>
+    .card-header{
+        background-color:#460046 !important;
+    }
+</style>
 <div class="card shadow-sm">
     <div class="card-header bg-success">
         <h3 class="card-title text-white"><?php echo $title; ?></h3>
