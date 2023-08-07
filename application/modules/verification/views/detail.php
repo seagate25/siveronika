@@ -13,7 +13,7 @@
         </div>
         <h3 class="card-title text-white">Summary Detail</h3>
         <div class="card-toolbar">
-            <a href="<?php echo site_url('verification/edit'); ?>" class="btn btn-sm btn-bg-white me-2 mb-2">
+            <a href="<?php echo site_url('verification/add_item/'.$this->crypto->encode($verif_data->verif_no)); ?>" class="btn btn-sm btn-bg-white me-2 mb-2">
                 Tambah Belanja
             </a>
         </div>

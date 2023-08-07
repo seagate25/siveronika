@@ -15,6 +15,10 @@ class Verification_model extends CI_Model {
     protected $table_sub_1;
     protected $table_sub_2;
 
+    protected $user_id;
+
+    protected $branch_code;
+
     public function __construct()
     {
         parent::__construct();
@@ -23,6 +27,8 @@ class Verification_model extends CI_Model {
         $this->table_main   = 't_verification';
         $this->table_sub_1  = 't_verification_shop';
         $this->table_sub_2  = 't_verification_shop_det';
+        $this->user_id      = $this->session->userdata('user_id');
+        $this->branch_code  = $this->session->userdata('branch_code');
     }
 
     /**
@@ -51,8 +57,46 @@ class Verification_model extends CI_Model {
 
         $order_column = $field[$order_column];
         $where = "";
+        
+        if($this->session->userdata('isApprove') !== '1') {
+
+            $where .= " WHERE tv.user_id = '{$this->user_id}'";
+
+        } else {
+            if($this->session->userdata('role_name') == 'Verifikator') {
+
+                $bidang_list    = $this->session->userdata('bidang_user');
+
+                $i      = 0;
+                $value  = "";
+                foreach($bidang_list as $bidang) {
+                    $value .= "'{$bidang->bidang_id}'";
+                    if ($i === (count($bidang_list) - 1)) {
+                        $value  .= "";
+                    } else {
+                        $value  .= ", ";
+                    }
+
+                    $i++;
+                }
+                $bidang =  "(" . $value . ")";
+
+                $where .= " WHERE tv.bidang_id IN {$bidang}";
+                
+            } else if($this->session->userdata('role_name') == 'Verifikator Admin' || $this->session->userdata('role_name') == 'Bendahara Admin') {
+
+                $where .= " WHERE tv.branch_id = '{$this->branch_code}'";
+
+            }
+        }
+
         if (!empty($search['value'])) {
-            $where .= " WHERE (tv.verif_no LIKE '%" . $search['value'] . "%'";
+
+            if(!empty($where)) {
+                $where .= " AND (tv.verif_no LIKE '%" . $search['value'] . "%'";
+            } else {
+                $where .= " WHERE (tv.verif_no LIKE '%" . $search['value'] . "%'";
+            }
             $where .= " OR branch_name LIKE '%" . $search['value'] . "%'";
             $where .= " OR tv.verif_request_date LIKE '%" . $search['value'] . "%'";
             $where .= " OR tbl1.shop_type LIKE '%" . $search['value'] . "%'";
@@ -287,7 +331,7 @@ class Verification_model extends CI_Model {
      */
     public function getVerifDetail(String $verif_no = '')
     {
-        $sql    = " SELECT tv.verif_no, mb.bidang_code, mb.bidang_name, mb2.branch_code, mb2.branch_name
+        $sql    = " SELECT tv.verif_id, tv.verif_no, mb.bidang_code, mb.bidang_name, mb2.branch_code, mb2.branch_name
                     FROM t_verification tv
                     JOIN m_bidang mb ON (tv.bidang_id = mb.bidang_id)
                     JOIN m_branch mb2 ON (tv.branch_id = mb2.branch_code)
@@ -438,6 +482,13 @@ class Verification_model extends CI_Model {
         return array(
             'data' => $result
         );
+    }
+
+    public function updateHead(Array $params = [], Array $data = [])
+    {
+        $result = $this->global->update($this->table_main, $params, $data);
+
+        return $result;
     }
 
 }

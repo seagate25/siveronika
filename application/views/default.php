@@ -188,7 +188,7 @@
 													<!--end::Avatar-->
 													<!--begin::Username-->
 													<div class="d-flex flex-column">
-														<div class="fw-bolder d-flex align-items-center fs-7"><?php echo $this->session->userdata('user_description'); ?>
+														<div class="fw-bolder d-flex align-items-center fs-7"><?php echo $this->session->userdata('role_name'); ?>
 															<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"><?php echo $this->session->userdata('branch_name'); ?></span>
 														</div>
 														<a class="fw-bold text-muted text-hover-primary fs-8"><?php echo $this->session->userdata('user_email'); ?></a>

@@ -12,15 +12,17 @@ class Login_model extends CI_Model {
     protected $table_user;
     protected $table_branch;
     protected $table_role;
+    protected $table_bidang_user;
     protected $pass;
 
     public function __construct()
     {
         parent::__construct();
-        $this->table_user   = "m_user";
-        $this->table_branch = "m_branch";
-        $this->table_role   = "m_role";
-        $this->pass         = "";
+        $this->table_user           = "m_user";
+        $this->table_branch         = "m_branch";
+        $this->table_role           = "m_role";
+        $this->table_bidang_user    = "m_user_bidang";
+        $this->pass                 = "";
     }
     
     /**
@@ -82,6 +84,14 @@ class Login_model extends CI_Model {
                         $role_data    = (object) $role_data;
                     }
 
+                    // Get Bidang List
+                    $bidang_data    = [];
+                    $sql_bidang     = "SELECT bidang_id FROM {$this->table_bidang_user} WHERE user_id = '{$login_data->user_id}'";
+                    $query_bidang   = $this->db->query($sql_bidang);
+                    if($query_bidang->num_rows() > 0) {
+                        $bidang_data    = $query_bidang->result();
+                    }
+
                     // Set Session
                     $user_session   = [
                         'user_id'           => $login_data->user_id,
@@ -89,10 +99,13 @@ class Login_model extends CI_Model {
                         'user_email'        => rtrim($login_data->user_email),
                         'user_description'  => rtrim($login_data->user_description),
                         'logged_in'         => TRUE,
+                        'branch_id'         => $login_data->branch_id,
                         'branch_code'       => rtrim($branch_data->branch_code),
                         'branch_name'       => rtrim($branch_data->branch_name),
                         'role_name'         => rtrim($role_data->role_name),
-                        'last_activity'     => time()
+                        'last_activity'     => time(),
+                        'isApprove'         => $login_data->is_approval,
+                        'bidang_user'       => $bidang_data
                     ];
 
                     $this->session->set_userdata($user_session);
