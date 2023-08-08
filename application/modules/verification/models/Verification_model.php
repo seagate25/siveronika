@@ -204,13 +204,19 @@ class Verification_model extends CI_Model {
             $row->verif_request_date    = ($row->verif_request_date == NULL) ? '-' : $row->verif_request_date;
             if($this->session->userdata('role_name') == 'Bendahara') {
                 $row->verif_status          = ($row->verif_status == 'COMPLETED') ? '' : $row->verif_status;
-            } else {
-                $row->verif_status          = $row->verif_status;   
-            }
-            $row->total                 = number_format($row->total,0,',','.');
-            $row->actions               = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="fw-bolder text-success">
+                $row->actions               = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="fw-bolder text-primary">
+                                                Decision
+                                            </a>
+                                            <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="fw-bolder text-success">
                                                 Detail
                                             </a>';
+            } else {
+                $row->verif_status          = $row->verif_status;
+                $row->actions               = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="fw-bolder text-success">
+                                                Detail
+                                            </a>';
+            }
+            $row->total                 = number_format($row->total,0,',','.');
 
             $rows[] = $row;
             $i++;
