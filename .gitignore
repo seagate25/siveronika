@@ -31,3 +31,16 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/results/
 application/config/autoload.php
 application/config/config.php
+.vscode/launch.json
+application/modules/dashboard/views/index.php
+documents/lorem-ipsum_-_1.pdf
+documents/lorem-ipsum_-_2.pdf
+documents/lorem-ipsum_-_3.pdf
+documents/lorem-ipsum_-_4.pdf
+documents/lorem-ipsum_-_5.pdf
+documents/lorem-ipsum_-_11.pdf
+documents/lorem-ipsum_-_12.pdf
+documents/lorem-ipsum_-_21.pdf
+documents/lorem-ipsum_-_22.pdf
+documents/lorem-ipsum_-_31.pdf
+documents/lorem-ipsum_-_32.pdf
