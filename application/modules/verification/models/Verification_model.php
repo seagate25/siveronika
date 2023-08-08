@@ -68,7 +68,7 @@ class Verification_model extends CI_Model {
 
         } else {
 
-            if($this->session->userdata('role_name') == 'Verifikator' || $this->session->userdata('role_name') == 'Bendahara') {
+            if($this->session->userdata('role_name') == 'Verifikator') {
 
                 $bidang_list    = $this->session->userdata('bidang_user');
 
@@ -86,7 +86,27 @@ class Verification_model extends CI_Model {
                 }
                 $bidang =  "(" . $value . ")";
 
-                $where .= " WHERE (tv.bidang_id IN {$bidang} AND tv.branch_id = '{$this->branch_code}')";
+                $where .= " WHERE (tv.bidang_id IN {$bidang} AND tv.branch_id = '{$this->branch_code}' AND tv.verif_status <> 'DRAFT')";
+                
+            } else if($this->session->userdata('role_name') == 'Bendahara') {
+
+                $bidang_list    = $this->session->userdata('bidang_user');
+
+                $i      = 0;
+                $value  = "";
+                foreach($bidang_list as $bidang) {
+                    $value .= "'{$bidang->bidang_id}'";
+                    if ($i === (count($bidang_list) - 1)) {
+                        $value  .= "";
+                    } else {
+                        $value  .= ", ";
+                    }
+
+                    $i++;
+                }
+                $bidang =  "(" . $value . ")";
+
+                $where .= " WHERE (tv.bidang_id IN {$bidang} AND tv.branch_id = '{$this->branch_code}' AND tv.verif_status IN ('COMPLETED', 'VERIFIED', 'REJECTED'))";
                 
             } else if($this->session->userdata('role_name') == 'Verifikator Admin' || $this->session->userdata('role_name') == 'Bendahara Admin') {
 
@@ -225,7 +245,7 @@ class Verification_model extends CI_Model {
             $where .= " OR tvs.total LIKE '%" . $search['value'] . "%')";
         }
 
-        $sql        = "SELECT tv.verif_id, tvs.verif_shop_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total, tvs.shop_id 
+        $sql        = "SELECT tv.verif_id, tvs.verif_shop_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total, tvs.shop_id, tv.verif_status 
                         FROM
                             t_verification tv
                         JOIN
@@ -237,7 +257,7 @@ class Verification_model extends CI_Model {
 
         $sql_   = "SELECT  *
                     FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
-                                tv.verif_id, tvs.verif_shop_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total, tvs.shop_id 
+                                tv.verif_id, tvs.verif_shop_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total, tvs.shop_id, tv.verif_status 
                             FROM
                                 t_verification tv
                             JOIN
@@ -259,7 +279,14 @@ class Verification_model extends CI_Model {
         foreach ($rows_data as $row) {
             $row->number                = $i;
             $row->total                 = number_format($row->total,0,',','.');
-            $row->actions               = '<a href="' . site_url('verification/edit/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
+            if($row->verif_status == 'SUBMITTED') {
+                
+                $row->actions               = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
+                                                Detail';
+                                            
+            } else {
+
+                $row->actions               = '<a href="' . site_url('verification/edit/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
                                                 Edit
                                             </a> |
                                             <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
@@ -268,6 +295,138 @@ class Verification_model extends CI_Model {
                                             <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-danger">
                                                 Delete
                                             </a>';
+                                        
+            }
+            
+
+            $rows[] = $row;
+            $i++;
+        }
+
+        return array(
+            'draw' => $draw,
+            'recordsTotal' => $records_total,
+            'recordsFiltered' => $records_total,
+            'data' => $rows,
+        );
+    }
+
+    public function getVerifDetailListApprove(String $verif_no = '')
+    {
+        $start = $this->input->post('start');
+        $length = $this->input->post('length') != -1 ? $this->input->post('length') : 10;
+        $draw = $this->input->post('draw');
+        $search = $this->input->post('search');
+        $order = $this->input->post('order');
+        $order_column = $order[0]['column'];
+        $order_dir = strtoupper($order[0]['dir']);
+        $field  = array(
+            1 => 'ms.shop_type',
+            2 => 'ms.shop_name',
+            3 => 'tvs.period',
+            4 => 'tvs.total',
+            5 => 'vstatus'
+        );
+
+        $order_column = $field[$order_column];
+        $where = "";
+        if (!empty($search['value'])) {
+            $where .= " WHERE (ms.shop_type LIKE '%" . $search['value'] . "%'";
+            $where .= " OR ms.shop_name LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tvs.period LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tvs.total LIKE '%" . $search['value'] . "%')";
+        }
+
+        $sql        = "SELECT 
+                            tv.verif_id, 
+                            tvs.verif_shop_id, 
+                            ms.shop_type, 
+                            ms.shop_name, 
+                            tvs.period, 
+                            tvs.total, 
+                            tvs.shop_id, 
+                            tv.verif_status, 
+                            CASE
+                                WHEN tbl1.empty > 0 THEN 'ON-PROGESS'
+                                WHEN tbl1.empty = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
+                                ELSE 'COMPLETED'
+                            END AS vstatus
+                        FROM
+                            t_verification tv
+                        JOIN
+                            t_verification_shop tvs ON (tv.verif_id = tvs.verif_id AND tv.verif_no = '{$verif_no}')
+                        JOIN
+                            m_shop ms ON (tvs.shop_id = ms.shop_id)
+                        JOIN
+                            (
+                                SELECT 
+                                    tvsd.verif_shop_id, 
+                                    tvsd.shop_id, 
+                                    SUM(CASE WHEN tvsd.approval_status IS NULL THEN 1 ELSE 0 END) AS empty,
+                                    SUM(CASE WHEN tvsd.approval_status = 1 THEN 1 ELSE 0 END) AS ok,
+                                    SUM(CASE WHEN tvsd.approval_status = 0 THEN 1 ELSE 0 END) AS ng
+                                FROM t_verification_shop_det tvsd 
+                                GROUP BY tvsd.verif_shop_id, tvsd.shop_id
+                            ) tbl1 ON (tvs.verif_shop_id = tbl1.verif_shop_id){$where}";
+        $query = $this->db->query($sql);
+        $records_total = $query->num_rows();
+
+        $sql_   = "SELECT  *
+                    FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
+                            tv.verif_id, 
+                            tvs.verif_shop_id, 
+                            ms.shop_type, 
+                            ms.shop_name, 
+                            tvs.period, 
+                            tvs.total, 
+                            tvs.shop_id, 
+                            tv.verif_status, 
+                            CASE
+                                WHEN tbl1.empty > 0 THEN 'ON-PROGRESS'
+                                WHEN tbl1.empty = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
+                                ELSE 'COMPLETED'
+                            END AS vstatus
+                        FROM
+                            t_verification tv
+                        JOIN
+                            t_verification_shop tvs ON (tv.verif_id = tvs.verif_id AND tv.verif_no = '{$verif_no}')
+                        JOIN
+                            m_shop ms ON (tvs.shop_id = ms.shop_id)
+                        JOIN
+                            (
+                                SELECT 
+                                    tvsd.verif_shop_id, 
+                                    tvsd.shop_id, 
+                                    SUM(CASE WHEN tvsd.approval_status IS NULL THEN 1 ELSE 0 END) AS empty,
+                                    SUM(CASE WHEN tvsd.approval_status = 1 THEN 1 ELSE 0 END) AS ok,
+                                    SUM(CASE WHEN tvsd.approval_status = 0 THEN 1 ELSE 0 END) AS ng
+                                FROM t_verification_shop_det tvsd 
+                                GROUP BY tvsd.verif_shop_id, tvsd.shop_id
+                            ) tbl1 ON (tvs.verif_shop_id = tbl1.verif_shop_id)
+                            {$where}
+                            ) AS RowConstrainedResult
+                    WHERE   RowNum > {$start}
+                        AND RowNum < (({$start} + 1) + {$length})
+                    ORDER BY RowNum";
+        
+
+        $query = $this->db->query($sql_);
+        $rows_data = $query->result();
+        $rows = array();
+        $i = (0 + 1);
+
+        foreach ($rows_data as $row) {
+            if($row->vstatus == 'ON-PROGRESS') {
+                $url        = site_url('verification/detail/' . $this->crypto->encode($row->verif_shop_id));
+                $disabled   = "";
+            } else {
+                $url        = "";
+                $disabled   = "disabled";
+            }
+            $row->number                = $i;
+            $row->total                 = number_format($row->total,0,',','.');
+            $row->actions               = '<a href="' . $url . '" class="btn btn-sm btn-clear fw-bolder text-success '.$disabled.'">
+                                                Process Verifikasi';
 
             $rows[] = $row;
             $i++;
@@ -337,7 +496,7 @@ class Verification_model extends CI_Model {
      */
     public function getVerifDetail(String $verif_no = '')
     {
-        $sql    = " SELECT tv.verif_id, tv.verif_no, mb.bidang_code, mb.bidang_name, mb2.branch_code, mb2.branch_name
+        $sql    = " SELECT tv.verif_id, tv.verif_no, tv.verif_status, mb.bidang_code, mb.bidang_name, mb2.branch_code, mb2.branch_name
                     FROM t_verification tv
                     JOIN m_bidang mb ON (tv.bidang_id = mb.bidang_id)
                     JOIN m_branch mb2 ON (tv.branch_id = mb2.branch_code)

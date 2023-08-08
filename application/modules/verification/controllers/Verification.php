@@ -32,15 +32,20 @@ class Verification extends CI_Controller {
     public function detail()
     {
         $verif_no   = $this->crypto->decode($this->uri->segment(3));
+        $view       = $this->getView($this->session->userdata('role_name'));
         if($this->input->is_ajax_request()) {
-            $verif_det_data = $this->verification->getVerifDetailList($verif_no);
+            if($view == 'verificator') {
+                $verif_det_data = $this->verification->getVerifDetailListApprove($verif_no);
+            } else {
+                $verif_det_data = $this->verification->getVerifDetailList($verif_no);
+            }
             echo json_encode($verif_det_data, JSON_PRETTY_PRINT);
             exit;
         }
         $data['title']      = "Verification";
         $data['menu']       = "Verification";
         $data['submenu']    = "Detail";
-        $data['content']    = "detail";
+        $data['content']    = $view."_detail";
         $data['verif_data'] = $this->verification->getVerifDetail($verif_no);
         $this->load->view('default', $data);
     }
@@ -168,6 +173,7 @@ class Verification extends CI_Controller {
             'user_id'       => $this->session->userdata('user_id'),
             'user_name'     => $this->session->userdata('user_name'),
             'branch_id'     => $this->session->userdata('branch_code'),
+            'verif_status'  => 'DRAFT',
             'create_by'     => $this->session->userdata('user_name')
         ];
 
@@ -385,6 +391,66 @@ class Verification extends CI_Controller {
                 }
             }
         }
+    }
+
+    public function save_draft()
+    {
+        $uri        = $this->uri->segment(3);
+        $verif_no   = $this->crypto->decode($uri);
+
+        $params = [
+            'verif_no' => $verif_no
+        ];
+
+        $data   = [
+            'verif_status' => 'DRAFT'
+        ];
+
+        $update     = $this->verification->updateHead($params, $data);
+        if($update > 0) {
+            $response   = [
+                'code'  => 0,
+                'msg'   => 'Berhasil menyimpan Draft'
+            ];
+        } else {
+            $response   = [
+                'code'  => 200,
+                'msg'   => 'Gagal menyimpan Draft'
+            ];
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
+    public function save_submit()
+    {
+        $uri        = $this->uri->segment(3);
+        $verif_no   = $this->crypto->decode($uri);
+
+        $params = [
+            'verif_no' => $verif_no
+        ];
+
+        $data   = [
+            'verif_status' => 'SUBMITTED'
+        ];
+
+        $update     = $this->verification->updateHead($params, $data);
+        if($update > 0) {
+            $response   = [
+                'code'  => 0,
+                'msg'   => 'Berhasil menyimpan data'
+            ];
+        } else {
+            $response   = [
+                'code'  => 200,
+                'msg'   => 'Gagal menyimpan data'
+            ];
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
     }
 
     public function getView(String $role_name = '') : String

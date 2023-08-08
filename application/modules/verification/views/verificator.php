@@ -8,9 +8,9 @@
     <div class="card-header">
         <h3 class="card-title text-white"><?php echo $title; ?></h3>
         <div class="card-toolbar">
-            <a href="<?php echo site_url('verification/add'); ?>" class="btn btn-sm btn-bg-white me-2 mb-2">
+            <!-- <a href="<?php //echo site_url('verification/add'); ?>" class="btn btn-sm btn-bg-white me-2 mb-2">
                 Pengajuan Baru
-            </a>
+            </a> -->
         </div>
     </div>
     <div class="card-body p-2">
