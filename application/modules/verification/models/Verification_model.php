@@ -656,6 +656,55 @@ class Verification_model extends CI_Model {
         return $result;
     }
 
+    public function getApprovalStatus(String $verif_no = '')
+    {
+        $sql = "SELECT 
+                    CASE
+                        WHEN SUM(tbl1.empty) > 0 THEN 'ON-PROGESS'
+                        WHEN SUM(tbl1.empty) = 0 AND SUM(tbl1.ng) > 0 THEN 'UNCOMPLETE'
+                        ELSE 'COMPLETED'
+                    END AS v_status
+                FROM
+                    t_verification tv
+                JOIN
+                    t_verification_shop tvs ON (tv.verif_id = tvs.verif_id AND tv.verif_no = '{$verif_no}')
+                JOIN
+                    (
+                        SELECT 
+                            tvsd.verif_shop_id, 
+                            tvsd.shop_id, 
+                            SUM(CASE WHEN tvsd.approval_status IS NULL THEN 1 ELSE 0 END) AS empty,
+                            SUM(CASE WHEN tvsd.approval_status = 1 THEN 1 ELSE 0 END) AS ok,
+                            SUM(CASE WHEN tvsd.approval_status = 0 THEN 1 ELSE 0 END) AS ng
+                        FROM t_verification_shop_det tvsd 
+                        GROUP BY tvsd.verif_shop_id, tvsd.shop_id
+                    ) tbl1 ON (tvs.verif_shop_id = tbl1.verif_shop_id)";
+        $query  = $this->db->query($sql);
+        return $query->row();
+    }
+
+    public function getApprovalNote(String $verif_no = '')
+    {
+        $sql = "SELECT 
+                    tvsd.approval_note 
+                FROM
+                    t_verification tv
+                JOIN
+                    t_verification_shop_det tvsd ON (tv.verif_id = tvsd.verif_id AND tv.verif_no = '{$verif_no}')
+                ORDER BY tvsd.create_date ASC, tvsd.shop_sequence ASC";
+        $query  = $this->db->query($sql);
+        $result = $query->result();
+
+        return $result;
+    }
+
+    public function update(String $table = '', Array $params = [], Array $data = [])
+    {
+        $result = $this->global->update($table, $params, $data);
+
+        return $result;
+    }
+
 }
 
 /* End of file Verification_model.php */

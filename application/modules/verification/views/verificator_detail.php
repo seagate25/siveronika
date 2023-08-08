@@ -14,7 +14,9 @@
         <h3 class="card-title text-white">Summary Belanja</h3>
         <div class="card-toolbar">
             <button type="button" id="btnSubmit" class="btn btn-sm btn-bg-white me-2 mb-2 <?=($verif_data->verif_status == 'SUBMITTED') ? '' : ''?>">
-                Submit
+                <span class="indicator-label">Submit</span>
+                <span class="indicator-progress">Please wait...
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
             </button>
         </div>
     </div>
@@ -134,75 +136,51 @@
     })();
 
     var Actions = (function(){
+        var btnSubmit;
         return {
-            btnDraft: function(e) {
-                $(e.target).attr('data-kt-indicator', 'on').attr('disabled', 'disabled');
-                $.ajax({
-                    type: "GET",
-                    url: "<?php echo site_url('verification/save_draft/'.$this->uri->segment(3)); ?>",
-                    success: function(response) {
-                        var obj = jQuery.parseJSON(response);
-                        if(obj.code == 0) {
-                            $(e.target).removeAttr('data-kt-indicator').removeAttr('disabled');
-                            Swal.fire({ 
-                                text: obj.msg, 
-                                buttonsStyling: !1, 
-                                confirmButtonText: "Ok",
-                                allowOutsideClick: false,
-                                customClass: { confirmButton: "btn btn-primary" } 
-                            }).then(function (t) {
-                                t.isConfirmed && (document.location = '<?php echo site_url("verification")?>');
-                            });
-                        } else {
-                            $(e.target).removeAttr('data-kt-indicator').removeAttr('disabled');
-                            Swal.fire({ 
-                                text: obj.msg, 
-                                icon: "error",
-                                buttonsStyling: !1, 
-                                confirmButtonText: "Ok",
-                                allowOutsideClick: false,
-                                customClass: { confirmButton: "btn btn-primary" } 
-                            });
+            submit: function(e) {
+                btnSubmit = document.querySelector('#btnSubmit');
+                btnSubmit.addEventListener('click', function(e){
+                    $.ajax({
+                        type: "GET",
+                        url: "<?php echo site_url('verification/save_submit_verif/'.$this->uri->segment(3)); ?>",
+                        beforeSend: function() {
+                            btnSubmit.setAttribute('data-kt-indicator', 'on');
+                            btnSubmit.disabled = !0;
+                        },
+                        success: function(response) {
+                            btnSubmit.removeAttribute('data-kt-indicator');
+                            btnSubmit.disabled = !1;
+                            var obj = jQuery.parseJSON(response);
+                            if(obj.code == 0) {
+                                Swal.fire({ 
+                                    text: obj.msg, 
+                                    buttonsStyling: !1, 
+                                    confirmButtonText: "Ok",
+                                    allowOutsideClick: false,
+                                    customClass: { confirmButton: "btn btn-primary" } 
+                                }).then(function (t) {
+                                    t.isConfirmed && (document.location = '<?php echo site_url("verification")?>');
+                                });
+                            } else {
+                                Swal.fire({ 
+                                    text: obj.msg, 
+                                    icon: "error",
+                                    buttonsStyling: !1, 
+                                    confirmButtonText: "Ok",
+                                    allowOutsideClick: false,
+                                    customClass: { confirmButton: "btn btn-primary" } 
+                                });
+                            }
                         }
-                    }
-                })
-            },
-            btnSubmit: function(e) {
-                $(e.target).attr('data-kt-indicator', 'on').attr('disabled', 'disabled');
-                $.ajax({
-                    type: "GET",
-                    url: "<?php echo site_url('verification/save_submit/'.$this->uri->segment(3)); ?>",
-                    success: function(response) {
-                        var obj = jQuery.parseJSON(response);
-                        if(obj.code == 0) {
-                            $(e.target).removeAttr('data-kt-indicator').removeAttr('disabled');
-                            Swal.fire({ 
-                                text: obj.msg, 
-                                buttonsStyling: !1, 
-                                confirmButtonText: "Ok",
-                                allowOutsideClick: false,
-                                customClass: { confirmButton: "btn btn-primary" } 
-                            }).then(function (t) {
-                                t.isConfirmed && (document.location = '<?php echo site_url("verification")?>');
-                            });
-                        } else {
-                            $(e.target).removeAttr('data-kt-indicator').removeAttr('disabled');
-                            Swal.fire({ 
-                                text: obj.msg, 
-                                icon: "error",
-                                buttonsStyling: !1, 
-                                confirmButtonText: "Ok",
-                                allowOutsideClick: false,
-                                customClass: { confirmButton: "btn btn-primary" } 
-                            });
-                        }
-                    }
-                })
+                    })
+                });
             }
         }
     })();
 
     KTUtil.onDOMContentLoaded((function() {
         KTDataTables.init();
+        Actions.submit();
     }));
 </script>

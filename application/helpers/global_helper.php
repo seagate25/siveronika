@@ -147,3 +147,13 @@ if(!function_exists('diff_date')) {
         );
     }
 }
+
+if(!function_exists('sqlsrv_datetime')) {
+    function sqlsrv_datetime()
+    {
+        $dt         = new DateTimeImmutable('NOW', new DateTimeZone('UTC'));
+        $time       = $dt->setTimezone(new DateTimeZone('Asia/Jakarta'))->format('Y-m-d H:i:s.v');
+
+        return $time;
+    }
+}

@@ -453,6 +453,71 @@ class Verification extends CI_Controller {
         exit;
     }
 
+    public function save_submit_verif()
+    {
+        /** Get Encode Uri String */
+        $uri        = $this->uri->segment(3);
+
+        /** Decode Uri String */
+        $verif_no   = $this->crypto->decode($uri);
+
+        /** Get SQL Server Datetime Format */
+        $time       = sqlsrv_datetime();
+
+        /** Get Approval Status */
+        $getStatus  = $this->verification->getApprovalStatus($verif_no);
+        $status     = $getStatus->v_status;
+
+        /** Get Approval Notes */
+        $getNotes   = $this->verification->getApprovalNote($verif_no);
+
+        /** Iterate notes into single string */
+        $i = 0;
+        $notes  = '';
+        foreach($getNotes as $note) {
+            $notes .= $note->approval_note;
+            if ($i === (count($getNotes) - 1)) {
+                $notes .= "";
+            } else {
+                $notes .= ";";
+            }
+
+            $i++;
+        }
+
+        /** Parameter for update */
+        $params = [
+            'verif_no' => $verif_no
+        ];
+
+        /** Data to be update */
+        $data = [
+            'verif_status'      => $status,
+            'approval_userid1'  => $this->session->userdata('user_id'),
+            'approval_note1'    => $notes,
+            'approval_date1'    => $time,
+            'update_date'       => $time,
+            'update_by'         => $this->session->userdata('user_name')
+        ];
+
+        /** Updating Verification Head */
+        $update = $this->verification->update('t_verification', $params, $data);
+        if($update > 0) {
+            $response   = [
+                'code'  => 0,
+                'msg'   => 'Berhasil menyimpan data'
+            ];
+        } else {
+            $response   = [
+                'code'  => 200,
+                'msg'   => 'Gagal menyimpan data'
+            ];
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
     public function getView(String $role_name = '') : String
     {
         $view = 'super_admin';
