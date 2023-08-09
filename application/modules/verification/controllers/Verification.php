@@ -596,6 +596,46 @@ class Verification extends CI_Controller {
         exit;
     }
 
+    public function save_decision_treasure()
+    {
+        $id         = $this->input->post('id');
+        $verif_no   = $this->crypto->decode($id);
+        $notes      = $this->input->post('notes');
+        $status     = $this->input->post('status');
+
+        /** Parameter for update */
+        $params = [
+            'verif_no' => $verif_no
+        ];
+
+        /** Data to be update */
+        $data = [
+            'verif_status'      => $status,
+            'approval_userid2'  => $this->session->userdata('user_id'),
+            'approval_note2'    => $notes,
+            'approval_date2'    => sqlsrv_datetime(),
+            'update_date'       => sqlsrv_datetime(),
+            'update_by'         => $this->session->userdata('user_name')
+        ];
+
+        /** Updating Verification Head */
+        $update = $this->verification->update('t_verification', $params, $data);
+        if($update > 0) {
+            $response   = [
+                'code'  => 0,
+                'msg'   => 'Berhasil menyimpan data'
+            ];
+        } else {
+            $response   = [
+                'code'  => 200,
+                'msg'   => 'Gagal menyimpan data'
+            ];
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
     public function getFile()
     {
         $file_id    = $this->input->post('fName');

@@ -11,11 +11,11 @@
                 <i class="las la-arrow-left fs-1 text-dark"></i>
             </a>
         </div>
-        <h3 class="card-title text-white">Summary Detail</h3>
+        <h3 class="card-title text-white">Summary Belanja Bendahara</h3>
         <div class="card-toolbar">
-            <a href="<?php echo site_url('verification/add_item/'.$this->crypto->encode($verif_data->verif_no)); ?>" class="btn btn-sm btn-bg-white me-2 mb-2 <?=($verif_data->verif_status == 'SUBMITTED') ? 'disabled' : ''?>">
+            <!-- <a href="<?php //echo site_url('verification/add_item/'.$this->crypto->encode($verif_data->verif_no)); ?>" class="btn btn-sm btn-bg-white me-2 mb-2 <?=($verif_data->verif_status == 'SUBMITTED') ? 'disabled' : ''?>">
                 Tambah Belanja
-            </a>
+            </a> -->
         </div>
     </div>
     <div class="card-body">
@@ -76,17 +76,10 @@
                     <th class="min-w-125px text-center">Nama Belanja</th>
                     <th class="min-w-50px text-center">Periode</th>
                     <th class="min-w-50px text-center">Nilai</th>
-                    <th class="min-w-50px text-center">Actions</th>
                 </tr>
             </thead>
         </table>
     </div>
-    <!--begin::Card footer-->
-    <div class="card-footer d-flex justify-content-end py-6 px-9">
-            <button type="button" class="btn btn-primary me-2" <?=($verif_data->verif_status == 'SUBMITTED') ? 'disabled' : ''?> onclick="return Actions.btnDraft(event);" id="btn_draft">Save Draft</button>
-            <button type="button" class="btn btn-primary" <?=($verif_data->verif_status == 'SUBMITTED') ? 'disabled' : ''?> onclick="return Actions.btnSubmit(event);" id="btn_submit">Submit</button>
-        </div>
-        <!--end::Card footer-->
 </div>
 <script type="text/javascript">
     "use strict";
@@ -124,7 +117,6 @@
                                 return 'Rp. ' + data;
                             }
                         },
-                        { data: 'actions', className: 'text-center', searchable: false }
                     ],
                     lengthMenu: [
                             [5, 10, 15, 25, -1],
@@ -135,75 +127,6 @@
                 });
             }
         };
-    })();
-
-    var Actions = (function(){
-        return {
-            btnDraft: function(e) {
-                $(e.target).attr('data-kt-indicator', 'on').attr('disabled', 'disabled');
-                $.ajax({
-                    type: "GET",
-                    url: "<?php echo site_url('verification/save_draft/'.$this->uri->segment(3)); ?>",
-                    success: function(response) {
-                        var obj = jQuery.parseJSON(response);
-                        if(obj.code == 0) {
-                            $(e.target).removeAttr('data-kt-indicator').removeAttr('disabled');
-                            Swal.fire({ 
-                                text: obj.msg, 
-                                buttonsStyling: !1, 
-                                confirmButtonText: "Ok",
-                                allowOutsideClick: false,
-                                customClass: { confirmButton: "btn btn-primary" } 
-                            }).then(function (t) {
-                                t.isConfirmed && (document.location = '<?php echo site_url("verification")?>');
-                            });
-                        } else {
-                            $(e.target).removeAttr('data-kt-indicator').removeAttr('disabled');
-                            Swal.fire({ 
-                                text: obj.msg, 
-                                icon: "error",
-                                buttonsStyling: !1, 
-                                confirmButtonText: "Ok",
-                                allowOutsideClick: false,
-                                customClass: { confirmButton: "btn btn-primary" } 
-                            });
-                        }
-                    }
-                })
-            },
-            btnSubmit: function(e) {
-                $(e.target).attr('data-kt-indicator', 'on').attr('disabled', 'disabled');
-                $.ajax({
-                    type: "GET",
-                    url: "<?php echo site_url('verification/save_submit/'.$this->uri->segment(3)); ?>",
-                    success: function(response) {
-                        var obj = jQuery.parseJSON(response);
-                        if(obj.code == 0) {
-                            $(e.target).removeAttr('data-kt-indicator').removeAttr('disabled');
-                            Swal.fire({ 
-                                text: obj.msg, 
-                                buttonsStyling: !1, 
-                                confirmButtonText: "Ok",
-                                allowOutsideClick: false,
-                                customClass: { confirmButton: "btn btn-primary" } 
-                            }).then(function (t) {
-                                t.isConfirmed && (document.location = '<?php echo site_url("verification")?>');
-                            });
-                        } else {
-                            $(e.target).removeAttr('data-kt-indicator').removeAttr('disabled');
-                            Swal.fire({ 
-                                text: obj.msg, 
-                                icon: "error",
-                                buttonsStyling: !1, 
-                                confirmButtonText: "Ok",
-                                allowOutsideClick: false,
-                                customClass: { confirmButton: "btn btn-primary" } 
-                            });
-                        }
-                    }
-                })
-            }
-        }
     })();
 
     KTUtil.onDOMContentLoaded((function() {

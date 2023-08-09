@@ -203,18 +203,20 @@ class Verification_model extends CI_Model {
             $row->number                = $i;
             $row->verif_request_date    = ($row->verif_request_date == NULL) ? '-' : $row->verif_request_date;
             if($this->session->userdata('role_name') == 'Bendahara') {
-                $row->verif_status          = ($row->verif_status == 'COMPLETED') ? '' : $row->verif_status;
-                $row->actions               = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="fw-bolder text-primary">
-                                                Decision
-                                            </a>
-                                            <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="fw-bolder text-success">
-                                                Detail
-                                            </a>';
+                $disabled               = ($row->verif_status == 'COMPLETED') ? '' : 'disabled';
+
+                $row->verif_status      = ($row->verif_status == 'COMPLETED') ? '' : $row->verif_status;
+                $row->actions           = '<button type="button" class="btn btn-sm btn-clear '.$disabled.' fw-bolder text-primary p-2" data-bs-id="'.$this->crypto->encode($row->verif_no).'" data-bs-toggle="modal" data-bs-target="#kt_modal_decision" data-bs-backdrop="static" data-bs-keyboard="false">
+                                            Decision
+                                        </button>
+                                        <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="btn btn-sm btn-clear fw-bolder text-success p-0">
+                                            Detail
+                                        </a>';
             } else {
-                $row->verif_status          = $row->verif_status;
-                $row->actions               = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="fw-bolder text-success">
-                                                Detail
-                                            </a>';
+                $row->verif_status      = $row->verif_status;
+                $row->actions           = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="fw-bolder text-success">
+                                            Detail
+                                        </a>';
             }
             $row->total                 = number_format($row->total,0,',','.');
 
