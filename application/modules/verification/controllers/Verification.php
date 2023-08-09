@@ -89,6 +89,21 @@ class Verification extends CI_Controller {
         $this->load->view('default', $data);
     }
 
+    public function checklist()
+    {
+        $verif_shop_id  = $this->crypto->decode($this->uri->segment(3));
+        $detailData     = $this->verification->getCheckListData($verif_shop_id);
+        $docs_data      = $this->verification->getUploadedDetailDoc($verif_shop_id);
+        
+        $data['title']      = "Verification";
+        $data['menu']       = "Verification";
+        $data['submenu']    = "Detail - Checklist";
+        $data['content']    = "checklist";
+        $data['verif_data'] = $detailData;
+        $data['docs']       = $docs_data['data'];
+        $this->load->view('default', $data);
+    }
+
     public function add_item()
     {
         $verif_no   = $this->crypto->decode($this->uri->segment(3));
@@ -423,6 +438,36 @@ class Verification extends CI_Controller {
         exit;
     }
 
+    public function save_draft_verif()
+    {
+        $uri        = $this->uri->segment(3);
+        $verif_no   = $this->crypto->decode($uri);
+
+        $params = [
+            'verif_no' => $verif_no
+        ];
+
+        $data   = [
+            'verif_status' => 'ON-PROGRESS'
+        ];
+
+        $update     = $this->verification->updateHead($params, $data);
+        if($update > 0) {
+            $response   = [
+                'code'  => 0,
+                'msg'   => 'Berhasil menyimpan Draft'
+            ];
+        } else {
+            $response   = [
+                'code'  => 200,
+                'msg'   => 'Gagal menyimpan Draft'
+            ];
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
     public function save_submit()
     {
         $uri        = $this->uri->segment(3);
@@ -512,6 +557,63 @@ class Verification extends CI_Controller {
                 'code'  => 200,
                 'msg'   => 'Gagal menyimpan data'
             ];
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
+    public function save_decision()
+    {
+        $id     = $this->input->post('id');
+        $notes  = $this->input->post('notes');
+        $status = $this->input->post('status');
+        
+        $params = ['verif_shop_det_id' => $id];
+        $data   = [
+            'approval_status'   => $status,
+            'approval_note'     => $notes,
+            'update_date'       => sqlsrv_datetime(),
+            'update_by'         => $this->session->userdata('user_name')
+        ];
+
+        $update = $this->verification->update('t_verification_shop_det', $params, $data);
+        if($update > 0) {
+            $response   = [
+                'code'  => 0,
+                'msg'   => 'Berhasil menyimpan data',
+                'status'=> 'success'
+            ];
+        } else {
+            $response   = [
+                'code'  => 200,
+                'msg'   => 'Gagal menyimpan data',
+                'status'=> 'error'
+            ];
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
+    public function getFile()
+    {
+        $file_id    = $this->input->post('fName');
+        $getFile    = $this->verification->getDetailFile($file_id);
+        if($getFile->num_rows() > 0) {
+            $file_data  = $getFile->row();
+            $full_path  = $file_data->doc_path.$file_data->doc_filename.".".$file_data->doc_type;
+            if(file_exists($full_path)) {
+                $response = [
+                    'code'  => 0,
+                    'msg'   => 'SUCCESS',
+                    'data'  => $full_path
+                ];
+            } else {
+                
+            }
+        } else {
+            
         }
 
         echo json_encode($response, JSON_PRETTY_PRINT);

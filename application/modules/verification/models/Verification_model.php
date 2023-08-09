@@ -427,16 +427,16 @@ class Verification_model extends CI_Model {
 
         foreach ($rows_data as $row) {
             if($row->vstatus == 'ON-PROGRESS') {
-                $url        = site_url('verification/detail/' . $this->crypto->encode($row->verif_shop_id));
-                $disabled   = "";
+                $url            = site_url('verification/checklist/' . $this->crypto->encode($row->verif_shop_id));
+                $disabled       = "";
+                $row->actions   = '<a href="' . $url . '" class="btn btn-sm btn-clear fw-bolder text-success '.$disabled.'">Process Verifikasi</a>';
             } else {
-                $url        = "";
-                $disabled   = "disabled";
+                $url            = "";
+                $disabled       = "disabled";
+                $row->actions   = '<a href="' . $url . '" class="btn btn-sm btn-clear fw-bolder text-success '.$disabled.'">Process Verifikasi</a>';
             }
             $row->number                = $i;
             $row->total                 = number_format($row->total,0,',','.');
-            $row->actions               = '<a href="' . $url . '" class="btn btn-sm btn-clear fw-bolder text-success '.$disabled.'">
-                                                Process Verifikasi';
 
             $rows[] = $row;
             $i++;
@@ -630,7 +630,10 @@ class Verification_model extends CI_Model {
                     msd.shop_detail,
                     CONCAT(td.doc_filename + '.', NULL + ' ', td.doc_type) doc_id,
                     tvsd.notes,
-                    tvsd.shop_id
+                    tvsd.shop_id,
+                    ms.shop_name,
+                    tvsd.approval_status,
+                    tvsd.doc_id AS file_id
                 FROM
                     t_verification_shop_det tvsd
                 JOIN
@@ -711,6 +714,24 @@ class Verification_model extends CI_Model {
     public function update(String $table = '', Array $params = [], Array $data = [])
     {
         $result = $this->global->update($table, $params, $data);
+
+        return $result;
+    }
+
+    public function getCheckListData(String $verif_shop_id = '')
+    {
+        $sql    = "SELECT tv.verif_no, tv.verif_request_date, tvs.total, tv.verif_status, tvs.verif_shop_id
+                    FROM t_verification_shop tvs
+                    JOIN t_verification tv ON (tvs.verif_id = tv.verif_id AND tvs.verif_shop_id = '{$verif_shop_id}')";
+        $query  = $this->db->query($sql);
+
+        return $query->row();
+    }
+    
+    public function getDetailFile(String $doc_id = '')
+    {
+        $params = ['doc_id' => $doc_id];
+        $result  = $this->global->get_by('t_doc', $params);
 
         return $result;
     }
