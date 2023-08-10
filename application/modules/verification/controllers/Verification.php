@@ -32,7 +32,13 @@ class Verification extends CI_Controller {
     public function detail()
     {
         $verif_no   = $this->crypto->decode($this->uri->segment(3));
-        $view       = $this->getView($this->session->userdata('role_name'));
+        $role_name  = $this->session->userdata('role_name');
+        $view       = $this->getView($role_name);
+        
+        if($role_name == 'Reviewer/Kabag') {
+            $view   = 'reviewer';
+        }
+
         if($this->input->is_ajax_request()) {
             if($view == 'verificator') {
                 $verif_det_data = $this->verification->getVerifDetailListApprove($verif_no);

@@ -64,6 +64,10 @@ class Verification_model extends CI_Model {
                 
                 $where .= " WHERE tv.user_id = '{$this->user_id}'";
                 
+            } else {
+
+                $where .= " WHERE tv.verif_status <> 'DRAFT'";
+
             }
 
         } else {
