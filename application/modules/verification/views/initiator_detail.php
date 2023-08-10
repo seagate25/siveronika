@@ -13,7 +13,7 @@
         </div>
         <h3 class="card-title text-white">Summary Detail</h3>
         <div class="card-toolbar">
-            <a href="<?php echo site_url('verification/add_item/'.$this->crypto->encode($verif_data->verif_no)); ?>" class="btn btn-sm btn-bg-white me-2 mb-2 <?=($verif_data->verif_status == 'SUBMITTED') ? 'disabled' : ''?>">
+            <a href="<?php echo site_url('verification/add_item/'.$this->crypto->encode($verif_data->verif_no)); ?>" class="btn btn-sm btn-bg-white me-2 mb-2 <?=($verif_data->status_verifikasi == 'SUBMITTED') ? 'disabled' : ''?>">
                 Tambah Belanja
             </a>
         </div>
@@ -53,7 +53,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8">
-                        <span class="fs-6 text-gray-800"><?=$verif_data->verif_status?></span>
+                        <span class="fs-6 text-gray-800"><?=$verif_data->status_verifikasi?></span>
                     </div>
                     <!--end::Col-->
                 </div>
@@ -76,6 +76,7 @@
                     <th class="min-w-125px text-center">Nama Belanja</th>
                     <th class="min-w-50px text-center">Periode</th>
                     <th class="min-w-50px text-center">Nilai</th>
+                    <th class="min-w-50px text-center">Status</th>
                     <th class="min-w-50px text-center">Actions</th>
                 </tr>
             </thead>
@@ -83,8 +84,8 @@
     </div>
     <!--begin::Card footer-->
     <div class="card-footer d-flex justify-content-end py-6 px-9">
-            <button type="button" class="btn btn-primary me-2" <?=($verif_data->verif_status == 'SUBMITTED') ? 'disabled' : ''?> onclick="return Actions.btnDraft(event);" id="btn_draft">Save Draft</button>
-            <button type="button" class="btn btn-primary" <?=($verif_data->verif_status == 'SUBMITTED') ? 'disabled' : ''?> onclick="return Actions.btnSubmit(event);" id="btn_submit">Submit</button>
+            <button type="button" class="btn btn-primary me-2" <?=($verif_data->status_verifikasi == 'SUBMITTED') ? 'disabled' : ''?> onclick="return Actions.btnDraft(event);" id="btn_draft">Save Draft</button>
+            <button type="button" class="btn btn-primary" <?=($verif_data->status_verifikasi == 'SUBMITTED') ? 'disabled' : ''?> onclick="return Actions.btnSubmit(event);" id="btn_submit">Submit</button>
         </div>
         <!--end::Card footer-->
 </div>
@@ -124,6 +125,7 @@
                                 return 'Rp. ' + data;
                             }
                         },
+                        { data: 'vstatus', className: 'text-center' },
                         { data: 'actions', className: 'text-center', searchable: false }
                     ],
                     lengthMenu: [

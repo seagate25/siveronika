@@ -61,7 +61,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8">
-                        <span class="fs-6 text-gray-800"><?=$verif_data->verif_status;?></span>
+                        <span class="fs-6 text-gray-800"><?=$verif_data->status_verifikasi;?></span>
                     </div>
                     <!--end::Col-->
                 </div>

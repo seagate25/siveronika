@@ -134,7 +134,7 @@ var KTDataTables = (function() {
                             return 'Rp. ' + data;
                         }
                     },
-                    { data: 'verif_status', className: 'text-left' },
+                    { data: 'status_verifikasi', className: 'text-left' },
                     { data: 'actions', className: 'text-left', searchable: false }
                 ],
                 lengthMenu: [

@@ -40,7 +40,7 @@ class Verification extends CI_Controller {
         }
 
         if($this->input->is_ajax_request()) {
-            if($view == 'verificator') {
+            if($view == 'initiator' || $view == 'verificator') {
                 $verif_det_data = $this->verification->getVerifDetailListApprove($verif_no);
             } else {
                 $verif_det_data = $this->verification->getVerifDetailList($verif_no);
@@ -194,7 +194,7 @@ class Verification extends CI_Controller {
             'user_id'       => $this->session->userdata('user_id'),
             'user_name'     => $this->session->userdata('user_name'),
             'branch_id'     => $this->session->userdata('branch_code'),
-            'verif_status'  => 'DRAFT',
+            'status_verifikasi'  => 'DRAFT',
             'create_by'     => $this->session->userdata('user_name')
         ];
 
@@ -424,7 +424,7 @@ class Verification extends CI_Controller {
         ];
 
         $data   = [
-            'verif_status' => 'DRAFT'
+            'status_verifikasi' => 'DRAFT'
         ];
 
         $update     = $this->verification->updateHead($params, $data);
@@ -454,7 +454,7 @@ class Verification extends CI_Controller {
         ];
 
         $data   = [
-            'verif_status' => 'ON-PROGRESS'
+            'status_verifikasi' => 'ON-PROGRESS'
         ];
 
         $update     = $this->verification->updateHead($params, $data);
@@ -484,7 +484,8 @@ class Verification extends CI_Controller {
         ];
 
         $data   = [
-            'verif_status' => 'SUBMITTED'
+            'status_verifikasi'          => 'SUBMITTED',
+            'verif_request_date'    => sqlsrv_datetime()
         ];
 
         $update     = $this->verification->updateHead($params, $data);
@@ -543,7 +544,7 @@ class Verification extends CI_Controller {
 
         /** Data to be update */
         $data = [
-            'verif_status'      => $status,
+            'status_verifikasi'      => $status,
             'approval_userid1'  => $this->session->userdata('user_id'),
             'approval_note1'    => $notes,
             'approval_date1'    => $time,
@@ -616,7 +617,7 @@ class Verification extends CI_Controller {
 
         /** Data to be update */
         $data = [
-            'verif_status'      => $status,
+            'status_verifikasi'      => $status,
             'approval_userid2'  => $this->session->userdata('user_id'),
             'approval_note2'    => $notes,
             'approval_date2'    => sqlsrv_datetime(),

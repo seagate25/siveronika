@@ -52,7 +52,7 @@ class Verification_model extends CI_Model {
             4 => 'tbl1.shop_type',
             5 => 'bidang_name',
             6 => 'tbl1.total',
-            7 => 'tv.verif_status'
+            7 => 'tv.status_verifikasi'
         );
 
         $order_column = $field[$order_column];
@@ -66,7 +66,7 @@ class Verification_model extends CI_Model {
                 
             } else {
 
-                $where .= " WHERE tv.verif_status <> 'DRAFT'";
+                $where .= " WHERE tv.status_verifikasi <> 'DRAFT'";
 
             }
 
@@ -90,7 +90,7 @@ class Verification_model extends CI_Model {
                 }
                 $bidang =  "(" . $value . ")";
 
-                $where .= " WHERE (tv.bidang_id IN {$bidang} AND tv.branch_id = '{$this->branch_code}' AND tv.verif_status <> 'DRAFT')";
+                $where .= " WHERE (tv.bidang_id IN {$bidang} AND tv.branch_id = '{$this->branch_code}' AND tv.status_verifikasi <> 'DRAFT')";
                 
             } else if($this->session->userdata('role_name') == 'Bendahara') {
 
@@ -110,7 +110,7 @@ class Verification_model extends CI_Model {
                 }
                 $bidang =  "(" . $value . ")";
 
-                $where .= " WHERE (tv.bidang_id IN {$bidang} AND tv.branch_id = '{$this->branch_code}' AND tv.verif_status IN ('COMPLETED', 'VERIFIED', 'REJECTED'))";
+                $where .= " WHERE (tv.bidang_id IN {$bidang} AND tv.branch_id = '{$this->branch_code}' AND tv.status_verifikasi IN ('COMPLETED', 'VERIFIED', 'REJECTED'))";
                 
             } else if($this->session->userdata('role_name') == 'Verifikator Admin' || $this->session->userdata('role_name') == 'Bendahara Admin') {
 
@@ -132,7 +132,7 @@ class Verification_model extends CI_Model {
             $where .= " OR tbl1.shop_type LIKE '%" . $search['value'] . "%'";
             $where .= " OR bidang_name LIKE '%" . $search['value'] . "%'";
             $where .= " OR tbl1.total LIKE '%" . $search['value'] . "%'";
-            $where .= " OR tv.verif_status LIKE '%" . $search['value'] . "%')";
+            $where .= " OR tv.status_verifikasi LIKE '%" . $search['value'] . "%')";
         }
 
         $sql        = "SELECT
@@ -142,7 +142,8 @@ class Verification_model extends CI_Model {
                             tbl1.shop_type,
                             CONCAT('[', mb2.bidang_code, ']', ' ', mb2.bidang_name) bidang_name,
                             tbl1.total,
-                            tv.verif_status 
+                            tv.status_verifikasi,
+                            tv.status_bendahara
                         FROM 
                             {$this->table_main} tv
                         JOIN
@@ -172,7 +173,8 @@ class Verification_model extends CI_Model {
                                     tbl1.shop_type,
                                     CONCAT('[', mb2.bidang_code, ']', ' ', mb2.bidang_name) bidang_name,
                                     tbl1.total,
-                                    tv.verif_status 
+                                    tv.status_verifikasi,
+                                    tv.status_bendahara
                                 FROM 
                                     {$this->table_main} tv
                                 JOIN
@@ -205,23 +207,31 @@ class Verification_model extends CI_Model {
 
         foreach ($rows_data as $row) {
             $row->number                = $i;
-            $row->verif_request_date    = ($row->verif_request_date == NULL) ? '-' : $row->verif_request_date;
-            if($this->session->userdata('role_name') == 'Bendahara') {
-                $disabled               = ($row->verif_status == 'COMPLETED') ? '' : 'disabled';
+            $row->verif_request_date    = ($row->verif_request_date == NULL) ? '-' : date('d-m-Y', strtotime($row->verif_request_date));
+            if($this->session->userdata('role_name') == 'Bendahara')
+            {
+                // $disabled               = ($row->status_verifikasi == 'COMPLETED') ? '' : 'disabled';
 
-                $row->verif_status      = ($row->verif_status == 'COMPLETED') ? '' : $row->verif_status;
-                $row->actions           = '<button type="button" class="btn btn-sm btn-clear '.$disabled.' fw-bolder text-primary p-2" data-bs-id="'.$this->crypto->encode($row->verif_no).'" data-bs-toggle="modal" data-bs-target="#kt_modal_decision" data-bs-backdrop="static" data-bs-keyboard="false">
-                                            Decision
-                                        </button>
-                                        <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="btn btn-sm btn-clear fw-bolder text-success p-0">
-                                            Detail
-                                        </a>';
-            } else {
-                $row->verif_status      = $row->verif_status;
-                $row->actions           = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="fw-bolder text-success">
-                                            Detail
-                                        </a>';
+                $row->status_verifikasi      = ($row->status_verifikasi == 'COMPLETED') ? '-' : $row->status_verifikasi;
+                // $row->actions           = '<button type="button" class="btn btn-sm btn-clear '.$disabled.' fw-bolder text-primary p-2" data-bs-id="'.$this->crypto->encode($row->verif_no).'" data-bs-toggle="modal" data-bs-target="#kt_modal_decision" data-bs-backdrop="static" data-bs-keyboard="false">
+                //                             Decision
+                //                         </button>
+                //                         <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="btn btn-sm btn-clear fw-bolder text-success p-0">
+                //                             Detail
+                //                         </a>';
             }
+            else if($this->session->userdata('role_name') == 'Verifikator')
+            {
+                $row->status_verifikasi      = ($row->status_verifikasi == 'SUBMITTED') ? '-' : $row->status_verifikasi;
+            }
+            else
+            {
+                $row->status_verifikasi      = $row->status_verifikasi;
+            }
+
+            $row->actions           = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="fw-bolder text-success">
+                                            Detail
+                                        </a>';
             $row->total                 = number_format($row->total,0,',','.');
 
             $rows[] = $row;
@@ -261,7 +271,7 @@ class Verification_model extends CI_Model {
             $where .= " OR tvs.total LIKE '%" . $search['value'] . "%')";
         }
 
-        $sql        = "SELECT tv.verif_id, tvs.verif_shop_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total, tvs.shop_id, tv.verif_status 
+        $sql        = "SELECT tv.verif_id, tvs.verif_shop_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total, tvs.shop_id, tv.status_verifikasi 
                         FROM
                             t_verification tv
                         JOIN
@@ -273,7 +283,7 @@ class Verification_model extends CI_Model {
 
         $sql_   = "SELECT  *
                     FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY {$order_column} {$order_dir} ) AS RowNum,
-                                tv.verif_id, tvs.verif_shop_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total, tvs.shop_id, tv.verif_status 
+                                tv.verif_id, tvs.verif_shop_id, ms.shop_type, ms.shop_name, tvs.period, tvs.total, tvs.shop_id, tv.status_verifikasi 
                             FROM
                                 t_verification tv
                             JOIN
@@ -295,7 +305,7 @@ class Verification_model extends CI_Model {
         foreach ($rows_data as $row) {
             $row->number                = $i;
             $row->total                 = number_format($row->total,0,',','.');
-            if($row->verif_status == 'SUBMITTED') {
+            if($row->status_verifikasi == 'SUBMITTED') {
                 
                 $row->actions               = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
                                                 Detail';
@@ -361,8 +371,9 @@ class Verification_model extends CI_Model {
                             tvs.period, 
                             tvs.total, 
                             tvs.shop_id, 
-                            tv.verif_status, 
+                            tv.status_verifikasi, 
                             CASE
+                                WHEN tbl1.empty > 0 AND tv.status_verifikasi = 'SUBMITTED' THEN '-'
                                 WHEN tbl1.empty > 0 THEN 'ON-PROGESS'
                                 WHEN tbl1.empty = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
                                 ELSE 'COMPLETED'
@@ -396,8 +407,9 @@ class Verification_model extends CI_Model {
                             tvs.period, 
                             tvs.total, 
                             tvs.shop_id, 
-                            tv.verif_status, 
+                            tv.status_verifikasi, 
                             CASE
+                                WHEN tbl1.empty > 0 AND tv.status_verifikasi = 'SUBMITTED' THEN '-'
                                 WHEN tbl1.empty > 0 THEN 'ON-PROGRESS'
                                 WHEN tbl1.empty = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
                                 ELSE 'COMPLETED'
@@ -432,14 +444,40 @@ class Verification_model extends CI_Model {
         $i = (0 + 1);
 
         foreach ($rows_data as $row) {
-            if($row->vstatus == 'ON-PROGRESS') {
-                $url            = site_url('verification/checklist/' . $this->crypto->encode($row->verif_shop_id));
-                $disabled       = "";
-                $row->actions   = '<a href="' . $url . '" class="btn btn-sm btn-clear fw-bolder text-success '.$disabled.'">Process Verifikasi</a>';
-            } else {
-                $url            = "";
-                $disabled       = "disabled";
-                $row->actions   = '<a href="' . $url . '" class="btn btn-sm btn-clear fw-bolder text-success '.$disabled.'">Process Verifikasi</a>';
+            if($this->session->userdata('role_name') == 'Initiator')
+            {
+                if($row->status_verifikasi == 'SUBMITTED')
+                {
+                    $row->actions               = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
+                                                    Detail';                               
+                }
+                else
+                {
+                    $row->actions               = '<a href="' . site_url('verification/edit/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
+                                                    Edit
+                                                </a> |
+                                                <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
+                                                    Detail
+                                                </a> |
+                                                <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-danger">
+                                                    Delete
+                                                </a>';                   
+                }
+            }
+            else
+            {
+                if($row->vstatus == 'ON-PROGRESS' || $row->vstatus == '-')
+                {
+                    $url            = site_url('verification/checklist/' . $this->crypto->encode($row->verif_shop_id));
+                    $disabled       = "";
+                    $row->actions   = '<a href="' . $url . '" class="btn btn-sm btn-clear fw-bolder text-success '.$disabled.'">Process Verifikasi</a>';
+                } 
+                else
+                {
+                    $url            = "";
+                    $disabled       = "disabled";
+                    $row->actions   = '<a href="' . $url . '" class="btn btn-sm btn-clear fw-bolder text-success '.$disabled.'">Process Verifikasi</a>';
+                }
             }
             $row->number                = $i;
             $row->total                 = number_format($row->total,0,',','.');
@@ -512,7 +550,7 @@ class Verification_model extends CI_Model {
      */
     public function getVerifDetail(String $verif_no = '')
     {
-        $sql    = " SELECT tv.verif_id, tv.verif_no, tv.verif_status, mb.bidang_code, mb.bidang_name, mb2.branch_code, mb2.branch_name
+        $sql    = " SELECT tv.verif_id, tv.verif_no, tv.status_verifikasi, mb.bidang_code, mb.bidang_name, mb2.branch_code, mb2.branch_name
                     FROM t_verification tv
                     JOIN m_bidang mb ON (tv.bidang_id = mb.bidang_id)
                     JOIN m_branch mb2 ON (tv.branch_id = mb2.branch_code)
@@ -726,7 +764,7 @@ class Verification_model extends CI_Model {
 
     public function getCheckListData(String $verif_shop_id = '')
     {
-        $sql    = "SELECT tv.verif_no, tv.verif_request_date, tvs.total, tv.verif_status, tvs.verif_shop_id
+        $sql    = "SELECT tv.verif_no, tv.verif_request_date, tvs.total, tv.status_verifikasi, tvs.verif_shop_id
                     FROM t_verification_shop tvs
                     JOIN t_verification tv ON (tvs.verif_id = tv.verif_id AND tvs.verif_shop_id = '{$verif_shop_id}')";
         $query  = $this->db->query($sql);
