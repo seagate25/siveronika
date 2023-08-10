@@ -61,7 +61,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8">
-                        <span class="fs-6 text-gray-800"><?=$verif_data->status_verifikasi;?></span>
+                        <span class="fs-6 text-gray-800"><?=($verif_data->status_verifikasi == 'SUBMITTED') ? '-' : $verif_data->status_verifikasi?></span>
                     </div>
                     <!--end::Col-->
                 </div>
@@ -132,10 +132,10 @@
         </div>
     </div>
     <!--begin::Card footer-->
-    <div class="card-footer d-flex justify-content-start py-6 px-9">
+    <!-- <div class="card-footer d-flex justify-content-start py-6 px-9">
         <button type="button" class="btn btn-primary me-2" onclick="return Actions.btnDraft(event);" id="btn_draft">Save Draft</button>
         <button type="button" class="btn btn-primary" onclick="return Actions.btnSubmit(event);" id="btn_submit">Submit</button>
-    </div>
+    </div> -->
     <!--end::Card footer-->
     <div class="modal fade" tabindex="-1" id="kt_modal_decision" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" style="min-width:990px;">

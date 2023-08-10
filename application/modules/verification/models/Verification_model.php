@@ -143,7 +143,13 @@ class Verification_model extends CI_Model {
                             CONCAT('[', mb2.bidang_code, ']', ' ', mb2.bidang_name) bidang_name,
                             tbl1.total,
                             tv.status_verifikasi,
-                            tv.status_bendahara
+                            tv.status_bendahara,
+                            CASE
+                                WHEN tbl2.empty > 0 AND tbl2.ok = 0 AND tbl2.ng = 0 AND tv.status_verifikasi = 'SUBMITTED' THEN '-'
+                                WHEN tbl2.empty > 0 AND tbl2.ok >= 0 AND tbl2.ng >= 0 THEN 'ON-PROGRESS'
+                                WHEN tbl2.empty = 0 AND tbl2.ok = 0 AND tbl2.ng >= 0 THEN 'UNCOMPLETE'
+                                ELSE 'COMPLETED'
+                            END AS vstatus
                         FROM 
                             {$this->table_main} tv
                         JOIN
@@ -161,7 +167,17 @@ class Verification_model extends CI_Model {
                                 JOIN
                                     m_shop ms ON (tvs.shop_id = ms.shop_id)
                                 group by tvs.verif_id, ms.shop_type
-                            ) tbl1 ON (tv.verif_id = tbl1.verif_id){$where}";
+                            ) tbl1 ON (tv.verif_id = tbl1.verif_id)
+                        JOIN
+                            (
+                                SELECT 
+                                    tvsd.verif_id,
+                                    SUM(CASE WHEN tvsd.approval_status IS NULL THEN 1 ELSE 0 END) AS empty,
+                                    SUM(CASE WHEN tvsd.approval_status = 1 THEN 1 ELSE 0 END) AS ok,
+                                    SUM(CASE WHEN tvsd.approval_status = 0 THEN 1 ELSE 0 END) AS ng
+                                FROM {$this->table_sub_2} tvsd 
+                                GROUP BY tvsd.verif_id
+                            ) tbl2 ON (tv.verif_id = tbl2.verif_id){$where}";
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
 
@@ -174,7 +190,13 @@ class Verification_model extends CI_Model {
                                     CONCAT('[', mb2.bidang_code, ']', ' ', mb2.bidang_name) bidang_name,
                                     tbl1.total,
                                     tv.status_verifikasi,
-                                    tv.status_bendahara
+                                    tv.status_bendahara,
+                                    CASE
+                                        WHEN tbl2.empty > 0 AND tbl2.ok = 0 AND tbl2.ng = 0 AND tv.status_verifikasi = 'SUBMITTED' THEN '-'
+                                        WHEN tbl2.empty > 0 AND tbl2.ok >= 0 AND tbl2.ng >= 0 THEN 'ON-PROGRESS'
+                                        WHEN tbl2.empty = 0 AND tbl2.ok = 0 AND tbl2.ng >= 0 THEN 'UNCOMPLETE'
+                                        ELSE 'COMPLETED'
+                                    END AS vstatus
                                 FROM 
                                     {$this->table_main} tv
                                 JOIN
@@ -193,6 +215,16 @@ class Verification_model extends CI_Model {
                                             m_shop ms ON (tvs.shop_id = ms.shop_id)
                                         group by tvs.verif_id, ms.shop_type
                                     ) tbl1 ON (tv.verif_id = tbl1.verif_id)
+                                JOIN
+                                    (
+                                        SELECT 
+                                            tvsd.verif_id,
+                                            SUM(CASE WHEN tvsd.approval_status IS NULL THEN 1 ELSE 0 END) AS empty,
+                                            SUM(CASE WHEN tvsd.approval_status = 1 THEN 1 ELSE 0 END) AS ok,
+                                            SUM(CASE WHEN tvsd.approval_status = 0 THEN 1 ELSE 0 END) AS ng
+                                        FROM {$this->table_sub_2} tvsd 
+                                        GROUP BY tvsd.verif_id
+                                    ) tbl2 ON (tv.verif_id = tbl2.verif_id)
                             {$where}
                             ) AS RowConstrainedResult
                     WHERE   RowNum > {$start}
@@ -222,11 +254,19 @@ class Verification_model extends CI_Model {
             }
             else if($this->session->userdata('role_name') == 'Verifikator')
             {
-                $row->status_verifikasi      = ($row->status_verifikasi == 'SUBMITTED') ? '-' : $row->status_verifikasi;
+                // $row->status_verifikasi      = ($row->status_verifikasi == 'SUBMITTED') ? '-' : $row->status_verifikasi;
+                $row->status_verifikasi      = $row->vstatus;
             }
             else
             {
-                $row->status_verifikasi      = $row->status_verifikasi;
+                if(($row->status_verifikasi == 'DRAFT') || ($row->status_verifikasi == 'SUBMITTED' && $row->vstatus == '-'))
+                {
+                    $row->status_verifikasi      = $row->status_verifikasi;
+                }
+                else
+                {
+                    $row->status_verifikasi      = $row->vstatus;
+                }
             }
 
             $row->actions           = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="fw-bolder text-success">
@@ -373,9 +413,9 @@ class Verification_model extends CI_Model {
                             tvs.shop_id, 
                             tv.status_verifikasi, 
                             CASE
-                                WHEN tbl1.empty > 0 AND tv.status_verifikasi = 'SUBMITTED' THEN '-'
-                                WHEN tbl1.empty > 0 THEN 'ON-PROGESS'
-                                WHEN tbl1.empty = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
+                                WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 AND (tv.status_verifikasi = 'SUBMITTED' OR tv.status_verifikasi = 'DRAFT') THEN '-'
+                                WHEN tbl1.empty > 0 AND tbl1.ok >= 0 AND tbl1.ng >= 0 THEN 'ON-PROGRESS'
+                                WHEN tbl1.empty = 0 AND tbl1.ok = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
                                 ELSE 'COMPLETED'
                             END AS vstatus
                         FROM
@@ -409,9 +449,9 @@ class Verification_model extends CI_Model {
                             tvs.shop_id, 
                             tv.status_verifikasi, 
                             CASE
-                                WHEN tbl1.empty > 0 AND tv.status_verifikasi = 'SUBMITTED' THEN '-'
-                                WHEN tbl1.empty > 0 THEN 'ON-PROGRESS'
-                                WHEN tbl1.empty = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
+                                WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 AND (tv.status_verifikasi = 'SUBMITTED' OR tv.status_verifikasi = 'DRAFT') THEN '-'
+                                WHEN tbl1.empty > 0 AND tbl1.ok >= 0 AND tbl1.ng >= 0 THEN 'ON-PROGRESS'
+                                WHEN tbl1.empty = 0 AND tbl1.ok = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
                                 ELSE 'COMPLETED'
                             END AS vstatus
                         FROM
