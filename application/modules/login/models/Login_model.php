@@ -112,7 +112,7 @@ class Login_model extends CI_Model {
                     $response = [
                         'code'  => 0,
                         'msg'   => 'Berhasil login',
-                        'data'  => site_url('dashboard')
+                        'data'  => site_url('verification')
                     ];
 
                 } else {

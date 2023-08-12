@@ -254,18 +254,32 @@ class Verification_model extends CI_Model {
             }
             else if($this->session->userdata('role_name') == 'Verifikator')
             {
-                // $row->status_verifikasi      = ($row->status_verifikasi == 'SUBMITTED') ? '-' : $row->status_verifikasi;
-                $row->status_verifikasi      = $row->vstatus;
-            }
-            else
-            {
-                if(($row->status_verifikasi == 'DRAFT') || ($row->status_verifikasi == 'SUBMITTED' && $row->vstatus == '-'))
+                if($row->status_verifikasi == 'COMPLETED' || $row->status_verifikasi == 'UNCOMPLETE')
                 {
-                    $row->status_verifikasi      = $row->status_verifikasi;
+                    $row->status_verifikasi = $row->status_verifikasi;   
                 }
                 else
                 {
+                    $row->status_verifikasi = $row->vstatus;
+                }
+            }
+            else
+            {
+                // if(($row->status_verifikasi == 'DRAFT') || ($row->status_verifikasi == 'SUBMITTED' && $row->vstatus == '-') || ($row->status_verifikasi == 'UNCOMPLETE' || $row->status_verifikasi == 'COMPLETED' || $row->status_verifikasi == 'ON-PROGRESS'))
+                // {
+                //     $row->status_verifikasi      = $row->status_verifikasi;
+                // }
+                // else
+                // {
+                //     $row->status_verifikasi      = $row->vstatus;
+                // }
+                if($row->status_verifikasi == 'SUBMITTED' && $row->vstatus !== '-')
+                {
                     $row->status_verifikasi      = $row->vstatus;
+                }
+                else
+                {
+                    $row->status_verifikasi      = $row->status_verifikasi;
                 }
             }
 
@@ -413,7 +427,7 @@ class Verification_model extends CI_Model {
                             tvs.shop_id, 
                             tv.status_verifikasi, 
                             CASE
-                                WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 AND (tv.status_verifikasi = 'SUBMITTED' OR tv.status_verifikasi = 'DRAFT') THEN '-'
+                                WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 THEN '-'
                                 WHEN tbl1.empty > 0 AND tbl1.ok >= 0 AND tbl1.ng >= 0 THEN 'ON-PROGRESS'
                                 WHEN tbl1.empty = 0 AND tbl1.ok = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
                                 ELSE 'COMPLETED'
@@ -449,7 +463,7 @@ class Verification_model extends CI_Model {
                             tvs.shop_id, 
                             tv.status_verifikasi, 
                             CASE
-                                WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 AND (tv.status_verifikasi = 'SUBMITTED' OR tv.status_verifikasi = 'DRAFT') THEN '-'
+                                WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 THEN '-'
                                 WHEN tbl1.empty > 0 AND tbl1.ok >= 0 AND tbl1.ng >= 0 THEN 'ON-PROGRESS'
                                 WHEN tbl1.empty = 0 AND tbl1.ok = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
                                 ELSE 'COMPLETED'
@@ -486,22 +500,28 @@ class Verification_model extends CI_Model {
         foreach ($rows_data as $row) {
             if($this->session->userdata('role_name') == 'Initiator')
             {
-                if($row->status_verifikasi == 'SUBMITTED')
-                {
-                    $row->actions               = '<a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
-                                                    Detail';                               
-                }
-                else
-                {
+                if($row->status_verifikasi == 'DRAFT')
+                { 
+                    // $row->actions               = '<a href="' . site_url('verification/edit/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
+                    //                                 Edit
+                    //                             </a> |
+                    //                             <a href="' . site_url('verification/item_detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
+                    //                                 Detail
+                    //                             </a> |
+                    //                             <a href="' . site_url('verification/delete/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-danger">
+                    //                                 Delete
+                    //                             </a>';  
                     $row->actions               = '<a href="' . site_url('verification/edit/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
                                                     Edit
                                                 </a> |
-                                                <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
-                                                    Detail
-                                                </a> |
-                                                <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-danger">
+                                                <a href="' . site_url('verification/delete/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-danger">
                                                     Delete
-                                                </a>';                   
+                                                </a>';                                 
+                }
+                else
+                {
+                    $row->actions               = '<a href="' . site_url('verification/item_detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
+                                                    Detail';                
                 }
             }
             else
@@ -716,7 +736,13 @@ class Verification_model extends CI_Model {
                     tvsd.notes,
                     tvsd.shop_id,
                     ms.shop_name,
-                    tvsd.approval_status,
+                    tbl1.status_verifikasi,
+                    -- tvsd.approval_status,
+                    CASE
+                        WHEN tvsd.approval_status IS NULL THEN '-'
+                        WHEN tvsd.approval_status = 0 THEN 'UNCOMPLETE'
+                        ELSE 'COMPLETED'
+                    END AS approval_status,
                     tvsd.doc_id AS file_id
                 FROM
                     t_verification_shop_det tvsd
@@ -724,6 +750,11 @@ class Verification_model extends CI_Model {
                     m_shop_det msd ON (tvsd.shop_id = msd.shop_id AND tvsd.shop_sequence = msd.shop_sequence)
                 JOIN 
                     m_shop ms ON (ms.shop_id = msd.shop_id)
+                JOIN 
+                    (
+                        SELECT verif_id, status_verifikasi
+                        FROM t_verification tv
+                    ) tbl1 ON (tvsd.verif_id = tbl1.verif_id)
                 LEFT JOIN
                     t_doc td ON (tvsd.doc_id = td.doc_id)
                 WHERE
@@ -734,7 +765,7 @@ class Verification_model extends CI_Model {
         $result = $query->result();
 
         foreach($result as $row) {
-            if($row->doc_id == '' && $row->notes == '') {
+            if(($row->doc_id == '' && $row->notes == '') || ($row->status_verifikasi <> 'DRAFT')) {
                 $row->action = '';
             } else {
                 $row->action = '<button class="btn btn-clear text-success fw-bolder">Edit</button>';
@@ -755,7 +786,33 @@ class Verification_model extends CI_Model {
 
     public function getApprovalStatus(String $verif_no = '')
     {
+        // $sql = "SELECT 
+        //             CASE
+        //                 WHEN SUM(tbl1.empty) > 0 THEN 'ON-PROGESS'
+        //                 WHEN SUM(tbl1.empty) = 0 AND SUM(tbl1.ng) > 0 THEN 'UNCOMPLETE'
+        //                 ELSE 'COMPLETED'
+        //             END AS v_status
+        //         FROM
+        //             t_verification tv
+        //         JOIN
+        //             t_verification_shop tvs ON (tv.verif_id = tvs.verif_id AND tv.verif_no = '{$verif_no}')
+        //         JOIN
+        //             (
+        //                 SELECT 
+        //                     tvsd.verif_shop_id, 
+        //                     tvsd.shop_id, 
+        //                     SUM(CASE WHEN tvsd.approval_status IS NULL THEN 1 ELSE 0 END) AS empty,
+        //                     SUM(CASE WHEN tvsd.approval_status = 1 THEN 1 ELSE 0 END) AS ok,
+        //                     SUM(CASE WHEN tvsd.approval_status = 0 THEN 1 ELSE 0 END) AS ng
+        //                 FROM t_verification_shop_det tvsd 
+        //                 GROUP BY tvsd.verif_shop_id, tvsd.shop_id
+        //             ) tbl1 ON (tvs.verif_shop_id = tbl1.verif_shop_id)";
+
+        /** New */
         $sql = "SELECT 
+                    -- tbl1.empty on_progress,
+                    -- tbl1.ok completed,
+                    -- tbl1.ng uncomplete,
                     CASE
                         WHEN SUM(tbl1.empty) > 0 THEN 'ON-PROGESS'
                         WHEN SUM(tbl1.empty) = 0 AND SUM(tbl1.ng) > 0 THEN 'UNCOMPLETE'
@@ -775,9 +832,44 @@ class Verification_model extends CI_Model {
                             SUM(CASE WHEN tvsd.approval_status = 0 THEN 1 ELSE 0 END) AS ng
                         FROM t_verification_shop_det tvsd 
                         GROUP BY tvsd.verif_shop_id, tvsd.shop_id
-                    ) tbl1 ON (tvs.verif_shop_id = tbl1.verif_shop_id)";
+                    ) tbl1 ON (tvs.verif_shop_id = tbl1.verif_shop_id)
+                GROUP BY tbl1.empty, tbl1.ok, tbl1.ng";
         $query  = $this->db->query($sql);
-        return $query->row();
+        $result = $query->result();
+        
+        $uncomplete     = 0;
+        $on_progress    = 0;
+        $completed      = 0;
+        foreach ($result as $row) {
+            if($row->v_status == 'UNCOMPLETE')
+            {
+                $uncomplete = ($uncomplete + 1);
+            } 
+            else if($row->v_status == 'COMPLETED') 
+            {
+                $completed = ($completed + 1);
+            }
+            else
+            {
+                $on_progress = ($on_progress + 1);
+            }
+        }
+
+        $status = '';
+        if($uncomplete > 0)
+        {
+            $status = 'UNCOMPLETE';
+        }
+        else if($on_progress > 0)
+        {
+            $status = 'ON-PROGRESS';
+        }
+        else
+        {
+            $status = 'COMPLETED';
+        }
+
+        return $status;
     }
 
     public function getApprovalNote(String $verif_no = '')

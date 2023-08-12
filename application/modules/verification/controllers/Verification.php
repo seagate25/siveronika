@@ -124,6 +124,31 @@ class Verification extends CI_Controller {
         $this->load->view('default', $data);
     }
 
+    public function item_detail()
+    {
+        $id     = $this->crypto->decode($this->uri->segment(3));
+        if($this->input->is_ajax_request())
+        {
+            $uploadedDetailDocs = $this->verification->getUploadedDetailDoc($id);
+            echo json_encode($uploadedDetailDocs, JSON_PRETTY_PRINT);
+            exit;
+        }
+        
+        $fields = $this->verification->getBidangList();
+        $shops  = $this->verification->getShopList('GU');
+        $uploadedDetailDocs = $this->verification->getUploadedDetailDoc($id);
+
+        $data['title']      = "Verification";
+        $data['menu']       = "Verification";
+        $data['submenu']    = "Detail - Belanja";
+        $data['content']    = "item_detail";
+        $data['fields']     = $fields;
+        $data['shops']      = $shops;
+        $data['docs']       = json_encode($uploadedDetailDocs, JSON_PRETTY_PRINT);
+        $data['verif_data'] = $this->verification->getDetailVerifItem($id);
+        $this->load->view('default', $data);
+    }
+
     public function get_shop()
     {
         if($this->input->is_ajax_request()) {
@@ -278,7 +303,8 @@ class Verification extends CI_Controller {
                 if($insertReqDoc > 0) {
                     $response   = [
                         'code'  => 0,
-                        'msg'   => 'SUCCESS'
+                        'msg'   => 'SUCCESS',
+                        'data'  => site_url('verification/detail/'.$this->crypto->encode($verif_no))
                     ];
 
                     echo json_encode($response, JSON_PRETTY_PRINT);
@@ -518,7 +544,7 @@ class Verification extends CI_Controller {
 
         /** Get Approval Status */
         $getStatus  = $this->verification->getApprovalStatus($verif_no);
-        $status     = $getStatus->v_status;
+        $status     = $getStatus;
 
         /** Get Approval Notes */
         $getNotes   = $this->verification->getApprovalNote($verif_no);
@@ -544,7 +570,7 @@ class Verification extends CI_Controller {
 
         /** Data to be update */
         $data = [
-            'status_verifikasi'      => $status,
+            'status_verifikasi' => $status,
             'approval_userid1'  => $this->session->userdata('user_id'),
             'approval_note1'    => $notes,
             'approval_date1'    => $time,

@@ -12,7 +12,7 @@
 <div class="card shadow-sm">
     <div class="card-header bg-success">
         <div class="card-toolbar">
-            <a href="<?php echo site_url('verification'); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
+            <a href="<?php echo site_url('verification/detail/'.$this->crypto->encode($verif_data->verif_no)); ?>" class="btn btn-sm btn-bg-white btn-icon me-2 mb-2">
                 <i class="las la-arrow-left fw-bolder fs-1 text-danger"></i>
             </a>
         </div>
@@ -23,7 +23,7 @@
             </a> -->
         </div>
     </div>
-    <form id="form_verification_new" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url('verification/save'); ?>">
+    <form id="" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url(''); ?>">
         <div class="card-body border-top p-9">
             <div class="row">
                 <!--Begin::Input Group-->
@@ -33,7 +33,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                        <input type="text" name="m_verification_no" id="m_verification_no" class="form-control form-control-solid" readonly="true" value="<?=$verif_no?>">
+                        <input type="text" name="m_verification_no" id="m_verification_no" class="form-control form-control-solid" readonly="true" value="<?=$verif_data->verif_no;?>">
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
                     <!--end::Col-->
@@ -46,11 +46,11 @@
                     <label class="col-lg-2 col-form-label required fw-bold fs-6">Tipe Belanja</label>
                     <!--end::Label-->
                     <!--begin::Col-->
-                    <div class="col-lg-3 fv-row fv-plugins-icon-container">
-                        <select class="form-select form-select-solid" name="m_type" id="m_type">
+                    <div class="col-lg-2 fv-row fv-plugins-icon-container">
+                        <select class="form-select form-select-solid" name="m_type" id="m_type" disabled="true">
                             <option></option>
-                            <option value="GU">GU</option>
-                            <option value="LS">LS</option>
+                            <option value="GU" <?=($verif_data->shop_type == 'GU') ? 'selected' : ''?>>GU</option>
+                            <option value="LS" <?=($verif_data->shop_type == 'LS') ? 'selected' : ''?>>LS</option>
                         </select>
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
@@ -64,12 +64,12 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                        <select class="form-select form-select-solid" name="m_bidang" id="m_bidang">
+                        <select class="form-select form-select-solid" name="m_bidang" id="m_bidang" disabled="true">
                             <option></option>
                             <?php
                                 foreach($fields as $field) {
                             ?>
-                            <option value="<?=$field->bidang_id;?>">[<?=$field->bidang_code;?>] <?=$field->bidang_name;?></option>
+                            <option value="<?=$field->bidang_code;?>" <?=($verif_data->bidang_code == $field->bidang_code) ? 'selected' : ''?>>[<?=$field->bidang_code;?>] <?=$field->bidang_name;?></option>
                             <?php
                                 }
                             ?>
@@ -86,8 +86,15 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                        <select class="form-select form-select-solid" name="m_shop" id="m_shop">
+                        <select class="form-select form-select-solid" name="m_shop" id="m_shop" disabled="true">
                             <option></option>
+                            <?php
+                                foreach($shops as $shop) {
+                            ?>
+                            <option value="<?=$shop->shop_id;?>" <?=($verif_data->shop_id == $shop->shop_id) ? 'selected' : ''?>><?=$shop->shop_name;?></option>
+                            <?php
+                                }
+                            ?>
                         </select>
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
@@ -101,7 +108,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-2 fv-row fv-plugins-icon-container">
-                        <input class="form-control form-control-solid" name="m_period" placeholder="Periode" id="kt_daterangepicker_3" readonly/>
+                        <input class="form-control form-control-solid" name="m_period" placeholder="Periode" id="kt_daterangepicker_3" disabled="true"/>
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
                     <!--end::Col-->
@@ -114,7 +121,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                        <input type="text" name="m_price" id="m_price" class="form-control" placeholder="Rp.">
+                        <input type="text" name="m_price" id="m_price" class="form-control" placeholder="Rp." disabled="true">
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
                     <!--end::Col-->
@@ -129,8 +136,9 @@
                             <th class="min-w-50px text-center">Tipe</th>
                             <th class="min-w-125px text-left">Detail</th>
                             <th class="min-w-125px text-center">Doc</th>
+                            <th class="min-w-80px text-center">Status</th>
                             <th class="min-w-80px text-center">Notes</th>
-                            <!-- <th class="min-w-50px text-center">Aksi</th> -->
+                            <th class="min-w-50px text-center">Aksi</th>
                         </tr>
                     </thead>
                 </table>
@@ -138,7 +146,7 @@
         </div>
         <!--begin::Card footer-->
         <div class="card-footer d-flex justify-content-end py-6 px-9">
-            <button type="submit" class="btn btn-primary" id="kt_form_verification_new_submit">Simpan</button>
+            <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Simpan</button>
         </div>
         <!--end::Card footer-->
     </form>
@@ -146,83 +154,10 @@
 <script type="text/javascript">
     "use strict";
 
-    var docs = [];
-
-    var KTFormVerifNew = (function () {
-        var t, e, i, d;
-        return {
-            init: function () {
-                (t = document.querySelector("#form_verification_new")),
-                    (e = document.querySelector("#kt_form_verification_new_submit")),
-                    (i = FormValidation.formValidation(t, {
-                        fields: {
-                            m_type: { validators: { notEmpty: { message: "Tipe Belanja tidak boleh kosong" } } },
-                            m_bidang: { validators: { notEmpty: { message: "Bidang tidak boleh kosong" } } },
-                            m_shop: { validators: { notEmpty: { message: "Belanja tidak boleh kosong" } } },
-                            m_period: { validators: { notEmpty: { message: "Periode tidak boleh kosong" } } },
-                            m_price: { validators: { notEmpty: { message: "Nilai tidak boleh kosong" } } },
-                        },
-                        plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row" }) },
-                    })),
-                    e.addEventListener("click", function (n) {
-                        n.preventDefault(),
-                            i.validate().then(function (i) {
-                                var frmData = new FormData(t);
-                                var dt = $("#kt_datatable_document").DataTable().rows().data().length;
-                                frmData.append('req_docs', dt);
-                                "Valid" == i
-                                    ? (
-                                        e.setAttribute("data-kt-indicator", "on"),
-                                        (e.disabled = !0),
-                                        $.ajax({
-                                            type: "POST",
-                                            url: t.getAttribute('action'),
-                                            data: frmData,
-                                            processData: false,
-                                            contentType: false,
-                                            success: function(response) {
-                                                var obj = jQuery.parseJSON(response);
-                                                if(obj.code == 0) {
-                                                    // document.location = obj.data;
-                                                    e.removeAttribute("data-kt-indicator"),
-                                                    (e.disabled = !1),
-                                                    Swal.fire({ 
-                                                        text: obj.msg, 
-                                                        buttonsStyling: !1, 
-                                                        confirmButtonText: "Ok",
-                                                        allowOutsideClick: false,
-                                                        customClass: { confirmButton: "btn btn-primary" } 
-                                                    }).then(function (t) {
-                                                        t.isConfirmed && (document.location = obj.data);
-                                                    });
-                                                } else {
-                                                    e.removeAttribute("data-kt-indicator"),
-                                                    (e.disabled = !1),
-                                                    Swal.fire({ 
-                                                        text: obj.msg, 
-                                                        icon: "error", buttonsStyling: !1, 
-                                                        confirmButtonText: "Ok",
-                                                        allowOutsideClick: false,
-                                                        customClass: { confirmButton: "btn btn-primary" } })
-                                                    .then(function (t) {
-                                                        t.isConfirmed && ((e.querySelector('[name="username"]').value = ""), (e.querySelector('[name="password"]').value = ""));
-                                                    });
-                                                }
-                                            }
-                                        })
-                                    )
-                                    : Swal.fire({
-                                        text: "Sorry, looks like there are some errors detected, please try again.",
-                                        icon: "error",
-                                        buttonsStyling: !1,
-                                        confirmButtonText: "Ok, got it!",
-                                        customClass: { confirmButton: "btn btn-primary" },
-                                    });
-                            });
-                    });
-            },
-        };
-    })();
+    var docs = null;
+    var doc_id = '';
+    var notes = '';
+    var btn = '';
 
     var Select2 = (function() {
         return {
@@ -230,10 +165,6 @@
                 $("#m_type").select2({
                     placeholder: 'Pilih Tipe Belanja',
                     minimumResultsForSearch: -1
-                }),
-                $("#m_type").on('select2:select', function(e) {
-                    var id  = e.params.data.id;
-                    Select2.init_m_shop(id);
                 });
             },
             init_m_bidang: function() {
@@ -243,45 +174,7 @@
             },
             init_m_shop: function(type) {
                 $("#m_shop").select2({
-                    placeholder: 'Pilih Belanja',
-                    ajax: {
-                        url: "<?php echo site_url('verification/get_shop'); ?>",
-                        dataType: "json",
-                        type: "POST",
-                        data: function (params) {
-
-                            var queryParameters = {
-                                term: type
-                            }
-                            return queryParameters;
-                        },
-                        processResults: function (data) {
-                            return {
-                                results: $.map(data, function (item) {
-                                    return {
-                                        text: item.shop_name,
-                                        id: item.shop_id
-                                    }
-                                })
-                            };
-                        }
-                    }
-                });
-            },
-            onselect_m_shop: function() {
-                $("#m_shop").on('select2:select', function(e) {
-                    var id = e.params.data.id;
-                    $.ajax({
-                        type: "POST",
-                        url: "<?php echo site_url('verification/get_require_docs'); ?>",
-                        data: { shop_id: id },
-                        success: function(response) {
-                            docs = [];
-                            var obj = jQuery.parseJSON(response);
-                            docs = obj;
-                            KTDataTables.init(docs);
-                        }
-                    })
+                    placeholder: 'Pilih Belanja'
                 });
             }
         }
@@ -296,32 +189,66 @@
                     serverSide:!1,
                     destroy: !0,
                     paging: !0,
-                    data: x,
+                    ajax: {
+                        type: "GET",
+                        url: "<?php echo site_url('verification/edit/') ?>" + '<?=$this->uri->segment(3);?>'
+                    },
                     columns: [
                         { data: 'shop_sequence', className: 'text-center', sortable: false, searchable: false, orderable: false },
                         { data: 'shop_type', className: 'text-center', sortable: false, searchable: false, orderable: false },
-                        { data: 'shop_detail', className: 'text-left', sortable: false, searchable: false, orderable: false },
-                        { data: 'doc', className: 'text-center', sortable: false, searchable: false, orderable: false,
+                        { data: 'shop_detail', className: 'text-left' },
+                        { data: 'doc_id', className: 'text-center', sortable: false, searchable: false, orderable: false,
                             render: function(data, type, row, meta) {
-                                return '<input type="file" name="'+row.shop_id+'_'+row.shop_sequence+'">';
+                                if(data !== '' || row.status_verifikasi !== 'DRAFT') {
+                                    return data;
+                                } else {
+                                    return '<input type="file" name="'+row.shop_id+'_'+row.shop_sequence+'">';
+                                }
                             }
                         },
+                        { data: 'approval_status', className: 'text-center' },
                         { data: 'notes', className: 'text-center', sortable: false, searchable: false, orderable: false,
                             render: function (data, type, row, meta) {
-                                return '<input type="text" name="notes_'+row.shop_sequence+'">';
+                                console.log(row);
+                                if(data !== '' || row.status_verifikasi !== 'DRAFT') {
+                                    return data;
+                                } else {
+                                    return '<input type="text" name="notes_'+row.shop_sequence+'">';
+                                }
                             }
                         },
-                        // { data: 'action', className: 'text-center', sortable: false, searchable: false, orderable: false,
-                        //     render: function (data, type, row, meta) {
-                        //         return '<a href="" class="text-success fw-bolder">Edit</a>';
-                        //     }
-                        // },
+                        { data: 'action', className: 'text-center', sortable: false, searchable: false, orderable: false },
                     ],
                     lengthMenu: [
                             [5, 10, 15, 25, -1],
                             [5, 10, 15, 25, "All"]
                         ],
                     pageLength: 10
+                }),
+                table.on('click', 'button', function (e) {
+                    e.preventDefault();
+                    let index = $(this).closest('tr').index();
+                    let allData = table.data();
+                    let data = table.row(e.target.closest('tr')).data();
+                    console.log(docs);
+                    let str = data.action;
+                    if(str.indexOf("text-success") >= 0) {
+                        if(data.doc_id !== '') {
+                            data.doc_id = '';
+                        }
+                        if(data.notes !== '') {
+                            data.notes = '';
+                        }
+                        if(data.action !== '') {
+                            data.action = data.action = '<button class="btn btn-clear text-danger fw-bolder">Batal</button>';
+                        }
+                    } else if(str.indexOf("text-danger") >= 0) {
+                        data.doc_id = docs.data[index].doc_id;
+                        data.notes = docs.data[index].notes;
+                        data.action = docs.data[index].action;
+                    }
+                    
+                    table.row(index).data(data);
                 });
             }
         };
@@ -372,19 +299,19 @@
                     precision: 0,
                     allowZero: !0,
                     prefix: 'Rp. '
-                });
+                }),
+                $("#m_price").maskMoney('mask', <?=$verif_data->total?>);
             }
         }
     })();
 
     KTUtil.onDOMContentLoaded((function() {
-        KTFormVerifNew.init();
+        docs = <?=$docs?>;
         Select2.init_m_type();
         Select2.init_m_shop();
         Select2.init_m_bidang();
-        Select2.onselect_m_shop();
         Daterangepicker.init_m_period();
         Maskmoney.init_m_price();
-        KTDataTables.init(docs);
+        KTDataTables.init();
     }));
 </script>

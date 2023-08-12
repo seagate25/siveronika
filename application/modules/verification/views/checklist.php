@@ -84,13 +84,17 @@
                                     <h3 class="card-title"><?=$doc->shop_type?></h3>
                                     <div class="card-toolbar">
                                     <?php
-                                        if($doc->approval_status == 1) {
+                                        if($doc->approval_status == 'COMPLETED') {
                                     ?>
                                         <span class="badge badge-success fw-bolder fs-6">V</span>
                                     <?php
-                                        } else {
+                                        } else if($doc->approval_status == 'UNCOMPLETE') {
                                     ?>
                                         <span class="badge badge-danger fw-bolder fs-6">!</span>
+                                    <?php
+                                        } else {
+                                    ?>
+                                        <span class="badge badge-warning fw-bolder fs-6">-</span>
                                     <?php
                                         }
                                     ?>
@@ -103,7 +107,7 @@
                                 <div class="card-footer d-flex justify-content-center p-3">
                                     <button type="button" class="btn btn-sm btn-primary me-2" onclick="return Actions.preview('<?=$doc->file_id;?>');" id="btn_preview">Preview</button>
                                 <?php
-                                    if($doc->approval_status !== NULL) {
+                                    if($doc->approval_status !== '-') {
                                 ?>
                                     <a href="" class="btn btn-sm btn-primary disabled">Decision</a>
                                 <?php
