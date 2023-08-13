@@ -40,11 +40,12 @@ class Verification extends CI_Controller {
         }
 
         if($this->input->is_ajax_request()) {
-            if($view == 'initiator' || $view == 'verificator') {
-                $verif_det_data = $this->verification->getVerifDetailListApprove($verif_no);
-            } else {
-                $verif_det_data = $this->verification->getVerifDetailList($verif_no);
-            }
+            // if($view == 'initiator' || $view == 'verificator') {
+            //     $verif_det_data = $this->verification->getVerifDetailListApprove($verif_no);
+            // } else {
+            //     $verif_det_data = $this->verification->getVerifDetailList($verif_no);
+            // }
+            $verif_det_data = $this->verification->getVerifDetailListApprove($verif_no);
             echo json_encode($verif_det_data, JSON_PRETTY_PRINT);
             exit;
         }
@@ -632,27 +633,38 @@ class Verification extends CI_Controller {
     public function save_decision_treasure()
     {
         $id         = $this->input->post('id');
-        $verif_no   = $this->crypto->decode($id);
+        $verif_id   = $this->crypto->decode($id);
         $notes      = $this->input->post('notes');
         $status     = $this->input->post('status');
 
         /** Parameter for update */
         $params = [
-            'verif_no' => $verif_no
+            'verif_shop_id' => $verif_id
         ];
+        // $params = [
+        //     'verif_no' => $verif_no
+        // ];
 
         /** Data to be update */
         $data = [
-            'status_verifikasi'      => $status,
-            'approval_userid2'  => $this->session->userdata('user_id'),
-            'approval_note2'    => $notes,
-            'approval_date2'    => sqlsrv_datetime(),
+            'approval_status'   => $status,
+            'approval_date'     => sqlsrv_datetime(),
+            'approval_userid'   => $this->session->userdata('user_id'),
             'update_date'       => sqlsrv_datetime(),
             'update_by'         => $this->session->userdata('user_name')
         ];
+        // $data = [
+        //     'status_verifikasi' => $status,
+        //     'approval_userid2'  => $this->session->userdata('user_id'),
+        //     'approval_note2'    => $notes,
+        //     'approval_date2'    => sqlsrv_datetime(),
+        //     'update_date'       => sqlsrv_datetime(),
+        //     'update_by'         => $this->session->userdata('user_name')
+        // ];
 
         /** Updating Verification Head */
-        $update = $this->verification->update('t_verification', $params, $data);
+        $update = $this->verification->update('t_verification_shop', $params, $data);
+        // $update = $this->verification->update('t_verification', $params, $data);
         if($update > 0) {
             $response   = [
                 'code'  => 0,

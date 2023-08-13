@@ -110,7 +110,8 @@ class Verification_model extends CI_Model {
                 }
                 $bidang =  "(" . $value . ")";
 
-                $where .= " WHERE (tv.bidang_id IN {$bidang} AND tv.branch_id = '{$this->branch_code}' AND tv.status_verifikasi IN ('COMPLETED', 'VERIFIED', 'REJECTED'))";
+                // $where .= " WHERE (tv.bidang_id IN {$bidang} AND tv.branch_id = '{$this->branch_code}' AND tv.status_verifikasi IN ('COMPLETED', 'VERIFIED', 'REJECTED'))";
+                $where .= " WHERE (tv.bidang_id IN {$bidang} AND tv.branch_id = '{$this->branch_code}' AND tv.status_verifikasi IN ('COMPLETED', 'ON-PROGRESS', 'UNCOMPLETE'))";
                 
             } else if($this->session->userdata('role_name') == 'Verifikator Admin' || $this->session->userdata('role_name') == 'Bendahara Admin') {
 
@@ -144,6 +145,7 @@ class Verification_model extends CI_Model {
                             tbl1.total,
                             tv.status_verifikasi,
                             tv.status_bendahara,
+                            tbl1.empty, tbl1.verify, tbl1.reject,
                             CASE
                                 WHEN tbl2.empty > 0 AND tbl2.ok = 0 AND tbl2.ng = 0 AND tv.status_verifikasi = 'SUBMITTED' THEN '-'
                                 WHEN tbl2.empty > 0 AND tbl2.ok >= 0 AND tbl2.ng >= 0 THEN 'ON-PROGRESS'
@@ -161,7 +163,10 @@ class Verification_model extends CI_Model {
                                 SELECT 
                                     tvs.verif_id,
                                     ms.shop_type,
-                                    SUM(tvs.total) total
+                                    SUM(tvs.total) total,
+                                    SUM(CASE WHEN tvs.approval_status IS NULL THEN 1 ELSE 0 END) AS empty,
+                                    SUM(CASE WHEN tvs.approval_status = 1 THEN 1 ELSE 0 END) AS verify,
+                                    SUM(CASE WHEN tvs.approval_status = 0 THEN 1 ELSE 0 END) AS reject
                                 FROM 
                                     {$this->table_sub_1} tvs 
                                 JOIN
@@ -191,6 +196,7 @@ class Verification_model extends CI_Model {
                                     tbl1.total,
                                     tv.status_verifikasi,
                                     tv.status_bendahara,
+                                    tbl1.empty, tbl1.verify, tbl1.reject,
                                     CASE
                                         WHEN tbl2.empty > 0 AND tbl2.ok = 0 AND tbl2.ng = 0 AND tv.status_verifikasi = 'SUBMITTED' THEN '-'
                                         WHEN tbl2.empty > 0 AND tbl2.ok >= 0 AND tbl2.ng >= 0 THEN 'ON-PROGRESS'
@@ -208,7 +214,10 @@ class Verification_model extends CI_Model {
                                         SELECT 
                                             tvs.verif_id,
                                             ms.shop_type,
-                                            SUM(tvs.total) total
+                                            SUM(tvs.total) total,
+                                            SUM(CASE WHEN tvs.approval_status IS NULL THEN 1 ELSE 0 END) AS empty,
+                                            SUM(CASE WHEN tvs.approval_status = 1 THEN 1 ELSE 0 END) AS verify,
+                                            SUM(CASE WHEN tvs.approval_status = 0 THEN 1 ELSE 0 END) AS reject
                                         FROM 
                                             {$this->table_sub_1} tvs 
                                         JOIN
@@ -242,15 +251,22 @@ class Verification_model extends CI_Model {
             $row->verif_request_date    = ($row->verif_request_date == NULL) ? '-' : date('d-m-Y', strtotime($row->verif_request_date));
             if($this->session->userdata('role_name') == 'Bendahara')
             {
-                // $disabled               = ($row->status_verifikasi == 'COMPLETED') ? '' : 'disabled';
-
-                $row->status_verifikasi      = ($row->status_verifikasi == 'COMPLETED') ? '-' : $row->status_verifikasi;
-                // $row->actions           = '<button type="button" class="btn btn-sm btn-clear '.$disabled.' fw-bolder text-primary p-2" data-bs-id="'.$this->crypto->encode($row->verif_no).'" data-bs-toggle="modal" data-bs-target="#kt_modal_decision" data-bs-backdrop="static" data-bs-keyboard="false">
-                //                             Decision
-                //                         </button>
-                //                         <a href="' . site_url('verification/detail/' . $this->crypto->encode($row->verif_no)) . '" class="btn btn-sm btn-clear fw-bolder text-success p-0">
-                //                             Detail
-                //                         </a>';
+                // $row->status_verifikasi      = ($row->status_verifikasi == 'COMPLETED') ? '-' : $row->status_verifikasi;
+                if($row->status_verifikasi == 'UNCOMPLETE' && $row->vstatus == 'UNCOMPLETE')
+                {
+                    continue;
+                }
+                else
+                {
+                    if($row->empty > 0 && $row->verify == 0 && $row->reject == 0)
+                    {
+                        $row->status_verifikasi = '-';
+                    }
+                    else if($row->empty > 0 && $row->verify >= 0 && $row->reject >= 0)
+                    {
+                        $row->status_verifikasi = 'ON-PROGRESS';
+                    }
+                }
             }
             else if($this->session->userdata('role_name') == 'Verifikator')
             {
@@ -425,12 +441,19 @@ class Verification_model extends CI_Model {
                             tvs.period, 
                             tvs.total, 
                             tvs.shop_id, 
-                            tv.status_verifikasi, 
+                            tv.status_verifikasi,
+                            tvs.approval_status,
+                            -- CASE
+                            --     WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 THEN '-'
+                            --     WHEN tbl1.empty > 0 AND tbl1.ok >= 0 AND tbl1.ng >= 0 THEN 'ON-PROGRESS'
+                            --     WHEN tbl1.empty = 0 AND tbl1.ok = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
+                            --     ELSE 'COMPLETED'
+                            -- END AS vstatus
                             CASE
                                 WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 THEN '-'
-                                WHEN tbl1.empty > 0 AND tbl1.ok >= 0 AND tbl1.ng >= 0 THEN 'ON-PROGRESS'
-                                WHEN tbl1.empty = 0 AND tbl1.ok = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
-                                ELSE 'COMPLETED'
+                                WHEN tbl1.empty = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
+                                WHEN tbl1.empty = 0 AND tbl1.ng = 0 THEN 'COMPLETED'
+                                ELSE 'ON-PROGRESS'
                             END AS vstatus
                         FROM
                             t_verification tv
@@ -461,12 +484,19 @@ class Verification_model extends CI_Model {
                             tvs.period, 
                             tvs.total, 
                             tvs.shop_id, 
-                            tv.status_verifikasi, 
+                            tv.status_verifikasi,
+                            tvs.approval_status,
+                            -- CASE
+                            --     WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 THEN '-'
+                            --     WHEN tbl1.empty > 0 AND tbl1.ok >= 0 AND tbl1.ng >= 0 THEN 'ON-PROGRESS'
+                            --     WHEN tbl1.empty = 0 AND tbl1.ok = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
+                            --     ELSE 'COMPLETED'
+                            -- END AS vstatus
                             CASE
                                 WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 THEN '-'
-                                WHEN tbl1.empty > 0 AND tbl1.ok >= 0 AND tbl1.ng >= 0 THEN 'ON-PROGRESS'
-                                WHEN tbl1.empty = 0 AND tbl1.ok = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
-                                ELSE 'COMPLETED'
+                                WHEN tbl1.empty = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
+                                WHEN tbl1.empty = 0 AND tbl1.ng = 0 THEN 'COMPLETED'
+                                ELSE 'ON-PROGRESS'
                             END AS vstatus
                         FROM
                             t_verification tv
@@ -524,7 +554,7 @@ class Verification_model extends CI_Model {
                                                     Detail';                
                 }
             }
-            else
+            else if($this->session->userdata('role_name') == 'Verifikator')
             {
                 if($row->vstatus == 'ON-PROGRESS' || $row->vstatus == '-')
                 {
@@ -537,6 +567,51 @@ class Verification_model extends CI_Model {
                     $url            = "";
                     $disabled       = "disabled";
                     $row->actions   = '<a href="' . $url . '" class="btn btn-sm btn-clear fw-bolder text-success '.$disabled.'">Process Verifikasi</a>';
+                }
+            }
+            else
+            {
+                // if($row->vstatus == 'ON-PROGRESS' || $row->vstatus == '-')
+                // {
+                //     $disabled       = "disabled";
+                //     $row->actions   = '<button type="button" class="btn btn-clear btn-sm text-success fs-6 fw-bolder" '.$disabled.' id="btn_submit">Decision</button>';
+                // } 
+                // else
+                // {
+                //     $disabled       = "";
+                //     $row->actions   = '<button type="button" class="btn btn-clear btn-sm text-success fs-6 fw-bolder" '.$disabled.' data-bs-toggle="modal" data-bs-id="'.$row->verif_shop_id.'" data-bs-target="#kt_modal_decision" data-bs-backdrop="static" data-bs-keyboard="false" id="btn_submit">Decision</button>';
+                // }
+
+                // if($row->vstatus == 'ON-PROGRESS' || $row->vstatus == 'UNCOMPLETE')
+                // {
+                //     $row->vstatus   = "-";
+                //     $disabled       = "disabled";
+                //     $row->actions   = '<button type="button" class="btn btn-clear btn-sm text-success fs-6 fw-bolder" '.$disabled.' id="btn_submit">Decision</button>';
+                // } 
+                // else
+                // {
+                //     $row->vstatus   = $row->vstatus;
+                //     $disabled       = "";
+                //     $row->actions   = '<button type="button" class="btn btn-clear btn-sm text-success fs-6 fw-bolder" '.$disabled.' data-bs-toggle="modal" data-bs-id="'.$this->crypto->encode($row->verif_shop_id).'" data-bs-target="#kt_modal_decision" data-bs-backdrop="static" data-bs-keyboard="false" id="btn_submit">Decision</button>';
+                // }
+
+                if($row->approval_status !== NULL)
+                {
+                    $row->vstatus   = ($row->approval_status == 1) ? 'VERIFIED' : 'REJECTED';
+                    $disabled       = "disabled";
+                    $row->actions   = '<button type="button" class="btn btn-clear btn-sm text-success fs-6 fw-bolder" '.$disabled.' id="btn_submit">Decision</button>';
+                } 
+                else if($row->vstatus == 'ON-PROGRESS' || $row->vstatus == 'UNCOMPLETE' || $row->vstatus == '-')
+                {
+                    $row->vstatus   = "-";
+                    $disabled       = "disabled";
+                    $row->actions   = '<button type="button" class="btn btn-clear btn-sm text-success fs-6 fw-bolder" '.$disabled.' id="btn_submit">Decision</button>';
+                }
+                else
+                {
+                    $row->vstatus   = $row->vstatus;
+                    $disabled       = "";
+                    $row->actions   = '<button type="button" class="btn btn-clear btn-sm text-success fs-6 fw-bolder" '.$disabled.' data-bs-toggle="modal" data-bs-id="'.$this->crypto->encode($row->verif_shop_id).'" data-bs-target="#kt_modal_decision" data-bs-backdrop="static" data-bs-keyboard="false" id="btn_submit">Decision</button>';
                 }
             }
             $row->number                = $i;
@@ -813,9 +888,10 @@ class Verification_model extends CI_Model {
                     -- tbl1.empty on_progress,
                     -- tbl1.ok completed,
                     -- tbl1.ng uncomplete,
-                    CASE
-                        WHEN SUM(tbl1.empty) > 0 THEN 'ON-PROGESS'
-                        WHEN SUM(tbl1.empty) = 0 AND SUM(tbl1.ng) > 0 THEN 'UNCOMPLETE'
+                    tbl1.verif_shop_id,
+                    CASE 
+                        WHEN tbl1.empty > 0 THEN 'ON-PROGRESS'
+                        WHEN tbl1.empty = 0 AND tbl1.ng > 0 THEN 'UNCOMPLETE'
                         ELSE 'COMPLETED'
                     END AS v_status
                 FROM
@@ -833,7 +909,7 @@ class Verification_model extends CI_Model {
                         FROM t_verification_shop_det tvsd 
                         GROUP BY tvsd.verif_shop_id, tvsd.shop_id
                     ) tbl1 ON (tvs.verif_shop_id = tbl1.verif_shop_id)
-                GROUP BY tbl1.empty, tbl1.ok, tbl1.ng";
+                GROUP BY tbl1.verif_shop_id, tbl1.empty, tbl1.ok, tbl1.ng";
         $query  = $this->db->query($sql);
         $result = $query->result();
         
