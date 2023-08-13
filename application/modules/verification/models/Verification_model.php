@@ -258,13 +258,25 @@ class Verification_model extends CI_Model {
                 }
                 else
                 {
-                    if($row->empty > 0 && $row->verify == 0 && $row->reject == 0)
+                    if($row->status_bendahara !== NULL)
+                    {
+                        $row->status_verifikasi = $row->status_bendahara;
+                    }
+                    else
                     {
                         $row->status_verifikasi = '-';
-                    }
-                    else if($row->empty > 0 && $row->verify >= 0 && $row->reject >= 0)
-                    {
-                        $row->status_verifikasi = 'ON-PROGRESS';
+                        // if($row->empty > 0 && $row->verify == 0 && $row->reject == 0)
+                        // {
+                        //     $row->status_verifikasi = '-';
+                        // }
+                        // else if($row->empty > 0 && $row->verify >= 0 && $row->reject >= 0)
+                        // {
+                        //     $row->status_verifikasi = 'ON-PROGRESS';
+                        // }
+                        // else
+                        // {
+                        //     $row->status_verifikasi = 'VERIFIED';
+                        // }
                     }
                 }
             }
@@ -442,6 +454,7 @@ class Verification_model extends CI_Model {
                             tvs.total, 
                             tvs.shop_id, 
                             tv.status_verifikasi,
+                            tv.status_bendahara,
                             tvs.approval_status,
                             -- CASE
                             --     WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 THEN '-'
@@ -485,6 +498,7 @@ class Verification_model extends CI_Model {
                             tvs.total, 
                             tvs.shop_id, 
                             tv.status_verifikasi,
+                            tv.status_bendahara,
                             tvs.approval_status,
                             -- CASE
                             --     WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 THEN '-'
@@ -556,6 +570,15 @@ class Verification_model extends CI_Model {
             }
             else if($this->session->userdata('role_name') == 'Verifikator')
             {
+                if($row->approval_status !== NULL)
+                {
+                    $row->vstatus   = ($row->approval_status == 1) ? 'VERIFIED' : 'REJECTED';
+                }
+                else
+                {
+                    $row->vstatus   = $row->vstatus;
+                }
+
                 if($row->vstatus == 'ON-PROGRESS' || $row->vstatus == '-')
                 {
                     $url            = site_url('verification/checklist/' . $this->crypto->encode($row->verif_shop_id));
@@ -685,7 +708,7 @@ class Verification_model extends CI_Model {
      */
     public function getVerifDetail(String $verif_no = '')
     {
-        $sql    = " SELECT tv.verif_id, tv.verif_no, tv.status_verifikasi, mb.bidang_code, mb.bidang_name, mb2.branch_code, mb2.branch_name
+        $sql    = " SELECT tv.verif_id, tv.verif_no, tv.status_verifikasi, tv.status_bendahara, mb.bidang_code, mb.bidang_name, mb2.branch_code, mb2.branch_name
                     FROM t_verification tv
                     JOIN m_bidang mb ON (tv.bidang_id = mb.bidang_id)
                     JOIN m_branch mb2 ON (tv.branch_id = mb2.branch_code)
@@ -986,6 +1009,32 @@ class Verification_model extends CI_Model {
         $result  = $this->global->get_by('t_doc', $params);
 
         return $result;
+    }
+
+    public function getBendaharaStatus(String $verif_no = '')
+    {
+        $sql    = "SELECT 
+                        tv.verif_no,
+                        CASE
+                            WHEN tvs.empty > 0 AND tvs.verified >= 0 AND tvs.rejected >= 0 THEN 'ON-PROGRESS'
+                            ELSE 'VERIFIED'
+                        END AS d_status
+                    FROM
+                        t_verification tv
+                    JOIN
+                        (
+                            SELECT 
+                                verif_id,
+                                SUM(CASE WHEN approval_status IS NULL THEN 1 ELSE 0 END) AS empty,
+                                SUM(CASE WHEN approval_status = 1 THEN 1 ELSE 0 END) AS verified,
+                                SUM(CASE WHEN approval_status = 0 THEN 1 ELSE 0 END) AS rejected
+                            FROM t_verification_shop 
+                            GROUP BY verif_id
+                        ) tvs ON (tv.verif_id = tvs.verif_id AND tv.verif_no = '{$verif_no}')";
+        $query  = $this->db->query($sql);
+        $result = $query->row();
+
+        return $result->d_status;
     }
 
 }

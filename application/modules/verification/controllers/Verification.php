@@ -607,6 +607,8 @@ class Verification extends CI_Controller {
         $data   = [
             'approval_status'   => $status,
             'approval_note'     => $notes,
+            'approval_date'     => sqlsrv_datetime(),
+            'approval_userid'   => $this->session->userdata('user_id'),
             'update_date'       => sqlsrv_datetime(),
             'update_by'         => $this->session->userdata('user_name')
         ];
@@ -633,43 +635,63 @@ class Verification extends CI_Controller {
     public function save_decision_treasure()
     {
         $id         = $this->input->post('id');
+        $no         = $this->input->post('no');
+        $verif_no   = $this->crypto->decode($no);
         $verif_id   = $this->crypto->decode($id);
         $notes      = $this->input->post('notes');
-        $status     = $this->input->post('status');
+        $status_det = $this->input->post('status');
 
         /** Parameter for update */
-        $params = [
+        $params_det = [
             'verif_shop_id' => $verif_id
         ];
-        // $params = [
-        //     'verif_no' => $verif_no
-        // ];
 
         /** Data to be update */
-        $data = [
-            'approval_status'   => $status,
+        $data_det = [
+            'approval_status'   => $status_det,
             'approval_date'     => sqlsrv_datetime(),
             'approval_userid'   => $this->session->userdata('user_id'),
             'update_date'       => sqlsrv_datetime(),
             'update_by'         => $this->session->userdata('user_name')
         ];
-        // $data = [
-        //     'status_verifikasi' => $status,
-        //     'approval_userid2'  => $this->session->userdata('user_id'),
-        //     'approval_note2'    => $notes,
-        //     'approval_date2'    => sqlsrv_datetime(),
-        //     'update_date'       => sqlsrv_datetime(),
-        //     'update_by'         => $this->session->userdata('user_name')
-        // ];
 
         /** Updating Verification Head */
-        $update = $this->verification->update('t_verification_shop', $params, $data);
-        // $update = $this->verification->update('t_verification', $params, $data);
-        if($update > 0) {
-            $response   = [
-                'code'  => 0,
-                'msg'   => 'Berhasil menyimpan data'
+        $update_det = $this->verification->update('t_verification_shop', $params_det, $data_det);
+        if($update_det > 0) {
+
+            $status_header  = $this->verification->getBendaharaStatus($verif_no);
+
+            $params_header = [
+                'verif_no' => $verif_no
             ];
+
+            $data_header = [
+                'status_bendahara'  => $status_header,
+                'approval_userid2'  => $this->session->userdata('user_id'),
+                'approval_note2'    => $notes,
+                'approval_date2'    => sqlsrv_datetime(),
+                'update_date'       => sqlsrv_datetime(),
+                'update_by'         => $this->session->userdata('user_name')
+            ];
+
+            $update_header = $this->verification->update('t_verification', $params_header, $data_header);
+
+            if($update_header > 0) {
+                
+                $response   = [
+                    'code'  => 0,
+                    'msg'   => 'Berhasil menyimpan data',
+                    'data'  => $status_header
+                ];
+
+            } else {
+                
+                $response   = [
+                    'code'  => 200,
+                    'msg'   => 'Gagal menyimpan data'
+                ];
+
+            }
         } else {
             $response   = [
                 'code'  => 200,

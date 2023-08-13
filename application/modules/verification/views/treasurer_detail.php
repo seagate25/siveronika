@@ -3,7 +3,11 @@
         background-color:#460046 !important;
     }
 </style>
-<script src="<?php echo base_url(); ?>assets/plugins/custom/jquery-maskMoney/jquery.maskMoney.js"></script>
+<script src="<?php
+
+use phpDocumentor\Reflection\Types\This;
+
+ echo base_url(); ?>assets/plugins/custom/jquery-maskMoney/jquery.maskMoney.js"></script>
 <div class="card shadow-sm">
     <div class="card-header bg-success">
         <div class="card-toolbar">
@@ -53,8 +57,8 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8">
-                        <span class="fs-6 text-gray-800">
-                            <?=($verif_data->status_verifikasi == 'UNCOMPLETE' || $verif_data->status_verifikasi == 'ON-PROGRESS' || $verif_data->status_verifikasi == 'COMPLETED') ? '-' : $verif_data->status_verifikasi?>
+                        <span class="fs-6 text-gray-800" id="txt_status">
+                            <?=($verif_data->status_verifikasi == 'UNCOMPLETE' || $verif_data->status_verifikasi == 'ON-PROGRESS' || $verif_data->status_verifikasi == 'COMPLETED') ? '-' : $verif_data->status_bendahara?>
                         </span>
                     </div>
                     <!--end::Col-->
@@ -240,6 +244,7 @@
                                 var frmData = new FormData(c);
                                 frmData.append('id', id);
                                 frmData.append('status', 1);
+                                frmData.append('no', '<?=$this->crypto->encode($verif_data->verif_no)?>')
                                 "Valid" == e
                                     ?
                                     (
@@ -281,7 +286,7 @@
                                                                 }
                                                             }).then(
                                                                 function(t) {
-                                                                    t.isConfirmed && (obj.code == 0) ? ( KTDataTables.init(), g.resetForm(true), b.hide()) : r.dismiss;
+                                                                    t.isConfirmed && (obj.code == 0) ? ( $("#txt_status").text(obj.data), KTDataTables.init(), g.resetForm(true), b.hide()) : r.dismiss;
                                                                 }
                                                             );
                                                         },
@@ -326,6 +331,7 @@
                                 var frmData = new FormData(c);
                                 frmData.append('id', id);
                                 frmData.append('status', 0);
+                                frmData.append('no', '<?=$this->crypto->encode($verif_data->verif_no)?>')
                                 "Valid" == e
                                     ?
                                     (
@@ -368,7 +374,7 @@
                                                                 }
                                                             }).then(
                                                                 function(t) {
-                                                                    t.isConfirmed && (obj.code == 0) ? ( KTDataTables.init(), g.resetForm(true), b.hide()) : r.dismiss;
+                                                                    t.isConfirmed && (obj.code == 0) ? ( $("#txt_status").text(obj.data), KTDataTables.init(), g.resetForm(true), b.hide()) : r.dismiss;
                                                                 }
                                                             );
                                                         },
