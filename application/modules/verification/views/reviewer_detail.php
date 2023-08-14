@@ -74,16 +74,11 @@
                     <th class="min-w-125px text-center">Nama Belanja</th>
                     <th class="min-w-50px text-center">Periode</th>
                     <th class="min-w-50px text-center">Nilai</th>
+                    <th class="min-w-50px text-center">Status</th>
                 </tr>
             </thead>
         </table>
     </div>
-    <!--begin::Card footer-->
-    <div class="card-footer d-flex justify-content-end py-6 px-9">
-            <button type="button" class="btn btn-primary me-2" <?=($verif_data->status_verifikasi == 'SUBMITTED') ? 'disabled' : ''?> onclick="return Actions.btnDraft(event);" id="btn_draft">Save Draft</button>
-            <button type="button" class="btn btn-primary" <?=($verif_data->status_verifikasi == 'SUBMITTED') ? 'disabled' : ''?> onclick="return Actions.btnSubmit(event);" id="btn_submit">Submit</button>
-        </div>
-        <!--end::Card footer-->
 </div>
 <script type="text/javascript">
     "use strict";
@@ -120,7 +115,8 @@
                             render: function (data, type, row, meta) {
                                 return 'Rp. ' + data;
                             }
-                        }
+                        },
+                        { data: 'vstatus', className: 'text-center' }
                     ],
                     lengthMenu: [
                             [5, 10, 15, 25, -1],

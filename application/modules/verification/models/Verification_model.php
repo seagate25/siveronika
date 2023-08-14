@@ -592,6 +592,17 @@ class Verification_model extends CI_Model {
                     $row->actions   = '<a href="' . $url . '" class="btn btn-sm btn-clear fw-bolder text-success '.$disabled.'">Process Verifikasi</a>';
                 }
             }
+            else if($this->session->userdata('role_name') == 'Reviewer/Kabag')
+            {
+                if($row->approval_status !== NULL)
+                {
+                    $row->vstatus   = ($row->approval_status == 1) ? 'VERIFIED' : 'REJECTED';
+                }
+                else
+                {
+                    $row->vstatus   = $row->vstatus;
+                }
+            }
             else
             {
                 // if($row->vstatus == 'ON-PROGRESS' || $row->vstatus == '-')
