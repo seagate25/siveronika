@@ -304,15 +304,39 @@ class Verification extends CI_Controller {
                 if($insertReqDoc > 0) {
                     $response   = [
                         'code'  => 0,
-                        'msg'   => 'SUCCESS',
+                        'msg'   => 'Data Verifikasi Berhasil Disimpan',
                         'data'  => site_url('verification/detail/'.$this->crypto->encode($verif_no))
                     ];
+                } else {
 
-                    echo json_encode($response, JSON_PRETTY_PRINT);
-                    exit;
+                    $response   = [
+                        'code'  => 200,
+                        'msg'   => 'Data Verifikasi Gagal Disimpan',
+                        'data'  => NULL
+                    ];
+
                 }
+            } else {
+
+                $response   = [
+                    'code'  => 200,
+                    'msg'   => 'Data Verifikasi Gagal Disimpan',
+                    'data'  => NULL
+                ];
+
             }
+        } else {
+
+            $response   = [
+                'code'  => 200,
+                'msg'   => 'Data Verifikasi Gagal Disimpan',
+                'data'  => NULL
+            ];
+
         }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
     }
 
     public function save_item()
@@ -519,12 +543,12 @@ class Verification extends CI_Controller {
         if($update > 0) {
             $response   = [
                 'code'  => 0,
-                'msg'   => 'Berhasil menyimpan data'
+                'msg'   => 'Data Verifikasi Berhasil di Submit, Selanjutnya Data Verifikasi akan diterima oleh Verifikator untuk dilakukan Validasi.'
             ];
         } else {
             $response   = [
                 'code'  => 200,
-                'msg'   => 'Gagal menyimpan data'
+                'msg'   => 'Data Verifikasi Gagal di Submit'
             ];
         }
 

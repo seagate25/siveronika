@@ -101,7 +101,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-2 fv-row fv-plugins-icon-container">
-                        <input class="form-control form-control-solid" name="m_period" placeholder="Periode" id="kt_daterangepicker_3" readonly/>
+                        <input class="form-control" name="m_period" placeholder="Periode" id="kt_daterangepicker_3" readonly/>
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
                     <!--end::Col-->
@@ -147,6 +147,7 @@
     "use strict";
 
     var docs = [];
+    var s_type = null;
 
     var KTFormVerifNew = (function () {
         var t, e, i, d;
@@ -231,6 +232,8 @@
                     placeholder: 'Pilih Tipe Belanja',
                     minimumResultsForSearch: -1
                 }),
+                $('#m_type').val('GU').trigger('change'),
+                s_type = $('#m_type').val();
                 $("#m_type").on('select2:select', function(e) {
                     var id  = e.params.data.id;
                     Select2.init_m_shop(id);
@@ -303,7 +306,7 @@
                         { data: 'shop_detail', className: 'text-left', sortable: false, searchable: false, orderable: false },
                         { data: 'doc', className: 'text-center', sortable: false, searchable: false, orderable: false,
                             render: function(data, type, row, meta) {
-                                return '<input type="file" name="'+row.shop_id+'_'+row.shop_sequence+'">';
+                                return '<input type="file" name="'+row.shop_id+'_'+row.shop_sequence+'" accept="application/pdf">';
                             }
                         },
                         { data: 'notes', className: 'text-center', sortable: false, searchable: false, orderable: false,
@@ -380,7 +383,7 @@
     KTUtil.onDOMContentLoaded((function() {
         KTFormVerifNew.init();
         Select2.init_m_type();
-        Select2.init_m_shop();
+        Select2.init_m_shop(s_type);
         Select2.init_m_bidang();
         Select2.onselect_m_shop();
         Daterangepicker.init_m_period();

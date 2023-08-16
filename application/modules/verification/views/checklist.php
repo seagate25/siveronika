@@ -260,6 +260,7 @@
                                             buttonsStyling: !1,
                                             confirmButtonText: "Ya, Simpan",
                                             cancelButtonText: "Kembali",
+                                            allowOutsideClick: false,
                                             customClass: {
                                                 confirmButton: "btn btn-primary",
                                                 cancelButton: "btn btn-active-light"

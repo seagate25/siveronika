@@ -84,7 +84,7 @@
     </div>
     <!--begin::Card footer-->
     <div class="card-footer d-flex justify-content-end py-6 px-9">
-            <button type="button" class="btn btn-primary me-2" <?=($verif_data->status_verifikasi == 'SUBMITTED') ? 'disabled' : ''?> onclick="return Actions.btnDraft(event);" id="btn_draft">Save Draft</button>
+            <!-- <button type="button" class="btn btn-primary me-2" <?//=($verif_data->status_verifikasi == 'SUBMITTED') ? 'disabled' : ''?> onclick="return Actions.btnDraft(event);" id="btn_draft">Save Draft</button> -->
             <button type="button" class="btn btn-primary" <?=($verif_data->status_verifikasi == 'SUBMITTED') ? 'disabled' : ''?> onclick="return Actions.btnSubmit(event);" id="btn_submit">Submit</button>
         </div>
         <!--end::Card footer-->
@@ -174,35 +174,53 @@
                 })
             },
             btnSubmit: function(e) {
-                $(e.target).attr('data-kt-indicator', 'on').attr('disabled', 'disabled');
-                $.ajax({
-                    type: "GET",
-                    url: "<?php echo site_url('verification/save_submit/'.$this->uri->segment(3)); ?>",
-                    success: function(response) {
-                        var obj = jQuery.parseJSON(response);
-                        if(obj.code == 0) {
-                            $(e.target).removeAttr('data-kt-indicator').removeAttr('disabled');
-                            Swal.fire({ 
-                                text: obj.msg, 
-                                buttonsStyling: !1, 
-                                confirmButtonText: "Ok",
-                                allowOutsideClick: false,
-                                customClass: { confirmButton: "btn btn-primary" } 
-                            }).then(function (t) {
-                                t.isConfirmed && (document.location = '<?php echo site_url("verification")?>');
-                            });
-                        } else {
-                            $(e.target).removeAttr('data-kt-indicator').removeAttr('disabled');
-                            Swal.fire({ 
-                                text: obj.msg, 
-                                icon: "error",
-                                buttonsStyling: !1, 
-                                confirmButtonText: "Ok",
-                                allowOutsideClick: false,
-                                customClass: { confirmButton: "btn btn-primary" } 
-                            });
-                        }
-                    }
+                Swal.fire({
+                    text: "Pastikan Data Verifikasi sudah Benar dan dapat dipertanggung jawabkan. Yakin akan disubmit ?",
+                    icon: "warning",
+                    showCancelButton: !0,
+                    buttonsStyling: !1,
+                    confirmButtonText: "OK",
+                    cancelButtonText: "Cancel",
+                    allowOutsideClick: false,
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-active-danger"
+                    },
+                }).then(function(r) {
+                    r.value ?
+                        (
+                            $(e.target).attr('data-kt-indicator', 'on').attr('disabled', 'disabled'),
+                            $.ajax({
+                                type: "GET",
+                                url: "<?php echo site_url('verification/save_submit/'.$this->uri->segment(3)); ?>",
+                                success: function(response) {
+                                    var obj = jQuery.parseJSON(response);
+                                    if(obj.code == 0) {
+                                        $(e.target).removeAttr('data-kt-indicator').removeAttr('disabled');
+                                        Swal.fire({ 
+                                            text: obj.msg, 
+                                            buttonsStyling: !1, 
+                                            confirmButtonText: "Ok",
+                                            allowOutsideClick: false,
+                                            customClass: { confirmButton: "btn btn-primary" } 
+                                        }).then(function (t) {
+                                            t.isConfirmed && (document.location = '<?php echo site_url("verification")?>');
+                                        });
+                                    } else {
+                                        $(e.target).removeAttr('data-kt-indicator').removeAttr('disabled');
+                                        Swal.fire({ 
+                                            text: obj.msg, 
+                                            icon: "error",
+                                            buttonsStyling: !1, 
+                                            confirmButtonText: "Ok",
+                                            allowOutsideClick: false,
+                                            customClass: { confirmButton: "btn btn-primary" } 
+                                        });
+                                    }
+                                }
+                            })
+                        ) :
+                        "cancel" === r.dismiss;
                 })
             }
         }

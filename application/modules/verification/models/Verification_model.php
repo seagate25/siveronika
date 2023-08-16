@@ -564,8 +564,16 @@ class Verification_model extends CI_Model {
                 }
                 else
                 {
-                    $row->actions               = '<a href="' . site_url('verification/item_detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
-                                                    Detail';                
+                    if($row->vstatus == 'UNCOMPLETE')
+                    {
+                        $row->actions               = '<a href="' . site_url('verification/edit/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
+                                                        Edit
+                                                    </a>';           
+                    } else {
+                        $row->actions               = '<a href="' . site_url('verification/item_detail/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
+                                                        Detail
+                                                    </a>';           
+                    }        
                 }
             }
             else if($this->session->userdata('role_name') == 'Verifikator')
