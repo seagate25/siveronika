@@ -227,7 +227,6 @@
                     let index = $(this).closest('tr').index();
                     let allData = table.data();
                     let data = table.row(e.target.closest('tr')).data();
-                    console.log(docs);
                     let str = data.action;
                     if(str.indexOf("text-success") >= 0) {
                         if(data.doc_id !== '') {
