@@ -142,9 +142,9 @@
     </div> -->
     <!--end::Card footer-->
     <div class="modal fade" tabindex="-1" id="kt_modal_decision" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" style="min-width:990px;">
+        <div class="modal-dialog modal-lg modal-dialog-centered" style="min-width:480px;">
             <div class="modal-content">
-                <div class="modal-header bg-success">
+                <div class="modal-header" style="background-color:#460046 !important;">
                     <h5 class="modal-title text-white">Decision</h5>
 
                     <!--begin::Close-->
@@ -243,166 +243,113 @@
                             })
                         },
                     })),
-                    d.addEventListener("click", function(e) {
-                        e.preventDefault(),
-                            g &&
-                            g.validate().then(function(e) {
-                                var frmData = new FormData(c);
-                                frmData.append('id', id);
-                                frmData.append('status', 1);
-                                "Valid" == e
-                                    ?
-                                    (
-                                        Swal.fire({
-                                            text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
-                                            icon: "warning",
-                                            showCancelButton: !0,
-                                            buttonsStyling: !1,
-                                            confirmButtonText: "Ya, Simpan",
-                                            cancelButtonText: "Kembali",
-                                            allowOutsideClick: false,
-                                            customClass: {
-                                                confirmButton: "btn btn-primary",
-                                                cancelButton: "btn btn-active-light"
-                                            },
-                                        }).then(function(r) {
-                                            r.value ?
-                                                (
-                                                    $.ajax({
-                                                        type: 'POST',
-                                                        url: c.getAttribute('action'),
-                                                        data: frmData,
-                                                        processData: false,
-                                                        contentType: false,
-                                                        beforeSend: function() {
-                                                            d.setAttribute("data-kt-indicator", "on"),
-                                                                (d.disabled = !0);
-                                                        },
-                                                        success: function(response) {
-                                                            var obj = jQuery.parseJSON(response);
-                                                            d.removeAttribute("data-kt-indicator"),(d.disabled = !1);
-                                                            Swal.fire({
-                                                                text: obj.msg,
-                                                                icon: obj.status,
-                                                                buttonsStyling: !1,
-                                                                confirmButtonText: "Tutup",
-                                                                allowOutsideClick: false,
-                                                                customClass: {
-                                                                    confirmButton: "btn btn-primary"
-                                                                }
-                                                            }).then(
-                                                                function(t) {
-                                                                    t.isConfirmed && (obj.code == 0) ? (g.resetForm(true), b.hide(), location.reload()) : r.dismiss;
-                                                                }
-                                                            );
-                                                        },
-                                                        error: function() {
-                                                            d.removeAttribute("data-kt-indicator"),(d.disabled = !1);
-                                                            Swal.fire({
-                                                                text: "Terjadi masalah koneksi",
-                                                                icon: "error",
-                                                                buttonsStyling: !1,
-                                                                confirmButtonText: "Tutup",
-                                                                allowOutsideClick: false,
-                                                                customClass: {
-                                                                    confirmButton: "btn btn-primary"
-                                                                }
-                                                            }).then(
-                                                                function(t) {
-                                                                    t.isConfirmed && r.dismiss;
-                                                                }
-                                                            );
-                                                        }
-                                                    })
-                                                ) :
-                                                "cancel" === r.dismiss;
-                                        })
-                                    ) :
-                                    Swal.fire({
-                                        text: "Silahkan lengkapi data dan pastikan data input sudah benar.",
-                                        icon: "error",
-                                        buttonsStyling: !1,
-                                        confirmButtonText: "Tutup",
-                                        allowOutsideClick: false,
-                                        customClass: {
-                                            confirmButton: "btn btn-primary"
-                                        },
-                                    });
-                            });
+                    d.addEventListener("click", function(x) {
+                        x.preventDefault();
+                        var frmData = new FormData(c);
+                        frmData.append('id', id);
+                        frmData.append('status', 1);
+                        $.ajax({
+                            type: 'POST',
+                            url: c.getAttribute('action'),
+                            data: frmData,
+                            processData: false,
+                            contentType: false,
+                            beforeSend: function() {
+                                d.setAttribute("data-kt-indicator", "on"),
+                                (d.disabled = !0), (e.disabled = !0);
+                            },
+                            success: function(response) {
+                                var obj = jQuery.parseJSON(response);
+                                d.removeAttribute("data-kt-indicator"),(d.disabled = !1),(e.disabled = !1);
+                                Swal.fire({
+                                    text: obj.msg,
+                                    icon: obj.status,
+                                    buttonsStyling: !1,
+                                    confirmButtonText: "Tutup",
+                                    allowOutsideClick: false,
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                }).then(
+                                    function(t) {
+                                        t.isConfirmed && (obj.code == 0) ? (g.resetForm(true), b.hide(), location.reload()) : r.dismiss;
+                                    }
+                                );
+                            },
+                            error: function() {
+                                d.removeAttribute("data-kt-indicator"),(d.disabled = !1),(e.disabled = !1);
+                                Swal.fire({
+                                    text: "Terjadi masalah koneksi",
+                                    icon: "error",
+                                    buttonsStyling: !1,
+                                    confirmButtonText: "Tutup",
+                                    allowOutsideClick: false,
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                }).then(
+                                    function(t) {
+                                        t.isConfirmed && r.dismiss;
+                                    }
+                                );
+                            }
+                        })
                     }),
                     e.addEventListener("click", function(t) {
                         t.preventDefault(),
                             g &&
-                            g.validate().then(function(e) {
+                            g.validate().then(function(v) {
                                 var frmData = new FormData(c);
                                 frmData.append('id', id);
                                 frmData.append('status', 0);
-                                "Valid" == e
+                                "Valid" == v
                                     ?
                                     (
-                                        Swal.fire({
-                                            text: "Pastikan data yang Anda isi sudah benar dan dapat dipertanggung jawabkan",
-                                            icon: "warning",
-                                            showCancelButton: !0,
-                                            buttonsStyling: !1,
-                                            confirmButtonText: "Ya, Simpan",
-                                            cancelButtonText: "Kembali",
-                                            allowOutsideClick: false,
-                                            customClass: {
-                                                confirmButton: "btn btn-primary",
-                                                cancelButton: "btn btn-active-light"
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: c.getAttribute('action'),
+                                            data: frmData,
+                                            processData: false,
+                                            contentType: false,
+                                            beforeSend: function() {
+                                                e.setAttribute("data-kt-indicator", "on"),
+                                                (e.disabled = !0),(d.disabled = !0);
                                             },
-                                        }).then(function(r) {
-                                            r.value ?
-                                                (
-                                                    $.ajax({
-                                                        type: 'POST',
-                                                        url: c.getAttribute('action'),
-                                                        data: frmData,
-                                                        processData: false,
-                                                        contentType: false,
-                                                        beforeSend: function() {
-                                                            d.setAttribute("data-kt-indicator", "on"),
-                                                                (d.disabled = !0);
-                                                        },
-                                                        success: function(response) {
-                                                            var obj = jQuery.parseJSON(response);
-                                                            d.removeAttribute("data-kt-indicator"),(d.disabled = !1);
-                                                            Swal.fire({
-                                                                text: obj.msg,
-                                                                icon: obj.status,
-                                                                buttonsStyling: !1,
-                                                                confirmButtonText: "Tutup",
-                                                                allowOutsideClick: false,
-                                                                customClass: {
-                                                                    confirmButton: "btn btn-primary"
-                                                                }
-                                                            }).then(
-                                                                function(t) {
-                                                                    t.isConfirmed && (obj.code == 0) ? (g.resetForm(true), b.hide(), location.reload()) : r.dismiss;
-                                                                }
-                                                            );
-                                                        },
-                                                        error: function() {
-                                                            d.removeAttribute("data-kt-indicator"),(d.disabled = !1);
-                                                            Swal.fire({
-                                                                text: "Terjadi masalah koneksi",
-                                                                icon: "error",
-                                                                buttonsStyling: !1,
-                                                                confirmButtonText: "Tutup",
-                                                                allowOutsideClick: false,
-                                                                customClass: {
-                                                                    confirmButton: "btn btn-primary"
-                                                                }
-                                                            }).then(
-                                                                function(t) {
-                                                                    t.isConfirmed && r.dismiss;
-                                                                }
-                                                            );
-                                                        }
-                                                    })
-                                                ) :
-                                                "cancel" === r.dismiss;
+                                            success: function(response) {
+                                                var obj = jQuery.parseJSON(response);
+                                                e.removeAttribute("data-kt-indicator"),(e.disabled = !1),(d.disabled = !1);
+                                                Swal.fire({
+                                                    text: obj.msg,
+                                                    icon: obj.status,
+                                                    buttonsStyling: !1,
+                                                    confirmButtonText: "Tutup",
+                                                    allowOutsideClick: false,
+                                                    customClass: {
+                                                        confirmButton: "btn btn-primary"
+                                                    }
+                                                }).then(
+                                                    function(t) {
+                                                        t.isConfirmed && (obj.code == 0) ? (g.resetForm(true), b.hide(), location.reload()) : r.dismiss;
+                                                    }
+                                                );
+                                            },
+                                            error: function() {
+                                                e.removeAttribute("data-kt-indicator"),(e.disabled = !1),(d.disabled = !1);
+                                                Swal.fire({
+                                                    text: "Terjadi masalah koneksi",
+                                                    icon: "error",
+                                                    buttonsStyling: !1,
+                                                    confirmButtonText: "Tutup",
+                                                    allowOutsideClick: false,
+                                                    customClass: {
+                                                        confirmButton: "btn btn-primary"
+                                                    }
+                                                }).then(
+                                                    function(t) {
+                                                        t.isConfirmed && r.dismiss;
+                                                    }
+                                                );
+                                            }
                                         })
                                     ) :
                                     Swal.fire({

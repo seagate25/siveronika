@@ -844,6 +844,7 @@ class Verification_model extends CI_Model {
     public function getUploadedDetailDoc(String $verif_shop_id = '')
     {
         $sql = "SELECT
+                    tvsd.verif_id,
                     tvsd.verif_shop_det_id,
                     tvsd.verif_shop_id,
                     tvsd.shop_sequence,

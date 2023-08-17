@@ -339,6 +339,150 @@ class Verification extends CI_Controller {
         exit;
     }
 
+    public function update()
+    {
+        $id             = $this->input->post('id');
+        $verif_shop_id  = $this->crypto->decode($id);
+        $verif_no       = $this->input->post('m_verification_no');
+        $bidang_id      = $this->input->post('m_bidang');
+        $shop_id        = $this->input->post('m_shop');
+        $period         = $this->input->post('m_period');
+        $total          = str_replace('.', '', str_replace('Rp. ', '', $this->input->post('m_price')));
+        $req_doc        = $this->input->post('req_docs');
+
+        // var_dump($this->input->post());
+        // if(empty($_FILES[$shop_id.'_1']['name'])) {
+        //     var_dump(empty($_FILES[$shop_id.'_2']['name']));
+        // }
+        // var_dump(empty($this->input->post('notes_4')));
+        // exit;
+
+        $months = [
+            '01' => "Januari",
+            '02' => "Februari",
+            '03' => "Maret",
+            '04' => "April",
+            '05' => "Mei",
+            '06' => "Juni",
+            '07' => "Juli",
+            '08' => "Agustus",
+            '09' => "September",
+            '10' => "Oktober",
+            '11' => "November",
+            '12' => "Desember"
+        ];
+        $explode_period = explode('-', $period);
+        $periode    = $explode_period[1].array_search($explode_period[0], $months);
+
+        $params_det = [
+            'verif_shop_id' => $verif_shop_id
+        ];
+
+        $data_det   = [
+            'period'        => $periode,
+            'total'         => $total,
+            'update_date'   => sqlsrv_datetime(),
+            'update_by'     => $this->session->userdata('user_name')
+        ];
+
+        $update_detail  = $this->verification->update('t_verification_shop', $params_det, $data_det);
+        if($update_detail > 0)
+        {
+            for($i = 1; $i  <= $req_doc; $i++)
+            {
+                $doc_id = 'NULL';
+                $notes  = $this->input->post('notes_'.$i);
+                
+                if(!empty($_FILES[$shop_id.'_'.$i]['name']))
+                {
+                    $path       = 'documents/';
+                    /** Upload Config */
+                    $config['upload_path']      = $path;
+                    $config['allowed_types']    = 'pdf';
+                    $config['max_size']         = '22000';
+
+                    /** Load CodeIgniter Upload Library */
+                    $this->load->library('upload', $config);
+
+                    $this->upload->initialize($config);
+
+                    if($this->upload->do_upload($shop_id.'_'.$i))
+                    {
+                        $uploadData = $this->upload->data();
+                        $fName      = explode('.', $uploadData['file_name']);
+                        $upload_data    = array(
+                            'doc_id'        => 'NEWID()',
+                            'doc_filename'  => $fName[0],
+                            'doc_path'      => $path,
+                            'doc_type'      => 'pdf',
+                            'create_by'     => $this->session->userdata('user_name')
+                        );
+
+                        $this->verification->insertDoc($upload_data);
+                        $doc_id = $this->verification->lastInsertDoc()->doc_id;
+                    }
+
+                    if(!empty($notes))
+                    {
+                        $data_doc  = [
+                            'doc_id'            => $doc_id,
+                            'notes'             => $notes,
+                            'update_date'       => sqlsrv_datetime(),
+                            'update_by'         => $this->session->userdata('user_name'),
+                        ];
+                    } else {
+                        $data_doc  = [
+                            'doc_id'            => $doc_id,
+                            'update_date'       => sqlsrv_datetime(),
+                            'update_by'         => $this->session->userdata('user_name'),
+                        ];
+                    }
+
+                    $params_doc = [
+                        'verif_shop_id' => $verif_shop_id,
+                        'shop_id'       => $shop_id,
+                        'shop_sequence' => $i
+                    ];
+
+                    $this->verification->update('t_verification_shop_det', $params_doc, $data_doc);
+                } else {
+                    if(!empty($notes))
+                    {
+                        $data_doc  = [
+                            'notes'             => $notes,
+                            'update_date'       => sqlsrv_datetime(),
+                            'update_by'         => $this->session->userdata('user_name'),
+                        ];
+
+                        $params_doc = [
+                            'verif_shop_id' => $verif_shop_id,
+                            'shop_id'       => $shop_id,
+                            'shop_sequence' => $i
+                        ];
+    
+                        $this->verification->update('t_verification_shop_det', $params_doc, $data_doc);
+                    }
+                }
+            }
+
+            $response   = [
+                'code'  => 0,
+                'msg'   => 'Data Verifikasi Berhasil Diubah',
+                'data'  => site_url('verification/detail/'.$this->crypto->encode($verif_no))
+            ];
+
+        } else {
+            $response   = [
+                'code'  => 200,
+                'msg'   => 'Data Verifikasi Gagal Diubah',
+                'data'  => NULL
+            ];
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
     public function save_item()
     {
         $verif_no   = $this->input->post('m_verification_no');
@@ -641,13 +785,13 @@ class Verification extends CI_Controller {
         if($update > 0) {
             $response   = [
                 'code'  => 0,
-                'msg'   => 'Berhasil menyimpan data',
+                'msg'   => 'Data berhasil disimpan',
                 'status'=> 'success'
             ];
         } else {
             $response   = [
                 'code'  => 200,
-                'msg'   => 'Gagal menyimpan data',
+                'msg'   => 'Data gagal disimpan',
                 'status'=> 'error'
             ];
         }
