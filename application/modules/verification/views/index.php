@@ -24,7 +24,8 @@
                     <th class="min-w-100px text-center">Jenis Belanja</th>
                     <th class="min-w-200px text-left">Bidang</th>
                     <th class="min-w-150px text-left">Grand Total Belanja</th>
-                    <th class="min-w-125px text-left">Status</th>
+                    <th class="min-w-125px text-left">Status Verifikasi</th>
+                    <th class="min-w-125px text-left">Status Bendahara</th>
                     <th class="min-w-50px text-center">Actions</th>
                 </tr>
             </thead>
@@ -70,6 +71,7 @@ var KTDataTables = (function() {
                         }
                     },
                     { data: 'status_verifikasi', className: 'text-left' },
+                    { data: 'status_bendahara', className: 'text-left' },
                     { data: 'actions', className: 'text-left', searchable: false }
                 ],
                 lengthMenu: [
