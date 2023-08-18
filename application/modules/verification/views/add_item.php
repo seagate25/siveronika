@@ -101,7 +101,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-2 fv-row fv-plugins-icon-container">
-                        <input class="form-control form-control-solid" name="m_period" placeholder="Periode" id="kt_daterangepicker_3" readonly/>
+                        <input class="form-control" name="m_period" placeholder="Periode" id="kt_daterangepicker_3" readonly/>
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
                     <!--end::Col-->
@@ -147,6 +147,7 @@
     "use strict";
 
     var docs = [];
+    var s_type = null;
 
     var KTFormVerifNew = (function () {
         var t, e, i, d;
@@ -232,6 +233,8 @@
                     placeholder: 'Pilih Tipe Belanja',
                     minimumResultsForSearch: -1
                 }),
+                $('#m_type').val('GU').trigger('change'),
+                s_type = $('#m_type').val();
                 $("#m_type").on('select2:select', function(e) {
                     var id  = e.params.data.id;
                     Select2.init_m_shop(id);
@@ -381,7 +384,7 @@
     KTUtil.onDOMContentLoaded((function() {
         KTFormVerifNew.init();
         Select2.init_m_type();
-        Select2.init_m_shop();
+        Select2.init_m_shop(s_type);
         Select2.init_m_bidang();
         Select2.onselect_m_shop();
         Daterangepicker.init_m_period();

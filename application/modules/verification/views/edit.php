@@ -108,7 +108,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-2 fv-row fv-plugins-icon-container">
-                        <input class="form-control form-control-solid" name="m_period" placeholder="Periode" id="kt_daterangepicker_3" readonly/>
+                        <input class="form-control" name="m_period" placeholder="Periode" id="kt_daterangepicker_3" readonly/>
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
                     <!--end::Col-->
@@ -137,7 +137,7 @@
                             <th class="min-w-125px text-left">Detail</th>
                             <th class="min-w-125px text-center">Doc</th>
                             <th class="min-w-80px text-center">Notes</th>
-                            <th class="min-w-50px text-center">Aksi</th>
+                            <th class="min-w-50px text-center">Actions</th>
                         </tr>
                     </thead>
                 </table>

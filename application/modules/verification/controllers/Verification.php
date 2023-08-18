@@ -599,14 +599,29 @@ class Verification extends CI_Controller {
                 if($insertReqDoc > 0) {
                     $response   = [
                         'code'  => 0,
-                        'msg'   => 'SUCCESS'
+                        'msg'   => 'Data Verifikasi Berhasil Disimpan'
                     ];
-
-                    echo json_encode($response, JSON_PRETTY_PRINT);
-                    exit;
+                } else {
+                    $response   = [
+                        'code'  => 200,
+                        'msg'   => 'Data Verifikasi Gagal Disimpan'
+                    ];
                 }
+            } else {
+                $response   = [
+                    'code'  => 200,
+                    'msg'   => 'Data Verifikasi Gagal Disimpan'
+                ];
             }
+        } else {
+            $response   = [
+                'code'  => 200,
+                'msg'   => 'Data Verifikasi Gagal Disimpan'
+            ];
         }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
     }
 
     public function save_draft()

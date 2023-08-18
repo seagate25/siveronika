@@ -13,9 +13,16 @@
         </div>
         <h3 class="card-title text-white">Summary Detail</h3>
         <div class="card-toolbar">
+            <?php
+                if($verif_data->status_verifikasi == 'DRAFT')
+                {
+            ?>
             <a href="<?php echo site_url('verification/add_item/'.$this->crypto->encode($verif_data->verif_no)); ?>" class="btn btn-sm btn-bg-white me-2 mb-2 <?=($verif_data->status_verifikasi == 'SUBMITTED') ? 'disabled' : ''?>">
                 Tambah Belanja
             </a>
+            <?php
+                }
+            ?>
         </div>
     </div>
     <div class="card-body">

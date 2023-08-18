@@ -138,7 +138,7 @@
                             <th class="min-w-125px text-center">Doc</th>
                             <th class="min-w-80px text-center">Status</th>
                             <th class="min-w-80px text-center">Notes</th>
-                            <th class="min-w-50px text-center">Aksi</th>
+                            <th class="min-w-50px text-center">Actions</th>
                         </tr>
                     </thead>
                 </table>
