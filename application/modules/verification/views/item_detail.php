@@ -23,7 +23,7 @@
             </a> -->
         </div>
     </div>
-    <form id="" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="<?php echo site_url(''); ?>">
+    <form id="" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" enctype="multipart/form-data" action="">
         <div class="card-body border-top p-9">
             <div class="row">
                 <!--Begin::Input Group-->
@@ -145,9 +145,9 @@
             </div>
         </div>
         <!--begin::Card footer-->
-        <div class="card-footer d-flex justify-content-end py-6 px-9">
+        <!-- <div class="card-footer d-flex justify-content-end py-6 px-9">
             <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Simpan</button>
-        </div>
+        </div> -->
         <!--end::Card footer-->
     </form>
 </div>

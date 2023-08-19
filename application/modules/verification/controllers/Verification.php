@@ -350,13 +350,6 @@ class Verification extends CI_Controller {
         $total          = str_replace('.', '', str_replace('Rp. ', '', $this->input->post('m_price')));
         $req_doc        = $this->input->post('req_docs');
 
-        // var_dump($this->input->post());
-        // if(empty($_FILES[$shop_id.'_1']['name'])) {
-        //     var_dump(empty($_FILES[$shop_id.'_2']['name']));
-        // }
-        // var_dump(empty($this->input->post('notes_4')));
-        // exit;
-
         $months = [
             '01' => "Januari",
             '02' => "Februari",
@@ -427,12 +420,20 @@ class Verification extends CI_Controller {
                         $data_doc  = [
                             'doc_id'            => $doc_id,
                             'notes'             => $notes,
+                            'approval_status'   => 'NULL',
+                            'approval_note'     => 'NULL',
+                            'approval_date'     => 'NULL',
+                            'approval_userid'   => 'NULL',
                             'update_date'       => sqlsrv_datetime(),
                             'update_by'         => $this->session->userdata('user_name'),
                         ];
                     } else {
                         $data_doc  = [
                             'doc_id'            => $doc_id,
+                            'approval_status'   => 'NULL',
+                            'approval_note'     => 'NULL',
+                            'approval_date'     => 'NULL',
+                            'approval_userid'   => 'NULL',
                             'update_date'       => sqlsrv_datetime(),
                             'update_by'         => $this->session->userdata('user_name'),
                         ];
@@ -450,18 +451,31 @@ class Verification extends CI_Controller {
                     {
                         $data_doc  = [
                             'notes'             => $notes,
+                            'approval_status'   => 'NULL',
+                            'approval_note'     => 'NULL',
+                            'approval_date'     => 'NULL',
+                            'approval_userid'   => 'NULL',
                             'update_date'       => sqlsrv_datetime(),
                             'update_by'         => $this->session->userdata('user_name'),
                         ];
-
-                        $params_doc = [
-                            'verif_shop_id' => $verif_shop_id,
-                            'shop_id'       => $shop_id,
-                            'shop_sequence' => $i
+                    } else {
+                        $data_doc  = [
+                            'approval_status'   => 'NULL',
+                            'approval_note'     => 'NULL',
+                            'approval_date'     => 'NULL',
+                            'approval_userid'   => 'NULL',
+                            'update_date'       => sqlsrv_datetime(),
+                            'update_by'         => $this->session->userdata('user_name'),
                         ];
-    
-                        $this->verification->update('t_verification_shop_det', $params_doc, $data_doc);
                     }
+
+                    $params_doc = [
+                        'verif_shop_id' => $verif_shop_id,
+                        'shop_id'       => $shop_id,
+                        'shop_sequence' => $i
+                    ];
+
+                    $this->verification->update('t_verification_shop_det', $params_doc, $data_doc);
                 }
             }
 
@@ -689,13 +703,19 @@ class Verification extends CI_Controller {
         $uri        = $this->uri->segment(3);
         $verif_no   = $this->crypto->decode($uri);
 
+        $getStatus  = $this->verification->getApprovalStatus($verif_no);
+        // var_dump($getStatus);exit;
+        $verif_data     = $this->verification->getVerifDetail($verif_no);
+        $status_header  = ($verif_data->status_verifikasi == 'DRAFT') ? 'SUBMITTED' : $getStatus;
+
         $params = [
             'verif_no' => $verif_no
         ];
 
         $data   = [
-            'status_verifikasi'          => 'SUBMITTED',
-            'verif_request_date'    => sqlsrv_datetime()
+            // 'status_verifikasi'  => 'SUBMITTED',
+            'status_verifikasi'  => $status_header,
+            'verif_request_date' => sqlsrv_datetime()
         ];
 
         $update     = $this->verification->updateHead($params, $data);
@@ -785,11 +805,13 @@ class Verification extends CI_Controller {
         $id     = $this->input->post('id');
         $notes  = $this->input->post('notes');
         $status = $this->input->post('status');
+
+        $convert_notes  = str_replace("'", "''", $notes);
         
         $params = ['verif_shop_det_id' => $id];
         $data   = [
             'approval_status'   => $status,
-            'approval_note'     => $notes,
+            'approval_note'     => utf8_decode($convert_notes),
             'approval_date'     => sqlsrv_datetime(),
             'approval_userid'   => $this->session->userdata('user_id'),
             'update_date'       => sqlsrv_datetime(),
@@ -824,6 +846,8 @@ class Verification extends CI_Controller {
         $notes      = $this->input->post('notes');
         $status_det = $this->input->post('status');
 
+        $convert_notes  = str_replace("'", "''", $notes);
+
         /** Parameter for update */
         $params_det = [
             'verif_shop_id' => $verif_id
@@ -851,7 +875,7 @@ class Verification extends CI_Controller {
             $data_header = [
                 'status_bendahara'  => $status_header,
                 'approval_userid2'  => $this->session->userdata('user_id'),
-                'approval_note2'    => $notes,
+                'approval_note2'    => utf8_decode($convert_notes),
                 'approval_date2'    => sqlsrv_datetime(),
                 'update_date'       => sqlsrv_datetime(),
                 'update_by'         => $this->session->userdata('user_name')

@@ -819,7 +819,8 @@ class Verification_model extends CI_Model {
                     mb.bidang_code,
                     mb.bidang_name,
                     ms.shop_type,
-                    ms.shop_name 
+                    ms.shop_name,
+                    tv.status_verifikasi
                 FROM
                     t_verification_shop tvs
                 JOIN
@@ -883,10 +884,16 @@ class Verification_model extends CI_Model {
         $result = $query->result();
 
         foreach($result as $row) {
-            if(($row->doc_id == '' && $row->notes == '') || ($row->status_verifikasi <> 'DRAFT')) {
-                $row->action = '';
-            } else {
+            // if(($row->doc_id == '' && $row->notes == '') || ($row->status_verifikasi <> 'DRAFT')) {
+            //     $row->action = '';
+            // } else {
+            //     $row->action = '<button class="btn btn-clear text-success fw-bolder">Edit</button>';
+            // }
+            if(($row->status_verifikasi == 'DRAFT' || $row->status_verifikasi == 'UNCOMPLETE')) {
                 $row->action = '<button class="btn btn-clear text-success fw-bolder">Edit</button>';
+                
+            } else {
+                $row->action = '';
             }
         }
 
