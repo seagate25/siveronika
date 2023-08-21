@@ -202,7 +202,7 @@
 											<!--end::Menu separator-->
 											<!--begin::Menu item-->
 											<div class="menu-item px-5">
-												<a href="<?php echo base_url() . "master/vendor"; ?>" class="menu-link px-5">Profil</a>
+												<a href="<?php echo site_url('users/change_password');?>" class="menu-link px-5">Ubah Password</a>
 											</div>
 											<!--end::Menu item-->
 											<!--begin::Menu separator-->
