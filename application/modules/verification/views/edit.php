@@ -136,6 +136,8 @@
                             <th class="min-w-50px text-center">Tipe</th>
                             <th class="min-w-125px text-left">Detail</th>
                             <th class="min-w-125px text-center">Doc</th>
+                            <th class="min-w-80px text-center">Status</th>
+                            <th class="min-w-125px text-center">Approval Status</th>
                             <th class="min-w-80px text-center">Notes</th>
                             <th class="min-w-50px text-center">Actions</th>
                         </tr>
@@ -281,6 +283,8 @@
                                 }
                             }
                         },
+                        { data: 'approval_status', className: 'text-center' },
+                        { data: 'approval_note', className: 'text-center' },
                         { data: 'notes', className: 'text-center', sortable: false, searchable: false, orderable: false,
                             render: function (data, type, row, meta) {
                                 if(data !== '') {

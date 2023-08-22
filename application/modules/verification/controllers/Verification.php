@@ -497,6 +497,35 @@ class Verification extends CI_Controller {
         exit;
     }
 
+    public function delete()
+    {
+        $v_id           = $this->input->post('v_id');
+        $vs_id          = $this->input->post('vs_id');
+        $verif_id       = $this->crypto->decode($v_id);
+        $verif_shop_id  = $this->crypto->decode($vs_id);
+
+        $shop_total = $this->verification->getVerifShopTotal($verif_id);
+        if($shop_total > 1)
+        {
+            $this->verification->deleteDetail($verif_shop_id);
+            $response   = [
+                'code'  => 0,
+                'msg'   => 'Berhasil menghapus data belanja.',
+                'data'  => NULL
+            ];
+        } else {
+            $this->verification->deleteAll($verif_id);
+            $response   = [
+                'code'  => 0,
+                'msg'   => 'Berhasil menghapus data.',
+                'data'  => site_url('verification')
+            ];
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
     public function save_item()
     {
         $verif_no   = $this->input->post('m_verification_no');

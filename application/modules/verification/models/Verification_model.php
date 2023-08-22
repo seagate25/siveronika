@@ -556,11 +556,11 @@ class Verification_model extends CI_Model {
                     //                                 Delete
                     //                             </a>';  
                     $row->actions               = '<a href="' . site_url('verification/edit/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
-                                                    Edit
-                                                </a> |
-                                                <a href="' . site_url('verification/delete/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-danger">
-                                                    Delete
-                                                </a>';                                 
+                                                        Edit
+                                                    </a> |
+                                                    <button class="btn btn-clear fw-bolder text-danger p-0" onclick="return Actions.btnDelete(\''.$this->crypto->encode($row->verif_id).'\',\''.$this->crypto->encode($row->verif_shop_id).'\');">
+                                                        Delete
+                                                    </button>';                                 
                 }
                 else
                 {
@@ -856,11 +856,11 @@ class Verification_model extends CI_Model {
                     tvsd.shop_id,
                     ms.shop_name,
                     tbl1.status_verifikasi,
-                    -- tvsd.approval_status,
+                    tvsd.approval_note,
                     CASE
                         WHEN tvsd.approval_status IS NULL THEN '-'
-                        WHEN tvsd.approval_status = 0 THEN 'UNCOMPLETE'
-                        ELSE 'COMPLETED'
+                        WHEN tvsd.approval_status = 0 THEN 'REJECTED'
+                        ELSE 'APPROVED'
                     END AS approval_status,
                     tvsd.doc_id AS file_id
                 FROM
@@ -889,7 +889,7 @@ class Verification_model extends CI_Model {
             // } else {
             //     $row->action = '<button class="btn btn-clear text-success fw-bolder">Edit</button>';
             // }
-            if(($row->status_verifikasi == 'DRAFT' || $row->status_verifikasi == 'UNCOMPLETE')) {
+            if(($row->status_verifikasi == 'DRAFT' || ($row->status_verifikasi == 'UNCOMPLETE' && $row->approval_status == 'REJECTED'))) {
                 $row->action = '<button class="btn btn-clear text-success fw-bolder">Edit</button>';
                 
             } else {
@@ -1062,6 +1062,40 @@ class Verification_model extends CI_Model {
         $result = $query->row();
 
         return $result->d_status;
+    }
+
+    public function getVerifShopTotal(String $verif_id = '')
+    {
+        $sql    = "SELECT
+                        COUNT(tvs.verif_id) AS shop_total
+                    FROM
+                        t_verification_shop tvs
+                    WHERE
+                        tvs.verif_id = '{$verif_id}'";
+        $query  = $this->db->query($sql);
+        $result = $query->row();
+
+        return $result->shop_total;
+    }
+
+    public function deleteDetail(String $verif_shop_id = '')
+    {
+        $params = [
+            'verif_shop_id' => $verif_shop_id
+        ];
+        $this->global->delete('t_verification_shop_det', $params);
+        $this->global->delete('t_verification_shop', $params);
+    }
+
+    public function deleteAll(String $verif_id = '')
+    {
+        $params = [
+            'verif_id' => $verif_id
+        ];
+
+        $this->global->delete('t_verification_shop_det', $params);
+        $this->global->delete('t_verification_shop', $params);
+        $this->global->delete('t_verification', $params);
     }
 
 }

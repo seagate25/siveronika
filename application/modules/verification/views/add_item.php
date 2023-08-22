@@ -307,7 +307,7 @@
                         { data: 'shop_detail', className: 'text-left', sortable: false, searchable: false, orderable: false },
                         { data: 'doc', className: 'text-center', sortable: false, searchable: false, orderable: false,
                             render: function(data, type, row, meta) {
-                                return '<input type="file" name="'+row.shop_id+'_'+row.shop_sequence+'">';
+                                return '<input type="file" name="'+row.shop_id+'_'+row.shop_sequence+'" accept="application/pdf">';
                             }
                         },
                         { data: 'notes', className: 'text-center', sortable: false, searchable: false, orderable: false,

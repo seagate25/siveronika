@@ -229,6 +229,28 @@
                         ) :
                         "cancel" === r.dismiss;
                 })
+            },
+            btnDelete: function(x, y) {
+                $.ajax({
+                    type: "POST",
+                    url: "<?=site_url('verification/delete');?>",
+                    data: {
+                        v_id: x,
+                        vs_id: y
+                    },
+                    success: function(response) {
+                        var obj = jQuery.parseJSON(response);
+                        Swal.fire({ 
+                            text: obj.msg, 
+                            buttonsStyling: !1, 
+                            confirmButtonText: "Ok",
+                            allowOutsideClick: false,
+                            customClass: { confirmButton: "btn btn-primary" } 
+                        }).then(function (t) {
+                            t.isConfirmed && (obj.data == null) ? KTDataTables.init() : (document.location = obj.data);
+                        });
+                    }
+                })
             }
         }
     })();
