@@ -115,7 +115,7 @@ class Verification_model extends CI_Model {
                 
             } else if($this->session->userdata('role_name') == 'Verifikator Admin' || $this->session->userdata('role_name') == 'Bendahara Admin') {
 
-                $where .= " WHERE tv.branch_id = '{$this->branch_code}'";
+                $where .= " WHERE (tv.branch_id = '{$this->branch_code}' AND tv.status_verifikasi <> 'DRAFT')";
 
             }
 
