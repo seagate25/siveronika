@@ -66,7 +66,7 @@ License: For each use you must have a valid license purchased only from above li
 						<!--begin::Content-->
 						<div class="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
 							<!--begin::Logo-->
-							<a href="../../demo1/dist/index.html" class="py-9">
+							<a href="<?=site_url();?>" class="py-9">
 								<img alt="Logo" src="<?php echo base_url();?>assets/media/logos/logo.svg" class="h-125px" />
 							</a>
 							<!--end::Logo-->
