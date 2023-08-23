@@ -113,10 +113,10 @@ class Verification_model extends CI_Model {
                 // $where .= " WHERE (tv.bidang_id IN {$bidang} AND tv.branch_id = '{$this->branch_code}' AND tv.status_verifikasi IN ('COMPLETED', 'VERIFIED', 'REJECTED'))";
                 $where .= " WHERE (tv.bidang_id IN {$bidang} AND tv.branch_id = '{$this->branch_code}' AND tv.status_verifikasi IN ('COMPLETED', 'ON-PROGRESS', 'UNCOMPLETE'))";
                 
-            } else if($this->session->userdata('role_name') == 'Verifikator Admin' || $this->session->userdata('role_name') == 'Bendahara Admin') {
-
+            } else if($this->session->userdata('role_name') == 'Verifikator Admin') {
                 $where .= " WHERE (tv.branch_id = '{$this->branch_code}' AND tv.status_verifikasi <> 'DRAFT')";
-
+            } else if($this->session->userdata('role_name') == 'Bendahara Admin') {
+                $where .= " WHERE (tv.branch_id = '{$this->branch_code}' AND tv.status_verifikasi IN ('COMPLETED', 'ON-PROGRESS', 'UNCOMPLETE'))";
             }
 
         }
@@ -249,7 +249,7 @@ class Verification_model extends CI_Model {
         foreach ($rows_data as $row) {
             $row->number                = $i;
             $row->verif_request_date    = ($row->verif_request_date == NULL) ? '-' : date('d-m-Y', strtotime($row->verif_request_date));
-            if($this->session->userdata('role_name') == 'Bendahara')
+            if($this->session->userdata('role_name') == 'Bendahara' || $this->session->userdata('role_name') == 'Bendahara Admin')
             {
                 // $row->status_verifikasi      = ($row->status_verifikasi == 'COMPLETED') ? '-' : $row->status_verifikasi;
                 if($row->status_verifikasi == 'UNCOMPLETE' && $row->vstatus == 'UNCOMPLETE')
@@ -280,7 +280,7 @@ class Verification_model extends CI_Model {
                     }
                 }
             }
-            else if($this->session->userdata('role_name') == 'Verifikator')
+            else if($this->session->userdata('role_name') == 'Verifikator' || $this->session->userdata('role_name') == 'Verifikator Admin')
             {
                 if($row->status_verifikasi == 'COMPLETED' || $row->status_verifikasi == 'UNCOMPLETE')
                 {
@@ -558,7 +558,7 @@ class Verification_model extends CI_Model {
                     $row->actions               = '<a href="' . site_url('verification/edit/' . $this->crypto->encode($row->verif_shop_id)) . '" class="fw-bolder text-success">
                                                         Edit
                                                     </a> |
-                                                    <button class="btn btn-clear fw-bolder text-danger p-0" onclick="return Actions.btnDelete(\''.$this->crypto->encode($row->verif_id).'\',\''.$this->crypto->encode($row->verif_shop_id).'\');">
+                                                    <button class="btn btn-clear fw-bolder text-danger p-0" onclick="return Actions.btnDelete(\''.$this->crypto->encode($row->verif_id).'\',\''.$this->crypto->encode($row->verif_shop_id).'\',\''.$row->shop_name.'\');">
                                                         Delete
                                                     </button>';                                 
                 }
@@ -576,7 +576,7 @@ class Verification_model extends CI_Model {
                     }        
                 }
             }
-            else if($this->session->userdata('role_name') == 'Verifikator')
+            else if($this->session->userdata('role_name') == 'Verifikator' || $this->session->userdata('role_name') == 'Verifikator Admin')
             {
                 if($row->approval_status !== NULL)
                 {

@@ -279,7 +279,7 @@
                                 if(data !== '') {
                                     return data;
                                 } else {
-                                    return '<input type="file" name="'+row.shop_id+'_'+row.shop_sequence+'">';
+                                    return '<input type="file" name="'+row.shop_id+'_'+row.shop_sequence+'" accept="application/pdf">';
                                 }
                             }
                         },

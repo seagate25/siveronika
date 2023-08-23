@@ -970,10 +970,10 @@ class Verification extends CI_Controller {
             case 'Initiator':
                 $view = 'initiator';
                 break;
-            case 'Verifikator':
+            case ('Verifikator' || 'Verifikator Admin'):
                 $view = 'verificator';
                 break;
-            case 'Bendahara':
+            case ('Bendahara' || 'Bendahara Admin'):
                 $view = 'treasurer';
                 break;
             default:

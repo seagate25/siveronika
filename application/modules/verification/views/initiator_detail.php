@@ -230,27 +230,45 @@
                         "cancel" === r.dismiss;
                 })
             },
-            btnDelete: function(x, y) {
-                $.ajax({
-                    type: "POST",
-                    url: "<?=site_url('verification/delete');?>",
-                    data: {
-                        v_id: x,
-                        vs_id: y
+            btnDelete: function(x, y, z) {
+                Swal.fire({
+                    text: "Apakah Anda yakin akan menghapus data " + z + " ?",
+                    icon: "warning",
+                    showCancelButton: !0,
+                    buttonsStyling: !1,
+                    confirmButtonText: "OK",
+                    cancelButtonText: "Cancel",
+                    allowOutsideClick: false,
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-active-danger"
                     },
-                    success: function(response) {
-                        var obj = jQuery.parseJSON(response);
-                        Swal.fire({ 
-                            text: obj.msg, 
-                            buttonsStyling: !1, 
-                            confirmButtonText: "Ok",
-                            allowOutsideClick: false,
-                            customClass: { confirmButton: "btn btn-primary" } 
-                        }).then(function (t) {
-                            t.isConfirmed && (obj.data == null) ? KTDataTables.init() : (document.location = obj.data);
-                        });
-                    }
-                })
+                }).then(function(r) {
+                    r.value ?
+                        (
+                            $.ajax({
+                                type: "POST",
+                                url: "<?=site_url('verification/delete');?>",
+                                data: {
+                                    v_id: x,
+                                    vs_id: y
+                                },
+                                success: function(response) {
+                                    var obj = jQuery.parseJSON(response);
+                                    Swal.fire({ 
+                                        text: obj.msg, 
+                                        buttonsStyling: !1, 
+                                        confirmButtonText: "Ok",
+                                        allowOutsideClick: false,
+                                        customClass: { confirmButton: "btn btn-primary" } 
+                                    }).then(function (t) {
+                                        t.isConfirmed && (obj.data == null) ? KTDataTables.init() : (document.location = obj.data);
+                                    });
+                                }
+                            })
+                        ) :
+                        "cancel" === r.dismiss;
+                });
             }
         }
     })();
