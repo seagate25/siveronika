@@ -320,6 +320,11 @@ class Verification_model extends CI_Model {
             $i++;
         }
 
+        if($this->session->userdata('role_name') == 'Bendahara' || $this->session->userdata('role_name') == 'Bendahara Admin')
+        {
+            $records_total = count($rows);
+        }
+
         return array(
             'draw' => $draw,
             'recordsTotal' => $records_total,
