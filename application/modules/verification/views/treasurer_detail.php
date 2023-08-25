@@ -3,11 +3,7 @@
         background-color:#460046 !important;
     }
 </style>
-<script src="<?php
-
-use phpDocumentor\Reflection\Types\This;
-
- echo base_url(); ?>assets/plugins/custom/jquery-maskMoney/jquery.maskMoney.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/custom/jquery-maskMoney/jquery.maskMoney.js"></script>
 <div class="card shadow-sm">
     <div class="card-header bg-success">
         <div class="card-toolbar">
@@ -365,7 +361,6 @@ use phpDocumentor\Reflection\Types\This;
                 }),
                 a.addEventListener('shown.bs.modal', function (e) {
                     id = $(e.relatedTarget).data('bsId');
-                    console.log(id);
                 });
             }
         }

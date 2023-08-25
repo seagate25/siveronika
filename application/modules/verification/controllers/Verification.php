@@ -34,6 +34,10 @@ class Verification extends CI_Controller {
         $verif_no   = $this->crypto->decode($this->uri->segment(3));
         $role_name  = $this->session->userdata('role_name');
         $view       = $this->getView($role_name);
+
+        // var_dump($role_name);
+        // var_dump($view);
+        // exit;
         
         if($role_name == 'Reviewer/Kabag') {
             $view   = 'reviewer';
@@ -970,10 +974,10 @@ class Verification extends CI_Controller {
             case 'Initiator':
                 $view = 'initiator';
                 break;
-            case ('Verifikator' || 'Verifikator Admin'):
+            case ($role_name == 'Verifikator' || $role_name == 'Verifikator Admin'):
                 $view = 'verificator';
                 break;
-            case ('Bendahara' || 'Bendahara Admin'):
+            case ($role_name == 'Bendahara' || $role_name == 'Bendahara Admin'):
                 $view = 'treasurer';
                 break;
             default:
