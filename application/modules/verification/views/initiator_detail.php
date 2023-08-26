@@ -84,6 +84,7 @@
                     <th class="min-w-50px text-center">Periode</th>
                     <th class="min-w-50px text-center">Nilai</th>
                     <th class="min-w-50px text-center">Status</th>
+                    <th class="min-w-50px text-center">Note</th>
                     <th class="min-w-50px text-center">Actions</th>
                 </tr>
             </thead>
@@ -132,8 +133,9 @@
                                 return 'Rp. ' + data;
                             }
                         },
-                        { data: 'vstatus', className: 'text-center' },
-                        { data: 'actions', className: 'text-center', searchable: false }
+                        { data: 'vstatus', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                        { data: 'approval_note', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                        { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
                     ],
                     lengthMenu: [
                             [5, 10, 15, 25, -1],

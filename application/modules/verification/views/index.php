@@ -72,7 +72,7 @@ var KTDataTables = (function() {
                     },
                     { data: 'status_verifikasi', className: 'text-left' },
                     { data: 'status_bendahara', className: 'text-left' },
-                    { data: 'actions', className: 'text-left', searchable: false }
+                    { data: 'actions', className: 'text-left', sortable: false, searchable: false, orderable: false }
                 ],
                 lengthMenu: [
                         [5, 10, 15, 25, -1],

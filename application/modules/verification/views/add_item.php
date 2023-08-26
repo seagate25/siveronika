@@ -161,7 +161,25 @@
                             m_bidang: { validators: { notEmpty: { message: "Bidang tidak boleh kosong" } } },
                             m_shop: { validators: { notEmpty: { message: "Belanja tidak boleh kosong" } } },
                             m_period: { validators: { notEmpty: { message: "Periode tidak boleh kosong" } } },
-                            m_price: { validators: { notEmpty: { message: "Nilai tidak boleh kosong" } } },
+                            m_price: { 
+                                validators: { 
+                                    notEmpty: { 
+                                        message: "Nilai tidak boleh kosong" 
+                                    },
+                                    callback: {
+                                        message: 'Nilai tidak boleh 0 (Nol)',
+                                        callback: function(input) {
+                                            let val = input.value;
+                                            let v = val.replace('Rp. ', '');
+                                            if(parseInt(v) > 0) {
+                                                return true;
+                                            } else {
+                                                return (parseInt(v) > 0);
+                                            }
+                                        }
+                                    }
+                                } 
+                            },
                         },
                         plugins: { trigger: new FormValidation.plugins.Trigger(), bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row" }) },
                     })),

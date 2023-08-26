@@ -121,8 +121,8 @@
                                 return 'Rp. ' + data;
                             }
                         },
-                        { data: 'vstatus', className: 'text-center' },
-                        { data: 'actions', className: 'text-center', searchable: false, sortable: false }
+                        { data: 'vstatus', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                        { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
                     ],
                     lengthMenu: [
                             [5, 10, 15, 25, -1],

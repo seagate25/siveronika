@@ -13,7 +13,7 @@
             </a> -->
         </div>
     </div>
-    <div class="card-body p-2">
+    <div class="card-body p-10">
         <table id="kt_datatable_verif_head" class="align-middle table table-row-bordered gy-5" style="width: 100%;">
             <thead>
                 <tr class="fw-bolder fs-6 text-dark">
@@ -70,7 +70,7 @@ var KTDataTables = (function() {
                         }
                     },
                     { data: 'status_verifikasi', className: 'text-left' },
-                    { data: 'actions', className: 'text-left', searchable: false }
+                    { data: 'actions', className: 'text-left', sortable: false, searchable: false, orderable: false }
                 ],
                 lengthMenu: [
                         [5, 10, 15, 25, -1],

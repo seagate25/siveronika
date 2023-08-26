@@ -52,7 +52,8 @@ class Verification_model extends CI_Model {
             4 => 'tbl1.shop_type',
             5 => 'bidang_name',
             6 => 'tbl1.total',
-            7 => 'tv.status_verifikasi'
+            7 => 'tv.status_verifikasi',
+            8 => 'tv.status_bendahara'
         );
 
         $order_column = $field[$order_column];
@@ -133,7 +134,8 @@ class Verification_model extends CI_Model {
             $where .= " OR tbl1.shop_type LIKE '%" . $search['value'] . "%'";
             $where .= " OR bidang_name LIKE '%" . $search['value'] . "%'";
             $where .= " OR tbl1.total LIKE '%" . $search['value'] . "%'";
-            $where .= " OR tv.status_verifikasi LIKE '%" . $search['value'] . "%')";
+            $where .= " OR tv.status_verifikasi LIKE '%" . $search['value'] . "%'";
+            $where .= " OR tv.status_bendahara LIKE '%" . $search['value'] . "%')";
         }
 
         $sql        = "SELECT
@@ -461,6 +463,7 @@ class Verification_model extends CI_Model {
                             tv.status_verifikasi,
                             tv.status_bendahara,
                             tvs.approval_status,
+                            tbl1.approval_note,
                             -- CASE
                             --     WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 THEN '-'
                             --     WHEN tbl1.empty > 0 AND tbl1.ok >= 0 AND tbl1.ng >= 0 THEN 'ON-PROGRESS'
@@ -484,11 +487,12 @@ class Verification_model extends CI_Model {
                                 SELECT 
                                     tvsd.verif_shop_id, 
                                     tvsd.shop_id, 
+                                    tvsd.approval_note,
                                     SUM(CASE WHEN tvsd.approval_status IS NULL THEN 1 ELSE 0 END) AS empty,
                                     SUM(CASE WHEN tvsd.approval_status = 1 THEN 1 ELSE 0 END) AS ok,
                                     SUM(CASE WHEN tvsd.approval_status = 0 THEN 1 ELSE 0 END) AS ng
                                 FROM t_verification_shop_det tvsd 
-                                GROUP BY tvsd.verif_shop_id, tvsd.shop_id
+                                GROUP BY tvsd.verif_shop_id, tvsd.shop_id, tvsd.approval_note
                             ) tbl1 ON (tvs.verif_shop_id = tbl1.verif_shop_id){$where}";
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
@@ -505,6 +509,7 @@ class Verification_model extends CI_Model {
                             tv.status_verifikasi,
                             tv.status_bendahara,
                             tvs.approval_status,
+                            tbl1.approval_note,
                             -- CASE
                             --     WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 THEN '-'
                             --     WHEN tbl1.empty > 0 AND tbl1.ok >= 0 AND tbl1.ng >= 0 THEN 'ON-PROGRESS'
@@ -528,11 +533,12 @@ class Verification_model extends CI_Model {
                                 SELECT 
                                     tvsd.verif_shop_id, 
                                     tvsd.shop_id, 
+                                    tvsd.approval_note,
                                     SUM(CASE WHEN tvsd.approval_status IS NULL THEN 1 ELSE 0 END) AS empty,
                                     SUM(CASE WHEN tvsd.approval_status = 1 THEN 1 ELSE 0 END) AS ok,
                                     SUM(CASE WHEN tvsd.approval_status = 0 THEN 1 ELSE 0 END) AS ng
                                 FROM t_verification_shop_det tvsd 
-                                GROUP BY tvsd.verif_shop_id, tvsd.shop_id
+                                GROUP BY tvsd.verif_shop_id, tvsd.shop_id, tvsd.approval_note
                             ) tbl1 ON (tvs.verif_shop_id = tbl1.verif_shop_id)
                             {$where}
                             ) AS RowConstrainedResult
@@ -579,6 +585,15 @@ class Verification_model extends CI_Model {
                                                         Detail
                                                     </a>';           
                     }        
+                }
+
+                if($row->approval_status !== NULL)
+                {
+                    $row->vstatus   = ($row->approval_status == 1) ? 'VERIFIED' : 'REJECTED';
+                }
+                else
+                {
+                    $row->vstatus   = $row->vstatus;
                 }
             }
             else if($this->session->userdata('role_name') == 'Verifikator' || $this->session->userdata('role_name') == 'Verifikator Admin')

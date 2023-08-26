@@ -124,7 +124,7 @@
                                 return 'Rp. ' + data;
                             }
                         },
-                        { data: 'actions', className: 'text-center', searchable: false }
+                        { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
                     ],
                     lengthMenu: [
                             [5, 10, 15, 25, -1],
