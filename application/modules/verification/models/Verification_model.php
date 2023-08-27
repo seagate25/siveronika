@@ -463,7 +463,7 @@ class Verification_model extends CI_Model {
                             tv.status_verifikasi,
                             tv.status_bendahara,
                             tvs.approval_status,
-                            tbl1.approval_note,
+                            tvs.approval_note,
                             -- CASE
                             --     WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 THEN '-'
                             --     WHEN tbl1.empty > 0 AND tbl1.ok >= 0 AND tbl1.ng >= 0 THEN 'ON-PROGRESS'
@@ -486,13 +486,12 @@ class Verification_model extends CI_Model {
                             (
                                 SELECT 
                                     tvsd.verif_shop_id, 
-                                    tvsd.shop_id, 
-                                    tvsd.approval_note,
+                                    tvsd.shop_id,
                                     SUM(CASE WHEN tvsd.approval_status IS NULL THEN 1 ELSE 0 END) AS empty,
                                     SUM(CASE WHEN tvsd.approval_status = 1 THEN 1 ELSE 0 END) AS ok,
                                     SUM(CASE WHEN tvsd.approval_status = 0 THEN 1 ELSE 0 END) AS ng
                                 FROM t_verification_shop_det tvsd 
-                                GROUP BY tvsd.verif_shop_id, tvsd.shop_id, tvsd.approval_note
+                                GROUP BY tvsd.verif_shop_id, tvsd.shop_id
                             ) tbl1 ON (tvs.verif_shop_id = tbl1.verif_shop_id){$where}";
         $query = $this->db->query($sql);
         $records_total = $query->num_rows();
@@ -509,7 +508,7 @@ class Verification_model extends CI_Model {
                             tv.status_verifikasi,
                             tv.status_bendahara,
                             tvs.approval_status,
-                            tbl1.approval_note,
+                            tvs.approval_note,
                             -- CASE
                             --     WHEN tbl1.empty > 0 AND tbl1.ok = 0 AND tbl1.ng = 0 THEN '-'
                             --     WHEN tbl1.empty > 0 AND tbl1.ok >= 0 AND tbl1.ng >= 0 THEN 'ON-PROGRESS'
@@ -532,13 +531,12 @@ class Verification_model extends CI_Model {
                             (
                                 SELECT 
                                     tvsd.verif_shop_id, 
-                                    tvsd.shop_id, 
-                                    tvsd.approval_note,
+                                    tvsd.shop_id,
                                     SUM(CASE WHEN tvsd.approval_status IS NULL THEN 1 ELSE 0 END) AS empty,
                                     SUM(CASE WHEN tvsd.approval_status = 1 THEN 1 ELSE 0 END) AS ok,
                                     SUM(CASE WHEN tvsd.approval_status = 0 THEN 1 ELSE 0 END) AS ng
                                 FROM t_verification_shop_det tvsd 
-                                GROUP BY tvsd.verif_shop_id, tvsd.shop_id, tvsd.approval_note
+                                GROUP BY tvsd.verif_shop_id, tvsd.shop_id
                             ) tbl1 ON (tvs.verif_shop_id = tbl1.verif_shop_id)
                             {$where}
                             ) AS RowConstrainedResult

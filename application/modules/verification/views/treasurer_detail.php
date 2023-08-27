@@ -79,6 +79,7 @@
                     <th class="min-w-50px text-center">Periode</th>
                     <th class="min-w-50px text-center">Nilai</th>
                     <th class="min-w-50px text-center">Status</th>
+                    <th class="min-w-50px text-center">Note</th>
                     <th class="min-w-50px text-center">Actions</th>
                 </tr>
             </thead>
@@ -187,6 +188,7 @@
                             }
                         },
                         { data: 'vstatus', className: 'text-center', sortable: false, searchable: false, orderable: false },
+                        { data: 'approval_note', className: 'text-center', sortable: false, searchable: false, orderable: false },
                         { data: 'actions', className: 'text-center', sortable: false, searchable: false, orderable: false }
                     ],
                     lengthMenu: [

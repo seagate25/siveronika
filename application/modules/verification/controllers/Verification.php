@@ -892,7 +892,8 @@ class Verification extends CI_Controller {
             'approval_date'     => sqlsrv_datetime(),
             'approval_userid'   => $this->session->userdata('user_id'),
             'update_date'       => sqlsrv_datetime(),
-            'update_by'         => $this->session->userdata('user_name')
+            'update_by'         => $this->session->userdata('user_name'),
+            'approval_note'     => utf8_decode($convert_notes),
         ];
 
         /** Updating Verification Head */
